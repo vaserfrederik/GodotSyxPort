@@ -128,6 +128,12 @@ def main() -> None:
     assert "return CanPlaceCapitalOnTerrain(centerX, centerY);" in strategic_world
     assert "CapitalSelectionPreviewDimension = 3" in world_setup
     assert "SettlementGenerationProfile.FromWorldSite" in world_setup
+    settlement_terrain = text("Scripts/Settlement/SettlementTerrainGenerator.cs")
+    assert "WorldHaloDimension = StrategicWorldRuntime.CapitalFootprintDimension + 2" in settlement_terrain
+    assert "world.Terrain.Climate(centerX, centerY)" in settlement_terrain
+    assert "profile.WorldSample(sx, sz)" in settlement_terrain
+    assert "var nx = qx + Math.Sign(dx);" in settlement_terrain
+    assert "mappedHeight * 0.72" not in settlement_terrain
     assert "ShowFinishStage" in world_setup and "BackFromWorldStage" in world_setup
     assert "RegenerateCurrentStage" in world_setup and "CenterOnPlayerCapital" in world_setup
     assert "ClearGeneratedCivilizations" in world_setup
@@ -233,7 +239,7 @@ def main() -> None:
     assert "_world.Data.MineralType(cell) == minableIndex" in rooms
     assert "InputFetchMaximum = 15" in rooms
     save_service = text("Scripts/Save/SaveGameService.cs")
-    assert "public int Version { get; set; } = 36;" in save_service
+    assert "public int Version { get; set; } = 37;" in save_service
     assert "AdditionalOutputRecipes" in save_service
     assert "public int LandingOrigin" in save_service
     assert "ConstructionResources" in save_service
@@ -320,9 +326,9 @@ def main() -> None:
     assert "HashCode.Combine" not in terrain_generator
     expected_calls = [
         "GenerateBaseAndFertility(world, profile);",
-        "GenerateMountains(world, profile, settings);",
+        "GenerateMountains(world, profile, settings, polymap);",
         "GenerateCaves(world, profile, settings);",
-        "GenerateWater(world, profile, settings);",
+        "GenerateWater(world, profile, settings, polymap);",
         "GenerateMinerals(world, profile, settings);",
         "FinishGroundAndFertility(world, profile, settings);"
     ]
@@ -1308,7 +1314,7 @@ def main() -> None:
     assert "MountainCornerMask" in terrain_renderer and "MountainOffsetX" in terrain_renderer
     save_service = text("Scripts/Save/SaveGameService.cs")
     assert "WorldCapitalX" in save_service and "WorldCapitalY" in save_service
-    assert "PlayerProfile" in save_service and "Version { get; set; } = 36" in save_service
+    assert "PlayerProfile" in save_service and "Version { get; set; } = 37" in save_service
     assert "StrategicRoad" in strategic and "GenerateRoads" in strategic
     assert "FindRoadTilePath" in strategic and "LandComponents" in strategic
     assert "TilePath" in strategic and "RoadTerrainCost" in strategic
@@ -1582,7 +1588,7 @@ def main() -> None:
     assert "source.Value.RoomId, room.Id, profession" in rooms
     assert "_rooms.Logistics.DepositStockpileHaul(job)" in hauling
     assert "destination.Value.RoomId" in hauling
-    assert "public int Version { get; set; } = 36;" in save_service
+    assert "public int Version { get; set; } = 37;" in save_service
     assert "_rooms.RestorePhysicalLogisticsReservations(_jobs.All, _resources);" in bootstrap
     assert "StockpileStored" in logistics and "StockpileReservedSpace" in logistics
     assert "ExcludedFromStockpile" in logistics and "UnstoredAccounted" in hauling
