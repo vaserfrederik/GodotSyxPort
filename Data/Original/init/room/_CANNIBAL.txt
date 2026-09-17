@@ -1,0 +1,96 @@
+ICON: 32->DEATH->0,
+RESOURCES: [WOOD,STONE,],
+AREA_COSTS: [0,0,],
+FLOOR: STONE_MEDIUM_DARK,
+MINI_COLOR: 74_119_14,
+ITEMS: [
+	{
+		COSTS: [1,1,],
+		STATS: [1,],
+	},
+],
+WORK: {
+	SHIFT_OFFSET: 0.125,
+	SOUND: gore->Squish*,
+	USES_TOOL: true,
+	FULFILLMENT: -10.0,
+},
+SPRITES: {
+	TABLE_COMBO: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 6,
+			FRAMES: [
+				COMBO_TABLES: 1,
+			],
+		},
+	],
+	
+	ON_TABLE_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 3,
+			ROTATES: false,
+			FRAMES: [
+				TOP: 0,
+				TOP: 1,
+				TOP: 2,
+				TOP: 3,
+				DEATH: 0,
+				DEATH: 1,
+				DEATH: 2,
+				PRISON: 7,
+				PRISON: 10,
+			],
+		},
+	],
+	
+	MISC_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 3,
+			ROTATES: false,
+			FRAMES: [
+				STORAGE: 0,
+				STORAGE: 1,
+				STORAGE: 2,
+				STORAGE: 10,
+			],
+		},
+	],
+	
+	CAGE_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 6,
+			ROTATES: false,
+			FRAMES: [
+				PRISON: 11,
+			],
+		},
+	],
+	
+	CAGE_TOP_1X1: [
+		{	
+			TINT: true,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				PRISON: 0,
+			],
+		},
+	],
+	
+	CANDLE_BASE_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 3,
+			ROTATES: false,
+			FRAMES: [
+				STORAGE: 5,
+				STORAGE: 6,
+				STORAGE: 12,
+			],
+		},
+	],
+},
+

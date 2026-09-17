@@ -1,0 +1,158 @@
+ICON: 32->INFRA->6,
+RESOURCES: [STONE,METAL,FURNITURE,],
+AREA_COSTS: [0,0,0,],
+FLOOR: STONE_MEDIUM_DARK,
+MINI_COLOR: 70_70_70,
+ITEMS: [
+	{
+		COSTS: [1,1,2,],
+		STATS: [1,0,],
+	},
+	{
+		COSTS: [1,1,2,],
+		STATS: [1,0,],
+	},
+	{
+		COSTS: [1,1,2,],
+		STATS: [1,0,],
+	},
+	{
+		COSTS: [1,1,2,],
+		STATS: [1,0,],
+	},
+	{
+		COSTS: [0,1,2,],
+		STATS: [0,1,],
+	},
+],
+BOOST: {
+	BEHAVIOUR_LAWFULNESS>ADD: 10,
+	BEHAVIOUR_LOYALTY>MUL: 4,
+	BEHAVIOUR_HAPPINESS>MUL: 0.25,
+	BEHAVIOUR_SUBMISSION>MUL: 4,
+	BEHAVIOUR_HAPPINESS_SLAVES>MUL: 0.25,
+},
+WORK: {
+	SHIFT_OFFSET: 0.1,
+	SOUND: DUMMY,
+	USES_TOOL: false,
+	FULFILLMENT: 0.25,
+},
+SPRITES: {
+	TABLE_COMBO: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 6,
+			FRAMES: [
+				COMBO_TABLES: 8,
+			],
+		},
+	],
+	NICKNACK_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 1,
+			ROTATES: false,
+			FRAMES: [
+				PRISON: 6,
+				PRISON: 7,
+				PRISON: 8,
+				PRISON: 9,
+				PRISON: 10,
+				DEATH: 0,
+				DEATH: 1,
+				DEATH: 3,
+				TOP: 0,
+				TOP: 1,
+				TOP: 2,
+				TOP: 3,
+				TOP: 0,
+				TOP: 1,
+				TOP: 2,
+				TOP: 3,
+			],
+		},
+	],
+	BED_1X1A: [
+		{	
+			COLOR: 80_70_60,
+			SHADOW_LENGTH: 4,
+			ROTATES: true,
+			FRAMES: [
+				2xBED: 16,
+			],
+		},
+	],
+	BED_1X1B: [
+		{	
+			COLOR: 80_70_60,
+			SHADOW_LENGTH: 4,
+			ROTATES: true,
+			FRAMES: [
+				2xBED: 17,
+			],
+		},
+	],
+	BED_STRAP_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 1,
+			ROTATES: true,
+			FRAMES: [
+				PRISON: 4,
+			],
+		},
+	],
+	CHAIR_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 1,
+			ROTATES: true,
+			FRAMES: [
+				CHAIRS: 2,
+				CHAIRS: 3,
+			],
+		},
+	],
+	CAGE_A_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 5,
+			ROTATES: true,
+			FRAMES: [
+				PRISON: 11,
+			],
+		},
+	],
+	CAGE_A_TOP_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 5,
+			ROTATES: true,
+			FRAMES: [
+				PRISON: 0,
+			],
+		},
+	],
+	CAGE_LATCH_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 2,
+			ROTATES: true,
+			FRAMES: [
+				EXECUTION: 4,
+			],
+		},
+	],
+	CAGE_B_1X1: [
+		{	
+			TINT: true,
+			SHADOW_LENGTH: 5,
+			ROTATES: true,
+			FRAMES: [
+				EXECUTION: 3,
+			],
+		},
+	],
+},
+

@@ -1,0 +1,30 @@
+INFO: {
+	NAME: "Cannibal",
+	NAMES: "Cannibals",
+	DESC: "Cannibals butcher corpses for meat and other resources. Having them can be severely detrimental to your reputation, but some species actually prefer humanoid meat.",
+	WIKI: {
+		CATEGORY: "Rooms",
+		NAME: "Cannibals",
+		TEXT: "Cannibals butcher corpses for meat and other resources. Having them can be severely detrimental to your reputation, but some species actually prefer humanoid meat.",
+		LINKS: [],
+	},
+},
+
+WORK: {
+	TITLE: "Humanoid Butcher",
+	VERB: "Butchering Corpse",
+},
+
+STATS: [
+	{
+		NAME: "Butchers",
+		DESC: "The max amount of workers",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Work Bench",
+		DESC: "Where subjects work",
+	},
+],

@@ -1,0 +1,1173 @@
+CATEGORY: 5,
+COLOR: 192_192_192,
+ICON: 32->_ICONS->14,
+TREE: {
+		00: [CRPT01,CRPTr1,CRPTr3,______,______,SMIT01,SMITr2,SMITr3,SMITr4,______,______,POTT01,______,TAIL01,______,],
+		01: [CRPTt1,CRPTc1,CRPTc3,______,______,SMITt1,SMITc2,SMITc3,SMITc4,SMITr1,______,POTTt1,______,TAILt1,______,],
+		02: [CRPT02,______,______,______,______,SMIT02,______,______,______,SMITc1,______,POTT02,______,TAIL02,______,],
+		03: [CRPT03,______,______,______,______,SMIT03,______,______,______,______,______,POTT03,______,TAIL03,______,],
+		04: [CRPTt2,CRPTc2,______,______,______,SMITt2,______,______,______,______,______,POTTt2,______,TAILt2,TAILc0,],
+		05: [CRPT04,CRPTc4,______,______,______,SMIT04,______,______,______,______,______,POTT04,______,TAIL04,TAILc1,],
+		06: [CRPTu2,CRPTc0,______,______,______,SMITc0,______,______,______,______,______,POTTc0,______,TAILu2,TAILc2,],
+		07: [______,______,______,______,______,______,______,______,______,______,______,______,______,______,______,],
+		08: [RATI01,______,______,BOWY00,______,PAPE00,______,MASO00,______,MECH00,______,JEWE00,______,______,______,],
+		09: [RATIt1,RATIc0,______,BOWY01,______,PAPE01,______,MASO01,______,MECH01,______,JEWE01,______,______,______,],
+		10: [RATI02,RATIc1,______,BOWYt1,______,PAPEt1,______,MASOt1,______,MECHt1,______,JEWEt1,______,______,______,],
+		11: [RATI03,RATIc2,______,BOWY02,______,PAPE02,______,MASO02,______,MECH02,______,JEWE02,______,______,______,],
+		12: [RATIt2,RATIc3,______,BOWY03,______,PAPE03,______,MASO03,______,MECH03,______,JEWE03,______,______,______,],
+		13: [RATI04,RATIc4,______,BOWYt2,______,PAPEt2,______,MASOt2,______,MECHt2,______,JEWEt2,______,______,______,],
+		14: [RATIu2,RATIc5,______,BOWY04,______,PAPE04,______,MASO04,______,MECH04,______,JEWE04,______,______,______,],
+		15: [______,______,______,BOWYc0,______,PAPEc0,______,MASOc0,______,MECHc0,______,JEWEc0,______,______,______,],
+},
+TECHS: {
+	CRPT01: {
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_CARPENTER>ADD: 0.15,
+		},
+	},
+	CRPTt1: {
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPT01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_CARPENTER>ADD: 1.0,
+		},
+	},
+	CRPT02: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 24,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPTt1: 2,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_CARPENTER>ADD: 0.15,
+		},
+	},
+	CRPT03: {
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 38,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPT02: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_CARPENTER>ADD: 0.15,
+		},
+	},
+	CRPTt2: {
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 57,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPT03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_CARPENTER>ADD: 1.0,
+		},
+	},
+	CRPT04: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 52,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPTt2: 2,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_CARPENTER>ADD: 0.21,
+		},
+	},
+	CRPTu2: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 313,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPT04: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_CARPENTER_UPGRADE_1,
+		],
+	},
+	RATI01: {
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_RATION>ADD: 0.15,
+		},
+	},
+	RATIt1: {
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATI01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_RATION>ADD: 1.0,
+		},
+	},
+	RATI02: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATIt1: 2,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_RATION>ADD: 0.15,
+		},
+	},
+	RATI03: {
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATI02: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_RATION>ADD: 0.15,
+		},
+	},
+	RATIt2: {
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATI03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_RATION>ADD: 1.0,
+		},
+	},
+	RATI04: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATIt2: 2,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_RATION>ADD: 0.21,
+		},
+	},
+	RATIu2: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 126,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATI04: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_RATION_UPGRADE_1,
+		],
+	},
+	CRPTr1: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 2,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_CARPENTER_RECIPE_1,
+		],
+	},
+	CRPTc1: {
+		LEVEL_MAX: 22,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPTu2: 1,
+			CRPTr1: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_CARPENTER_1>ADD: 0.1,
+		},
+	},
+	CRPTc2: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPTu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_CARPENTER_2>ADD: 0.1,
+		},
+	},
+	CRPTc4: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPTu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_CARPENTER_4>ADD: 0.1,
+		},
+	},
+	CRPTc0: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPTu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_CARPENTER_0>ADD: 0.1,
+		},
+	},
+	RATIc0: {
+		LEVEL_MAX: 25,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATIu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_RATION_0>ADD: 0.1,
+		},
+	},
+	RATIc1: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATIu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_RATION_1>ADD: 0.1,
+		},
+	},
+	RATIc2: {
+		LEVEL_MAX: 8,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATIu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_RATION_2>ADD: 0.1,
+		},
+	},
+	RATIc3: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATIu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_RATION_3>ADD: 0.1,
+		},
+	},
+	RATIc4: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATIu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_RATION_4>ADD: 0.1,
+		},
+	},
+	RATIc5: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			RATIu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_RATION_5>ADD: 0.1,
+		},
+	},
+	CRPTr3: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 2,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_CARPENTER_RECIPE_3,
+		],
+	},
+	CRPTc3: {
+		LEVEL_MAX: 12,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CRPTu2: 1,
+			CRPTr3: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_CARPENTER_3>ADD: 0.1,
+		},
+	},
+	BOWY00: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_BOWYER,
+		],
+	},
+	BOWY01: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BOWY00: 1,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_BOWYER>ADD: 0.15,
+		},
+	},
+	BOWYt1: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 5,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BOWY01: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_BOWYER>ADD: 1.0,
+		},
+	},
+	BOWY02: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BOWYt1: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_BOWYER>ADD: 0.15,
+		},
+	},
+	BOWY03: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BOWY02: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_BOWYER>ADD: 0.15,
+		},
+	},
+	BOWYt2: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BOWY03: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_BOWYER>ADD: 1.0,
+		},
+	},
+	BOWY04: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BOWYt2: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_BOWYER>ADD: 0.15,
+		},
+	},
+	BOWYc0: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BOWY04: 10,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_BOWYER_0>ADD: 0.1,
+		},
+	},
+	SMIT01: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 16,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_SMITHY>ADD: 0.15,
+		},
+	},
+	SMITt1: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 20,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMIT01: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_SMITHY>ADD: 1.0,
+		},
+	},
+	SMIT02: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 38,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMITt1: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_SMITHY>ADD: 0.15,
+		},
+	},
+	SMIT03: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 61,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMIT02: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_SMITHY>ADD: 0.15,
+		},
+	},
+	SMITt2: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 76,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMIT03: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_SMITHY>ADD: 1.0,
+		},
+	},
+	SMIT04: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 83,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMITt2: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_SMITHY>ADD: 0.15,
+		},
+	},
+	SMITc0: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMIT04: 10,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_SMITHY_0>ADD: 0.1,
+		},
+	},
+	PAPE00: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_PAPER,
+		],
+	},
+	PAPE01: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			PAPE00: 1,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_PAPER>ADD: 0.15,
+		},
+	},
+	PAPEt1: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 5,
+		},
+		REQUIRES_TECH_LEVEL: {
+			PAPE01: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_PAPER>ADD: 1.0,
+		},
+	},
+	PAPE02: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			PAPEt1: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_PAPER>ADD: 0.15,
+		},
+	},
+	PAPE03: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			PAPE02: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_PAPER>ADD: 0.15,
+		},
+	},
+	PAPEt2: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			PAPE03: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_PAPER>ADD: 1.0,
+		},
+	},
+	PAPE04: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			PAPEt2: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_PAPER>ADD: 0.15,
+		},
+	},
+	PAPEc0: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			PAPE04: 10,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_PAPER_0>ADD: 0.1,
+		},
+	},
+	SMITr2: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 20,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_SMITHY_RECIPE_2,
+		],
+	},
+	SMITc2: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMIT04: 10,
+			SMITr2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_SMITHY_2>ADD: 0.1,
+		},
+	},
+	SMITr3: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_SMITHY_RECIPE_3,
+		],
+	},
+	SMITc3: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMIT04: 10,
+			SMITr3: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_SMITHY_3>ADD: 0.1,
+		},
+	},
+	MASO00: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_MASON,
+		],
+	},
+	MASO01: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MASO00: 1,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_MASON>ADD: 0.15,
+		},
+	},
+	MASOt1: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 5,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MASO01: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_MASON>ADD: 1.0,
+		},
+	},
+	MASO02: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MASOt1: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_MASON>ADD: 0.15,
+		},
+	},
+	MASO03: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MASO02: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_MASON>ADD: 0.15,
+		},
+	},
+	MASOt2: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MASO03: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_MASON>ADD: 1.0,
+		},
+	},
+	MASO04: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MASOt2: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_MASON>ADD: 0.15,
+		},
+	},
+	MASOc0: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MASO04: 10,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_MASON_0>ADD: 0.1,
+		},
+	},
+	SMITr4: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 10,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_SMITHY_RECIPE_4,
+		],
+	},
+	SMITc4: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMIT04: 10,
+			SMITr4: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_SMITHY_4>ADD: 0.1,
+		},
+	},
+	SMITr1: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMIT01: 5,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_SMITHY_RECIPE_1,
+		],
+	},
+	SMITc1: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMIT04: 10,
+			SMITr1: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_SMITHY_1>ADD: 0.1,
+		},
+	},
+	MECH00: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 50,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_MECHANIC,
+		],
+	},
+	MECH01: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MECH00: 1,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_MECHANIC>ADD: 0.15,
+		},
+	},
+	MECHt1: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 5,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MECH01: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_MECHANIC>ADD: 1.0,
+		},
+	},
+	MECH02: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MECHt1: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_MECHANIC>ADD: 0.15,
+		},
+	},
+	MECH03: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MECH02: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_MECHANIC>ADD: 0.15,
+		},
+	},
+	MECHt2: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MECH03: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_MECHANIC>ADD: 1.0,
+		},
+	},
+	MECH04: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 16,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MECHt2: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_MECHANIC>ADD: 0.15,
+		},
+	},
+	MECHc0: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MECH04: 10,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_MECHANIC_0>ADD: 0.1,
+		},
+	},
+	POTT01: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_POTTERY>ADD: 0.15,
+		},
+	},
+	POTTt1: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 5,
+		},
+		REQUIRES_TECH_LEVEL: {
+			POTT01: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_POTTERY>ADD: 1.0,
+		},
+	},
+	POTT02: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			POTTt1: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_POTTERY>ADD: 0.15,
+		},
+	},
+	POTT03: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			POTT02: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_POTTERY>ADD: 0.15,
+		},
+	},
+	POTTt2: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			POTT03: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_POTTERY>ADD: 1.0,
+		},
+	},
+	POTT04: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			POTTt2: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_POTTERY>ADD: 0.15,
+		},
+	},
+	POTTc0: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			POTT04: 10,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_POTTERY_0>ADD: 0.1,
+		},
+	},
+	JEWE00: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 20,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_JEWELRY,
+		],
+	},
+	JEWE01: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			JEWE00: 1,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_JEWELRY>ADD: 0.15,
+		},
+	},
+	JEWEt1: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 5,
+		},
+		REQUIRES_TECH_LEVEL: {
+			JEWE01: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_JEWELRY>ADD: 1.0,
+		},
+	},
+	JEWE02: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			JEWEt1: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_JEWELRY>ADD: 0.15,
+		},
+	},
+	JEWE03: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			JEWE02: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_JEWELRY>ADD: 0.15,
+		},
+	},
+	JEWEt2: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			JEWE03: 5,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_JEWELRY>ADD: 1.0,
+		},
+	},
+	JEWE04: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			JEWEt2: 4,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_JEWELRY>ADD: 0.15,
+		},
+	},
+	JEWEc0: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			JEWE04: 10,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_JEWELRY_0>ADD: 0.1,
+		},
+	},
+	TAIL01: {
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 8,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_TAILOR>ADD: 0.15,
+		},
+	},
+	TAILt1: {
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 12,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAIL01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_TAILOR>ADD: 1.0,
+		},
+	},
+	TAIL02: {
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAILt1: 2,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_TAILOR>ADD: 0.15,
+		},
+	},
+	TAIL03: {
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 30,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAIL02: 10,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_TAILOR>ADD: 0.15,
+		},
+	},
+	TAILt2: {
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 45,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAIL03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_WORKSHOP_TAILOR>ADD: 1.0,
+		},
+	},
+	TAIL04: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 41,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAILt2: 2,
+		},
+		BOOST: {
+			ROOM_WORKSHOP_TAILOR>ADD: 0.21,
+		},
+	},
+	TAILu2: {
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 250,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAIL04: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WORKSHOP_TAILOR_UPGRADE_1,
+		],
+	},
+	TAILc0: {
+		LEVEL_MAX: 13,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAILu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_TAILOR_0>ADD: 0.1,
+		},
+	},
+	TAILc1: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAILu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_TAILOR_1>ADD: 0.1,
+		},
+	},
+	TAILc2: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAILu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_WORKSHOP_TAILOR_2>ADD: 0.1,
+		},
+	},
+},
+

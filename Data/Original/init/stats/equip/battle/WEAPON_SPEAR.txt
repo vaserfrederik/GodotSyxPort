@@ -1,0 +1,52 @@
+RESOURCE: WEAPON_SPEAR,
+WEAR_RATE: 0.1,
+MAX_AMOUNT: 5,
+ARRIVAL_AMOUNT: 0,
+DEFAULT_TARGET: 0,
+
+DIV_SPRITE: {
+	X: 16,
+	Y: -16,
+	Z: 0,
+	ICON: 24->Equipment->7,
+	COLOR: [
+		175_112_66,
+		200_200_200,
+		255_190_0,
+	],
+},
+
+AMOUNT_IN_GARRISON: 1,
+EQUIP_GUARDS: 0,
+SLOT_USAGE: [
+	0, 
+	1.0,
+	0,
+	1.0,
+	0,
+	0,
+	0,
+	0,	
+],
+
+RACE_ALLOWED: [
+	*,
+],
+
+SPRITE: {
+	FILE: Spear,
+	OFFSET_X: 0.5,
+	OFFSET_Y: 0.35,
+	ANIMATION_DX: -0.1,
+	ANIMATION_DY: 0.3,
+	COLOR: [
+		125_87_64,
+		79_46_36,
+	],
+},
+
+BOOST: {
+	BATTLE_PIERCE_ATTACK>ADD: 1.0,
+	BATTLE_FORMATION_SKILL>ADD: 5,
+},
+

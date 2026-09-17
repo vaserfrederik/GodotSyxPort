@@ -1,0 +1,27 @@
+INFO: {
+	NAME: "Unloading Station",
+	NAMES: "Unloading Stations",
+	DESC: "An Unloading Station accepts deliveries from Loading Stations, which can then be redistributed nearby. They are much more efficient than hauling by hand if the daily throughput is large enough. Requires a lot of workers to operate at a good efficiency.",
+	WIKI: {
+		CATEGORY: "Logistics",
+		NAME: "Unloading Station",
+		TEXT: "An Unloading Station accepts deliveries from Loading Stations, which can then be redistributed nearby. They are much more efficient than hauling by hand if the daily throughput is large enough. Requires a lot of workers to operate at a good efficiency.",
+	},
+},
+
+STATS: [
+
+],
+
+ITEMS: [
+	{
+		NAME: "Unloading Station",
+		DESC: "",
+	},
+],
+
+WORK: {
+	TITLE: "Unloader",
+	VERB: "Unloading",
+},
+

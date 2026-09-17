@@ -1,0 +1,45 @@
+INFO: {
+	NAME: "Scaffolds",
+	NAMES: "Scaffolds",
+	DESC: "Where caught criminals and other prisoners are taken for public execution. Execution squares are great for deterring crime and spread fear amongst your subjects. Consider placing it at a central location for maximum efficiency and ease of maintenance.",
+	WIKI: {
+		CATEGORY: "Law",
+		NAME: "Scaffolds",
+		TEXT: "Where caught criminals and other prisoners are taken for public execution. Execution squares are great for deterring crime and spread fear amongst your subjects. Consider placing it at a central location for maximum efficiency and ease of maintenance.",
+		CATEGORIES: [],
+	},
+},
+
+STATS: [
+	{
+		NAME: "Executions",
+		DESC: "Executions Capacity.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Gallows",
+		DESC: "Hang a prisoner by the neck until dead.",
+	},
+	{
+		NAME: "Chopping Blocks",
+		DESC: "Decapitate a prisoner's head.",
+	},
+	{
+		NAME: "Gibbet Cage",
+		DESC: "Lock the prisoner in a cage and let time run its course.",
+	},
+	{
+		NAME: "Cross",
+		DESC: "Nail the hands and feet to a cross and have the prisoner slowly bleed to death.",
+	},
+],
+
+SERVICE: {
+	VERB: "Watching an execution",
+	MORE: [
+		"Let me think... oh yes, a place where I can go watch a classic beheading or hanging.",
+		"What good does executing our criminals do if I can not watch it?",
+	],
+},

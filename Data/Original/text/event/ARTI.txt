@@ -1,0 +1,674 @@
+VOLCANO: {
+	NAME: "Promising artifact",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+		"As the ruler of the land, you lay claim to all artifacts found in it. As is customary, minor trinkets are exempt, and can be taken freely. This is to encourage the often dangerous exploration of ruins, and sometimes even the rifts.
+		 
+		Major artifacts have to be brought to you, and you may claim them after offering a suitable reward, or demand your share in denari. Historically, rulers that grew too greedy just encouraged secret excavations.
+ 
+ 
+		The artifact that has been brought to you today certainly seems powerful. A faint hum of power can be heard even from afar, and it is emitting light without any heat.
+		It is an intricately detailed, white cube, with a transparent pane on one side, secured with a latch. Beneath it is a square, red panel, that looks like it could be depressed. A line of blocky runes ending with a familiar one, an exclamation point, is visible on it.
+ 
+ 	 
+		Artifacts such as this are very dangerous, but can also grant their user tremendous power. This could be devastating to your whole capital, and the effects may not be immediate.",
+	],
+	CHOICES: [
+	"Depress the panel",
+	"Sell it",
+	],
+},
+
+VOLCANO_YES: {
+	NAME: "Artifact used",
+	DESC: "",
+	MESSAGE: [
+		"Steeling yourself, you press down on the panel. The hum immediately grows louder, and the whole cube begins to vibrate.
+		 
+		With a flash of light, it leaves your hands, and starts to levitate. After watching for a while from behind the safety of your throne room door, you are about to approach again, when it smashes itself against a wall.
+		 
+		Only splinters of it remain.
+		 
+		You do not feel more powerful, but perhaps that takes some time. It certainly did something.",
+	],
+},
+
+VOLCANO_NO: {
+	NAME: "Artifact sold",
+	DESC: "",
+	MESSAGE: [
+		"You sell the artifact, after making it clear that it is not to be used in your lands.",
+	],
+},
+
+VOLCANO_YES_FOLLOW: {
+	NAME: "Volcanic Eruption",
+	DESC: "The thick ash clouds still darken your lands.",
+	MESSAGE: [
+		"Disaster has struck! A nearby mountain has erupted and bathes Syx in fire. While your city is not threatened directly by it, the clouds of ash may be almost as deadly. Prepare for little sunlight and lower temperatures.
+		 
+		Perhaps this was the work of an artifact used by your enemies?",
+	],
+},
+
+VOLCANO_YES_FOLLOW_FOLLOW: {
+	NAME: "Ash settled",
+	DESC: "The volcanic ash is a boon to agriculture.",
+	MESSAGE: [
+		"The clouds of ash blotting out the sun finally dispersed, allowing a return to normalcy. 
+		 
+		As the land warms up, and flora starts to flourish again, your subjects notice that this new growth has an almost unnatural vigor. 
+		The coat of ash seems to be a potent fertilizer, and will improve agriculture in your region of Syx permanently.",
+	],
+},
+
+EARTHQUAKE: {
+	NAME: "Promising artifact",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+		"As the ruler of the land, you lay claim to all artifacts found in it. As is customary, minor trinkets are exempt, and can be taken freely. This is to encourage the often dangerous exploration of ruins, and sometimes even the rifts.
+		 
+		Major artifacts have to be brought to you, and you may claim them after offering a suitable reward, or demand your share in denari. Historically, rulers that grew too greedy just encouraged secret excavations.
+  
+  
+		The artifact that has been brought to you today looks like it could be a formidable weapon. It is mostly dark blue and has a conical shape, with a fine point. A spiraling pattern trails down the cone, and it rotates slowly, animated by something beyond your ken.
+		At the cone base there is a handle, and a small lever, adorned with faintly glowing runes. Below the lever are runes, likely explaining the effects. The pointy part has some signs of wear, which have been caused by battle. The scratches show that the color is not just a coat of paint, but the natural coloration of this unknown material.
+  
+ 	  
+		Artifacts such as this are very dangerous, but can also grant their user tremendous power. This could be devastating to your whole capital, and the effects may not be immediate.",
+	],
+	CHOICES: [
+	"Wield it",
+	"Sell it",
+	],
+},
+
+EARTHQUAKE_YES: {
+	NAME: "Artifact used",
+	DESC: "",
+	MESSAGE: [
+		"Deciding against testing the artifact in your throne room, because it might carve a path of destruction straight through your city, you go to the outskirts, and after consulting the maps, point it in a more or less uninhabited direction.
+		 
+		Holding it as far away from you as possible, you turn the lever slowly. Nothing happens as it reaches the first line of rune. As you turn it further, you notice that the spiral pattern has stopped moving.
+		 
+		Upon reaching the final markings, the artifact seems to gain a mind of its own and wrenches your arms to the side. The lever has become stuck, and after wrestling with it for a while, the thing escapes your grasp, falling onto the ground.
+		 
+		A cloud of dirt hits you. After it settles, you can make out a perfectly spherical hole. Determining the depth proves impossible; dropped torches disappear from view, and no impact can be heard. A long rope with a weight also failed to find the bottom.
+		 
+		The artifact is likely lost to you forever, but at least it did not cause damage to your city.",
+	],
+},
+
+EARTHQUAKE_NO: {
+	NAME: "Artifact sold",
+	DESC: "",
+	MESSAGE: [
+		"You sell the artifact, after making it clear that it is not to be used in your lands.",
+	],
+},
+
+EARTHQUAKE_YES_FOLLOW: {
+	NAME: "Earthquake",
+	DESC: "Syx stirs.",
+	MESSAGE: [
+		"An earthquake hits your capital!
+		 
+		The small hole left by your artifact experiment has emitted smoke for days now. This must have been caused by it.",
+	],
+},
+
+EARTHQUAKE_YES_FOLLOW_FOLLOW: {
+	NAME: "Earthquake ended",
+	DESC: "The earthquake taught your architects some things and has revealed a wealth of minerals.",
+	MESSAGE: [
+		"Syx is finally calm again, and your battered city stirs again.
+		 
+		Luckily, your subjects have no idea that you might be responsible for their current plight, and will be unlikely to complain about comparatively minor issues, until some time has passed.
+		 
+		The earthquake left some rents in the ground, nothing like the bigger rifts, but big enough to explore. Conveniently this allows for very quick, if dangerous prospecting of mineral riches.
+		 
+		Studying the damage caused also highlighted some maintenance issues. Your janitors will be a bit more efficient from now on.",
+	],
+},
+
+STORM: {
+	NAME: "Promising artifact",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+		"As the ruler of the land, you lay claim to all artifacts found in it. As is customary, minor trinkets are exempt, and can be taken freely. This is to encourage the often dangerous exploration of ruins, and sometimes even the rifts.
+		 
+		Major artifacts have to be brought to you, and you may claim them after offering a suitable reward, or demand your share in denari. Historically, rulers that grew too greedy just encouraged secret excavations.
+		 
+		 
+		The artifact looks to be a bit plain at first glance, a dull grey, metal rod, with a variety of spurs lining it. It lacks any symbols of rulership, so it is unlikely to be a scepter, and small protrusions on one end are likely used to hold it upright.
+		What makes it notable is that it takes a dozen of your subjects to move the rather small object into your throne room. After it was removed from its carrying harness and with great effort levered upright, something strange happens. 
+		Nothing perceivable changed, but it looks dangerous now, as if it could spring into motion at any moment.
+		Careful inspection reveals a set of three rings near the base, that look like they can slide to cover lines marked with ancient runes. The rings are currently all on the bottommost markings.
+		 
+		 
+		Artifacts such as this are very dangerous, but can also grant their user tremendous power. This could be devastating to your whole capital, and the effects may not be immediate.",
+	],
+	CHOICES: [
+	"Use it",
+	"Sell it",
+	],
+},
+
+STORM_YES: {
+	NAME: "Artifact used",
+	DESC: "",
+	MESSAGE: [
+		"After moving the artifact away from the city, you tried to activate it.
+		 
+		Shifting the rings did not appear to do anything at first, but as the thinnest one brushed a marking near the middle, the rod changed. Touching its surface now left your hands numb.
+		Unsure if that was a good sign, you continued. Unlike you had expected, you did not need to align all three rings, or perhaps you made a mistake, because as soon as the second one touched a certain marked line, the rod started to emit a shrill whine, and started shaking.
+		 
+		After relocating to a presumably safe distance, you watch as the the shaking grew more violent, but inexplicably the artifact did not fall over. 
+		Finally, as the shrill noise in the air reached a crescendo, the rod grew still, the noise stopped, and a wave of force swept you off your feet. 
+		 
+		Besides some minor damage to nearby vegetation, that seems to have been all it did though. The rings you used to manipulate the artifact have fused with it, and will not budge, and the rod emits a burnt smell. It seems to be broken.
+		On your way to your city, you notice a slight difference. Something about the sky has changed, but what exactly eludes you.",
+	],
+},
+
+STORM_NO: {
+	NAME: "Artifact sold",
+	DESC: "",
+	MESSAGE: [
+		"You sell the artifact, after making it clear that it is not to be used in your lands.",
+	],
+},
+
+STORM_YES_FOLLOW: {
+	NAME: "Great Storm",
+	DESC: "Syx stirs.",
+	MESSAGE: [
+		"The sky above your capital has changed almost within the blink of an eye! 
+		Massive storm clouds have formed, and the wind is rapidly becoming stronger. There is no time to prepare.
+		Something like this is unheard of in this part of Syx, so the cause is likely something unnatural. An attack on your city with an artifact, or perhaps the result of your earlier experiments.",
+	],
+},
+
+STORM_YES_FOLLOW_FOLLOW: {
+	NAME: "Storm survived",
+	DESC: "The great storm removed many natural obstacles in your demesne.",
+	MESSAGE: [
+		"The rain has stopped, the winds have ceased, and your capital is silent for a brief time, before your subjects start to pick through the rubble, and move to rebuild what they can. Your subjects think this event was out of your control and do not blame you for the destruction.
+		 
+		The onslaught of the storm has scoured the land clear as far as the eye can see. Flying boulders have carved paths through impassible forests, rivers have widened, and some of the steeper hills are now much smaller.
+		 
+		While the damage will take some time to repair, the changed, flatter landscape should make travel easier in your domain for the foreseeable future.",
+	],
+},
+
+ELIXIER: {
+	NAME: "Promising artifact",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+    	"As the ruler of the land, you lay claim to all artifacts found in it. As is customary, minor trinkets are exempt and can be taken freely. This is to encourage the often dangerous exploration of ruins, and sometimes even the rifts.
+    	 
+    	Major artifacts have to be brought to you, and you may claim them after offering a suitable reward, or demand your share in denari. Historically, rulers that grew too greedy just encouraged secret excavations.
+		 
+		 
+    	It is immediately obvious why this artifact was brought to you: it is a potion of some kind, likely meant to be ingested.
+    	Within a transparent container, you can see a floating orb of iridescent green liquid. Its surface ripples faintly, and occasionally otherworldly, organic shapes break the surface.
+    	Observing it for longer reveals that there are more shapes inside the orb than should be able to fit, and there seem to be no repeating elements. Either the orb is larger on the inside or these shapes are constantly being created and destroyed.
+		 
+    	Perhaps the strangest thing about the artifact are the faint lines etched into the container. Rubbing a bit of coal dust into its surface reveals a detailed picture.
+    	A gaunt humanoid figure, followed by a familiar-looking container, and then the same figure, larger and more imposing. As far as you know, none of the artifacts of legend ever came with legible instructions.
+		 
+    	The only problem is the order of things. Does the figure become healthier or does it sicken?
+		 
+    	An ornate latch holds the cylinder shut.
+		 
+		 
+    	Artifacts such as this are very dangerous, but can also grant their user tremendous power. This could be devastating to your whole capital, and the effects may not be immediate.",
+	],
+	CHOICES: [
+	"Use it",
+	"Sell it",
+	],
+},
+
+ELIXIER_YES: {
+	NAME: "Potion bought",
+	DESC: "",
+	MESSAGE: [
+    	"After buying the mysterious liquid and updating your will, you and your advisors spent some time debating how to ingest a floating liquid.
+    	Would opening the container cause it to float away? How could you recapture it without splattering it all over your throne room if it does?
+    	 
+    	Eventually, you settled on the rather simple solution of carefully extracting it with a soup ladle, while a few subjects with rimmed pot lids stood nearby.
+    	 
+    	As the orb left the container, it stopped floating and settled in the ladle like a normal liquid. Unfortunately for your stomach, it continued moving and generating weird shapes.
+    	 
+    	After carefully transferring it to a goblet to add a bit of gravitas to the whole thing, you steeled yourself and gulped the liquid down before you could change your mind.
+    	 
+    	It did not taste magical; as you noticed the aftertaste of fruit juice mixed with soil, your stomach started to complain violently. As your horrified subjects watched, the liquid slowly flowed back out of your mouth, dangled from your chin by a thread, and finally dropped onto the stone floor with an unceremonious splat.
+		 
+    	The potion only left a tiny mark on the stone plates; a discolored patch that no scrubbing could clear. After your stomach settled, you felt no worse for wear. In fact, you felt no different than before.
+    	Perhaps you will feel changes later, but it might not have been meant to be ingested.
+    	",
+	],
+},
+
+ELIXIER_NO: {
+	NAME: "Artifact sold",
+	DESC: "",
+	MESSAGE: [
+		"You sell the artifact, after making it clear that it is not to be ingested in your lands.",
+	],
+},
+
+ELIXIER_YES_FOLLOW: {
+	NAME: "Unnatural Malady",
+	DESC: "Your subjects are sapped of vigor and sickly.",
+	MESSAGE: [
+    	"Disaster has struck your capital! A janitor by the name of {SUBJECT1_NAME} has discovered something concerning while repairing a section of wall. Its interior was hiding a network of veins filled with a green fluid.
+     	 
+    	The fluid behaves similarly to the potion you bought recently but lacks its iridescence. After this discovery, concerned subjects investigated the walls of their homes and found them similarly infested. Soon after, they fell sick, and now your whole capital is afflicted by this unknown malady.
+    	 
+    	Citizens who were in the best of health just recently are showing signs of weakness and lethargy. Your janitors experimented with replacing the affected sections, but the strange fluid reclaims buildings within days.
+   	 
+    	Stocking up on medicine and building more hospitals may be the only thing you can do. Hopefully, your subjects will build up a resistance to this affliction in time.
+    	",
+	],
+},
+
+ELIXIER_YES_FOLLOW_FOLLOW: {
+	NAME: "Blessing of Health",
+	DESC: "Your misadventure with the artifact elixir ended up resulting in a boon to the health of your subjects.",
+	MESSAGE: [
+    	"The random aches and pains you had almost grown used to disappeared when you woke up today. Looking over your city, you see your subjects emerge from their homes, testing bodies that suddenly feel light and strong.
+    	 
+    	The green infestation is still present, but it seems it was ultimately benign.
+   	 
+    	After a day of celebration, and a stirring speech about a new chapter of your reign, you are about to retreat to your chambers, when you make a startling discovery.
+   	 
+    	Dancing in your guards' eyes are tiny flecks of green.
+    	",
+	],
+},
+
+HELM: {
+	NAME: "Promising artifact",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+    	"As the ruler of the land, you lay claim to all artifacts found in it. As is customary, minor trinkets are exempt and can be taken freely. This is to encourage the often dangerous exploration of ruins, and sometimes even the rifts.
+    	 
+    	Major artifacts have to be brought to you, and you may claim them after offering a suitable reward, or demand your share in denari. Historically, rulers that grew too greedy just encouraged secret excavations.
+		 
+		 
+		The artifact looks to be a helmet similar to the ones depicted in ancient murals, but there are a few tapering rods on top, which resemble the spikes of a crown. The helmet itself is made of unadorned black metal, and the spikes are composed of a blue, semi-transparent material, which is slightly warm to the touch.
+		Located at the temples are two bulges composed of the blue material, which connect back to the crown part via a path of blue inlaid into the metal without visible seams.
+		The sigil of Athuri is displayed prominently on the front.
+		
+		It was found in a large carrying case, which likely means that it was important in some way. Transporting armor in single pieces and with so much room left over is a luxury so this probably did not belong to a simple soldier.
+		There is one more odd thing about it: The oldest texts and artworks frequently emphasize the size of the rulers of old, but the helmet looks like it would fit you quite well. Perhaps these were exaggerations, and you wonder if you could do a similar thing.
+		 
+		 
+    	Artifacts such as this are very dangerous, but can also grant their user tremendous power. This could be devastating to your whole capital, and the effects may not be immediate.",
+	],
+	CHOICES: [
+	"Use it",
+	"Sell it",
+	],
+},
+
+HELM_YES: {
+	NAME: "Donning the Helmet",
+	DESC: "",
+	MESSAGE: [
+    	"After buying the helmet, you tested it on a bound prisoner, but no effects could be observed. The prisoner reported a strange feeling: 'like a headache, but nice'.
+		Removing the helmet caused no issues.
+		 
+		Convinced that it was unlikely to kill you immediately, you finally decided to wear it.
+		As it settled on your head, you started to feel something. A pleasant tingling that morphed into smoother waves of warmth.
+		Besides that, you noticed nothing odd.
+		
+		In the privacy of your quarters you tested if it allowed you to conjure lightning or similar things.
+		Combinations of gestures, hand signs, and phrases failed to summon the elements.
+		You may still unlock the secrets of the helmet in time, but for now it just looks very impressive on your head.",
+	],
+},
+
+HELM_NO: {
+	NAME: "Artifact sold",
+	DESC: "",
+	MESSAGE: [
+		"You sell the artifact, after making it clear that it is not to be worn in your lands.",
+	],
+},
+
+HELM_YES_FOLLOW: {
+	NAME: "Artifact shows its power",
+	DESC: "Your subjects are questioning your right to rule.",
+	MESSAGE: [
+    	"It happened while you were making a stirring speech to your subjects. In the hopes of tempering their ever-increasing demands, you used the recent unrest in {PLAYER_RND_REGION_CLOSE} as a backdrop to talk about the value of temperance and austerity.
+		As you deftly wove together the completely unrelated events that plagued your neighbor and anecdotes you invented earlier that day, one of your exaggerated gestures which could be seen even from the back of the crowd, caught the edge of your helmet, knocking it askew.
+		
+		Without missing a beat you straightened the helmet and continued your speech. A hush fell over the crowd and your subjects stared at you with awe in their eyes. But, as the minutes passed, you began to notice a shift in their expressions. Something akin to contempt was starting to creep in.
+		Someone in the back started laughing, and your train of thought derailed completely. As you mentally scrambled to remember what you were just talking about, you straightened, fixed the crowd with a steady gaze, and held up a hand in a regal manner.
+		Unbeknownst to you, this was exactly the wrong thing to do. As the whole crowd started howling with laughter, you decided to make a dignified retreat.
+		
+		Away from the crowd, a guard finally explains what had happened:
+		When you adjusted your helmet, you accidentally activated the artifact, and its 'crown' started to glow faintly, projected a shifting, magical image into the air above you. It showed your day in reverse as seen through your eyes.
+		Among other things, you could be seen pacing nervously before the speech and practicing your oratory skills in your opulent chambers.
+		
+		Seeing your lifestyle directly contradict your words was bad enough, but that last part was what set the crowd off. The practice included the absolutely necessary step of making ridiculous faces in a mirror, along with a few rude hand gestures. 
+		The regal gesture you used to command silence was particularly ineffective because you practiced it for an embarassing amount of time on the lavatory.
+		
+		
+		The whole ordeal severely damaged your exalted image as a ruler, which gives your subjects dangerous ideas. While your subjects may not take you as seriously as before, continued ruling should remedy that over time.
+	",
+	],
+},
+
+HELM_YES_FOLLOW_FOLLOW: {
+	NAME: "Authority reasserted",
+	DESC: "The artifact helmet is used for interrogation, greatly aiding your guards.",
+	MESSAGE: [
+    	"It seems you were finally able to put that embarassing incident behind you. Your subjects have not forgotten it yet - unfortunately they will likely remember it for the rest of their lives, but you have proven that neither your authority nor your ability to enforce it have been affected by that faux pas.
+		 
+		The helmet may not have granted you command over the very elements, but it is quite useful in the hands of your guards. Getting away with crimes has become a lot more difficult in your capital.
+		",
+	],
+},
+
+POD: {
+	NAME: "Promising artifact",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+    	"As the ruler of the land, you lay claim to all artifacts found in it. As is customary, minor trinkets are exempt and can be taken freely. This is to encourage the often dangerous exploration of ruins, and sometimes even the rifts.
+    	 
+    	Major artifacts have to be brought to you, and you may claim them after offering a suitable reward, or demand your share in denari. Historically, rulers that grew too greedy just encouraged secret excavations.
+		 
+		 
+		The artifact looks like an ornate sarcophagus, which emits a faint hum of power. The surface is unblemished by its likely age, and fine lines of faintly glowing metal cross it in a nonsensical appearing pattern. Opening it reveals a space that is clearly meant to hold a living person. A corpse would have no need for a head rest or cushioning.
+		The interior contains a few latches which when unlocked, allow adjusting for the size of the person to be interred. Disconcertingly, even though the mechanical nature of the mechanism seems apparent when inside, from the outside it looks like the artifact is changing its size magically. The change is seamless.
+		Moving an arm inside the the interior reveals that the metal pattern on the outside light up depending on where it is. A whole person inside would presumably cause it to glow quite brightly.
+		Puzzlingly, the base of the artifact makes up most of its size. Easily half a as tall as Human, this would make getting into it unassisted quite challenging. Perhaps it is meant to stand upright, but that would have it take up a lot of space for seemingly little reason.
+		 
+		 
+    	Artifacts such as this are very dangerous, but can also grant their user tremendous power. This could be devastating to your whole capital, and the effects may not be immediate.",
+	],
+	CHOICES: [
+	"Buy it",
+	"Sell it",
+	],
+},
+
+POD_YES: {
+	NAME: "Sarcophagus artifact bought",
+	DESC: "",
+	MESSAGE: [
+    	"After buying it, you move the thing a reasonable distance away from your palace. It is not unheard of for artifacts of power to incinerate their users and everyone around them in spectacular blasts of magical power.
+		The reasons are a matter of much debate. Some posit that powerful artifacts have a will of their own, and are still loyal to their old masters. Others are certain that they require display of deference or sacrifices.
+		A few claim that despite lacking any marks of their age, they are just as broken as the ruins they were found in. 
+		 
+		While the ancient language may be lost to mortals, some scholars believe the oldest readable texts allude to the usage of special keys or controlling artifacts to tame unruly ones. 
+		 
+		Something like that would be quite useful to you now because despite having volunteers of varying eagerness enter the artifact, you only learned who suffers from crippling claustrophobia, which you could have achieved by much cheaper means.
+		Hopefully, it will reveal its secrets in time.",
+	],
+},
+
+POD_NO: {
+	NAME: "Artifact sold",
+	DESC: "",
+	MESSAGE: [
+		"You sell the artifact, after making it clear that it is not to be used in your lands.",
+	],
+},
+
+POD_YES_FOLLOW: {
+	NAME: "Hostile Cantors",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+    	"You received word of an army of Cantors approaching your borders. Shortly after, a courier appeared in your court with a list of demands.
+		 
+		The list contains a lot of the usual prescriptions against entering ruins along with avoiding places of power. Besides one item, it reads remarkably like a particularly conservative Athurian sermon.
+		  
+		They lay claim to your recently bought sarcophagus artifact.
+		 
+		As far as you know, the mythical giants have stopped enforcing the prohibitions on the list a few centuries ago so the rest of it is likely a poor attempt at misdirection or a side benefit.
+		 
+		It seems that they sent just the one courier to you and did not make their claim public, which should allow you to feign innocence if they attack after a refusal.
+		Whether that is due to arrogance or some other consideration, that gives you the option to refuse without having to worry about Athurians deserting to them or the interference of other factions.
+		
+		There are likely other artifacts like this.
+	",
+	],
+	CHOICES: [
+	"Give the artifact away",
+	"Refuse",
+	"Contact Argonosh",
+	],
+},
+
+POD_YES_FOLLOW_YES: {
+	NAME: "Artifact seized",
+	DESC: "",
+	MESSAGE: [
+    	"After conferring with your advisors, you decided against testing your might against theirs.
+		 
+		Delivery of the artifact went smoothly, and the Cantors left your lands. Very few people know how close your realm came to disaster.
+		 
+		Looking back through the written reports you notice an oddity:
+		The cantors ceased their advance at about the same time you decided to give them the artifact. Days before the courier would have been able to reach them. Whatever the reason, it likely was not because they respected your borders.
+		",
+	],
+},
+
+POD_YES_FOLLOW_NO: {
+	NAME: "Infiltrator",
+	DESC: "",
+	MESSAGE: [
+    	"As you were writing orders to prepare your realm for the attack, you received startling news.
+		 
+		When your guards checked on the artifact, they discovered a Cantor wedged in the small room, trying but failing to destroy the walls to escape.
+		He must have appeared by magic there and failed to realize he was underground. As your guards prepared to widen the doorway to extract the intruder, a magical blast engulfed the room, killing him and destroying his equipment.
+		 
+		The sarcophagus survived the blast completely intact. Your guards noted that the artifact's pattern of glowing lines looked different than they remembered. 
+		",
+	],
+},
+
+POD_YES_FOLLOW_MAYBE: {
+	NAME: "Infiltrator",
+	DESC: "",
+	MESSAGE: [
+    	"You decide to let the Cantor's ancient enemies know about how much the artifact seems to mean to them. Preventing this was likely the reason for not announcing their claim, but since you have Argonosh in your capital, they can carry the message to their brethren.
+		While the Argonosh that decided to serve you are still somewhat of a mystery to you, you did know that they are very blunt in their intentions so you simply asked if they were going to stop the Cantors, and whether or not you had to worry about them claiming the artifact.
+		'Yes. No.' were all you managed to get before it departed. 
+		True to its words, the Cantors vanished soon after. No signs of battle could be seen by your scouts, and the Argonosh are not telling you how their kin could have accomplished that.
+		 
+		Soon after, you received a troubling message from your guards:
+		 
+		When they checked on the artifact, they discovered a Cantor wedged in the small room, trying but failing to destroy the walls to escape.
+		He must have appeared by magic there and failed to realize he was underground. As your guards prepared to widen the doorway to extract the intruder, a magical blast engulfed the room, killing him and destroying his equipment.
+		 
+		The sarcophagus survived the blast completely intact. Your guards noted that the artifact's pattern of glowing lines looked different than they remembered. 
+		",
+	],
+},
+
+POD_YES_FOLLOW_NO/MAYBE_FOLLOW: {
+	NAME: "Artifact reveals its Secrets",
+	DESC: "An artifact enhances the fighting abilities of your soldiers.",
+	MESSAGE: [
+    	"Testing the artifact finally provided results. The event with the infiltrator must have changed it somehow because entering the sarcophagus now seals the person inside for an hour, and the glowing lines start to shift in mesmerizing patterns. After that, they emerge changed.
+		They do not recall what happened inside, and upon emergence question if they entered it at all. For them, the lid closes and immediately opens again.
+		 
+		The subjects appear slightly confused and have difficulty moving for a few hours. They mention that their body feels foreign, and they expect it to move differently. Tests revealed that the subjects show remarkable combat skills. 
+		They instinctively know what to do, but the muscle memory that should accompany those instincts is completely absent, which severely limits the beneficial effects.
+		 
+		With proper training, this should give your soldiers an edge.
+		
+		
+		Your personal guards made a startling discovery when they moved the artifact to a more secure location, which should keep it hidden even if the Cantors were to breach the city.
+		The ground beneath the artifact was full of dried blood. 
+		None of the test subjects had any visible injuries when they left it.
+		",
+	],
+},
+
+POD_ALT: {
+	NAME: "Promising artifact",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+    	"As the ruler of the land, you lay claim to all artifacts found in it. As is customary, minor trinkets are exempt and can be taken freely. This is to encourage the often dangerous exploration of ruins, and sometimes even the rifts.
+    	 
+    	Major artifacts have to be brought to you, and you may claim them after offering a suitable reward, or demand your share in denari. Historically, rulers that grew too greedy just encouraged secret excavations.
+		 
+		 
+		You recognize the artifact that has been brought to you. It is extremely similar to the sarcophagus you were forced to relinquish to a band of Cantors. It emits the same hum of power and looking at it while its size is being adjusted is still inadvisable.
+		While you were unable to find a use for the last one before it was taken from you, it was valuable enough to the Cantors to risk their lives for it. 
+		 
+		Trying to sell them something they see as theirs by right will not work well so you should make sure you are able to defend it this time if you decide to buy it.
+		 
+		 
+    	Artifacts such as this are very dangerous, but can also grant their user tremendous power. This could be devastating to your whole capital, and the effects may not be immediate.",
+	],
+	CHOICES: [
+	"Buy it",
+	"Sell it",
+	],
+},
+
+POD_ALT_YES: {
+	NAME: "Sarcophagus artifact bought",
+	DESC: "",
+	MESSAGE: [
+    	"The notes from the previous investigation only confirm that the artifact is mostly identical to the previous one. A few likely ornamental marks on its surface are the only differences.
+		 
+		How to use it still remains a mystery.",
+	],
+},
+
+POD_ALT_NO: {
+	NAME: "Artifact sold",
+	DESC: "",
+	MESSAGE: [
+		"You sell the artifact, after making it clear that it is not to be used in your lands.",
+	],
+},
+
+POD_ALT_YES_FOLLOW: {
+	NAME: "Hostile Cantors",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+    	"You received word of an army of Cantors approaching your borders. Shortly after, a courier appeared in your court with a list of familiar demands.
+		 
+		Skimming the document reveals that the Cantors once again want the artifact you bought.
+
+		You know that this artifact is not unique and that you could likely purchase another, but the Cantors will likely lay claim to that one as well.",
+	],
+	CHOICES: [
+	"Give the artifact away",
+	"Refuse",
+	"Contact Argonosh",
+	],
+},
+
+POD_ALT_YES_FOLLOW_YES: {
+	NAME: "Artifact seized",
+	DESC: "",
+	MESSAGE: [
+    	"Just like last time, they ceased advancing when you made your decision. After collecting the item, they left unceremoniously.
+		",
+	],
+},
+
+GARTHIMI_UPGRADE: {
+	NAME: "Ancient Queen",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+    	"You received word that your kin in {ROYALTY1_FACTION_FACTION} unearthed an ancient tomb. It was hidden deep below, far deeper than Garthimi dare venture these days. It contained the remains of a Queen, likely from before the time of darkness.
+		 
+		Strangely, {ROYALTY1_INDUVIDUAL_NAME} chose not to consume the Queen. A caravan carrying her is currently en route to the dreaded Cantors, presumably to destroy her.
+		Perhaps seeing the tomb would answer why.
+		 
+		The body could be a great boon to your hive. Consuming it would would affect your brood; even your current generation's bodies would reconfigure to match your new lineage, guided by your altered pheromones.
+		It is said that the Queens of old could switch their type at will, even birth hulking Garthimi along smaller, more nimble ones. Sadly, this secret has been lost to time.
+		Nowadays, the hatchlings are a jumble of traits, even if there are clear differences between Queens.
+		 
+		There are tales that Garthimi and Argonosh were once the same, just a different expression of a Queen's will. If the tomb is as old as you suspect, it may hold a fraction of that power.
+		 
+		You could raid the lightly guarded caravan. They rely on stealth, which would have worked if one of your kin did not commit an uncharacteristic betrayal when ordered to extinguish such sacred legacy.
+		 
+		Alternatively, you could attack the Cantors who will carry the remains to their haven. Either way, there will be retaliation of some kind.",
+	],
+	CHOICES: [
+	"Raid the caravan",
+	"Attack the Cantors",
+	],
+},
+
+GARTHIMI_UPGRADE_YES: {
+	NAME: "Queen seized",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+    	"The resistance put up by the caravan was not worth mentioning, but {ROYALTY1_FACTION_FACTION} will likely find out that you were responsible sooner or later.
+		 
+		The body of the Queen has been brought to you. 
+		 
+		The myths and legends did not prepare you for it. The Queen is dwarfing you, even in its diminished state. That matched the tales. However, she also looks far more crude than you would have assumed. Plates that would scrape over joints, an asymmetrical body, and claws less suited for fine manipulation than your own.
+		 
+		There is something odd about the corpse. Despite its dessicated state, it exudes an aura of unnatural vitality, like it could come to life at any moment.
+		 
+		 
+		Consuming the Queen may not be as beneficial as the tales led you to believe. She looks powerful, but it is obvious that this power came at a cost. Perhaps this one was unique among her peers.
+		If you do not consume the corpse, you could use it and your feat of saving it from destruction to increase loyalty.
+		",
+	],
+	CHOICES: [
+	"Consume it",
+	"Enshrine it",
+	],
+},
+
+GARTHIMI_UPGRADE_NO: {
+	NAME: "Queen seized",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+    	"Even Cantors need to sleep sometimes, and they posted too few guards. Your kin managed to steal the massive litter without alterting a single one of them. They might still find out it was you; they still have some mastery of the arcane.
+		 
+		The body of the Queen has been brought to you. 
+		 
+		The myths and legends did not prepare you for it. The Queen is dwarfing you, even in its diminished state. That matched the tales. However, she also looks far more crude than you would have assumed. Plates that would scrape over joints, an asymmetrical body, and claws less suited for fine manipulation than your own.
+		 
+		There is something odd about the corpse. Despite its dessicated state, it exudes an aura of unnatural vitality, like it could come to life at any moment.
+		 
+		 
+		Consuming the Queen may not be as beneficial as the tales led you to believe. She looks powerful, but it is obvious that this power came at a cost. Perhaps this one was unique among her peers.
+		If you do not consume the corpse, you could use it and your feat of saving it from destruction to increase loyalty.
+		",
+	],
+	CHOICES: [
+	"Consume it",
+	"Entomb it",
+	],
+},
+
+GARTHIMI_UPGRADE_YES/NO_YES: {
+	NAME: "Queen consumed",
+	DESC: "Your Garthimi have become more formidable but unruly.",
+	MESSAGE: [
+    	"Consuming the Queen was a lengthy ordeal. 
+		 
+		Despite her age, the most important parts were still preserved well-enough. No doubt much was lost, but you can already feel changes take effect.
+		Hunger and an itch beneath your carapace. Your guards look almost wary when they see you; your smell carrying hints of ancient, bloody history.
+		",
+	],
+},
+
+GARTHIMI_UPGRADE_YES/NO_NO: {
+	NAME: "Queen entombed",
+	DESC: "Guarding the tomb of an ancient Queen increases the loyalty of Garthimi.",
+	MESSAGE: [
+    	"Construction of a well-hidden tomb beneath {PLAYER_FACTION_RACE_CITY} finished quickly. After the interment, the entrance was collapsed.
+		 
+		You detailed your thoughts on the walls of the chambers - your reasons for refusing ancient power, and doubts regarding the depictions of ancient Garthimi.
+		",
+	],
+},

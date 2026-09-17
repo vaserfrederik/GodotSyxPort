@@ -1,0 +1,134 @@
+NAME: "Amevia",
+NAMES: "Amevias",
+POSSESSIVE: "Amevian",
+POSSESSIVES: "Amevian",
+PRONOUN_HE: ["he", "she",],
+PRONOUN_HEC: ["He", "She",],
+PRONOUN_HIM: ["him", "her",],
+PRONOUN_HIMC: ["Him", "Her",],
+PRONOUN_HIS: ["his", "her",],
+PRONOUN_HISC: ["His", "Her",],
+PRONOUN_HIMSELF: ["himself", "herself",],
+PRONOUN_HIMSELFC: ["Himself", "Herself",],
+PRONOUN_CHILD: ["hatchling",],
+PRONOUN_CHILDC: ["Hatchling",],
+
+
+HELLO: [
+	"Fins of Morlak",
+	"Morlak's blessings",
+	"By the sneeze of Morlak",
+	"Eggs of Moral",
+	"The sea is deep",
+],
+GOODBYE: [
+	"Under his eye",
+	"Until the high tide",
+	"Until Morlak returns",
+	"May your skin be moist",
+	"Until the feast of Morlak",
+	"What is dead may never die",
+],
+CURSE: [
+	"Brood of Harack!",
+	"By Morlak's shell!",
+	"gods beneath!",
+	"Morlak have mercy!",
+	"By the abyss!",
+],
+INSULT: [
+	"dry-face", 
+	"land-creature",
+	"frog-spawn",
+	"dinoris brains",
+	"land-soul",
+	"air-thinker",
+],
+INSULTING: [
+	"dry-faced", 
+	"land-crawling",
+	"frog-spawned",
+	"dinoris brained",
+	"land-souled",
+	"air-thinking",
+],
+LORD: [
+	"Wavemaker",
+	"Sea-master",
+	"Ruler of the Deep",
+	"Wettest of Lords",
+	"Depth Guide",
+],
+CITY: [
+	"land-dwelling",
+	"temporary land settlement",
+	"dry-land",
+	"above world",
+],
+OTHERS: [
+	"land-dwellers",
+	"land-walkers",
+	"dry people",
+	"sand-walkers",
+],
+SELVES: [
+	"sea-brothers",
+	"water-people",
+	"water brethren",
+	"soul-kin",
+	"seekers of the depths",
+],
+SELF: [
+	"sea-brother",
+	"water-brother",
+	"seeker of the depths",
+],
+CHILDREN: [
+	"hatchlings",
+],
+
+
+
+DESC: 
+"Amevias love water and thrive when living surrounded by rivers and canals. They have an insatiable desire for fish. They are generally good-natured but they greatly prefer to be among their own kind. Amevia will fight against oppression and are not submissive. They are unique in their ability to handle Globdein ranching.
+",
+
+DESC_LONG:
+"Amevias love water and thrive when living surrounded by rivers and canals. They believe that their true home is in the mythical Depths, a place they are unable to reach in life as they are not fully aquatic. Since other species do not feel that same pull of the Depths, Amevias regard them as soulless 'land-life'. Their size and natural armor makes them formidable soldiers, despite their apathy towards violence. Amevias will fight against oppression and are not submissive. 
+Their lust for eggs has made them masters of Globdein ranching, and their aquatic nature makes them excellent fishers.
+
+They have an insatiable desire for Fish and Eggs, which they like to eat with Vegetables.
+",
+
+ARMY_NAMES: [
+	"The Blackfin Legion",
+	"The Blessed Spawning",
+	"The Sacred Host",
+	"The Red Crests",
+	"The Greenmist Crusaders",
+	"The Last Defenders",
+	"The Riders of Ikk",
+	"The Ghost Warriors",
+	"The Wrath of the Sea.",
+	"The Swifttail Caste",
+	"The Blindwater Congregation",
+	"The Deathbringers",
+	"The Vengeance of Lake Turprid",
+],
+
+CHALLENGE: "Medium",
+
+PROS: [
+	"Excellent at Fishing",
+	"Can ranch globdiens",
+	"Strong soldiers",
+	"Wants mud or grand buildings",
+],
+
+CONS: [
+	"Proximity to fresh water is very important",
+	"Poor at farming",
+	"Rebellious as slaves",
+	"Hates all races besides the Tilapi",
+	"Slower breeding.",
+],

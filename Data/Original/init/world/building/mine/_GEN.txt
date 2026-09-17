@@ -1,0 +1,23 @@
+GENS: [
+	{
+		INDUSTRIES: [
+			MINE_CLAY,
+			MINE_COAL,
+			MINE_GEM,
+			MINE_ORE,
+			MINE_SITHILON,
+			MINE_STONE,
+			_WOODCUTTER,
+		],
+		LEVELS: 10,
+		OUTPUT: 400,
+		CREDITS: 1000,
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -50,
+			WORLD_VISUAL_MINE>ADD: 1,
+		},
+		EFFICIENCY: {
+			
+		},
+	},
+],

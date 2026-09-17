@@ -1,0 +1,3 @@
+MALE: "Legati Ray",
+FEMALE: "Legatiss Ray",
+DESC: "As a great judge, your words start to carry weight even outside of your realm.",

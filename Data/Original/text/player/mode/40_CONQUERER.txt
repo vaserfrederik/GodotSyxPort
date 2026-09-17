@@ -1,0 +1,4 @@
+NAME: "Warlord",
+DESC: "See your enemies driven before you. Other despots will oppose you, but your subjects are used to hardship.
+
+You can develop more regions, but also attract stronger raiders.",

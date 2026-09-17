@@ -1,0 +1,30 @@
+INFO: {
+	NAME: "Loading Station",
+	NAMES: "Loading Stations",
+	DESC: "Loading Stations move very large quantities of a selected resource to Unloading Stations. The transport requires Livestock to operate. Best placed near the resources you want to move, not their destination.",
+	WIKI: {
+		CATEGORY: "Logistics",
+		NAME: "Loading Station",
+		TEXT: "Loading Stations move very large quantities of a selected resource to Unloading Stations. The transport requires Livestock to operate. The cart requires some preparation to become ready to depart, but it is very good at moving large loads over long distances. Best used sparsely in mid-late game.",
+	},
+},
+
+STATS: [
+	{
+		NAME: "Transports",
+		DESC: "The amount of transports.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Loading Station",
+		DESC: "",
+	},
+],
+
+WORK: {
+	TITLE: "Transporter",
+	VERB: "Transporting",
+},
+

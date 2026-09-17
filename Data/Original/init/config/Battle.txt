@@ -1,0 +1,18 @@
+
+** How long divisions can hold out in battle
+
+DAMAGE_REDUCTION: 100,
+
+MORALE_HOLDOUT: 1.0,
+
+** How fast subjects train up their experience (and how fast it drops)
+TRAINING_DEGRADE: 1,
+
+** 1-255
+MEN_PER_DIVISION: 200,
+
+** 1-120
+DIVISIONS_PER_ARMY: 120,
+
+**0-16000
+REGION_MAX_DIVS: 34,

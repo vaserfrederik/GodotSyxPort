@@ -1,0 +1,2 @@
+NAME: "Utopia",
+DESC: "Manifest your vision of the ideal city-state. Few will dare stand against you - your power absolute. A casual mode emphasising on creativity rather than min-maxing",

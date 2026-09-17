@@ -1,0 +1,28 @@
+INFO: {
+	NAME: "Guardpost",
+	NAMES: "Guardposts",
+	DESC: "Guard posts are used by your guard force to instill order in your city and catch criminal. Can be placed on top of fortifications.",
+},
+
+ITEMS: [
+	{
+		NAME: "Guardpost",
+		DESC: "A place for guards to work, where the guards focus all their attention forward.",
+	},
+	{
+		NAME: "Guard Station",
+		DESC: "A place for guards to work that covers the full area. Suitable for junctions and on top of walls.",
+	},
+],
+
+STATS: [
+	{
+		NAME: "Guards",
+		DESC: "Amount of guards needed.",
+	},
+],
+
+EMPLOYMENT: {
+	TITLE: "Guard",
+	VERB: "Guarding",
+},

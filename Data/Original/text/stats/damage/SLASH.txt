@@ -1,0 +1,18 @@
+NAME: "Slash",
+ATTACK: {
+	NAME: "Slash Damage",
+	DESC: "Slash armor defends against this.",
+},
+DEFENCE: {
+	NAME: "Slash Armour",
+	DESC: "Reduces incoming slash damage.",
+},
+DEFENCE_DIR: {
+	NAME: "Slash Block",
+	DESC: "Reduces incoming slash damage on a successful block.",
+},
+
+
+
+
+

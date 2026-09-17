@@ -1,0 +1,3 @@
+MALE: "Approntix",
+FEMALE: "Approntix",
+DESC: "An Approntix is a big step up from being a mere Mir. Other royal families acknowledge your claim to the throne, and are ready to do trade and pacts with you if you increase their opinion of you. This can be done by manually showering them with gifts, or by creating your own army of emissaries in the embassy, whose job it will be to keep your peers ego inflated enough.",

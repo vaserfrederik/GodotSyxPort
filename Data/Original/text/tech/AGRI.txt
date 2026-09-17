@@ -1,0 +1,208 @@
+NAME: "Agriculture",
+TECHS: {
+	GRAI01: {
+		NAME: "Basic Grain farming",
+		DESC: "Improves the output of our Grain Farms",
+	},
+	GRAIt1: {
+		NAME: "Grain farming Tools",
+		DESC: "Unlocks tools to be equipped for the Grain Farm. Tools must be manually equipped in the workplace.",
+	},
+	GRAI02: {
+		NAME: "Skilled Grain farming",
+		DESC: "Improves the output of our Grain Farms",
+	},
+	GRAI03: {
+		NAME: "Profficient Grain farming",
+		DESC: "Improves the output of our Grain Farms",
+	},
+	GRAIt2: {
+		NAME: "Advanced Grain farming Tools",
+		DESC: "Unlocks tools to be equipped for the Grain Farm. Tools must be manually equipped in the workplace.",
+	},
+	GRAI04: {
+		NAME: "Expert Grain farming",
+		DESC: "Improves the output of our Grain Farms",
+	},
+	FRUI01: {
+		NAME: "Basic fruit farming",
+		DESC: "Improves the output of our Fruit Farms",
+	},
+	FRUIt1: {
+		NAME: "fruit farming Tools",
+		DESC: "Unlocks tools to be equipped for the Fruit Farm. Tools must be manually equipped in the workplace.",
+	},
+	FRUI02: {
+		NAME: "Skilled fruit farming",
+		DESC: "Improves the output of our Fruit Farms",
+	},
+	FRUI03: {
+		NAME: "Profficient fruit farming",
+		DESC: "Improves the output of our Fruit Farms",
+	},
+	FRUIt2: {
+		NAME: "Advanced fruit farming Tools",
+		DESC: "Unlocks tools to be equipped for the Fruit Farm. Tools must be manually equipped in the workplace.",
+	},
+	FRUI04: {
+		NAME: "Expert fruit farming",
+		DESC: "Improves the output of our Fruit Farms",
+	},
+	VEGE01: {
+		NAME: "Basic Vegetable farming",
+		DESC: "Improves the output of our Vegetable Farms",
+	},
+	VEGEt1: {
+		NAME: "Vegetable farming Tools",
+		DESC: "Unlocks tools to be equipped for the Vegetable Farm. Tools must be manually equipped in the workplace.",
+	},
+	VEGE02: {
+		NAME: "Skilled Vegetable farming",
+		DESC: "Improves the output of our Vegetable Farms",
+	},
+	VEGE03: {
+		NAME: "Profficient Vegetable farming",
+		DESC: "Improves the output of our Vegetable Farms",
+	},
+	VEGEt2: {
+		NAME: "Advanced Vegetable farming Tools",
+		DESC: "Unlocks tools to be equipped for the Vegetable Farm. Tools must be manually equipped in the workplace.",
+	},
+	VEGE04: {
+		NAME: "Expert Vegetable farming",
+		DESC: "Improves the output of our Vegetable Farms",
+	},
+	COTT01: {
+		NAME: "Basic Cotton farming",
+		DESC: "Improves the output of our Cotton Farms",
+	},
+	COTTt1: {
+		NAME: "Cotton farming Tools",
+		DESC: "Unlocks tools to be equipped for the Cotton Farm. Tools must be manually equipped in the workplace.",
+	},
+	COTT02: {
+		NAME: "Skilled Cotton farming",
+		DESC: "Improves the output of our Cotton Farms",
+	},
+	COTT03: {
+		NAME: "Profficient Cotton farming",
+		DESC: "Improves the output of our Cotton Farms",
+	},
+	COTTt2: {
+		NAME: "Advanced Cotton farming Tools",
+		DESC: "Unlocks tools to be equipped for the Cotton Farm. Tools must be manually equipped in the workplace.",
+	},
+	COTT04: {
+		NAME: "Expert Cotton farming",
+		DESC: "Improves the output of our Cotton Farms",
+	},
+	MUSH00: {
+		NAME: "The Mushroom Farm",
+		DESC: "Unlocks the construction of the Mushroom Farm",
+	},
+	MUSH01: {
+		NAME: "Basic Mushroom farming",
+		DESC: "Improves the output of our Mushroom Farms",
+	},
+	MUSHt1: {
+		NAME: "Mushroom farming Tools",
+		DESC: "Unlocks tools to be equipped for the Mushroom Farm. Tools must be manually equipped in the workplace.",
+	},
+	MUSH02: {
+		NAME: "Skilled Mushroom farming",
+		DESC: "Improves the output of our Mushroom Farms",
+	},
+	MUSH03: {
+		NAME: "Profficient Mushroom farming",
+		DESC: "Improves the output of our Mushroom Farms",
+	},
+	MUSHt2: {
+		NAME: "Advanced Mushroom farming Tools",
+		DESC: "Unlocks tools to be equipped for the Mushroom Farm. Tools must be manually equipped in the workplace.",
+	},
+	MUSH04: {
+		NAME: "Expert Mushroom farming",
+		DESC: "Improves the output of our Mushroom Farms",
+	},
+	HERB00: {
+		NAME: "The Herb Farm",
+		DESC: "Unlocks the construction of the Herb Farm",
+	},
+	HERB01: {
+		NAME: "Basic Herb farming",
+		DESC: "Improves the output of our Herb Farms",
+	},
+	HERBt1: {
+		NAME: "Herb farming Tools",
+		DESC: "Unlocks tools to be equipped for the Herb Farm. Tools must be manually equipped in the workplace.",
+	},
+	HERB02: {
+		NAME: "Skilled Herb farming",
+		DESC: "Improves the output of our Herb Farms",
+	},
+	HERB03: {
+		NAME: "Profficient Herb farming",
+		DESC: "Improves the output of our Herb Farms",
+	},
+	HERBt2: {
+		NAME: "Advanced Herb farming Tools",
+		DESC: "Unlocks tools to be equipped for the Herb Farm. Tools must be manually equipped in the workplace.",
+	},
+	HERB04: {
+		NAME: "Expert Herb farming",
+		DESC: "Improves the output of our Herb Farms",
+	},
+	SPIC00: {
+		NAME: "The Poppy Farm",
+		DESC: "Unlocks the construction of the Poppy Farm",
+	},
+	SPIC01: {
+		NAME: "Basic Poppy farming",
+		DESC: "Improves the output of our Poppy Farms",
+	},
+	SPICt1: {
+		NAME: "Poppy farming Tools",
+		DESC: "Unlocks tools to be equipped for the Poppy Farm. Tools must be manually equipped in the workplace.",
+	},
+	SPIC02: {
+		NAME: "Skilled Poppy farming",
+		DESC: "Improves the output of our Poppy Farms",
+	},
+	SPIC03: {
+		NAME: "Profficient Poppy farming",
+		DESC: "Improves the output of our Poppy Farms",
+	},
+	SPICt2: {
+		NAME: "Advanced Poppy farming Tools",
+		DESC: "Unlocks tools to be equipped for the Poppy Farm. Tools must be manually equipped in the workplace.",
+	},
+	SPIC04: {
+		NAME: "Expert Poppy farming",
+		DESC: "Improves the output of our Poppy Farms",
+	},
+	OFRU01: {
+		NAME: "Basic Orcharding",
+		DESC: "Improves the output of our Fruit Orchards",
+	},
+	OFRUt1: {
+		NAME: "Orcharding Tools",
+		DESC: "Unlocks tools to be equipped for the Fruit Orchard. Tools must be manually equipped in the workplace.",
+	},
+	OFRU02: {
+		NAME: "Skilled Orcharding",
+		DESC: "Improves the output of our Fruit Orchards",
+	},
+	OFRU03: {
+		NAME: "Profficient Orcharding",
+		DESC: "Improves the output of our Fruit Orchards",
+	},
+	OFRUt2: {
+		NAME: "Advanced Orcharding Tools",
+		DESC: "Unlocks tools to be equipped for the Fruit Orchard. Tools must be manually equipped in the workplace.",
+	},
+	OFRU04: {
+		NAME: "Expert Orcharding",
+		DESC: "Improves the output of our Fruit Orchards",
+	},
+},
+

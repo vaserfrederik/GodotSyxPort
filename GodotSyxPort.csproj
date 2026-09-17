@@ -1,0 +1,12 @@
+<Project Sdk="Godot.NET.Sdk/4.4.1">
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+  </PropertyGroup>
+  <ItemGroup>
+    <!-- Original translated export is retained for traceability, never compiled directly. -->
+    <Compile Remove="LegacySource/**/*.cs" />
+    <None Include="LegacySource/**/*.cs" />
+  </ItemGroup>
+</Project>

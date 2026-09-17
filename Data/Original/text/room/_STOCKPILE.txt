@@ -1,0 +1,41 @@
+INFO: {
+	NAME: "Warehouse",
+	NAMES: "Warehouses",
+	DESC: "Used to store goods. Significantly decreases the spoil rate and lets you keep track of stored resources. Its workers have a higher carry capacity than normal subjects.",
+	WIKI: {
+		CATEGORY: "Logistics",
+		NAME: "Warehouses",
+		TEXT: "Stores goods in crates which protect against spoilage. Can be manned by deliverymen, who can carry much more goods than ordinary workers and can benefit from boosts to their carry capacity. 
+		You can issue pull orders which allow a warehouse to collect resources from another room. Disabling the 'fetch' mode will forbid your workers from picking up loose resources in range. This includes the output storage of production rooms.
+		Storage mode can be used to forbid your normal subjects from accessing the contents of the warehouse.
+		
+		It is important that storage facilities are placed near rooms that use a lot of resources.
+		
+		Some resources spoil quickly, and storing them rapidly in warehouses can prevent a lot of loss.",
+	},
+},
+
+BONUS: {
+	NAME: "Carry Capacity",
+	DESC: "Increases the carry capacity of deliverymen.",
+},
+
+WORK: {
+	TITLE: "Deliveryman",
+	VERB: "Delivering goods",
+},
+
+STATS: [
+	{
+		NAME: "Storage",
+		DESC: "The amount of storage.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Crates",
+		DESC: "For storage of goods.",
+	},
+],
+

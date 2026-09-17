@@ -1,0 +1,32 @@
+INFO: {
+	NAME: "Export Depot",
+	NAMES: "Export Depots",
+	DESC: "Allows you to sell goods automatically.",
+	WIKI: {
+		CATEGORY: "Trade",
+		NAME: "Export Depot",
+		TEXT: "Export depots are needed to sell goods automatically. Assigned workers will collect goods in the set radius and store them in the depot, where they can be sold. Exporters have an increased carrying capacity compared to normal subjects and benefit from capacity boosts.
+		 
+		To sell goods via an export depot you need at least one trade treaty, which can be acquired via diplomacy.",
+	},
+},
+
+WORK: {
+	TITLE: "Trader",
+	VERB: "Delivering Goods",
+},
+
+STATS: [
+	{
+		NAME: "Crates",
+		DESC: "The amount of crates that will be used for storage.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Export Depot",
+		DESC: "Where goods are stored.",
+	},
+],
+

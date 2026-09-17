@@ -1,0 +1,110 @@
+family	group	minimum	maximum	stat_minimums
+food/cannibal	0	1	2147483647	0
+food/fish	0	1	1	0,0,0,0,0
+food/fish	1	0	2147483647	0,0,0,0,0
+food/hunter	0	0	2147483647	1,0,0
+food/hunter	1	0	2147483647	1,0,0
+food/orchard	0	1	1	0.0001,0.01,0,0.01
+food/orchard	1	0	2147483647	0.0001,0.01,0,0.01
+food/pasture/constructor	0	0	2147483647	1,0,0,1
+food/pasture/constructorindoor	0	1	1	
+food/pasture/constructoroutdoor	0	1	1	
+health/asylum	0	1	2147483647	0,0
+health/hospital	0	1	2147483647	0,0
+health/physician	0	1	2147483647	0,1,0
+health/physician	1	1	2147483647	0,1,0
+home/chamber	0	1	2147483647	0,0
+home/house	0	0	2147483647	1
+industry/mine	0	1	1	0,0,0,0
+industry/mine	1	0	2147483647	0,0,0,0
+industry/refiner	0	1	2147483647	0,0,0
+industry/refiner	1	1	1	0,0,0
+industry/refiner	2	0	2147483647	0,0,0
+industry/woodcutter	0	1	1	1,0,0,0
+industry/woodcutter	1	0	2147483647	1,0,0,0
+industry/workshop	0	1	1	0,0,0
+industry/workshop	1	1	2147483647	0,0,0
+industry/workshop	2	0	2147483647	0,0,0
+infra/admin	0	1	2147483647	0,0,0
+infra/admin	1	0	2147483647	0,0,0
+infra/bench	0	0	2147483647	
+infra/elderly	0	1	2147483647	1,0
+infra/elderly	1	1	2147483647	1,0
+infra/elderly	2	0	2147483647	1,0
+infra/embassy	0	0	2147483647	0,0
+infra/embassy	1	0	2147483647	0,0
+infra/export	0	0	2147483647	1
+infra/hauler	0	0	2147483647	
+infra/importt	0	0	2147483647	1
+infra/inn	0	1	2147483647	1,0,0
+infra/inn	1	0	2147483647	1,0,0
+infra/janitor	0	1	2147483647	0,0
+infra/janitor	1	1	2147483647	0,0
+infra/monument/imp	0	0	2147483647	
+infra/monument/torch	0	0	2147483647	
+infra/station	0	0	2147483647	
+infra/stockpile	0	1	2147483647	0
+infra/transport	0	0	2147483647	1
+knowledge/laboratory	0	1	2147483647	0,0
+knowledge/library	0	1	2147483647	0,0,0
+knowledge/school	0	1	2147483647	0,0
+knowledge/school	1	0	2147483647	0,0
+knowledge/university	0	1	2147483647	1,0
+knowledge/university	1	0	2147483647	1,0
+law/court	0	0	2147483647	1,0,0
+law/court	1	0	2147483647	1,0,0
+law/execution	0	0	2147483647	1
+law/execution	1	0	2147483647	1
+law/execution	2	0	2147483647	1
+law/execution	3	0	2147483647	1
+law/guard	0	1	2147483647	0
+law/guard	1	1	2147483647	0
+law/police	0	0	2147483647	1
+law/police	1	0	2147483647	1
+law/police	2	0	2147483647	1
+law/police	3	0	2147483647	1
+law/police	4	0	2147483647	1
+law/prison	0	1	2147483647	0,0
+law/stockade	0	1	2147483647	0,1
+law/stocks	0	0	2147483647	0
+military/artillery	0	1	2147483647	
+military/supply	0	0	2147483647	0,0
+military/training/archery	0	1	2147483647	0
+military/training/barracks	0	1	2147483647	0
+service/arena/grand	0	4	2147483647	0,0
+service/arena/pit	0	1	2147483647	0
+service/barber	0	1	2147483647	0,0,0
+service/breeder	0	0	2147483647	0,0
+service/breeder	1	0	2147483647	0,0
+service/food/canteen	0	1	2147483647	1,1,0
+service/food/canteen	1	1	2147483647	1,1,0
+service/food/eatery	0	1	2147483647	1,0.01
+service/food/tavern	0	0	2147483647	0,0
+service/food/tavern	1	0	2147483647	0,0
+service/hearth	0	1	2147483647	0
+service/hygine/bath	0	1	2147483647	1,0
+service/hygine/bath	1	0	2147483647	1,0
+service/hygine/well	0	1	2147483647	0
+service/lavatory	0	1	2147483647	0,0,0
+service/lavatory	1	0	2147483647	0,0,0
+service/market	0	1	2147483647	1,0.01
+service/nursery	0	0	2147483647	0,0,0
+service/nursery	1	0	2147483647	0,0,0
+service/pleasure	0	1	2147483647	1,0,0
+service/pleasure	1	0	2147483647	1,0,0
+service/speaker	0	1	2147483647	0,0
+service/stage	0	1	2147483647	0
+spirit/grave/cgraveyard	0	1	2147483647	0,0,0
+spirit/grave/cgraveyard	1	1	2147483647	0,0,0
+spirit/grave/ctomb	0	1	2147483647	0,0,0
+spirit/grave/ctomb	1	0	2147483647	0,0,0
+spirit/shrine	0	1	2147483647	0
+spirit/shrine	1	1	2147483647	0
+spirit/temple	0	0	2147483647	0,0,0,0,0
+spirit/temple	1	0	2147483647	0,0,0,0,0
+spirit/temple	2	0	2147483647	0,0,0,0,0
+spirit/temple	3	0	2147483647	0,0,0,0,0
+water/canal	0	1	2147483647	
+water/drain	0	1	2147483647	
+water/pumpconstructor	0	1	2147483647	0
+water/pool	0	1	2147483647	

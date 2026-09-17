@@ -1,0 +1,86 @@
+CRIMES: {
+	WAR: {
+		FREEDOM: 0,
+		LAW: 0,
+	},
+	MURDER: {
+		FREEDOM: 0.025,
+		LAW: 0.25,
+	},
+	THEFT: {
+		FREEDOM: 0.05,
+		LAW: 0.25,
+	},
+	VANDALISM: {
+		FREEDOM: 0.1,
+		LAW: 0.25,
+	},
+	FLASHING: {
+		FREEDOM: 0.15,
+		LAW: 0.25,
+	},
+	DISRESPECT: {
+		FREEDOM: 0.25,
+		LAW: 0.25,
+	},
+	SPEECH: {
+		FREEDOM: 0.3,
+		LAW: 0.25,
+	},
+	PLEASURE: {
+		FREEDOM: 1.0,
+		LAW: 0.0,
+	},
+	S_MURDER: {
+		FREEDOM: 0.025,
+		LAW: 0.25,
+	},
+	S_THEFT: {
+		FREEDOM: 0.05,
+		LAW: 0.25,
+	},
+	S_DISRESPECT: {
+		FREEDOM: 0.20,
+		LAW: 0.25,
+	},
+	S_PLEASURE: {
+		FREEDOM: 1.0,
+		LAW: 0.0,
+	},
+},
+
+PUNISHMENTS: {
+	PARDON: {
+		ICON: 24->law->0,
+		VALUE: 0,
+		MERCY: 1,
+	},
+	NONE: {
+		ICON: 24->law->5,
+		VALUE: 0,
+	},
+	BANISH: {
+		ICON: 24->law->4,
+		VALUE: 0.2,
+		MERCY: 0.5,
+	},
+	PRISON: {
+		ICON: 24->law->1,
+		VALUE: 0.5,
+	},
+	EXECUTE: {
+		ICON: 24->law->3,
+		VALUE: 1.0,
+		CRUELTY: 1,
+	},
+	HARVEST: {
+		ICON: 24->law->6,
+		VALUE: 1.0,
+		CRUELTY: 1,
+	},
+	ENSLAVE: {
+		ICON: 24->law->2,
+		VALUE: 0.75,
+		CRUELTY: 0.5,
+	},
+},

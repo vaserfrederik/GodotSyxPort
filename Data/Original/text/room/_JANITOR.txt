@@ -1,0 +1,45 @@
+INFO: {
+	NAME: "Janitor",
+	NAMES: "Janitors",
+	DESC: "Does maintenance in its vicinity. Consumes construction resources so make sure those are not too far away.",
+	WIKI: {
+		CATEGORY: "Infrastructure",
+		NAME: "Janitors",
+		TEXT: "Janitors are essential to keep your city functioning. Almost all things that require resources to build need maintenance or their efficiency will be impaired.
+		 
+		Janitors will fix buildings within their radius and stock the resources needed to do so in the room.
+		 
+		Maintenance jobs spawn on tiles, but a janitor only needs access to one tile to repair a multi-tile item. For example, a 2x5 item can be encased almost completely in walls and still remain repairable.
+		 
+		Some repairs need resources, others just labor. The amount and type of resources needed to keep a building repaired over time depends on the resources used to build it.
+		 
+		A few things do not require maintenance: Walls, ceilings, fortifications, fences, farms, and pastures.",
+	},
+},
+
+WORK: {
+	TITLE: "Janitor",
+	VERB: "Maintaining",
+},
+
+STATS: [
+	{
+		NAME: "Janitors",
+		DESC: "How many Janitors that can work here.",
+	},
+	{
+		NAME: "Efficiency",
+		DESC: "Increases performance.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Work Stations",
+		DESC: "A place for janitors to work.",
+	},
+	{
+		NAME: "Utilities",
+		DESC: "Increases efficiency.",
+	},
+],

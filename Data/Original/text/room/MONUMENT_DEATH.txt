@@ -1,0 +1,28 @@
+INFO: {
+	NAME: "Death Monument",
+	NAMES: "Death Monuments",
+	DESC: "Reminds the subjects of their mortality.",
+},
+
+ITEMS: [
+	{
+		NAME: "Averii Sculpture",
+		DESC: "Depictions of the chaos gods to scare your subjects into submission.",
+	},
+	{
+		NAME: "Head on Spike",
+		DESC: "The classic. The heads will populate as you kill enemies of subjects, but has no effect on their efficiency.",
+	},
+	{
+		NAME: "Mound of Skulls",
+		DESC: "A place to keep severed heads of enemies and treacherous subjects.",
+	},
+],
+
+LESS: [
+	"I think you might have gone a bit overboard with death.",
+],
+
+MORE: [
+	"More death monuments",
+],

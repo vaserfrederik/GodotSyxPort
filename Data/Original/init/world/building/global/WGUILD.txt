@@ -1,0 +1,77 @@
+**max nobles are 76 ranks
+**a noble rank gives 40 gov points
+**high empire is 55 ranks = 2200 gov points
+**a top tier town converts 300 gov points to 400WF
+**lets be nice and say it's 1:1
+**so a a top empire is at 2200 gov points
+**a 1.1 boost is 400 WF.
+** That's too high.
+** a 0.05 boost requires 200 WF, a metropolis should manage that.
+** levels:
+** 2200, 1000, 400, 100
+**a top town gives 400 WF (300 gov points = 7.5 ranks).  1.05 mul is 25 extra. Lets set the limit to 80, 150, 400 and 700WF. so, 1.1 x 700 = 70
+**a metropolis gives you 230 WP, large town 72
+
+AI_BUILDS: true,
+LEVELS: [
+	{
+		ICON: 32->WORK->2, 
+		CREDITS: 20000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_WGUILD_KINGDOM: 4,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -1,
+		},
+		BOOST_GLOBAL: {
+			WORLD_POINT_WORKFORCE>MUL: 1.02,
+		},
+	},
+	{
+		ICON: 32->WORK->2, 
+		CREDITS: 40000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_WGUILD_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -10,
+		},
+		BOOST_GLOBAL: {
+			WORLD_POINT_WORKFORCE>MUL: 1.03,
+		},
+	},
+	{
+		ICON: 32->WORK->2, 
+		CREDITS: 150000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_WGUILD_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -40,
+		},
+		BOOST_GLOBAL: {
+			WORLD_POINT_WORKFORCE>MUL: 1.04,
+		},
+	},
+	{
+		ICON: 32->WORK->2, 
+		CREDITS: 500000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_WGUILD_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -110,
+		},
+		BOOST_GLOBAL: {
+			WORLD_POINT_WORKFORCE>MUL: 1.05,
+		},
+	},
+],

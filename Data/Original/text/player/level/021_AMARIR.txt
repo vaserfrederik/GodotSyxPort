@@ -1,0 +1,3 @@
+MALE: "Amarir",
+FEMALE: "Amariress",
+DESC: "An Amarir is a chosen one, destined to lead his peoples to greatness. In order to secure future growth, we must now turn to our ingenuity. The people serving you have some ideas in the form of innovation. Use these to enhance their productivity in the tech tree.",

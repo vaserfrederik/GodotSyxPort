@@ -1,0 +1,182 @@
+ICON: 32->LAW->3,
+RESOURCES: [FURNITURE,METAL,],
+AREA_COSTS: [0,0,],
+MINI_COLOR: 70_70_70,
+FLOOR: STONE1,
+ITEMS: [
+	{
+		COSTS: [4,0,],
+		STATS: [1,],
+	},
+	{
+		COSTS: [4,0,],
+		STATS: [1,],
+	},
+	{
+		COSTS: [0,1,],
+		STATS: [1,],
+	},
+	{
+		COSTS: [4,0,],
+		STATS: [1,],
+	},
+],
+SERVICE: {
+	DEFAULT_ACCESS: 1,
+	STANDING: {
+		CITIZEN: 0.5,
+		SLAVE: 0.5,
+		NOBLE: 1,
+		PRIO: 1,
+	},
+	SOUND: DUMMY,
+	RADIUS: 300,
+	NEED: EXECUTION,
+},
+ENVIRONMENT_EMIT: {
+	_PUNISHMENT: {
+		VALUE: 0.5,
+		RADIUS: 1,
+	},
+},
+
+SPRITES: {
+
+	GALLOW_BEAM_LEFT_1X1: {
+		SHADOW_LENGTH: 0,
+		SHADOW_HEIGHT: 8,
+		ROTATES: true,
+		FRAMES: [
+			MISC1: 0,	
+		],
+	},
+	GALLOW_BEAM_CENTRE_1X1: {
+		SHADOW_LENGTH: 0,
+		SHADOW_HEIGHT: 8,
+		ROTATES: true,
+		FRAMES: [
+			MISC1: 1,	
+		],
+	},
+	GALLOW_BOTTOM_1X1: {
+		SHADOW_LENGTH: 2,
+		SHADOW_HEIGHT: 0,
+		ROTATES: true,
+		FRAMES: [
+			MISC1: 2,	
+		],
+	},
+	GALLOW_PILLAR_1X1: {
+		SHADOW_LENGTH: 8,
+		SHADOW_HEIGHT: 0,
+		ROTATES: true,
+		FRAMES: [
+			MISC1: 3,	
+		],
+	},
+	GALLOW_NOOSE_1X1: {
+		SHADOW_LENGTH: 0,
+		SHADOW_HEIGHT: 7,
+		ROTATES: true,
+		FRAMES: [
+			MISC1: 4,	
+		],
+	},
+	GALLOW_BOX_1X1: {
+		SHADOW_LENGTH: 2,
+		SHADOW_HEIGHT: 0,
+		ROTATES: true,
+		FRAMES: [
+			EXECUTION: 0,	
+		],
+	},
+	
+	CHOP_TABLE_1X1: {
+		SHADOW_LENGTH: 2,
+		SHADOW_HEIGHT: 0,
+		ROTATES: false,
+		FRAMES: [
+			EXECUTION: 1,	
+		],
+	},
+	CHOP_MAT_1X1: {
+		SHADOW_LENGTH: 2,
+		SHADOW_HEIGHT: 0,
+		ROTATES: true,
+		FRAMES: [
+			EXECUTION: 2,	
+		],
+	},
+	GIBBET_CAGE_1X1: {
+		SHADOW_LENGTH: 6,
+		TINT: true,
+		SHADOW_HEIGHT: 0,
+		ROTATES: true,
+		FRAMES: [
+			EXECUTION: 3,	
+		],
+	},
+	GIBBET_DOOR_1X1: {
+		SHADOW_LENGTH: 4,
+		SHADOW_HEIGHT: 0,
+		TINT: true,
+		ROTATES: true,
+		FRAMES: [
+			EXECUTION: 4,	
+		],
+	},
+	CROSS_C_1X1: {
+		SHADOW_LENGTH: 0,
+		SHADOW_HEIGHT: 8,
+		ROTATES: true,
+		FRAMES: [
+			MISC1: 5,	
+		],
+	},
+	CROSS_R_1X1: {
+		SHADOW_LENGTH: 0,
+		SHADOW_HEIGHT: 8,
+		ROTATES: true,
+		FRAMES: [
+			MISC1: 7,	
+		],
+	},
+	CROSS_L_1X1: {
+		SHADOW_LENGTH: 0,
+		SHADOW_HEIGHT: 8,
+		ROTATES: true,
+		FRAMES: [
+			MISC1: 6,	
+		],
+	},
+	CROSS_MID_1X1: {
+		SHADOW_LENGTH: 0,
+		SHADOW_HEIGHT: 8,
+		ROTATES: true,
+		FRAMES: [
+			MISC1: 8,	
+		],
+	},
+	CROSS_POLE_1X1: {
+		SHADOW_LENGTH: 8,
+		SHADOW_HEIGHT: 0,
+		TINT: true,
+		ROTATES: true,
+		FRAMES: [
+			MISC1: 3,	
+		],
+	},
+	
+	
+	PODIUM_BOX: [
+		{	
+			COLOR: [
+				150_150_145,
+			],
+			FRAMES: [
+				PODIUM: 6,	
+			],
+		},
+	],
+},
+

@@ -1,0 +1,1620 @@
+CATEGORY: 3,
+COLOR: 255_216_0,
+ICON: 32->_ICONS->9,
+TREE: {
+		00: [______,______,______,______,______,______,______,______,______,______,______,GEM_00,______,SITH00,],
+		01: [______,WOOD01,______,CLAY01,______,COAL01,______,STON01,______,ORE_01,______,GEM_01,______,SITH01,],
+		02: [______,WOODt1,______,CLAYt1,______,COALt1,______,STONt1,______,ORE_t1,______,GEM_t1,______,SITHt1,],
+		03: [______,WOOD02,______,CLAY02,______,COAL02,______,STON02,______,ORE_02,______,GEM_02,______,SITH02,],
+		04: [______,WOOD03,______,CLAYu1,______,COALu1,______,STONu1,______,ORE_u1,______,GEM_u1,______,SITHu1,],
+		05: [______,WOODt2,______,CLAY03,______,COAL03,______,STON03,______,ORE_03,______,GEM_03,______,SITH03,],
+		06: [______,WOOD04,______,CLAYt2,______,COALt2,______,STONt2,______,ORE_t2,______,GEM_t2,______,SITHt2,],
+		07: [______,WOODu2,______,CLAY04,______,COAL04,______,STON04,______,ORE_04,______,GEM_04,______,SITH04,],
+		08: [______,______,______,CLAYu2,______,COALu2,______,STONu2,______,ORE_u2,______,GEM_u2,______,SITHu2,],
+},
+TECHS: {
+	WOOD01: {
+		ICON: [ 
+			{
+			BG: 32->WORK->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_WOODCUTTER>ADD: 0.15,
+		},
+	},
+	WOODt1: {
+		ICON: [ 
+			{
+			BG: 32->WORK->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WOOD01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL__WOODCUTTER>ADD: 1.0,
+		},
+	},
+	WOOD02: {
+		ICON: [ 
+			{
+			BG: 32->WORK->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WOODt1: 2,
+		},
+		BOOST: {
+			ROOM_WOODCUTTER>ADD: 0.15,
+		},
+	},
+	WOOD03: {
+		ICON: [ 
+			{
+			BG: 32->WORK->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WOOD02: 10,
+		},
+		BOOST: {
+			ROOM_WOODCUTTER>ADD: 0.15,
+		},
+	},
+	WOODt2: {
+		ICON: [ 
+			{
+			BG: 32->WORK->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WOOD03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL__WOODCUTTER>ADD: 1.0,
+		},
+	},
+	WOOD04: {
+		ICON: [ 
+			{
+			BG: 32->WORK->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WOODt2: 2,
+		},
+		BOOST: {
+			ROOM_WOODCUTTER>ADD: 0.21,
+		},
+	},
+	WOODu2: {
+		ICON: [ 
+			{
+			BG: 32->WORK->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 126,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WOOD04: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_WOODCUTTER_UPGRADE_1,
+		],
+	},
+	CLAY01: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Clay->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_MINE_CLAY>ADD: 0.15,
+		},
+	},
+	CLAYt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Clay->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CLAY01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_CLAY>ADD: 1.0,
+		},
+	},
+	CLAY02: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Clay->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CLAYt1: 2,
+		},
+		BOOST: {
+			ROOM_MINE_CLAY>ADD: 0.15,
+		},
+	},
+	CLAYu1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Clay->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 58,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CLAY02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_CLAY_UPGRADE_1,
+		],
+	},
+	CLAY03: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Clay->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CLAYu1: 1,
+		},
+		BOOST: {
+			ROOM_MINE_CLAY>ADD: 0.15,
+		},
+	},
+	CLAYt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Clay->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CLAY03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_CLAY>ADD: 1.0,
+		},
+	},
+	CLAY04: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Clay->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CLAYt2: 2,
+		},
+		BOOST: {
+			ROOM_MINE_CLAY>ADD: 0.2,
+		},
+	},
+	CLAYu2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Clay->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 84,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CLAY04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_CLAY_UPGRADE_2,
+		],
+	},
+	COAL01: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Coal->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_MINE_COAL>ADD: 0.15,
+		},
+	},
+	COALt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Coal->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COAL01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_COAL>ADD: 1.0,
+		},
+	},
+	COAL02: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Coal->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COALt1: 2,
+		},
+		BOOST: {
+			ROOM_MINE_COAL>ADD: 0.15,
+		},
+	},
+	COALu1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Coal->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 58,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COAL02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_COAL_UPGRADE_1,
+		],
+	},
+	COAL03: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Coal->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COALu1: 1,
+		},
+		BOOST: {
+			ROOM_MINE_COAL>ADD: 0.15,
+		},
+	},
+	COALt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Coal->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COAL03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_COAL>ADD: 1.0,
+		},
+	},
+	COAL04: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Coal->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COALt2: 2,
+		},
+		BOOST: {
+			ROOM_MINE_COAL>ADD: 0.2,
+		},
+	},
+	COALu2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Coal->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 84,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COAL04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_COAL_UPGRADE_2,
+		],
+	},
+	STON01: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Stone->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_MINE_STONE>ADD: 0.15,
+		},
+	},
+	STONt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Stone->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			STON01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_STONE>ADD: 1.0,
+		},
+	},
+	STON02: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Stone->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			STONt1: 2,
+		},
+		BOOST: {
+			ROOM_MINE_STONE>ADD: 0.15,
+		},
+	},
+	STONu1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Stone->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 58,
+		},
+		REQUIRES_TECH_LEVEL: {
+			STON02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_STONE_UPGRADE_1,
+		],
+	},
+	STON03: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Stone->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			STONu1: 1,
+		},
+		BOOST: {
+			ROOM_MINE_STONE>ADD: 0.15,
+		},
+	},
+	STONt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Stone->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			STON03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_STONE>ADD: 1.0,
+		},
+	},
+	STON04: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Stone->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			STONt2: 2,
+		},
+		BOOST: {
+			ROOM_MINE_STONE>ADD: 0.2,
+		},
+	},
+	STONu2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Stone->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 84,
+		},
+		REQUIRES_TECH_LEVEL: {
+			STON04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_STONE_UPGRADE_2,
+		],
+	},
+	ORE_01: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Ore->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_MINE_ORE>ADD: 0.15,
+		},
+	},
+	ORE_t1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Ore->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ORE_01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_ORE>ADD: 1.0,
+		},
+	},
+	ORE_02: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Ore->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ORE_t1: 2,
+		},
+		BOOST: {
+			ROOM_MINE_ORE>ADD: 0.15,
+		},
+	},
+	ORE_u1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Ore->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 58,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ORE_02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_ORE_UPGRADE_1,
+		],
+	},
+	ORE_03: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Ore->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ORE_u1: 1,
+		},
+		BOOST: {
+			ROOM_MINE_ORE>ADD: 0.15,
+		},
+	},
+	ORE_t2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Ore->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ORE_03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_ORE>ADD: 1.0,
+		},
+	},
+	ORE_04: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Ore->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ORE_t2: 2,
+		},
+		BOOST: {
+			ROOM_MINE_ORE>ADD: 0.2,
+		},
+	},
+	ORE_u2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Ore->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 84,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ORE_04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_ORE_UPGRADE_2,
+		],
+	},
+	GEM_00: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Gem->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->6,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 50,
+		},
+		UNLOCKS_REGION: [
+			BUILDING_MINE_MINE_GEM_1,
+		],
+		UNLOCKS_FACTION: [
+			ROOM_MINE_GEM,
+		],
+	},
+	GEM_01: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Gem->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GEM_00: 1,
+		},
+		BOOST: {
+			ROOM_MINE_GEM>ADD: 0.15,
+		},
+	},
+	GEM_t1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Gem->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GEM_01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_GEM>ADD: 1.0,
+		},
+	},
+	GEM_02: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Gem->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GEM_t1: 2,
+		},
+		BOOST: {
+			ROOM_MINE_GEM>ADD: 0.15,
+		},
+	},
+	GEM_u1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Gem->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 58,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GEM_02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_GEM_UPGRADE_1,
+		],
+	},
+	GEM_03: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Gem->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GEM_u1: 1,
+		},
+		BOOST: {
+			ROOM_MINE_GEM>ADD: 0.15,
+		},
+	},
+	GEM_t2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Gem->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GEM_03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_GEM>ADD: 1.0,
+		},
+	},
+	GEM_04: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Gem->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 16,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GEM_t2: 2,
+		},
+		BOOST: {
+			ROOM_MINE_GEM>ADD: 0.2,
+		},
+	},
+	GEM_u2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Gem->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 64,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GEM_04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_GEM_UPGRADE_2,
+		],
+	},
+	SITH00: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Sithilon->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->6,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 60,
+		},
+		UNLOCKS_REGION: [
+			BUILDING_MINE_MINE_SITHILON_1,
+		],
+		UNLOCKS_FACTION: [
+			ROOM_MINE_SITHILON,
+		],
+	},
+	SITH01: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Sithilon->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SITH00: 1,
+		},
+		BOOST: {
+			ROOM_MINE_SITHILON>ADD: 0.15,
+		},
+	},
+	SITHt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Sithilon->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SITH01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_SITHILON>ADD: 1.0,
+		},
+	},
+	SITH02: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Sithilon->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SITHt1: 2,
+		},
+		BOOST: {
+			ROOM_MINE_SITHILON>ADD: 0.15,
+		},
+	},
+	SITHu1: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Sithilon->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 58,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SITH02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_SITHILON_UPGRADE_1,
+		],
+	},
+	SITH03: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Sithilon->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SITHu1: 1,
+		},
+		BOOST: {
+			ROOM_MINE_SITHILON>ADD: 0.15,
+		},
+	},
+	SITHt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Sithilon->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SITH03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_MINE_SITHILON>ADD: 1.0,
+		},
+	},
+	SITH04: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Sithilon->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SITHt2: 2,
+		},
+		BOOST: {
+			ROOM_MINE_SITHILON>ADD: 0.2,
+		},
+	},
+	SITHu2: {
+		ICON: [ 
+			{
+			BG: 32->BG->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Sithilon->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 60,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SITH04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MINE_SITHILON_UPGRADE_2,
+		],
+	},
+},
+

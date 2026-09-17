@@ -1,0 +1,2 @@
+NAME: "First of Their Name",
+DESC: "Gained by having a large and loyal capital. You have grand plans and a way with words. Your subjects, though skeptical, will do their utmost to witness your success or failure. Requires the utopia play mode to unlock.",

@@ -1,0 +1,121 @@
+ICON: {
+	BG: 32->BG->1,
+	FG: 24->race->Garthimi->0,
+	SHADOW: 2,
+},
+RESOURCES: [MEAT,CLAY,STONE,],
+AREA_COSTS: [0,0,0,],
+FLOOR: DARK1,
+MINI_COLOR: 0_255_255,
+ITEMS: [
+	{
+		COSTS: [2,2,2,],
+		STATS: [1,0,],
+	},
+	{
+		COSTS: [4,4,4,],
+		STATS: [0,3,],
+	},
+],
+WORK: {
+	SHIFT_OFFSET: 0.125,
+	SOUND: work->Fabric*,
+	USES_TOOL: false,
+	FULFILLMENT: -100.0,
+},
+INDUSTRY: {
+	IN: {
+		MEAT: 2.0,
+	},
+	OUT: {
+		
+	},
+},
+RACE: GARTHIMI,
+INCUBATION_DAYS: 8,
+SPRITES: {
+	1x1_RIM_CORNER: {
+		FPS: 4,
+		CIRCULAR: true,
+		SHADOW_LENGTH: 6,
+		ROTATES: true,
+		FPS_INTERVAL: 0.5,
+		FRAMES: [
+			BREEDER: 2,
+		],
+	},
+	1x1_RIM_EDGE: {
+		FPS: 4,
+		CIRCULAR: true,
+		SHADOW_LENGTH: 6,
+		FPS_INTERVAL: 0.5,
+		ROTATES: true,
+		FRAMES: [
+			BREEDER: 3,
+		],
+	},
+	1x1_WORM: {
+		FPS: 6,
+		CIRCULAR: true,
+		SHADOW_LENGTH: 0,
+		SHADOW_HEIGHT: 0,
+		ROTATES: false,
+		FRAMES: [
+			BREEDER: 0,
+			BREEDER: 1,
+		],
+	},
+	1x1_RIM_DECOR: {
+		FPS: 5,
+		CIRCULAR: true,
+		SHADOW_LENGTH: 2,
+		SHADOW_HEIGHT: 0,
+		ROTATES: true,
+		TINT: true,
+		FRAMES: [
+			ORGANIC_BLOB: 0,
+			ORGANIC_BLOB: 1,
+			ORGANIC_BLOB: 2,
+			ORGANIC_BLOB: 3,
+			ORGANIC_BLOB: 5,
+			ORGANIC_BLOB: 5,
+			ORGANIC_BLOB: 6,
+			ORGANIC_BLOB: 6,
+		],
+	},
+	1x1_CORNER: {
+		SHADOW_LENGTH: 4,
+		SHADOW_HEIGHT: 0,
+		ROTATES: false,
+		FRAMES: [
+			TABLES: 4,
+		],
+	},
+	1x1_DECOR: {
+		FPS: 5,
+		CIRCULAR: true,
+		SHADOW_LENGTH: 2,
+		SHADOW_HEIGHT: 0,
+		ROTATES: false,
+		TINT: true,
+		FRAMES: [
+			ORGANIC_BLOB: 0,
+			ORGANIC_BLOB: 1,
+			ORGANIC_BLOB: 2,
+			ORGANIC_BLOB: 3,
+		],
+	},
+	2x2_DECOR: {
+		FPS: 5,
+		FPS_INTERVAL: 0.2,
+		SHADOW_LENGTH: 3,
+		SHADOW_HEIGHT: 0,
+		ROTATES: false,
+		TINT: true,
+		CIRCULAR: true,
+		FRAMES: [
+			ORGANIC_BLOB: 0,
+		],
+	},
+},
+

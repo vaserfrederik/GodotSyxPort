@@ -1,0 +1,1479 @@
+CATEGORY: 1,
+COLOR: 158_101_63,
+ICON: 32->_ICONS->11,
+TREE: {
+		00: [______,______,______,______,______,______,______,______,MUSH00,______,HERB00,______,SPIC00,______,______,],
+		01: [GRAI01,______,FRUI01,______,VEGE01,______,COTT01,______,MUSH01,______,HERB01,______,SPIC01,______,OFRU01,],
+		02: [GRAIt1,______,FRUIt1,______,VEGEt1,______,COTTt1,______,MUSHt1,______,HERBt1,______,SPICt1,______,OFRUt1,],
+		03: [GRAI02,______,FRUI02,______,VEGE02,______,COTT02,______,MUSH02,______,HERB02,______,SPIC02,______,OFRU02,],
+		04: [GRAI03,______,FRUI03,______,VEGE03,______,COTT03,______,MUSH03,______,HERB03,______,SPIC03,______,OFRU03,],
+		05: [GRAIt2,______,FRUIt2,______,VEGEt2,______,COTTt2,______,MUSHt2,______,HERBt2,______,SPICt2,______,OFRUt2,],
+		06: [GRAI04,______,FRUI04,______,VEGE04,______,COTT04,______,MUSH04,______,HERB04,______,SPIC04,______,OFRU04,],
+},
+TECHS: {
+	GRAI01: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Grain->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_FARM_GRAIN>ADD: 0.15,
+		},
+	},
+	GRAIt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Grain->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GRAI01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_GRAIN>ADD: 1.0,
+		},
+	},
+	GRAI02: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Grain->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GRAIt1: 2,
+		},
+		BOOST: {
+			ROOM_FARM_GRAIN>ADD: 0.15,
+		},
+	},
+	GRAI03: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Grain->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GRAI02: 10,
+		},
+		BOOST: {
+			ROOM_FARM_GRAIN>ADD: 0.15,
+		},
+	},
+	GRAIt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Grain->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GRAI03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_GRAIN>ADD: 1.0,
+		},
+	},
+	GRAI04: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Grain->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GRAIt2: 2,
+		},
+		BOOST: {
+			ROOM_FARM_GRAIN>ADD: 0.16,
+		},
+	},
+	FRUI01: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_FARM_FRUIT>ADD: 0.15,
+		},
+	},
+	FRUIt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FRUI01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_FRUIT>ADD: 1.0,
+		},
+	},
+	FRUI02: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FRUIt1: 2,
+		},
+		BOOST: {
+			ROOM_FARM_FRUIT>ADD: 0.15,
+		},
+	},
+	FRUI03: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FRUI02: 10,
+		},
+		BOOST: {
+			ROOM_FARM_FRUIT>ADD: 0.15,
+		},
+	},
+	FRUIt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FRUI03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_FRUIT>ADD: 1.0,
+		},
+	},
+	FRUI04: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FRUIt2: 2,
+		},
+		BOOST: {
+			ROOM_FARM_FRUIT>ADD: 0.16,
+		},
+	},
+	VEGE01: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Vegetable->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_FARM_VEG>ADD: 0.15,
+		},
+	},
+	VEGEt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Vegetable->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			VEGE01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_VEG>ADD: 1.0,
+		},
+	},
+	VEGE02: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Vegetable->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			VEGEt1: 2,
+		},
+		BOOST: {
+			ROOM_FARM_VEG>ADD: 0.15,
+		},
+	},
+	VEGE03: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Vegetable->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			VEGE02: 10,
+		},
+		BOOST: {
+			ROOM_FARM_VEG>ADD: 0.15,
+		},
+	},
+	VEGEt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Vegetable->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			VEGE03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_VEG>ADD: 1.0,
+		},
+	},
+	VEGE04: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Vegetable->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			VEGEt2: 2,
+		},
+		BOOST: {
+			ROOM_FARM_VEG>ADD: 0.16,
+		},
+	},
+	COTT01: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Cotton->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_FARM_COTTON>ADD: 0.15,
+		},
+	},
+	COTTt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Cotton->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COTT01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_COTTON>ADD: 1.0,
+		},
+	},
+	COTT02: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Cotton->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COTTt1: 2,
+		},
+		BOOST: {
+			ROOM_FARM_COTTON>ADD: 0.15,
+		},
+	},
+	COTT03: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Cotton->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COTT02: 10,
+		},
+		BOOST: {
+			ROOM_FARM_COTTON>ADD: 0.15,
+		},
+	},
+	COTTt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Cotton->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COTT03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_COTTON>ADD: 1.0,
+		},
+	},
+	COTT04: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Cotton->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COTTt2: 2,
+		},
+		BOOST: {
+			ROOM_FARM_COTTON>ADD: 0.16,
+		},
+	},
+	MUSH00: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Mushroom->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->6,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 10,
+		},
+		UNLOCKS_REGION: [
+			BUILDING_AGRICULTURE_FARM_MUSHROOM_1,
+		],
+		UNLOCKS_FACTION: [
+			ROOM_FARM_MUSHROOM,
+		],
+	},
+	MUSH01: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Mushroom->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MUSH00: 1,
+		},
+		BOOST: {
+			ROOM_FARM_MUSHROOM>ADD: 0.15,
+		},
+	},
+	MUSHt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Mushroom->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MUSH01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_MUSHROOM>ADD: 1.0,
+		},
+	},
+	MUSH02: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Mushroom->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MUSHt1: 2,
+		},
+		BOOST: {
+			ROOM_FARM_MUSHROOM>ADD: 0.15,
+		},
+	},
+	MUSH03: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Mushroom->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MUSH02: 10,
+		},
+		BOOST: {
+			ROOM_FARM_MUSHROOM>ADD: 0.15,
+		},
+	},
+	MUSHt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Mushroom->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MUSH03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_MUSHROOM>ADD: 1.0,
+		},
+	},
+	MUSH04: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Mushroom->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 20,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MUSHt2: 2,
+		},
+		BOOST: {
+			ROOM_FARM_MUSHROOM>ADD: 0.16,
+		},
+	},
+	HERB00: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Herb->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->6,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 20,
+		},
+		UNLOCKS_REGION: [
+			BUILDING_AGRICULTURE_FARM_HERB_1,
+		],
+		UNLOCKS_FACTION: [
+			ROOM_FARM_HERB,
+		],
+	},
+	HERB01: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Herb->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			HERB00: 1,
+		},
+		BOOST: {
+			ROOM_FARM_HERB>ADD: 0.15,
+		},
+	},
+	HERBt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Herb->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			HERB01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_HERB>ADD: 1.0,
+		},
+	},
+	HERB02: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Herb->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			HERBt1: 2,
+		},
+		BOOST: {
+			ROOM_FARM_HERB>ADD: 0.15,
+		},
+	},
+	HERB03: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Herb->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			HERB02: 10,
+		},
+		BOOST: {
+			ROOM_FARM_HERB>ADD: 0.15,
+		},
+	},
+	HERBt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Herb->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			HERB03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_HERB>ADD: 1.0,
+		},
+	},
+	HERB04: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Herb->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			HERBt2: 2,
+		},
+		BOOST: {
+			ROOM_FARM_HERB>ADD: 0.16,
+		},
+	},
+	SPIC00: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Opiates->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->6,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 30,
+		},
+		UNLOCKS_REGION: [
+			BUILDING_AGRICULTURE_FARM_SPICES_1,
+		],
+		UNLOCKS_FACTION: [
+			ROOM_FARM_SPICES,
+		],
+	},
+	SPIC01: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Opiates->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SPIC00: 1,
+		},
+		BOOST: {
+			ROOM_FARM_SPICES>ADD: 0.15,
+		},
+	},
+	SPICt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Opiates->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SPIC01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_SPICES>ADD: 1.0,
+		},
+	},
+	SPIC02: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Opiates->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SPICt1: 2,
+		},
+		BOOST: {
+			ROOM_FARM_SPICES>ADD: 0.15,
+		},
+	},
+	SPIC03: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Opiates->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SPIC02: 10,
+		},
+		BOOST: {
+			ROOM_FARM_SPICES>ADD: 0.15,
+		},
+	},
+	SPICt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Opiates->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SPIC03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FARM_SPICES>ADD: 1.0,
+		},
+	},
+	SPIC04: {
+		ICON: [ 
+			{
+			BG: 32->BG->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Opiates->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 18,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SPICt2: 2,
+		},
+		BOOST: {
+			ROOM_FARM_SPICES>ADD: 0.16,
+		},
+	},
+	OFRU01: {
+		ICON: [ 
+			{
+			BG: 32->BG->7,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_ORCHARD_FRUIT>ADD: 0.15,
+		},
+	},
+	OFRUt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->7,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			OFRU01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_ORCHARD_FRUIT>ADD: 1.0,
+		},
+	},
+	OFRU02: {
+		ICON: [ 
+			{
+			BG: 32->BG->7,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			OFRUt1: 2,
+		},
+		BOOST: {
+			ROOM_ORCHARD_FRUIT>ADD: 0.15,
+		},
+	},
+	OFRU03: {
+		ICON: [ 
+			{
+			BG: 32->BG->7,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			OFRU02: 10,
+		},
+		BOOST: {
+			ROOM_ORCHARD_FRUIT>ADD: 0.15,
+		},
+	},
+	OFRUt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->7,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			OFRU03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_ORCHARD_FRUIT>ADD: 1.0,
+		},
+	},
+	OFRU04: {
+		ICON: [ 
+			{
+			BG: 32->BG->7,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fruit->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			OFRUt2: 2,
+		},
+		BOOST: {
+			ROOM_ORCHARD_FRUIT>ADD: 0.16,
+		},
+	},
+},
+

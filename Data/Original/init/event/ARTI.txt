@@ -1,0 +1,1388 @@
+VOLCANO: {
+	ICON: 32->THRONE->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: VOLCANO_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0.25,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 3000,
+				GOVERN_RICHES: 0.35,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			VOLCANO_YES,
+			ARTIFACT_ONGOING,
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: VOLCANO_YES,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: -300,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: VOLCANO_NO,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 300,
+				},
+			],		
+		},
+	],
+},
+
+VOLCANO_YES: {
+	ICON: 32->THRONE->0,
+	TAGS: {
+		ADD: [
+			VOLCANO_YES,
+			ARTIFACT_ONGOING,
+		],
+	},
+},
+
+VOLCANO_NO: {
+	ICON: 32->THRONE->0,
+},
+
+VOLCANO_YES_FOLLOW: {
+	ICON: 32->SEASONS->3,  
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: VOLCANO_YES_FOLLOW_FOLLOW,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 5.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 10,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	TAGS: {
+		ALLOW: [
+			VOLCANO_YES,
+		],
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+		REMOVE: [
+			ARTIFACT_ONGOING,
+		],
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+
+				PLAYER: {
+					ROOM_ORCHARD*>MUL: 0.3,
+					ROOM_FARM*>MUL: 0.3,
+					ROOM_FARM_MUSHROOM>MUL: 1,
+					WORLD_BUILDING_AGRICULTURE*>MUL: 0.3,
+					WORLD_BUILDING_PASTURE*>MUL: 0.3,	
+					WORLD_BUILDING_AGRICULTURE_FARM_MUSHROOM>MUL: 1,	
+					WORLD_BUILDING_PASTURE_FISHERY_NORMAL>MUL: 0.5,
+					ROOM_FISHERY_NORMAL>MUL: 0.5,
+				},
+			},
+			{
+				TYPE: WEATHER,
+				TEMPERATURE: -0.5,
+				SKY: 125_125_125,
+			},
+		],
+	},
+},
+
+VOLCANO_YES_FOLLOW_FOLLOW: {
+	ICON: 32->SEASONS->0,
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: true,
+				BOOST: {
+					ROOM_ORCHARD*>MUL: 1.1,
+					ROOM_FARM_COTTON>MUL: 1.1,
+					ROOM_FARM_FRUIT>MUL: 1.1,
+					ROOM_FARM_GRAIN>MUL: 1.1,
+					ROOM_FARM_HERB>MUL: 1.1,
+					ROOM_FARM_MUSHROOM>MUL: 1.1,
+					ROOM_FARM_SPICES>MUL: 1.1,
+					ROOM_FARM_VEG>MUL: 1.1,
+					WORLD_BUILDING_AGRICULTURE_FARM_COTTON>MUL: 1.1,
+					WORLD_BUILDING_AGRICULTURE_FARM_FRUIT>MUL: 1.1,
+					WORLD_BUILDING_AGRICULTURE_FARM_GRAIN>MUL: 1.1,
+					WORLD_BUILDING_AGRICULTURE_FARM_HERB>MUL: 1.1,
+					WORLD_BUILDING_AGRICULTURE_FARM_MUSHROOM>MUL: 1.1,
+					WORLD_BUILDING_AGRICULTURE_FARM_SPICES>MUL: 1.1,
+					WORLD_BUILDING_AGRICULTURE_FARM_VEG>MUL: 1.1,
+					WORLD_BUILDING_AGRICULTURE_ORCHARD_FRUIT>MUL: 1.1,
+				},
+			},
+		],
+	},
+},
+
+EARTHQUAKE: {
+	ICON: 32->THRONE->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: EARTHQUAKE_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0.25,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 3000,
+				GOVERN_RICHES: 0.35,
+			},
+		},
+	},
+
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			EARTHQUAKE_YES,
+			ARTIFACT_ONGOING,
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: EARTHQUAKE_YES,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: -300,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: EARTHQUAKE_NO,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 300,
+				},
+			],		
+		},
+	],
+},
+
+EARTHQUAKE_YES: {
+	ICON: 32->THRONE->0,
+	TAGS: {
+		ADD: [
+			EARTHQUAKE_YES,
+			ARTIFACT_ONGOING,
+		],
+	},	
+},
+
+EARTHQUAKE_NO: {
+	ICON: 32->THRONE->0,
+},
+
+EARTHQUAKE_YES_FOLLOW: {
+	ICON: 32->WORK->3,  
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: EARTHQUAKE_YES_FOLLOW_FOLLOW,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 5.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 10,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	TAGS: {
+		ALLOW: [
+			EARTHQUAKE_YES,
+		],
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+		REMOVE: [
+			ARTIFACT_ONGOING,
+		],
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: EARTHQUAKE,
+			},
+		],
+	},
+},
+
+EARTHQUAKE_YES_FOLLOW_FOLLOW: {
+	ICON: 32->SEASONS->0,
+	DURATION: {
+		DAYS: 4.0,
+	},
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: true,
+				BOOST: {
+					ROOM_MINE*>MUL: 1.1,
+					CIVIC_MAINTENANCE>MUL: 1.1,
+				},
+			},
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					BEHAVIOUR_LOYALTY>MUL: 2,
+				},
+			},
+		],
+	},
+},
+
+STORM: {
+	ICON: 32->THRONE->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: STORM_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0.25,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 3000,
+				GOVERN_RICHES: 0.35,
+			},
+		},
+	},
+
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			VOLCANO_YES,
+			ARTIFACT_ONGOING,
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: STORM_YES,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: -300,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: EARTHQUAKE_NO,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 300,
+				},
+			],		
+		},
+	],
+},
+
+STORM_YES: {
+	ICON: 32->THRONE->0,
+	TAGS: {
+		ADD: [
+			STORM_YES,
+			ARTIFACT_ONGOING,
+		],
+	},
+},
+
+STORM_NO: {
+	ICON: 32->THRONE->0,
+},
+
+STORM_YES_FOLLOW: {
+	ICON: 32->WORK->3,  
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: STORM_YES_FOLLOW_FOLLOW,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 5.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 10,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+
+	TAGS: {
+		ALLOW: [
+			STORM_YES,
+		],
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			STORM_YES,
+		],
+		REMOVE: [
+			ARTIFACT_ONGOING,
+		],
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: WEATHER,
+				WIND: 1.0,
+				DOWNPOUR: 1,
+				LIGHTNING: 1.0,
+				CLOUDS: 0.5,
+				SKY: 200_100_120,
+			},
+			{
+				TYPE: DESTRUCTION,
+				DEATH: 60,
+				DESTRUCTION: 30,
+			},
+		],
+	},
+},
+
+STORM_YES_FOLLOW_FOLLOW: {
+	ICON: 32->SEASONS->0,
+	DURATION: {
+		DAYS: 4.0,
+	},
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: true,
+				BOOST: {
+					WORLD_PROXIMITY>MUL: 1.2,
+				},
+			},
+			{
+				TYPE: BOOST,
+
+				PLAYER: {
+					BEHAVIOUR_LOYALTY>MUL: 2,
+				},
+			},
+		],
+	},
+},
+
+ELIXIER: {
+	ICON: 32->THRONE->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: ELIXIER_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0.25,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 3000,
+				GOVERN_RICHES: 0.35,
+			},
+		},
+	},
+
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			ELIXIER_YES,
+			ARTIFACT_ONGOING,
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: ELIXIER_YES,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: -300,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: ELIXIER_NO,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 300,
+				},
+			],		
+		},
+	],
+},
+
+ELIXIER_YES: {
+	ICON: 32->THRONE->0,
+	TAGS: {
+		ADD: [
+			ELIXIER_YES,
+			ARTIFACT_ONGOING,
+		],
+	},
+},
+
+ELIXIER_NO: {
+	ICON: 32->THRONE->0,
+},
+
+ELIXIER_YES_FOLLOW: {
+	ICON: 32->KNOWLEDGE->0, 
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: ELIXIER_YES_FOLLOW_FOLLOW,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 5.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 10,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+
+	TAGS: {
+		ALLOW: [
+			ELIXIER_YES,
+		],
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+		REMOVE: [
+			ARTIFACT_ONGOING,
+		],
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+
+				PLAYER: {
+					PHYSICS_HEALTH>MUL: 0.1,
+					ROOM_STOCKPILE>ADD: -1,
+					PHYSICS_SPEED>MUL: 0.85,
+				},
+			},
+		],
+	},
+},
+
+ELIXIER_YES_FOLLOW_FOLLOW: {
+	ICON: 32->KNOWLEDGE->0,
+	DURATION: {
+		DAYS: 4.0,
+	},
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: true,
+				BOOST: {
+					PHYSICS_HEALTH>MUL: 1.2,
+					ROOM_STOCKPILE>ADD: 2,
+					PHYSICS_SPEED>MUL: 1.05,
+					BATTLE_BLUNT_ATTACK>MUL: 1.05,
+				},
+			},
+			{
+				TYPE: BOOST,
+
+				PLAYER: {
+					BEHAVIOUR_HAPPINESS>MUL: 2,
+				},
+			},
+		],
+	},
+},
+
+HELM: {
+	ICON: 32->THRONE->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: HELM_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0.25,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 3000,
+				GOVERN_RICHES: 0.35,
+			},
+		},
+	},
+
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			HELM_YES,
+			ARTIFACT_ONGOING,
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: HELM_YES,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: -300,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: HELM_NO,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 300,
+				},
+			],		
+		},
+	],
+},
+
+HELM_YES: {
+	ICON: 32->THRONE->0,
+	TAGS: {
+		ADD: [
+			HELM_YES,
+			ARTIFACT_ONGOING,
+		],
+	},
+},
+
+HELM_NO: {
+	ICON: 32->THRONE->0,
+},
+
+HELM_YES_FOLLOW: {
+	ICON: 32->KNOWLEDGE->0, 
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: HELM_YES_FOLLOW_FOLLOW,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 5.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 10,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+
+	TAGS: {
+		ALLOW: [
+			HELM_YES,
+		],
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+		REMOVE: [
+			ARTIFACT_ONGOING,
+		],
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+
+				PLAYER: {
+					BEHAVIOUR_LAWFULNESS>MUL: 0.75,
+					CIVIC_OPINION>ADD: -0.1,
+					BEHAVIOUR_LOYALTY>MUL: 0.75,
+				},
+			},
+		],
+	},
+},
+
+HELM_YES_FOLLOW_FOLLOW: {
+	ICON: 32->KNOWLEDGE->0,
+	DURATION: {
+		DAYS: 4.0,
+	},
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: true,
+				BOOST: {
+					BEHAVIOUR_LAWFULNESS>MUL: 1.2,
+					BEHAVIOUR_LOYALTY>MUL: 1.05,
+				},
+			},
+		],
+	},
+},
+
+POD: {
+	ICON: 32->THRONE->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: POD_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0.25,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 3000,
+				GOVERN_RICHES: 0.35,
+			},
+		},
+	},
+
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			POD_YES,
+			ARTIFACT_ONGOING,
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: POD_YES,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: -300,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: POD_NO,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 300,
+				},
+			],		
+		},
+	],
+},
+
+POD_YES: {
+	ICON: 32->THRONE->0,
+	TAGS: {
+		ADD: [
+			POD_YES,
+			ARTIFACT_ONGOING,
+		],
+	},
+},
+
+POD_NO: {
+	ICON: 32->THRONE->0,
+},
+
+POD_YES_FOLLOW: {
+	ICON: 32->race->Cantor->0,
+	DURATION: {
+		DAYS: 2.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: POD_YES_FOLLOW_YES,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 5.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 10,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+
+	TAGS: {
+		ALLOW: [
+			POD_YES,
+		],
+		REMOVE: [
+			POD_YES,
+		],
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: POD_YES_FOLLOW_YES,
+				},	
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: POD_YES_FOLLOW_NO,
+				},	
+			],		
+		},
+		{
+			REQUIRES: {
+				GREATER: {
+					POPULATION_ARGONOSH_CITIZEN_I: 0,
+				},		
+			},
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: POD_YES_FOLLOW_MAYBE,
+				},	
+			],		
+		},
+	],
+},
+
+POD_YES_FOLLOW_YES: {
+	ICON: 32->race->Cantor->0,
+	TAGS: {
+		ADD: [
+			POD_ALT,
+		],
+		REMOVE: [
+			ARTIFACT_ONGOING,
+		],
+	},
+},
+
+POD_YES_FOLLOW_NO: {
+	ICON: 32->race->Cantor->0,
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: INVASION,
+				AMOUNT_FROM: 2,
+				AMOUNT_TO: 2,
+				RACE: CANTOR,
+			},
+		],
+	},
+	TAGS: {
+		ADD: [
+			CHAIN_ONGOING,
+			POD_DEFENDED,
+		],
+	},
+},
+
+POD_YES_FOLLOW_MAYBE: {
+	ICON: 32->race->Argonosh->0,
+	TAGS: {
+		ADD: [
+			CHAIN_ONGOING,
+			POD_DEFENDED,
+		],
+	},
+},
+
+POD_YES_FOLLOW_NO/MAYBE_FOLLOW: {
+	ICON: 32->KNOWLEDGE->0,
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 10,
+			},
+		},
+	},	
+	
+	TAGS: {
+		ALLOW: [
+			CHAIN_ONGOING,
+			POD_DEFENDED,
+		],
+		REMOVE: [
+			CHAIN_ONGOING,
+			POD_DEFENDED,
+			ARTIFACT_ONGOING,
+		],
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: true,
+				BOOST: {
+					BATTLE_OFFENCE_SKILL>ADD: 0.05,
+					BATTLE_DEFENCE_SKILL>ADD: 0.05,
+				},
+			},
+		],
+	},
+},
+
+POD_ALT: {
+	ICON: 32->THRONE->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: POD_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 3000,
+				GOVERN_RICHES: 0.35,
+			},
+		},
+	},
+
+	TAGS: {
+		ALLOW: [
+			POD_ALT,
+		],
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			POD_ALT_YES,
+			ARTIFACT_ONGOING,
+		],
+		REMOVE: [
+			POD_ALT,
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: POD_YES,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: -300,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: POD_NO,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 300,
+				},
+			],		
+		},
+	],
+},
+
+POD_ALT_YES: {
+	ICON: 32->THRONE->0,
+	TAGS: {
+		ADD: [
+			POD_ALT_YES,
+			ARTIFACT_ONGOING,
+		],
+	},
+},
+
+POD_ALT_YES_FOLLOW: {
+	ICON: 32->race->Cantor->0,
+	DURATION: {
+		DAYS: 2.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: POD_ALT_YES_FOLLOW_YES,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 5.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 10,
+			},
+		},
+	},
+
+	TAGS: {
+		ALLOW: [
+			POD_ALT_YES,
+		],
+		REMOVE: [
+			POD_ALT_YES,
+		],
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: POD_ALT_YES_FOLLOW_YES,
+				},	
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: POD_YES_FOLLOW_NO,
+				},	
+			],		
+		},
+		{
+			REQUIRES: {
+				GREATER: {
+					POPULATION_ARGONOSH_CITIZEN_I: 0,
+				},		
+			},
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: POD_YES_FOLLOW_MAYBE,
+				},	
+			],		
+		},
+	],
+},
+
+POD_ALT_YES_FOLLOW_YES: {
+	ICON: 32->THRONE->0,
+	TAGS: {
+		ADD: [
+			POD_ALT,
+		],
+		REMOVE: [
+			ARTIFACT_ONGOING,
+		],
+	},
+},
+
+**WIP
+GARTHIMI_UPGRADE: {
+	ICON: 32->race->Garthimi->0,
+	DURATION: {
+		DAYS: 4.0,
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 2000,
+				FACTION_IS_GARTHIMI: 0,
+			},
+		},
+	},
+	
+	SELECTION: {
+		ROYALTIES: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						INDUVIDUAL_RACE_GARTHIMI: 1,
+					},
+				},
+			],
+		},	
+	},	
+	
+	TAGS: {
+		ALLOW_NOT: [
+			GARTHIMI_UPGRADE_YES,
+			GARTHIMI_UPGRADE_NO,
+			CHAIN_ONGOING,
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: GARTHIMI_UPGRADE_YES,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: GARTHIMI_UPGRADE_NO,
+				},
+			],		
+		},
+	],
+},
+
+GARTHIMI_UPGRADE_YES: {
+	ICON: 32->race->Garthimi->0,
+	DURATION: {
+		DAYS: 16.0,
+	},
+	
+	TAGS: {
+		ADD: [
+			GARTHIMI_UPGRADE_YES,
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: GARTHIMI_UPGRADE_YES/NO_YES,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: GARTHIMI_UPGRADE_YES/NO_NO,
+				},
+			],		
+		},
+	],
+},
+
+GARTHIMI_UPGRADE_NO: {
+	ICON: 32->race->Garthimi->0,
+	DURATION: {
+		DAYS: 16.0,
+	},
+	
+	TAGS: {
+		ADD: [
+			GARTHIMI_UPGRADE_NO,
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: GARTHIMI_UPGRADE_YES/NO_YES,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: GARTHIMI_UPGRADE_YES/NO_NO,
+				},
+			],		
+		},
+	],
+},
+
+GARTHIMI_UPGRADE_YES/NO_YES: {
+	ICON: 32->race->Garthimi->0,
+	DURATION: {
+		DAYS: 16.0,
+	},	
+},
+
+GARTHIMI_UPGRADE_YES/NO_NO: {
+	ICON: 32->race->Garthimi->0,
+	DURATION: {
+		DAYS: 16.0,
+	},
+},

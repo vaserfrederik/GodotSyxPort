@@ -1,0 +1,274 @@
+**AGE                               
+**ANIMAL_FRIEND_NAME                
+**CHILD                             
+**CHILDC                            
+**CLASS                             
+**COALITION                         
+**DIVISION                          
+**FACTION                           
+**FACTION_HATED_RACE                
+**FACTION_RACE                      
+**FACTION_RACES                     
+**FACTION_RACE_CITY                 
+**FACTION_RACE_CURSE                
+**FACTION_RACE_GOODBYE              
+**FACTION_RACE_HELLO                
+**FACTION_RACE_INSULT               
+**FACTION_RACE_INSULTING            
+**FACTION_RACE_LIKED_BUILDING       
+**FACTION_RACE_LIKED_DRINK          
+**FACTION_RACE_LIKED_FOOD           
+**FACTION_RACE_LIKED_FOODS          
+**FACTION_RACE_LIKED_ROAD           
+**FACTION_RACE_LORD                 
+**FACTION_RACE_NAME_RND             
+**FACTION_RACE_OTHERS               
+**FACTION_RACE_SELF                 
+**FACTION_RACE_SELVES               
+**FACTION_RACIAN                    
+**FACTION_RACIANS                   
+**FACTION_RULER                     
+**FACTION_RULER_INTRO               
+**FACTION_RULER_TITLE               
+**FACTION_RULER_TITLES              
+**HATED_RACE                        
+**HE                                
+**HEALTH                            
+**HEC                               
+**HIM                               
+**HIMC                              
+**HIMSELF                           
+**HIMSELFC                          
+**HIS                               
+**HISC                              
+**HOME_LOCATION                     
+**HOME_MATES                        
+**HOME_TYPE                         
+**NAME                              
+**NAME_FIRST                        
+**NAME_LAST                         
+**NAME_WITH_PARENT
+**RACE                              
+**RACES                             
+**RACE_CITY                         
+**RACE_CURSE                        
+**RACE_GOODBYE                      
+**RACE_HELLO                        
+**RACE_INSULT                       
+**RACE_INSULTING                    
+**RACE_LIKED_BUILDING               
+**RACE_LIKED_DRINK                  
+**RACE_LIKED_FOOD                   
+**RACE_LIKED_FOODS                  
+**RACE_LIKED_ROAD                   
+**RACE_LORD                         
+**RACE_NAME_RND                     
+**RACE_OTHERS                       
+**RACE_SELF                         
+**RACE_SELVES                       
+**RACIAN                            
+**RACIANS                           
+**RELIGION                          
+**RELIGION_GOD                      
+**RND_FURNITURE                     
+**RND_PROFESSION                    
+**RND_REGION                        
+**TRAITS                            
+**WAR_CAUSE                         
+**WORKPLACE                 
+           
+**PLAYER_CITY_RND_NAME_RACE_1       
+**PLAYER_CITY_RND_NAME_RACE_2       
+**PLAYER_CITY_ROOM_RND              
+**PLAYER_FACTION                    
+**PLAYER_FACTION_HATED_RACE         
+**PLAYER_FACTION_RACE               
+**PLAYER_FACTION_RACES              
+**PLAYER_FACTION_RACE_CITY          
+**PLAYER_FACTION_RACE_CURSE         
+**PLAYER_FACTION_RACE_GOODBYE       
+**PLAYER_FACTION_RACE_HELLO         
+**PLAYER_FACTION_RACE_INSULT        
+**PLAYER_FACTION_RACE_INSULTING     
+**PLAYER_FACTION_RACE_LIKED_BUILDING
+**PLAYER_FACTION_RACE_LIKED_DRINK   
+**PLAYER_FACTION_RACE_LIKED_FOOD    
+**PLAYER_FACTION_RACE_LIKED_FOODS   
+**PLAYER_FACTION_RACE_LIKED_ROAD    
+**PLAYER_FACTION_RACE_LORD          
+**PLAYER_FACTION_RACE_NAME_RND      
+**PLAYER_FACTION_RACE_OTHERS        
+**PLAYER_FACTION_RACE_SELF          
+**PLAYER_FACTION_RACE_SELVES        
+**PLAYER_FACTION_RACIAN             
+**PLAYER_FACTION_RACIANS            
+**PLAYER_FACTION_RULER              
+**PLAYER_FACTION_RULER_INTRO        
+**PLAYER_FACTION_RULER_TITLE        
+**PLAYER_FACTION_RULER_TITLES       
+**PLAYER_RND_FACTION_CLOSE          
+**PLAYER_RND_FACTION_FAR            
+**PLAYER_RND_REGION_CLOSE           
+**PLAYER_RND_REGION_FAR             
+        
+
+
+GREETING_GOOD: [
+	"Salve Despot! I am {FACTION_RULER}, supreme ruler of {FACTION}, and I bid you welcome to the neighbourhood. As a token of our good faith, I present you with a small gift. Surely it will come to good use as you grow. Perhaps you can build a well for your people to wash, just a suggestion...",
+	"Dear colleague {PLAYER_FACTION_RULER}. I am {FACTION_RULER_INTRO} {FACTION_RULER} of {FACTION}, {FACTION_RULER_TITLES} etc. etc. Perhaps you have heard of me? I see your struggles and hereby extend a helping hand. Remember that {FACTION_RULER} may be menacing, but I am also just and kind.",
+	"It's nice to see a {PLAYER_FACTION_RACIAN} despot in the neighbourhood. Name's {FACTION_RULER} of {FACTION}. Welcome. Here's a house warming gift. Use it wisely",
+	"We, the people of "{FACTION}" extend a welcome to our {PLAYER_FACTION_RACIAN} neighbour and offer this small gift as a token of our good will.",
+	"I am {FACTION_RULER}, supreme ruler of {FACTION}. I am your neighbour and I welcome you to my lands! I wish you a pleasant, and hopefully peaceful, stay. Please accept this humble gift.",
+	"Esteemed colleague {PLAYER_FACTION_RULER}. I am {FACTION_RULER}, {FACTION_RULER_INTRO} of {FACTION}, perhaps you've heard of me? Here's some free stuff for you. I hope we can be friends one day.",
+	"You may not know it, but we, {FACTION_RULER} of {FACTION}, are not only the mightiest of rulers, but also the most generous. Here, share in some of my treasure.",
+	"We would be very honoured if your excellency would accept this humble gift that is offered as a token of friendship between our kingdoms.",
+	"Oh, {PLAYER_FACTION_RULER}, you are just adorable. You know we have a play over here called the misery of {PLAYER_FACTION}. Here, please accept this handout. You surely need it more than we do.",
+],
+
+GREETING_BAD: [
+	"Well, well, well, if it isn't {PLAYER_FACTION_RULER}, whom I've heard so little about. Except your stench. Stay on your own territory, I can't guarantee your safety should you venture out in the big world.",
+],
+
+STANCE_UP: [
+	"It is high time our people are brought closer. I propose an agreement between us.",
+	"My {PLAYER_FACTION_RACIAN} {RACE_SELF}, I like you. Lets take our friendship to the next level in front of the Astari themselves!",
+	"My dear {PLAYER_FACTION_RACE} brother. Greetings from {FACTION_RULER_INTRO} {FACTION_RULER}, supreme ruler of your neighbouring state of {FACTION}. Let us make business together so that both our great kingdoms can prosper. What say you?",
+	"{FACTION_RULER_INTRO} {FACTION_RULER} of {FACTION}, {FACTION_RULER_TITLES} etc, etc. extends greetings to {PLAYER_FACTION_RULER_TITLE} {PLAYER_FACTION_RULER} of {PLAYER_FACTION}, {PLAYER_FACTION_RULER_TITLES} etc. etc. Do you want to become friends?",
+	"Esteemed colleague {PLAYER_FACTION_RULER}. I am {FACTION_RULER}, {FACTION_RULER_INTRO} of {FACTION}, and I propose a friendly agreement between our great nations, which will be the envy of our enemies.",
+	"{PLAYER_FACTION_RULER} of {PLAYER_FACTION}. I, the great ruler {FACTION_RULER} am wondering why we are not on a better footing. I hereby suggest we correct this error and prosper from each others talents.",
+	"To my neighbour {PLAYER_FACTION_RULER}. The gods have have instructed me to arrange a pact with you. Please sign immediately. %r%Yours truly, %r%{FACTION_RULER} of {FACTION}.",
+	"We simply love our {PLAYER_FACTION_RACIAN} neighbour over at {FACTION}, and would like to show you our gratitude.",
+],
+
+STANCE_WARNING: [
+	"I feel you have neglected our friendship to a degree that is unsustainable. I would like to repair it. Would you?",
+	"Esteemed {PLAYER_FACTION_RULER} of {PLAYER_FACTION}. As always you seem to have forgotten all about me and my family. Here's a chance to make it up to me.",
+	"{PLAYER_FACTION_RULER}, oh, glorious {PLAYER_FACTION_RULER}. It's been too long. We must get together sometime and go Onx hunting, nay? I'll have my emissaries contact your for the arrangement. Do you mind if I borrow some stuff from you? I'll pay you back tomorrow.",
+	"Dear friend! We are undertaking quite a construction in our capitol and would very much appreciate some help.",
+	"{PLAYER_FACTION_RULER}, how are you old chap? I wish I could say that I was doing well, but alas, misfortune has struck my kingdom, and I'm being blackmailed by this bandit called 'Krull'. I beg your assistance so that I can pay off this scum and save my realm from devastation. Please spare what you can.",
+	"Esteemed colleague {PLAYER_FACTION_RULER} of {PLAYER_FACTION}. It seems that in your haste to build your city, you forgot my birthday. In truth, this saddened me at first, but it is only human to falter, fret not. Being {PLAYER_FACTION_RULER_TITLE}, is not easy mind you, and I accept your apology. Here is my wishlist.",
+],
+
+STANCE_DOWN: [
+	"Dear {PLAYER_FACTION_RACIAN} {PLAYER_FACTION_RACE_LORD}, we once enjoyed your company. But recently you've fallen short of your duties as our friend, and we hereby forfeit our formal bond.",
+	"{PLAYER_FACTION_RULER}, what happened to us? Once the best of {RACE_SELVES}, now complete strangers! Every night I shed a tear, looking at the portrait of you you sent me. It is time for us to go our separate ways. Maybe one day, we can find our way back to each other.",
+	"Dear {PLAYER_FACTION_RULER}. I have to move on and break our arrangement. It's not you, it's me. Sorry.",
+	"We must inform you that we are breaking our treaty with you, as it no longer suits us.",
+	"We feel our current stance does not suit us anymore.",
+	"Dealing with you was always a chore. Consider our business forfeit.",
+	"You have no longer anything to offer us. We hereby cancel our agreement.",
+	"All good things must come to an end.",
+],
+
+PEACE_GOOD: [
+	"{PLAYER_FACTION_RULER}, enough of this senseless war! Too many good men have fallen. Surely peace is better. We are feeling generous. What do you say?",
+	"We propose an end to hostilities. War benefits neither of our realms. Surely peace is better. We are willing to show good will.",
+],
+
+PEACE_BAD: [
+	"You are beaten. Save us the humiliation of your utter defeat, and agree to these generous terms so that we once again may live in peace.",
+],
+
+THREAT_NORMAL: [
+	"{PLAYER_FACTION_RULER}, how you manage is beyond me, but your stench reaches all the way to the realm of {FACTION}, and let me tell you, it's unbearable. We simply must be compensated for this inconvenience, or we will just have to erase you.",
+	"Well, well, well, I bid greetings to the great fool of {PLAYER_FACTION}, the ruler of rulers. Bah, what a joke you are! Utterly pathetic. In fact, your existence insults me. Pay up, or I'll come over there and smite you personally.",
+	"Filthy worm. Submit to our demands, or there will be dire consequences.",
+	"Dear subject. I don't remember your name, but your yearly taxes are due. Pay up or face my wrath!",
+	"{PLAYER_FACTION} would fit right in in my empire. Maybe you can persuade me of the opposite?",
+	"{PLAYER_FACTION_RULER}, we've had it with you. Either you submit to these demands, or we will raze your city from the face of Syx.",
+],
+
+THREAT_ALLY: [
+	"{PLAYER_FACTION_RULER}, we don't want to believe it, but it is a common rumour among other nations that you are too ambitious for your own good. I fear they may take action soon, but as your trusted friend, I'd be more than happy to mediate on your behalf. Just send me a little something to cover the costs.",
+	"{PLAYER_FACTION_RULER}, we don't want to believe it, but it is common knowledge among all in {FACTION} that you are too ambitious for your own good. We don't want war, but if it comes to that {FACTION} will defend ourselves. We hereby ask you, with respect, to assure us of your peaceful intentions through a modest gift.",
+	"I bid greetings to the great state of {PLAYER_FACTION}. We, the people of {FACTION} have long been concerned about your aspirations. For a full age the people of {PLAYER_FACTION} have enjoyed relative peace and prosperity. I'm sure you want the same, and here's a chance to prove it.",
+	"Dear {PLAYER_FACTION_RULER}. As you know, I am the most loyal friend, and as such, I find it my duty to inform you about a plot against you. Countless nations are conspiring to join forces and move against you. But, as you know, I am your friend. Please give me the funds to persuade these turncoats to focus their efforts elsewhere.",
+],
+
+THREAT_VASSAL: [
+	"Long have we enjoyed the protection of our esteemed {RACE_LORD} {PLAYER_FACTION_RULER}. We, the {RACES} of {FACTION} now covet our independence, and I humbly ask to let us find our own path, while remaining the best of {RACE_SELVES}.",
+	"As much as I personally value the protection of your great state, my {RACIAN} {RACE_SELVES} are always nagging me about freedom. In fact their nagging is so intense, by {RELIGION_GOD} I must find solace from them. Will you please grant me this favour and officially release {FACTION} from its bonds. We shall forever sing to your {PLAYER_FACTION_RACIAN} good luck.",
+],
+
+WAR_NORMAL: [
+	"On account of your {WAR_CAUSE}, we hereby declare war upon you. Prepare to have your {PLAYER_FACTION_RACIAN} throne sullied. If it wasn't sullied before that is to say. Well, you know what I mean. I will see you on the battlefield, you {PLAYER_FACTION_RACIAN} {RACE_INSULT}.",
+	"Enough of this {WAR_CAUSE} of yours. I've had it with your {RACE_INSULT} {PLAYER_FACTION_RACIAN} whims. I hereby declare a holy crusade against you. We shall call ourselves... {COALITION}! Yes, that's right, you {PLAYER_FACTION_RACIAN} {RACE_INSULT}. I hope this letter didn't make you choke on your {RACE_LIKED_DRINK}. Or wait... maybe I do! He he. He he he... he. /{COALITION}",
+	"I have a confession, I've never really liked you... And {PLAYER_FACTION_RACE} that I don't like, well, I smash those like bugs. Prepare to be smashed like one.",
+],
+
+WAR_VASSAL: [
+	"We have had enough of your yoke and your {WAR_CAUSE}. The people of {FACTION} now formally declare independence. Soon you will hear the rattle of our {RACIAN} swords at your gates!",
+	"Freedom is ours! Today we cast off the chains of our {PLAYER_FACTION_RACIAN} masters, and join our {RACE_SELVES} of the {COALITION}. Now it is you who shall kneel to a {RACE_LORD}.",
+],
+
+WAR_ALLY: [
+	"Sorry old friend. I've been fond of you, but the truth is your {WAR_CAUSE} has become to much for me to handle. I have no choice but to erase you from this world. Nothing personal.",
+	"{PLAYER_FACTION_RULER}, we have talked about this. This {WAR_CAUSE} of yours. I sadly can't take it any more and hereby proclaim the existence of {COALITION}, and I'm in it. And I'm coming for you.",
+],
+
+WAR_JOIN_NORMAL: [
+	"On account of your {WAR_CAUSE}, we hereby join {COALITION} and declare war upon you and your pathetic {PLAYER_FACTION_RACES}.",
+	"I can't sit idly by while others have all the fun.",
+	"My hearth only uses the finest fuel. Your throne will do.",
+],
+
+WAR_JOIN_VASSAL: [
+	"We've had enough of your terror. We, the nation of {FACTION} now stand proud and independent and hereby oppose your {WAR_CAUSE}. We join hereby {COALITION} and will be seeing you shortly.",
+],
+
+WAR_JOIN_ALLY: [
+	"Sorry old friend. They gave me no choice. I too will join {COALITION}.",
+	"Sorry old friend. It's not personal. But I must look to my own and will join {COALITION}.",
+	"What can I say, they gave me an offer I couldn't refuse.",
+	"Surprise fool! Didn't see this coming, did you? Well, it came, and it's going to sting.",
+],
+
+RUMOUR: [
+	"have drunk milk on occasion",
+	"keep an Onx mistress",
+	"dabble in witchcraft",
+	"never bathe",
+	"are preparing to invade every faction of note",
+	"are planning to abdictate and let the plebs rule",
+	"keep spreading harmful rumours",
+	"are counterfeiting denari and thus responsible for the inflation that plagues every despot",	
+	"have been replaced by a skinstealer",
+	"are a jumped-up pleb",
+	"once trapped dozens of your subjects behind walls until they starved",	
+	"consider your peers to be lunatics who act without rhyme or reason",	
+	"spend worrying amounts of time designing your city's lavatories",	
+],
+
+NGO: [
+	"Equality for all",
+	"Nobles to the mines",
+	"The cult of Ordinus",
+],
+
+COALITION_NAME: [
+	"The Coalition of the Willing",
+	"The Freedom Fighters",
+	"The Alliance",
+	"The League of Extraordinary Gentlemen",
+	"The Liberators",
+	"The Defenders of Justice",
+	"The Great Liberation.",
+	"The War on Terror.",
+	"Operation Epic Fury",
+],
+
+WAR_CAUSE_AGRESSION: [
+	"Illegal full scale invasion of {0}",
+	"Illegal aggression against {0}",
+	"Illegal war against {0}",
+],
+
+WAR_CAUSE_DEFEND: [
+	"stench spreading all over Syx",
+	"corruption of all that is fine in this world",
+	"unhealthy ambition",
+	"usurping tendencies",
+	"child frightening ugliness.",
+],
+
+

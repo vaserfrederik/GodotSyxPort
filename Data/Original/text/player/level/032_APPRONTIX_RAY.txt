@@ -1,0 +1,3 @@
+MALE: "Approntix Ray",
+FEMALE: "Approntix Ray",
+DESC: "'Ray' is old Syxian for  'the Great', and as a Great Approntix, you may enlist some aid to govern your mighty realm. You may now elevate a couple of Nobles to help you.",

@@ -1,0 +1,134 @@
+WIKIS: [
+    {
+        CATEGORY: "Rooms",
+        NAME: "Fisheries",
+        TEXT: "
+Fisheries are a reliable food source on maps with lots of water.
+ 
+The more tiles of water and fish are in the building area, the more employees a fishery can have. Oceans can support a lot more fishers than rivers or lakes, but the yield per fisher will be the same.
+ 
+Fish is somewhat expensive compared to other foods, but it is a very reliable food source that is quick to set up.
+ 
+When building a fishery, you can use the fill tool to quickly include all water tiles in the selection. Fish tiles increase worker capacity more than normal water tiles. Their quality depends on how many there are. Essentially, an ocean tile on the world map, always gets you the same amount of fish, no matter how the coast line looks.
+",
+    },
+    {
+        CATEGORY: "Rooms",
+        NAME: "Hunter",
+        TEXT: "
+Hunters are a very efficient source of food early on, but a map can only support 15 hunters before production per worker starts to decline. 
+ 
+They work by leaving the map and returning with a carcass, which they then butcher. They will not hunt the animals present on the capital map.
+",
+    },
+    {
+        CATEGORY: "Infrastructure",
+        NAME: "Decorations",
+        TEXT: "
+Decorations come in many shapes and sizes. Each emits a certain environmental value in its visible range. Decoration preference is species-specific, and some may dislike certain ones. A decoration doesn't require workers to run but does require regular maintenance.
+ 
+Decoration satisfaction changes slowly over time based on the aura strength of a subject's tile. Certain kinds of rooms, like workshops and refiners, do not matter for decoration purposes. Those rooms will visibly block aura emissions when you are using the decoration overlays. The decoration satisfaction of subjects inside those rooms freezes as long as they remain there.
+",
+    },
+    {
+        CATEGORY: "Rooms",
+        NAME: "Woodcutter",
+        TEXT: "
+Woodcutter worker capacity is determined by area size and soil type. Alluvium is the best option. Moisture affects production speed.
+        ",
+    },
+    {
+        CATEGORY: "Rooms",
+        NAME: "Mines",
+        TEXT: "
+Mines need to be placed on deposits. Deposits do not run out or degrade over time. Most kinds of mines are very accident-prone, so consider building a hospital nearby. Building auxiliary items or storage over deposits will reduce the maximum workers.
+        ",
+    },
+    {
+        CATEGORY: "Rooms",
+        NAME: "Farms",
+        TEXT: "
+Farms are where subjects turn soil, water, sunlight, and time into crops. The crops you can grow are Grain, Vegetables, Fruit, Mushrooms, and Fibre. The work process is governed by the four seasons, which are:
+ 
+Spring - Clearing Weeds
+Summer - Tending to the crops
+Autumn - Harvesting
+Winter - Tilling
+ 
+Farms are best placed on rich soil, which you can see by holding the right mouse button on the area of the map you wish to build. Mushrooms are an exception - they have higher yields in caves, but do not care about soil type.
+Farms require a minimum size of 64 Square Tiles (8x8), which requires ~1 worker, and can go to a maximum of 2,025 Square Tiles (45x45), which requires ~31 workers.
+ 
+A day of work adds to the amount harvested during harvest season. The number can be found on the info panel at the top when you select the farm. When building the farm, it has a one-time cost of the resource you wish to produce; after which it will yield every year with no additional resource input.
+ 
+As you build larger farms, the worker allocation defaults to the maximum workers rounded down to the nearest whole number. Depending on how far away the farm is and how slow your workers are, changing the number of workers can make sense.
+ 
+ 
+A farm's yield is affected by the following main factors:
+ 
+<c 219_255_077 Soil type> - Rich is the best type. Rich > Till > Alluvium > Infertile. Note that orchards prefer alluvium over all types.
+ 
+<c 219_255_077 Moisture> - Requires canals or natural fresh water near the farm, if the natural moisture is insufficient. Some farms may not require 100% moisture for the full yield. Hover over the moisture icon to find out the moisture needs of the selected farm.
+ 
+<c 219_255_077 Experience> - The collective knowledge of your farmers can increase yield. This can be achieved by employing a lot of farmers. 
+ 
+<c 219_255_077 Tools> - Tools increase the yield of workers who are in possession of them.
+ 
+<c 219_255_077 Technology> - Gained by researching technology. Most researches are crop specific.
+ 
+Workers from farms also bring their harvested products to nearby storehouses. Having a storehouse too far away may result in crops being left on the field, where they spoil more rapidly.
+        ",
+    },
+    {
+        CATEGORY: "Rooms",
+        NAME: "Pastures",
+        TEXT: "
+Pastures are a type of agricultural room for ranching animals.
+ 
+To populate a pasture, you need Livestock, which can be gained by trading or from pastures. Pasture workers with nothing else to do will collect livestock from storages automatically. Animals in a pasture may die from lack of tending, but otherwise do not require replacements.
+ 
+Pasture types are as follows:
+ 
+<c 219_255_077 Auroch> - They produce Meat and Leather. They are suited to temperate climates.
+<c 219_255_077 Onx> - They produce Meat and Fibre. They thrive in cold climates.
+<c 219_255_077 Entelodont> - They produce only Meat. They are suited to temperate climates.
+<c 219_255_077 Globdien> - They produce Meat and Eggs. They thrive in warm climates.
+<c 219_255_077 War-beast> - They produce War-beasts. They thrive in cold climates.
+ 
+In emergencies, the animals can be instantly slaughtered for resources. Be sure to have sufficient workers and storage capacity to quickly gather and store these items, as they will rot and disappear if left un-gathered for too long.
+ 
+Pastures can range from a minimum of 49 tiles (7x7), up to a maximum of 2,025 tiles (45x45). At minimum, they require 1 worker, with a maximum worker count of about 30, depending on soil type.
+ 
+ 
+Factors that affect pastures are mainly:
+ 
+Soil type - This affects how many animals can be placed in the pasture. Better soil means a more dense pasture, while worse soil will feed fewer animals. Note that this does not affect the yield per animal or worker.
+Similar to farms, rich soil is best, but pastures can make good use of till soil.
+ 
+<c 219_255_077 Tools> - Workers equipped with tools will increase production.
+ 
+<c 219_255_077 Experience> - As you employ more workers in a type of pasture across your city, they will benefit from increased efficiency.
+ 
+<c 219_255_077 Moisture> - Moisture increases production.
+ 
+<c 219_255_077 Technology> - Gained by researching technology. Most researches are animal specific.
+ 
+Pastures are not the most efficient food producers, but they produce daily and are reliable. Their yield per worker does not depend on fertility, allowing them to make use of poor farmland.
+        ",
+    },
+    {
+        CATEGORY: "Rooms",
+        NAME: "Refiners",
+        TEXT: "
+Refiners are big and noisy processing rooms that turn raw materials into other resources. 
+Part of the workforce will fetch raw materials, while the rest will work the machines. Make sure the input resources are close to the room, because refinery workers can not carry as many resources as logistics workers. 
+        ",
+    },
+    {
+        CATEGORY: "Rooms",
+        NAME: "Workshops",
+        TEXT: "
+Workshops are similar to Refiners, but they produce goods via individual craftsmanship instead of machines. 
+Keep the input materials close by because crafters do not haul as efficiently as dedicated logistics workers.
+        ",
+    },    
+],

@@ -1,0 +1,3 @@
+MALE: "Legati",
+FEMALE: "Legatiss",
+DESC: "Legati is old Syxian for judge. As our population bolster, unfortunately so will the bad apples. A Legati knows how to deal with these swiftly and justly.",

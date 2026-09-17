@@ -1,0 +1,5 @@
+INFO: {
+	NAME: "War-Beast",
+	NAMES: "War-Beast",
+	DESC: "The war beast. Can be tamed enough to ride upon and give our troops much leverage in battle.",
+},

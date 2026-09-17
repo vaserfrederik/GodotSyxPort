@@ -1,0 +1,232 @@
+NAME: "Extraction",
+TECHS: {
+	WOOD01: {
+		NAME: "Basic woodcutting",
+		DESC: "Improves the output of our Woodcutters",
+	},
+	WOODt1: {
+		NAME: "woodcutting Tools",
+		DESC: "Unlocks tools to be equipped for the Woodcutter. Tools must be manually equipped in the workplace.",
+	},
+	WOOD02: {
+		NAME: "Skilled woodcutting",
+		DESC: "Improves the output of our Woodcutters",
+	},
+	WOOD03: {
+		NAME: "Profficient woodcutting",
+		DESC: "Improves the output of our Woodcutters",
+	},
+	WOODt2: {
+		NAME: "Advanced woodcutting Tools",
+		DESC: "Unlocks tools to be equipped for the Woodcutter. Tools must be manually equipped in the workplace.",
+	},
+	WOOD04: {
+		NAME: "Expert woodcutting",
+		DESC: "Improves the output of our Woodcutters",
+	},
+	WOODu2: {
+		NAME: "Advanced Woodcutter",
+		DESC: "Allows you to upgrade your Woodcutters. Upgrades cost resources and increases maintenance cost.",
+	},
+	CLAY01: {
+		NAME: "Basic Extracting Clay",
+		DESC: "Improves the output of our Clay Mines",
+	},
+	CLAYt1: {
+		NAME: "Extracting Clay Tools",
+		DESC: "Unlocks tools to be equipped for the Clay Mine. Tools must be manually equipped in the workplace.",
+	},
+	CLAY02: {
+		NAME: "Skilled Extracting Clay",
+		DESC: "Improves the output of our Clay Mines",
+	},
+	CLAYu1: {
+		NAME: "Improved Clay Mine",
+		DESC: "Allows you to upgrade your Clay Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	CLAY03: {
+		NAME: "Profficient Extracting Clay",
+		DESC: "Improves the output of our Clay Mines",
+	},
+	CLAYt2: {
+		NAME: "Advanced Extracting Clay Tools",
+		DESC: "Unlocks tools to be equipped for the Clay Mine. Tools must be manually equipped in the workplace.",
+	},
+	CLAY04: {
+		NAME: "Expert Extracting Clay",
+		DESC: "Improves the output of our Clay Mines",
+	},
+	CLAYu2: {
+		NAME: "Advanced Clay Mine",
+		DESC: "Allows you to upgrade your Clay Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	COAL01: {
+		NAME: "Basic Extracting Coal",
+		DESC: "Improves the output of our Coal Mines",
+	},
+	COALt1: {
+		NAME: "Extracting Coal Tools",
+		DESC: "Unlocks tools to be equipped for the Coal Mine. Tools must be manually equipped in the workplace.",
+	},
+	COAL02: {
+		NAME: "Skilled Extracting Coal",
+		DESC: "Improves the output of our Coal Mines",
+	},
+	COALu1: {
+		NAME: "Improved Coal Mine",
+		DESC: "Allows you to upgrade your Coal Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	COAL03: {
+		NAME: "Profficient Extracting Coal",
+		DESC: "Improves the output of our Coal Mines",
+	},
+	COALt2: {
+		NAME: "Advanced Extracting Coal Tools",
+		DESC: "Unlocks tools to be equipped for the Coal Mine. Tools must be manually equipped in the workplace.",
+	},
+	COAL04: {
+		NAME: "Expert Extracting Coal",
+		DESC: "Improves the output of our Coal Mines",
+	},
+	COALu2: {
+		NAME: "Advanced Coal Mine",
+		DESC: "Allows you to upgrade your Coal Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	STON01: {
+		NAME: "Basic Extracting Stone",
+		DESC: "Improves the output of our Stone Mines",
+	},
+	STONt1: {
+		NAME: "Extracting Stone Tools",
+		DESC: "Unlocks tools to be equipped for the Stone Mine. Tools must be manually equipped in the workplace.",
+	},
+	STON02: {
+		NAME: "Skilled Extracting Stone",
+		DESC: "Improves the output of our Stone Mines",
+	},
+	STONu1: {
+		NAME: "Improved Stone Mine",
+		DESC: "Allows you to upgrade your Stone Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	STON03: {
+		NAME: "Profficient Extracting Stone",
+		DESC: "Improves the output of our Stone Mines",
+	},
+	STONt2: {
+		NAME: "Advanced Extracting Stone Tools",
+		DESC: "Unlocks tools to be equipped for the Stone Mine. Tools must be manually equipped in the workplace.",
+	},
+	STON04: {
+		NAME: "Expert Extracting Stone",
+		DESC: "Improves the output of our Stone Mines",
+	},
+	STONu2: {
+		NAME: "Advanced Stone Mine",
+		DESC: "Allows you to upgrade your Stone Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	ORE_01: {
+		NAME: "Basic Extracting Ore",
+		DESC: "Improves the output of our Ore Mines",
+	},
+	ORE_t1: {
+		NAME: "Extracting Ore Tools",
+		DESC: "Unlocks tools to be equipped for the Ore Mine. Tools must be manually equipped in the workplace.",
+	},
+	ORE_02: {
+		NAME: "Skilled Extracting Ore",
+		DESC: "Improves the output of our Ore Mines",
+	},
+	ORE_u1: {
+		NAME: "Improved Ore Mine",
+		DESC: "Allows you to upgrade your Ore Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	ORE_03: {
+		NAME: "Profficient Extracting Ore",
+		DESC: "Improves the output of our Ore Mines",
+	},
+	ORE_t2: {
+		NAME: "Advanced Extracting Ore Tools",
+		DESC: "Unlocks tools to be equipped for the Ore Mine. Tools must be manually equipped in the workplace.",
+	},
+	ORE_04: {
+		NAME: "Expert Extracting Ore",
+		DESC: "Improves the output of our Ore Mines",
+	},
+	ORE_u2: {
+		NAME: "Advanced Ore Mine",
+		DESC: "Allows you to upgrade your Ore Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	GEM_00: {
+		NAME: "The Gem Mine",
+		DESC: "Unlocks the construction of the Gem Mine",
+	},
+	GEM_01: {
+		NAME: "Basic Extracting gems",
+		DESC: "Improves the output of our Gem Mines",
+	},
+	GEM_t1: {
+		NAME: "Extracting gems Tools",
+		DESC: "Unlocks tools to be equipped for the Gem Mine. Tools must be manually equipped in the workplace.",
+	},
+	GEM_02: {
+		NAME: "Skilled Extracting gems",
+		DESC: "Improves the output of our Gem Mines",
+	},
+	GEM_u1: {
+		NAME: "Improved Gem Mine",
+		DESC: "Allows you to upgrade your Gem Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	GEM_03: {
+		NAME: "Profficient Extracting gems",
+		DESC: "Improves the output of our Gem Mines",
+	},
+	GEM_t2: {
+		NAME: "Advanced Extracting gems Tools",
+		DESC: "Unlocks tools to be equipped for the Gem Mine. Tools must be manually equipped in the workplace.",
+	},
+	GEM_04: {
+		NAME: "Expert Extracting gems",
+		DESC: "Improves the output of our Gem Mines",
+	},
+	GEM_u2: {
+		NAME: "Advanced Gem Mine",
+		DESC: "Allows you to upgrade your Gem Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	SITH00: {
+		NAME: "The Sithilon Mine",
+		DESC: "Unlocks the construction of the Sithilon Mine",
+	},
+	SITH01: {
+		NAME: "Basic Extracting Sithilon",
+		DESC: "Improves the output of our Sithilon Mines",
+	},
+	SITHt1: {
+		NAME: "Extracting Sithilon Tools",
+		DESC: "Unlocks tools to be equipped for the Sithilon Mine. Tools must be manually equipped in the workplace.",
+	},
+	SITH02: {
+		NAME: "Skilled Extracting Sithilon",
+		DESC: "Improves the output of our Sithilon Mines",
+	},
+	SITHu1: {
+		NAME: "Improved Sithilon Mine",
+		DESC: "Allows you to upgrade your Sithilon Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+	SITH03: {
+		NAME: "Profficient Extracting Sithilon",
+		DESC: "Improves the output of our Sithilon Mines",
+	},
+	SITHt2: {
+		NAME: "Advanced Extracting Sithilon Tools",
+		DESC: "Unlocks tools to be equipped for the Sithilon Mine. Tools must be manually equipped in the workplace.",
+	},
+	SITH04: {
+		NAME: "Expert Extracting Sithilon",
+		DESC: "Improves the output of our Sithilon Mines",
+	},
+	SITHu2: {
+		NAME: "Advanced Sithilon Mine",
+		DESC: "Allows you to upgrade your Sithilon Mines. Upgrades cost resources and increases maintenance cost.",
+	},
+},
+

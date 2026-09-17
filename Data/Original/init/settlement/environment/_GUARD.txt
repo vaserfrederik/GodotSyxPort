@@ -1,0 +1,5 @@
+DECLINE_VALUE: 1.0,
+ICON: 16->Env->10,
+BOOST: {
+	CIVIC_LAW>MUL: 2.0,
+}

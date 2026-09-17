@@ -1,0 +1,45 @@
+INFO: {
+	NAME: "War-Beast Pasture",
+	NAMES: "War-Beast Pastures",
+	DESC: "Breeds the mighty war-beast, or Fendilon, as is it's proper name. War-beasts can be used as mounts for our soldiers.",
+},
+
+BONUS: {
+	NAME: "War-Beast Breeding",
+	DESC: "Makes War-Beasts quicker",
+},
+
+WORK: {
+	TITLE: "Beast-tamer",
+	VERB: "Taming war-beasts",
+},
+
+STATS: [
+	{
+		NAME: "Workers",
+		DESC: "The amount of workers that will be needed for this area. Rich soils enables more workers and output on a smaller area",
+	},
+	{
+		NAME: "",
+		DESC: "",
+	},
+	{
+		NAME: "",
+		DESC: "",
+	},
+	{
+		NAME: "Output",
+		DESC: "The average amount of resources this pasture will yield daily. This depends on size of the pasture, and the base fertility of the soil.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Gate",
+		DESC: "Entrance and resource storage for pasture.",
+	},
+	{
+		NAME: "Hut",
+		DESC: "Small huts and shacks where the cattle can relax.",
+	},
+],

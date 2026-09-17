@@ -1,0 +1,41 @@
+INFO: {
+	NAME: "Garthimi Breeder",
+	NAMES: "Garthimi Breeders",
+	DESC: "Produces Garthimi children. Each child requires 8 days worth of labour and meat. Can in practise only be operated by Garthimi themselves",
+},
+
+
+BONUS: {
+	NAME: "Garthimi breeding",
+	DESC: "Increases the rate at which Garthimis are incubated.",
+},
+
+STATS: [
+
+	{
+		NAME: "Breeding Spots",
+		DESC: "Amount of Breeding Spots",
+	},
+	{
+		NAME: "Efficiency",
+		DESC: "Increases breeding rate.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Breeding Spot",
+		DESC: "",
+	},
+	{
+		NAME: "Humidifier",
+		DESC: "Increases efficiency.",
+	},
+],
+
+WORK: {
+	TITLE: "Garthimi breeder",
+	VERB: "Fertilizing spores",
+},
+
+

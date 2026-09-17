@@ -1,0 +1,23 @@
+# Godot 4 cache / imported assets
+.godot/
+*.import
+
+# .NET build output
+bin/
+obj/
+*.user
+*.suo
+
+# IDE
+.vs/
+.vscode/
+.idea/
+
+# OS
+Thumbs.db
+Desktop.ini
+.DS_Store
+
+# Temporary scan output (auto-generated copies)
+source_scan.*/
+*.cache

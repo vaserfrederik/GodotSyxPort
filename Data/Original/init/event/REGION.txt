@@ -1,0 +1,4822 @@
+COEXISTENCE: {
+	ICON: 32->SERVICE->5,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: COEXISTENCE_MAYBE,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 3,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: true,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						POPULATION_RACE_DONDORIAN: 100,
+						POPULATION_RACE_HUMAN: 100,
+						PROP_TERRAIN_MOUNTAIN: 0.5,
+						FACTION_IS_PLAYER: 0,
+					},
+					LESS: {
+						HAS_BOOST_PERM: 1,
+						IS_CAPITAL: 1,
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: COEXISTENCE_YES,
+				},	
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 50,
+				},
+				{
+					TYPE: BOOST,
+					PLAYER: {
+						WORLD_LOYALTY_DONDORIAN>MUL: 0.75,
+						WORLD_LOYALTY_HUMAN>MUL: 1.25,
+					},
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: COEXISTENCE_NO,
+				},	
+				{
+					TYPE: BOOST,
+					PLAYER: {
+						WORLD_LOYALTY_DONDORIAN>MUL: 1.25,
+						WORLD_LOYALTY_HUMAN>MUL: 0.75,
+					},
+				},
+				{
+					TYPE: RESOURCES,
+					AMOUNTS: {
+						RES_FURNITURE: {
+							PER_PERSON: 0.2,
+						},	
+						RES_STONE_CUT: {
+							PER_PERSON: 0.2,
+						},	
+					},
+				},
+			],		
+		},
+	],
+},
+
+COEXISTENCE_YES: {
+	ICON: 32->SERVICE->5,
+	DURATION: {
+		DAYS: 12.0,
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_DONDORIAN>MUL: 0.75,
+					WORLD_LOYALTY_HUMAN>MUL: 1.25,
+				},
+			},
+			{
+				TYPE: BOOST_PERM,
+				USE_SELECTION_REGIONS: true,
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_ROYALTIES: false,
+				BOOST: {
+					WORLD_LOYALTY_DONDORIAN>MUL: 0.75,
+					WORLD_LOYALTY_HUMAN>MUL: 1.25,
+					WORLD_POPULATION_TARGET_DONDORIAN>MUL: 0.5,
+				},
+			},
+		],
+	},
+},
+
+COEXISTENCE_NO: {
+	ICON: 32->SERVICE->5,
+	DURATION: {
+		DAYS: 12.0,
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_DONDORIAN>MUL: 1.25,
+					WORLD_LOYALTY_HUMAN>MUL: 0.75,
+				},
+			},
+			{
+				TYPE: BOOST_PERM,
+					BOOST_ONLY_PLAYER: false,
+					USE_SELECTION_FACTIONS: false,
+					USE_SELECTION_REGIONS: true,
+					USE_SELECTION_ROYALTIES: false,
+				BOOST: {
+					WORLD_LOYALTY_DONDORIAN>MUL: 1.25,
+					WORLD_LOYALTY_HUMAN>MUL: 0.75,
+					WORLD_POPULATION_TARGET_HUMAN>MUL: 0.5,
+				},
+			},
+		],
+	},
+},
+
+COEXISTENCE_MAYBE: {
+	ICON: 32->SERVICE->5,
+	DURATION: {
+		DAYS: 12.0,
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_DONDORIAN>MUL: 0.8,
+					WORLD_LOYALTY_HUMAN>MUL: 0.8,
+				},
+				REGIONS: {
+					WORLD_LOYALTY*>MUL: 0.95,
+				},
+			},
+		],
+	},
+},
+
+DOOMED_RAID: {
+	ICON: 32->race->Tilapi->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: DOOMED_RAID_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0.8,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 2,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		ROYALTIES: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: true,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_FACTION_IS_TILAPI: 1,	
+						FACTION_IS_PLAYER: 0,	
+						FACTION_PLAYER_REACHABLE: 1,
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: DOOMED_RAID_YES,
+				},	
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: DOOMED_RAID_NO,
+				},	
+				{
+					TYPE: INVASION,
+					AMOUNT_FROM: 0.8,
+					AMOUNT_TO: 0.8,
+					RACE: TILAPI,
+				},					
+			],		
+		},
+	],
+},
+
+DOOMED_RAID_YES: {
+	ICON: 32->race->Tilapi->0,
+	DURATION: {
+		DAYS: 12.0,
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_TAX_INCOME>MUL: 0.90,
+					WORLD_BUILDING_AGRICULTURE_FARM*>MUL: 0.9,
+					WORLD_BUILDING_MINE*>MUL: 0.9,
+					WORLD_BUILDING_PASTURE_FISHERY*>MUL: 0.9,
+				},
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 2,
+				IS_MUL: true,
+			},
+		],
+	},
+},
+
+DOOMED_RAID_NO: {
+	ICON: 32->race->Tilapi->0,
+},
+
+CHARITY_REGION: {
+	ICON: 32->INFRA->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: CHARITY_REGION_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				WORLD_REGIONS: 2,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: true,
+			FILTERS: [
+				{
+					GREATER: {
+						PROP_FERTILTIY: 0.5,
+						FACTION_IS_PLAYER: 0,						
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					CIVIC_OPINION>MUL: 0.95,
+				},
+			},
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CHARITY_REGION_YES,
+				},	
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CHARITY_REGION_NO,
+				},	
+			],		
+		},
+	],
+},
+
+CHARITY_REGION_YES: {
+	ICON: 32->INFRA->0,
+	DURATION: {
+		DAYS: 12.0,
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					CIVIC_OPINION>MUL: 1.1,
+					WORLD_LOYALTY*>MUL: 1.2,
+				},
+				REGIONS: {
+					WORLD_TAX_INCOME>MUL: 0.5,
+					WORLD_BUILDING_AGRICULTURE_FARM*>MUL: 0.5,
+					WORLD_BUILDING_MINE*>MUL: 0.5,
+					WORLD_BUILDING_PASTURE_FISHERY*>MUL: 0.5,
+				},
+			},
+		],
+	},
+},
+
+CHARITY_REGION_NO: {
+	ICON: 32->INFRA->0,
+	DURATION: {
+		DAYS: 12.0,
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					CIVIC_OPINION>MUL: 0.9,
+					WORLD_LOYALTY*>MUL: 0.9,
+				},
+				REGIONS: {
+					WORLD_LOYALTY*>MUL: 0.5,
+				},
+			},
+		],
+	},
+},
+
+CULTOFPERSONALITY: {
+	ICON: 32->THRONE->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: CULTOFPERSONALITY_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				WORLD_REGIONS: 3,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,				
+					},
+					LESS: {
+						HAS_BOOST_PERM: 1,
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CULTOFPERSONALITY_YES,
+				},				
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CULTOFPERSONALITY_NO,
+				},	
+			],		
+		},
+	],
+},
+
+CULTOFPERSONALITY_YES: {
+	ICON: 32->THRONE->0,
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: true,
+				USE_SELECTION_ROYALTIES: false,
+				BOOST: {
+					WORLD_LOYALTY*>MUL: 1.5,
+				},
+			},
+			{
+				TYPE: BOOST_PERM,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: false,
+				USE_SELECTION_ROYALTIES: false,
+				BOOST_ONLY_PLAYER: true,
+				BOOST: {
+					WORLD_LOYALTY*>MUL: 1.1,
+					CIVIC_OPINION>MUL: 0.95,
+				},
+			},
+		],
+	},
+},
+
+CULTOFPERSONALITY_NO: {
+	ICON: 32->THRONE->0,
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: true,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: false,
+				USE_SELECTION_ROYALTIES: false,
+				BOOST: {
+					CIVIC_OPINION>MUL: 1.05,
+				},
+			},
+		],
+	},
+},
+
+FAMINE: {
+	ICON: 32->SEASONS->1,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: FAMINE_YES,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				WORLD_REGIONS: 2,
+				TIME_YEAR_PART: 0.5,
+			},
+			LESS: {
+				TIME_YEAR_PART: 0.75,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_WORLD_REGIONS: 0,						
+					},
+					LESS: {
+						FACTION_IS_PLAYER: 1,						
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: FAMINE_YES,
+				},				
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: FAMINE_NO,
+				},	
+			],		
+		},
+	],
+},
+
+FAMINE_YES: {
+	ICON: 32->SEASONS->1,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM_REMOVE,
+				EVENTS: [
+					FAMINE_YES,
+				],	
+			},	
+		],
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: false,
+				USE_SELECTION_ROYALTIES: true,
+				BOOST: {
+					ROOM_FARM*>MUL: 0.9,
+					ROOM_ORCHARD*>MUL: 0.9,
+					ROOM_PASTURE*>MUL: 0.9,
+				},
+			},
+		],
+	},
+},
+
+FAMINE_NO: {
+	ICON: 32->SEASONS->1,
+	DURATION: {
+		DAYS: 0.001,
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM_REMOVE,
+				EVENTS: [
+					FAMINE_NO,
+				],	
+			},	
+		],
+	},
+	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: false,
+				USE_SELECTION_ROYALTIES: true,
+				BOOST: {
+					ROOM_FARM*>MUL: 0.5,
+					ROOM_ORCHARD*>MUL: 0.5,
+					ROOM_PASTURE*>MUL: 0.5,
+				},
+			},
+		],
+	},
+},
+
+SKELETON: {
+	ICON: 32->DEATH->1,	
+
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				WORLD_REGIONS: 1,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			FILTERS: [
+				{
+					GREATER: {
+						PROP_FERTILTIY: 0,
+						FACTION_IS_PLAYER: 0,
+					},
+					LESS: {
+						HAS_BOOST_PERM: 1,
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+			USE_AS_ICON: false,
+		},	
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: true,
+				USE_SELECTION_ROYALTIES: false,
+				BOOST: {
+					WORLD_PRODUCTION_RES_STONE_CUT>ADD: 5,
+				},
+			},
+		],
+	},
+},
+
+DONDORIAN_FOREST: {
+	ICON: 32->race->Dondorian->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: DONDORIAN_FOREST_YES,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				WORLD_REGIONS: 1,
+			},
+			LESS: {
+				FACTION_IS_DONDORIAN: 1,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			DONDORIAN_FOREST_YES,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,
+						BUILDING_MINE_WOODCUTTER_LEVEL: 2,	
+						BUILDING_MINE_WOODCUTTER_PROSPECT: 0.5,
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1,
+			},
+			
+			USE_AS_ICON: false,
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_FACTION_IS_DONDORIAN: 0,
+						SUCCESSION_ORDER_0: 0,
+					},
+				},
+			],
+		},	
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: DONDORIAN_FOREST_YES,
+				},				
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: DONDORIAN_FOREST_NO,
+				},	
+			],		
+		},
+	],
+},
+
+DONDORIAN_FOREST_YES: {
+	ICON: 32->race->Dondorian->0,
+	DURATION: {
+		DAYS: 12.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: DONDORIAN_FOREST_YES_FOLLOW,
+			},
+		],
+	},	
+	
+	TAGS: {
+		ADD: [
+			DONDORIAN_FOREST_YES,
+		],
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_BUILDING_AGRICULTURE_FARM*>MUL: 0.5,
+					WORLD_BUILDING_MINE*>MUL: 0.5,
+					WORLD_BUILDING_PASTURE_FISHERY*>MUL: 0.5,
+					WORLD_TAX_INCOME>MUL: 0.5,
+				},
+			},
+		],
+	},	
+},
+
+DONDORIAN_FOREST_YES_FOLLOW: {
+	ICON: 32->race->Dondorian->0,
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST: {
+					WORLD_BUILDING_MINE_WOODCUTTER>MUL: 1.2,
+				},
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: true,
+				USE_SELECTION_ROYALTIES: false,
+				HIDE_UI: false,
+			},
+		],
+	},	
+},
+
+DONDORIAN_FOREST_NO: {
+	ICON: 32->race->Dondorian->0,
+	DURATION: {
+		DAYS: 32.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: DONDORIAN_FOREST_NO_FOLLOW,
+			},
+		],
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: OPINION,
+				VALUE: -7.5,
+				INCREASE_PER_DAY: -0.5,
+				IS_MUL: false,
+				LENGHT_DAYS: 16,
+			},
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: DONDORIAN_FOREST_YES,
+				},				
+			],		
+		},
+	],
+},
+
+DONDORIAN_FOREST_NO_FOLLOW: {
+	ICON: 32->race->Dondorian->0,
+},
+
+WEAPON_PRICE_U: {
+	ICON: 24->resource->Weapon_short->0,
+	DURATION: {
+		DAYS: 12.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: WEAPON_PRICE_U_REMOVE,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_POPULATION: 0,			
+					},
+				},
+			],
+		},	
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: false,
+				USE_SELECTION_ROYALTIES: true,
+				BOOST: {
+					ROOM_WORKSHOP_BOWYER>MUL: 0.5,
+					ROOM_WORKSHOP_SMITHY>MUL: 0.5,
+				},
+			},
+		],
+	},
+},
+
+WEAPON_PRICE_U_REMOVE: {
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM_REMOVE,
+				EVENTS: [
+					REGION_WEAPON_PRICE_U,
+				],	
+			},
+		],
+	},
+},
+
+GARTHIMI_TROUBLES: {
+	ICON: 32->race->Garthimi->0,
+	DURATION: {
+		DAYS: 12.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: GARTHIMI_TROUBLES_REMOVE,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+			},
+			LESS: {
+				FACTION_IS_GARTHIMI: 1,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_POPULATION: 0,	
+						FACTION_FACTION_IS_GARTHIMI: 0,
+					},
+					LESS: {
+						FACTION_IS_PLAYER: 1,	
+					},
+				},
+			],
+		},	
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+					BOOST_ONLY_PLAYER: false,
+					USE_SELECTION_FACTIONS: false,
+					USE_SELECTION_REGIONS: false,
+					USE_SELECTION_ROYALTIES: true,
+				BOOST: {
+					ROOM_MINE*>MUL: 0.5,
+					ROOM_PASTURE_BALTI>MUL: 0.5,
+					ROOM_WORKSHOP_MASON>MUL: 0.5,
+				},
+				HIDE_UI: true,
+			},
+		],
+	},
+},
+
+GARTHIMI_TROUBLES_REMOVE: {
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM_REMOVE,
+				EVENTS: [
+					GARTHIMI_TROUBLES,
+				],	
+			},
+		],
+	},
+},
+
+MINING_PEACE: {
+	ICON: 32->WORK->5, 
+	DURATION: {
+		DAYS: 12.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: MINING_PEACE_REMOVE,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+			},
+			LESS: {
+				FACTION_IS_GARTHIMI: 1,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_POPULATION: 0,	
+					},
+					LESS: {
+						FACTION_IS_PLAYER: 1,	
+						FACTION_FACTION_IS_GARTHIMI: 1,
+						FACTION_FACTION_IS_DONDORIAN: 1,
+					},
+				},
+			],
+		},	
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+					BOOST_ONLY_PLAYER: false,
+					USE_SELECTION_FACTIONS: false,
+					USE_SELECTION_REGIONS: false,
+					USE_SELECTION_ROYALTIES: true,
+				BOOST: {
+					ROOM_MINE*>MUL: 1.3,
+					ROOM_MINE_CLAY>MUL: 1,
+				},
+				HIDE_UI: true,
+			},
+		],
+	},
+},
+
+MINING_PEACE_REMOVE: {
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM_REMOVE,
+				EVENTS: [
+					MINING_PEACE,
+				],	
+			},
+		],
+	},
+},
+
+DONDORIAN_ECONOMY: {
+	ICON: 32->race->Dondorian->0,
+	DURATION: {
+		DAYS: 12.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: DONDORIAN_ECONOMY_REMOVE,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+			},
+			LESS: {
+				FACTION_IS_DONDORIAN: 1,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_POPULATION: 0,	
+						FACTION_FACTION_IS_DONDORIAN: 0,
+					},
+					LESS: {
+						FACTION_IS_PLAYER: 1,	
+					},
+				},
+			],
+		},	
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+					BOOST_ONLY_PLAYER: false,
+					USE_SELECTION_FACTIONS: false,
+					USE_SELECTION_REGIONS: false,
+					USE_SELECTION_ROYALTIES: true,
+				BOOST: {
+					ROOM_MINE*>MUL: 0.5,
+					ROOM_WORKSHOP*>MUL: 0.5,
+					ROOM_WORKSHOP_BOWYER>MUL: 1,
+				},
+				HIDE_UI: false,
+			},
+		],
+	},
+},
+
+DONDORIAN_ECONOMY_REMOVE: {
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM_REMOVE,
+				EVENTS: [
+					DONDORIAN_ECONOMY,
+				],	
+			},
+		],
+	},
+},
+
+SITHILON_RUSH: {
+	ICON: 24->resource->Sithilon->0,
+	DURATION: {
+		DAYS: 4.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: SITHILON_RUSH_FOLLOW,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 1,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			FILTERS: [
+				{
+					LESS: {
+						BUILDING_MINE_MINE_SITHILON_PROSPECT: 0.5,	
+					},
+					GREATER: {
+						FACTION_IS_PLAYER: 0,	
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+	},
+},
+
+SITHILON_RUSH_FOLLOW: {
+	ICON: 24->resource->Sithilon->0,
+	DURATION: {
+		DAYS: 8.0,
+	},
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_BUILDING_AGRICULTURE_FARM*>MUL: 1.5,
+					WORLD_BUILDING_MINE*>MUL: 1.5,
+					WORLD_BUILDING_PASTURE_FISHERY*>MUL: 1.5,
+					WORLD_TAX_INCOME>MUL: 1.5,
+					WORLD_LOYALTY*>MUL: 0.8,
+				},
+			},
+		],
+	},
+},
+
+TAX_EVASION: {
+	ICON: 32->INFRA->0,
+	DURATION: {
+		DAYS: 12.0,
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 1,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,	
+						POPULATION_RACE_HUMAN: 0,
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+	},
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_BUILDING_AGRICULTURE*>MUL: 1.5,
+					WORLD_BUILDING_MINE*>MUL: 1.5,
+					WORLD_BUILDING_PASTURE*>MUL: 1.5,
+					WORLD_TAX_INCOME>MUL: 1.5,
+					WORLD_LOYALTY_CRETONIAN>MUL: 0.8,
+					WORLD_LOYALTY_DONDORIAN>MUL: 0.8,
+					WORLD_LOYALTY_GARTHIMI>MUL: 0.8,
+					WORLD_LOYALTY_HUMAN>MUL: 0.8,
+					WORLD_LOYALTY_Q_AMEVIA>MUL: 0.8,
+					WORLD_LOYALTY_TILAPI>MUL: 0.8,					
+				},
+			},
+		],
+	},
+},
+
+PRE_SERPENT_AUR: {
+	DURATION: {
+		DAYS: 0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: SERPENT,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				BUILDING_PASTURE_PASTURE_AUR_AMOUNT: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			SERPENT_YES,
+			SERPENT_NO_FOLLOW,
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {	
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						BUILDING_PASTURE_PASTURE_AUR: 0,
+						FACTION_IS_PLAYER: 0,						
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+	},
+},
+
+PRE_SERPENT_ENT: {
+	DURATION: {
+		DAYS: 0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: SERPENT,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				BUILDING_PASTURE_PASTURE_ENT_AMOUNT: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			SERPENT_YES,
+			SERPENT_NO_FOLLOW,
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {	
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						BUILDING_PASTURE_PASTURE_ENT: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+	},
+},
+
+PRE_SERPENT_ONX: {
+	DURATION: {
+		DAYS: 0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: SERPENT,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				BUILDING_PASTURE_PASTURE_ONX_AMOUNT: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			SERPENT_YES,
+			SERPENT_NO_FOLLOW,
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {	
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						BUILDING_PASTURE_PASTURE_ONX: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+	},
+},
+
+PRE_SERPENT_GLOBDIEN: {
+	DURATION: {
+		DAYS: 0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: SERPENT,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				BUILDING_PASTURE_PASTURE_GLOBDIEN_AMOUNT: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			SERPENT_YES,
+			SERPENT_NO_FOLLOW,
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {	
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						BUILDING_PASTURE_PASTURE_GLOBDIEN: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+	},
+},
+
+SERPENT: {
+	ICON: 32->INFRA->0,	
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: SERPENT_NO,
+			},
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: SERPENT_YES,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: SERPENT_NO,
+				},
+			],		
+		},
+	],
+},
+
+SERPENT_YES: {
+	ICON: 32->DEATH->1,	
+	
+	TAGS: {
+		ADD: [
+			SERPENT_YES,
+		],
+	},
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: RESOURCES,
+				AMOUNTS: {
+					RES_METAL: {
+						PER_PERSON: 0.6,
+					},	
+				},
+			},
+			{
+				TYPE: REGION_POP,
+				AMOUNT_REL: -0.3,
+				RACESS: [
+							HUMAN,
+							CRETONIAN,
+							TILAPI,
+							Q_AMEVIA,
+							DONDORIAN,
+							GARTHIMI,
+						],
+				HIDE_UI: true,
+			},
+		],
+	},
+},
+
+SERPENT_NO: {
+	ICON: 32->INFRA->0,	
+	
+	DURATION: {
+		DAYS: 12.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: SERPENT_NO_FOLLOW,
+			},
+		],
+	},	
+},
+
+SERPENT_NO_FOLLOW: {
+	ICON: 32->INFRA->0,	
+
+	TAGS: {
+		ADD: [
+			SERPENT_NO_FOLLOW,
+		],
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: RESOURCES,
+				AMOUNTS: {
+					RES_METAL: {
+						PER_PERSON: 0.6,
+					},	
+				},
+			},
+		],
+	},
+},
+
+**WIP
+STARVATION: {
+	ICON: 32->SERVICE->8,  
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 10000000.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 500,
+				FOOD_STARVATION: 0.02,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+
+	SELECTION: {
+		ROYALTIES: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_POPULATION: 0,
+						FACTION_PLAYER_REACHABLE: 0,
+						SUCCESSION_ORDER_0: 0,
+					},
+					LESS: {
+						FACTION_STANCE_WAR: 1,
+					},
+				},
+			],
+			MARK: {
+				  MARK_WITH_EVENT_KEY: true,
+			},	
+		},	
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+		ADD: [
+			STARVATION,
+		],
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: RESOURCES,
+				AMOUNTS: {
+					RES_RATION: {
+						PER_PERSON: 8,
+					},	
+				},
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 2,
+				IS_MUL: false,
+				LENGHT_DAYS: 60,
+				INCREASE_PER_DAY: -0.1,
+			},
+		],
+	},
+},
+
+STARVATION_CONT: {
+	ICON: 32->SERVICE->8,  
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: STARVATION_CONT_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 2.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 500,
+				FOOD_FOOD_DAYS: 10,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+
+	SELECTION: {
+		ROYALTIES: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: true,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],
+			MARK: {
+				MARK_WITH_EVENT_KEY: false,
+				ALLOW_ONLY_MARK: REGION_STARVATION,
+			},	
+		},	
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+		ALLOW: [
+			STARVATION,
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: RESOURCES,
+					AMOUNTS: {
+						RES_MUSHROOM: {
+							RELATIVE: -0.55,
+						},	
+						RES_BREAD: {
+							RELATIVE: -0.55,
+						},	
+						RES_VEGETABLE: {
+							RELATIVE: -0.55,
+						},	
+						RES_MEAT: {
+							RELATIVE: -0.55,
+						},	
+						RES_FRUIT: {
+							RELATIVE: -0.55,
+						},	
+						RES_FISH: {
+							RELATIVE: -0.55,
+						},	
+						RES_RATION: {
+							RELATIVE: -0.55,
+						},	
+						RES_EGG: {
+							RELATIVE: -0.55,
+						},	
+					},
+				},					
+				{
+					TYPE: EVENT,
+					EVENT: STARVATION_CONT_YES,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: STARVATION_CONT_NO,
+				},
+			],		
+		},
+	],
+},
+
+STARVATION_CONT_YES: {
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: RESOURCES,
+				AMOUNTS: {
+					RES_METAL: {
+						PER_PERSON: 0.6,
+					},	
+				},
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 2,
+				IS_MUL: true,
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 2,
+				IS_MUL: false,
+			},
+		],
+	},
+},
+
+STARVATION_CONT_NO: {
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: OPINION,
+				VALUE: -10,
+				IS_MUL: false,
+			},
+		],
+	},
+},
+
+DEVELOPMENT: {
+	ICON: 32->INFRA->0,	
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: DEVELOPMENT_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 2,
+			},
+			LESS: {
+				FACTION_IS_TILAPI: 1,
+			},			
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						PROP_TERRAIN_NONE: 0.7,
+						POPULATION_RACE_HUMAN: 0,
+						POPULATION_RACE_TILAPI: 0,	
+						FACTION_IS_PLAYER: 0,
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_FACTION_IS_TILAPI: 1,
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: DEVELOPMENT_YES,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: DEVELOPMENT_NO,
+				},
+			],		
+		},
+	],
+},
+
+DEVELOPMENT_YES: {
+	ICON: 32->INFRA->0,	
+
+	DURATION: {
+		DAYS: 12.0,
+	},
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: OPINION,
+				VALUE: 0.8,
+				INCREASE_PER_DAY: -0.05,
+				IS_MUL: true,
+				LENGHT_DAYS: 16,
+			},
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_BUILDING_AGRICULTURE_FARM*>MUL: 1.5,
+					WORLD_BUILDING_MINE*>MUL: 1.5,
+					WORLD_BUILDING_PASTURE_FISHERY*>MUL: 1.5,
+					WORLD_TAX_INCOME>MUL: 1.5,
+					WORLD_LOYALTY_TILAPI>MUL: 0.5,
+					WORLD_LOYALTY_HUMAN>MUL: 1.5,
+				},
+				PLAYER: {
+					WORLD_LOYALTY_TILAPI>MUL: 0.9,
+					WORLD_LOYALTY_HUMAN>MUL: 1.2,
+				},
+			},
+		],
+	},
+	
+
+},
+
+DEVELOPMENT_NO: {
+	ICON: 32->INFRA->0,	
+	
+	DURATION: {
+		DAYS: 12.0,
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: OPINION,
+				VALUE: 1.5,
+				INCREASE_PER_DAY: -0.05,
+				IS_MUL: true,
+				LENGHT_DAYS: 48,
+			},
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_LOYALTY_TILAPI>MUL: 2,
+					WORLD_LOYALTY_HUMAN>MUL: 0.8,
+				},
+				PLAYER: {
+					WORLD_LOYALTY_TILAPI>MUL: 1.3,
+					WORLD_LOYALTY_HUMAN>MUL: 0.9,
+				},
+			},
+		],
+	},
+},
+
+**this could use a limit to the maximum amount of faction affected at one time, which would allow it to be a permanent boost
+**also, the reduction to conscriptables does not reduce army size
+RAID_ASSISTANCE: {
+	ICON: 24->resource->Weapon_short->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: RAID_ASSISTANCE_NO,
+			},		
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			RAID_ASSISTANCE_YES,
+		],
+	},
+	
+	SELECTION: {
+		ROYALTIES: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_STANCE_WAR: 0,
+						FACTION_STANCE_VASSAL: 0,
+						FACTION_PLAYER_REACHABLE: 1,
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: RAID_ASSISTANCE_YES,
+				},		
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 200,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: RAID_ASSISTANCE_NO,
+				},		
+			],		
+		},
+	],
+},
+
+RAID_ASSISTANCE_YES: {
+	ICON: 24->resource->Weapon_short->0,
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: INVASION,
+				AMOUNT_FROM: 0.7,
+				AMOUNT_TO: 0.7,
+				RACE: HUMAN,
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 2,
+				INCREASE_PER_DAY: -0.1,
+				IS_MUL: true,
+				LENGHT_DAYS: 160,
+			},	
+		],
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+		ADD: [
+			RAID_ASSISTANCE_YES,
+		],
+	},	
+},
+
+RAID_ASSISTANCE_NO: {
+	ICON: 24->resource->Weapon_short->0,
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM_REMOVE,
+				EVENTS: [
+					RAID_ASSISTANCE_NO,
+				],	
+			},	
+		],
+	},
+
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST: {
+					ROOM_MINE_STONE>MUL: 0.5,
+					ROOM_WOODCUTTER>MUL: 0.5,
+					ROOM_WORKSHOP_CARPENTER>MUL: 0.5,
+					ROOM_WORKSHOP_MASON>MUL: 0.5,
+					WORLD_CONSCRIPTABLE_TARGET>MUL: 0.75,
+				},
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: false,
+				USE_SELECTION_ROYALTIES: true,
+				HIDE_UI: false,
+			},
+		],
+	},
+},
+
+RAID_ASSISTANCE_YES_FOLLOW: {
+	ICON: 24->resource->Weapon_short->0,
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 6.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+			},
+		},
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: INVASION,
+				AMOUNT_FROM: 0.9,
+				AMOUNT_TO: 0.9,
+				RACE: HUMAN,
+			},
+		],
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+		ALLOW: [
+			RAID_ASSISTANCE_YES,
+		],
+		REMOVE: [
+			RAID_ASSISTANCE_YES,
+		],
+	},	
+},
+
+OPIATE_SMUGGLING: {
+	ICON: 24->resource->Opiates->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: OPIATE_SMUGGLING_YES,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 500,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,		
+						BUILDING_AGRICULTURE_FARM_SPICES_LEVEL: 2,
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_POPULATION: 0,
+						FACTION_PLAYER_BORDERS: 0,
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: OPIATE_SMUGGLING_YES,
+				},
+				{
+					TYPE: BOOST,
+					PLAYER: {
+						ROOM_FARM_SPICES>MUL: 1.25,
+					},
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: OPIATE_SMUGGLING_NO,
+				},
+				{
+					TYPE: BOOST,
+					PLAYER: {
+						ROOM_FARM_SPICES>MUL: 2,
+						CIVIC_OPINION>ADD: -0.5,
+					},
+				},
+			],		
+		},
+	],
+},
+
+OPIATE_SMUGGLING_YES: {
+	ICON: 24->resource->Opiates->0,
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM_REMOVE,
+				EVENTS: [
+					OPIATE_SMUGGLING_YES,
+				],	
+			},	
+		],
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST: {
+					ROOM_FARM_SPICES>MUL: 1.25,
+				},
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: true,
+				USE_SELECTION_ROYALTIES: false,
+				HIDE_UI: false,
+			},
+		],
+	},
+},
+
+OPIATE_SMUGGLING_NO: {
+	ICON: 24->resource->Opiates->0,
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM_REMOVE,
+				EVENTS: [
+					OPIATE_SMUGGLING_NO,
+				],	
+			},	
+		],
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST: {
+					ROOM_FARM_SPICES>MUL: 2,
+				},
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: true,
+				USE_SELECTION_ROYALTIES: false,
+				HIDE_UI: false,
+			},
+			{
+				TYPE: OPINION,
+				VALUE: -0.5,
+				INCREASE_PER_DAY: -0.05,
+				IS_MUL: false,
+				LENGHT_DAYS: 16,
+			},
+		],
+	},
+},
+
+**can not check for loyalty of populations in regions right now
+CONFLICT_HUMAN: {
+	ICON: 32->race->Tilapi->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_HUMAN_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 2,
+				FACTION_IS_HUMAN: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						POPULATION_RACE_TILAPI: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_FACTION_IS_TILAPI: 1,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],
+		},	
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_LOYALTY_TILAPI>ADD: -3,
+				},
+			},
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_HUMAN_YES,
+				},
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 175,
+				},	
+				{
+					TYPE: REGION_POP,
+					AMOUNT_REL: -0.5,
+					RACESS: [
+								TILAPI,
+					],
+				},				
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_HUMAN_NO,
+				},
+			],		
+		},
+	],
+},
+
+CONFLICT_HUMAN_YES: {
+	ICON: 32->race->Tilapi->0,
+	DURATION: {
+		DAYS: 16.0,
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_TILAPI>MUL: 0.9,
+					WORLD_LOYALTY_HUMAN>MUL: 1.5,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_TILAPI>ADD: 5,
+				},
+			},
+		],
+	},	
+},
+
+CONFLICT_HUMAN_NO: {
+	ICON: 32->race->Tilapi->0,
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: INVASION,
+				AMOUNT_FROM: 0.9,
+				AMOUNT_TO: 0.9,
+				RACE: TILAPI,
+			},
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_HUMAN_NO_FOLLOW,
+			},
+		],
+	},	
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_TILAPI>MUL: 1.3,
+					WORLD_LOYALTY_HUMAN>MUL: 0.9,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_TILAPI>ADD: 1,
+				},
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 1,
+				INCREASE_PER_DAY: -0.1,
+				IS_MUL: false,
+				LENGHT_DAYS: 32,
+			},
+		],
+	},
+},
+
+CONFLICT_HUMAN_NO_FOLLOW: {
+	ICON: 32->race->Tilapi->0,
+},
+
+CONFLICT_TILAPI: {
+	ICON: 32->race->Human->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_TILAPI_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 2,
+				FACTION_IS_TILAPI: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						POPULATION_RACE_HUMAN: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_FACTION_IS_HUMAN: 1,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],
+		},	
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_LOYALTY_HUMAN>ADD: -3,
+				},
+			},
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_TILAPI_YES,
+				},
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 175,
+				},		
+				{
+					TYPE: REGION_POP,
+					AMOUNT_REL: -0.5,
+					RACESS: [
+								HUMAN,
+					],
+				},					
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_TILAPI_NO,
+				},
+			],		
+		},
+	],
+},
+
+CONFLICT_TILAPI_YES: {
+	ICON: 32->race->Human->0,
+	DURATION: {
+		DAYS: 16.0,
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_HUMAN>MUL: 0.9,
+					WORLD_LOYALTY_TILAPI>MUL: 1.5,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_HUMAN>ADD: 5,
+				},
+			},
+		],
+	},	
+},
+
+CONFLICT_TILAPI_NO: {
+	ICON: 32->race->Human->0,
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: INVASION,
+				AMOUNT_FROM: 0.9,
+				AMOUNT_TO: 0.9,
+				RACE: HUMAN,
+			},
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_TILAPI_NO_FOLLOW,
+			},
+		],
+	},	
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_HUMAN>MUL: 1.3,
+					WORLD_LOYALTY_TILAPI>MUL: 0.9,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_HUMAN>ADD: 1,
+				},
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 1,
+				INCREASE_PER_DAY: -0.1,
+				IS_MUL: false,
+				LENGHT_DAYS: 32,
+			},
+		],
+	},
+},
+
+CONFLICT_TILAPI_NO_FOLLOW: {
+	ICON: 32->race->Human->0,
+},
+
+CONFLICT_CRETONIAN: {
+	ICON: 32->race->Amevia->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_CRETONIAN_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 2,
+				FACTION_IS_CRETONIAN: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						POPULATION_RACE_Q_AMEVIA: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_FACTION_IS_Q_AMEVIA: 1,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],
+		},			
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_LOYALTY_Q_AMEVIA>ADD: -3,
+				},
+			},
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_CRETONIAN_YES,
+				},
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 175,
+				},		
+				{
+					TYPE: REGION_POP,
+					AMOUNT_REL: -0.5,
+					RACESS: [
+								Q_AMEVIA,
+					],
+				},					
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_CRETONIAN_NO,
+				},
+			],		
+		},
+	],
+},
+
+CONFLICT_CRETONIAN_YES: {
+	ICON: 32->race->Amevia->0,
+	DURATION: {
+		DAYS: 16.0,
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_Q_AMEVIA>MUL: 0.9,
+					WORLD_LOYALTY_CRETONIAN>MUL: 1.5,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_Q_AMEVIA>ADD: 5,
+				},
+			},
+		],
+	},	
+},
+
+CONFLICT_CRETONIAN_NO: {
+	ICON: 32->race->Amevia->0,
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: INVASION,
+				AMOUNT_FROM: 0.9,
+				AMOUNT_TO: 0.9,
+				RACE: Q_AMEVIA,
+			},
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_CRETONIAN_NO_FOLLOW,
+			},
+		],
+	},	
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_Q_AMEVIA>MUL: 1.3,
+					WORLD_LOYALTY_CRETONIAN>MUL: 0.9,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_Q_AMEVIA>ADD: 1,
+				},
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 1,
+				INCREASE_PER_DAY: -0.1,
+				IS_MUL: false,
+				LENGHT_DAYS: 32,
+			},
+		],
+	},
+},
+
+CONFLICT_CRETONIAN_NO_FOLLOW: {
+	ICON: 32->race->Amevia->0,
+},
+
+CONFLICT_GARTHIMI: {
+	ICON: 32->race->Dondorian->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_GARTHIMI_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 2,
+				FACTION_IS_GARTHIMI: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						POPULATION_RACE_DONDORIAN: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_FACTION_IS_DONDORIAN: 1,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],
+		},			
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_LOYALTY_DONDORIAN>ADD: -3,
+				},
+			},
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_GARTHIMI_YES,
+				},
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 175,
+				},		
+				{
+					TYPE: REGION_POP,
+					AMOUNT_REL: -0.5,
+					RACESS: [
+						DONDORIAN,
+					],
+				},					
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_GARTHIMI_NO,
+				},
+			],		
+		},
+	],
+},
+
+CONFLICT_GARTHIMI_YES: {
+	ICON: 32->race->Dondorian->0,
+	DURATION: {
+		DAYS: 16.0,
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_DONDORIAN>MUL: 0.9,
+					WORLD_LOYALTY_GARTHIMI>MUL: 1.5,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_DONDORIAN>ADD: 5,
+				},
+			},
+		],
+	},	
+},
+
+CONFLICT_GARTHIMI_NO: {
+	ICON: 32->race->Dondorian->0,
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: INVASION,
+				AMOUNT_FROM: 0.9,
+				AMOUNT_TO: 0.9,
+				RACE: DONDORIAN,
+			},
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_GARTHIMI_NO_FOLLOW,
+			},
+		],
+	},	
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_DONDORIAN>MUL: 1.3,
+					WORLD_LOYALTY_GARTHIMI>MUL: 0.9,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_DONDORIAN>ADD: 1,
+				},
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 1,
+				INCREASE_PER_DAY: -0.1,
+				IS_MUL: false,
+				LENGHT_DAYS: 32,
+			},
+		],
+	},
+},
+
+CONFLICT_GARTHIMI_NO_FOLLOW: {
+	ICON: 32->race->Dondorian->0,
+},
+
+CONFLICT_DONDORIAN: {
+	ICON: 32->race->Garthimi->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_DONDORIAN_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 2,
+				FACTION_IS_DONDORIAN: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						POPULATION_RACE_GARTHIMI: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_FACTION_IS_GARTHIMI: 1,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],
+		},			
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_LOYALTY_GARTHIMI>ADD: -3,
+				},
+			},
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_DONDORIAN_YES,
+				},
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 175,
+				},		
+				{
+					TYPE: REGION_POP,
+					AMOUNT_REL: -0.5,
+					RACESS: [
+						GARTHIMI,
+					],
+				},					
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_DONDORIAN_NO,
+				},
+			],		
+		},
+	],
+},
+
+CONFLICT_DONDORIAN_YES: {
+	ICON: 32->race->Garthimi->0,
+	DURATION: {
+		DAYS: 16.0,
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_GARTHIMI>MUL: 0.9,
+					WORLD_LOYALTY_DONDORIAN>MUL: 1.5,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_GARTHIMI>ADD: 5,
+				},
+			},
+		],
+	},	
+},
+
+CONFLICT_DONDORIAN_NO: {
+	ICON: 32->race->Garthimi->0,
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: INVASION,
+				AMOUNT_FROM: 0.9,
+				AMOUNT_TO: 0.9,
+				RACE: GARTHIMI,
+			},
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_DONDORIAN_NO_FOLLOW,
+			},
+		],
+	},	
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_GARTHIMI>MUL: 1.3,
+					WORLD_LOYALTY_DONDORIAN>MUL: 0.9,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_GARTHIMI>ADD: 1,
+				},
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 1,
+				INCREASE_PER_DAY: -0.1,
+				IS_MUL: false,
+				LENGHT_DAYS: 32,
+			},
+		],
+	},
+},
+
+CONFLICT_DONDORIAN_NO_FOLLOW: {
+	ICON: 32->race->Garthimi->0,
+},
+
+CONFLICT_Q_AMEVIA: {
+	ICON: 32->race->Cretonian->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_Q_AMEVIA_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 2,
+				FACTION_IS_Q_AMEVIA: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						POPULATION_RACE_CRETONIAN: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_FACTION_IS_CRETONIAN: 1,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],
+		},			
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_LOYALTY_CRETONIAN>ADD: -3,
+				},
+			},
+		],
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_Q_AMEVIA_YES,
+				},
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 175,
+				},		
+				{
+					TYPE: REGION_POP,
+					AMOUNT_REL: -0.5,
+					RACESS: [
+						CRETONIAN,
+					],
+				},					
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CONFLICT_Q_AMEVIA_NO,
+				},
+			],		
+		},
+	],
+},
+
+CONFLICT_Q_AMEVIA_YES: {
+	ICON: 32->race->Cretonian->0,
+	DURATION: {
+		DAYS: 16.0,
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_CRETONIAN>MUL: 0.9,
+					WORLD_LOYALTY_Q_AMEVIA>MUL: 1.5,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_CRETONIAN>ADD: 5,
+				},
+			},
+		],
+	},	
+},
+
+CONFLICT_Q_AMEVIA_NO: {
+	ICON: 32->race->Cretonian->0,
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: INVASION,
+				AMOUNT_FROM: 0.9,
+				AMOUNT_TO: 0.9,
+				RACE: CRETONIAN,
+			},
+			{
+				TYPE: EVENT,
+				EVENT: CONFLICT_Q_AMEVIA_NO_FOLLOW,
+			},
+		],
+	},	
+
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY_CRETONIAN>MUL: 1.3,
+					WORLD_LOYALTY_Q_AMEVIA>MUL: 0.9,
+				},
+				REGIONS: {
+					WORLD_LOYALTY_CRETONIAN>ADD: 1,
+				},
+			},
+			{
+				TYPE: OPINION,
+				VALUE: 1,
+				INCREASE_PER_DAY: -0.1,
+				IS_MUL: false,
+				LENGHT_DAYS: 32,
+			},
+		],
+	},
+},
+
+CONFLICT_Q_AMEVIA_NO_FOLLOW: {
+	ICON: 32->race->Cretonian->0,
+},
+
+GARTHIMI_CAUGHT: {
+	ICON: 32->race->Garthimi->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: GARTHIMI_CAUGHT_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 2,
+				FACTION_IS_GARTHIMI: 0,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {	
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+		
+**could use loyalty check		
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,	
+						POPULATION_RACE_GARTHIMI: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+		ROYALTIES: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_STANCE_WAR: 0,
+						FACTION_STANCE_ALLIED: 0,
+						FACTION_STANCE_VASSAL: 0,
+						FACTION_FACTION_IS_GARTHIMI: 0,
+						FACTION_PLAYER_BORDERS: 1,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: GARTHIMI_CAUGHT_YES,
+				},
+				{
+					TYPE: BOOST,
+					PLAYER: {
+						CIVIC_OPINION>ADD: 1,
+					},
+				},	
+				{
+					TYPE: REGION_POP,
+					AMOUNT_REL: -0.3,
+					RACESS: [
+								GARTHIMI,
+					],
+				},				
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: BOOST,
+					PLAYER: {
+						CIVIC_OPINION>ADD: -1,
+					},
+				},	
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: GARTHIMI_CAUGHT_MAYBE,
+				},
+				{
+					TYPE: CREDITS,
+					PER_PERSON: 300,
+				},
+				{
+					TYPE: BOOST,
+					PLAYER: {
+						CIVIC_OPINION>ADD: -5,
+					},
+				},	
+			],		
+		},
+	],
+},
+
+GARTHIMI_CAUGHT_YES: {
+	ICON: 32->race->Garthimi->0,
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: OPINION,
+				VALUE: 1,
+				INCREASE_PER_DAY: -0.1,
+				IS_MUL: false,
+				LENGHT_DAYS: 32,
+			},
+		],
+	},
+},
+
+GARTHIMI_CAUGHT_NO: {
+	ICON: 32->race->Garthimi->0,
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: OPINION,
+				VALUE: -2,
+				INCREASE_PER_DAY: -0.4,
+				IS_MUL: false,
+				LENGHT_DAYS: 16,
+			},
+		],
+	},
+},
+
+GARTHIMI_CAUGHT_MAYBE: {
+	ICON: 32->race->Garthimi->0,
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: OPINION,
+				VALUE: -5,
+				INCREASE_PER_DAY: -0.5,
+				IS_MUL: false,
+				LENGHT_DAYS: 16,
+			},
+		],
+	},
+},
+
+**could use a ruler/general opinion path
+HEIR_GIFT: {
+	ICON: 32->INFRA->1,	
+	DURATION: {
+		DAYS: 1.0,
+	},
+	
+	OCCURENCE: {
+		ONLY_AFTER_DAYS: 64,
+		CLIMATE: {
+			*: 0.5,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				GOVERN_RICHES: 0.05,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},	
+	
+	SELECTION: {
+		ROYALTIES: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: true,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_STANCE_WAR: 0,
+						FACTION_STANCE_VASSAL: 0,
+						FACTION_PLAYER_REACHABLE: 1,
+						SUCCESSION_ORDER_1: 1,
+						FACTION_HAS_BOOST_PERM: 0,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: HEIR_GIFT_YES,
+				},
+				{
+					TYPE: CREDITS,
+					PER_PERSON: -30,
+				},
+			],		
+		},
+	],
+},
+
+HEIR_GIFT_YES: {
+	ICON: 32->INFRA->1,	
+	DURATION: {
+		DAYS: 0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: HEIR_GIFT_YES_FOLLOW,
+				CLEAR_CONTEXT: true,
+			},
+		],
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: OPINION,
+				VALUE: 2,
+				IS_MUL: true,
+			},
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					CIVIC_OPINION>ADD: -0.25,
+				},
+			},
+		],
+	},	
+},
+
+HEIR_GIFT_YES_FOLLOW: {
+	ICON: 32->INFRA->1,	
+	
+	SELECTION: {
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						SUCCESSION_ORDER_0: 1,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],
+		},	
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: OPINION,
+				VALUE: -0.25,
+				INCREASE_PER_DAY: -0,
+				IS_MUL: false,
+				LENGHT_DAYS: 999,
+			},
+		],
+	},	
+},
+
+GEM_GROVE: {
+	ICON: 24->resource->Gem->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: GEM_GROVE_YES,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 3,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {	
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,
+						PROP_TERRAIN_FOREST: 0.6,
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,						
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: GEM_GROVE_YES,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: GEM_GROVE_NO,
+				},
+				{
+					TYPE: RESOURCES,
+					AMOUNTS: {
+						RES_GEM: {
+							PER_PERSON: 2.5,
+						},	
+					},
+				},				
+			],		
+		},
+	],
+},
+
+GEM_GROVE_YES: {
+	ICON: 24->resource->Gem->0,
+	DURATION: {
+		DAYS: 16.0,
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_LOYALTY*>MUL: 2,
+					WORLD_BUILDING_AGRICULTURE_FARM*>MUL: 2,
+					WORLD_BUILDING_MINE*>MUL: 2,
+					WORLD_BUILDING_PASTURE_FISHERY*>MUL: 2,
+					WORLD_TAX_INCOME>MUL: 2,
+				},
+			},
+		],
+	},	
+},
+
+GEM_GROVE_NO: {
+	ICON: 24->resource->Gem->0,		
+	DURATION: {
+		DAYS: 16.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: GEM_GROVE_NO_FOLLOW,
+			},
+		],
+	},		
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: REGION_POP,
+				AMOUNT_REL: -0.3,
+				RACESS: [
+							HUMAN,
+							CRETONIAN,
+							TILAPI,
+							Q_AMEVIA,
+							DONDORIAN,
+							GARTHIMI,
+				],
+			},
+			{
+				TYPE: BOOST,
+				PLAYER: {
+					WORLD_LOYALTY*>MUL: 0.9,
+				},
+			},
+			{
+				TYPE: BOOST,
+				REGIONS: {
+					WORLD_LOYALTY*>ADD: -1,
+					WORLD_BUILDING_AGRICULTURE_FARM*>MUL: 0.25,
+					WORLD_BUILDING_MINE*>MUL: 0.25,
+					WORLD_BUILDING_PASTURE_FISHERY*>MUL: 0.25,
+					WORLD_TAX_INCOME>MUL: 0.25,
+				},
+			},
+		],
+	},	
+},
+
+GEM_GROVE_NO_FOLLOW: {
+	ICON: 24->resource->Gem->0,	
+},
+
+DEPTH_FASCINATION: {
+	ICON: 32->race->Amevia->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: DEPTH_FASCINATION_NO,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 3,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,	
+						POPULATION_RACE_Q_AMEVIA: 0,
+						PROP_TERRAIN_OCEAN: 0.6,
+					},
+					EQUAL: {
+						HAS_BOOST_PERM: 0,
+						IS_CAPITAL: 0,	
+					},
+				},
+			],
+			MARK: {
+				  MARK_WITH_EVENT_KEY: true,
+			},	
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: DEPTH_FASCINATION_YES,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: DEPTH_FASCINATION_NO,
+				},
+			],		
+		},
+	],
+},
+
+DEPTH_FASCINATION_YES: {
+	ICON: 32->race->Amevia->0,	
+	
+	TAGS: {
+		ADD: [
+			DEPTH_FASCINATION_YES,
+		],
+	},	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+				{
+				TYPE: BOOST_PERM,
+				BOOST: {
+					WORLD_POPULATION_TARGET_CRETONIAN>MUL: 0,
+					WORLD_POPULATION_TARGET_DONDORIAN>MUL: 0,
+					WORLD_POPULATION_TARGET_GARTHIMI>MUL: 0,
+					WORLD_POPULATION_TARGET_HUMAN>MUL: 0,
+					WORLD_POPULATION_TARGET_TILAPI>MUL: 0,
+					WORLD_POPULATION_CAPACITY>MUL: 1.5,
+					WORLD_BUILDING_AGRICULTURE_FARM*>MUL: 0.5,
+					WORLD_BUILDING_PASTURE_PASTURE*>MUL: 0.5,
+					WORLD_BUILDING_PASTURE_PASTURE_GLOBDIEN*>MUL: 1,
+					WORLD_LOYALTY_Q_AMEVIA>MUL: 2,
+				},
+				BOOST_ONLY_PLAYER: false,
+				USE_SELECTION_FACTIONS: false,
+				USE_SELECTION_REGIONS: true,
+				USE_SELECTION_ROYALTIES: false,
+				HIDE_UI: false,
+			},
+		],
+	},	
+},
+
+DEPTH_FASCINATION_NO: {
+	ICON: 32->race->Amevia->0,
+},
+
+DEPTH_FASCINATION_YES_CONT: {
+	ICON: 32->race->Amevia->0,
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 1.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 10,
+			},
+		},
+	},
+	
+	TAGS: {
+		ALLOW: [
+			DEPTH_FASCINATION_YES,
+		],
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,	
+						POPULATION_RACE_Q_AMEVIA: 0,	
+					},
+				},
+			],
+			MARK: {
+				  MARK_WITH_EVENT_KEY: false,
+				  ALLOW_ONLY_MARK: REGION_DEPTH_FASCINATION,
+			},		
+		},	
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: REGION_POP,
+				AMOUNT_REL: -0.2,
+				RACESS: [
+							Q_AMEVIA,
+				],
+			},
+			{
+				TYPE: CREDITS,
+				PER_PERSON: 75,
+			},
+		],
+	},
+},
+
+WIP
+CRETONIAN_AMBITION: {
+	ICON: 32->race->Cretonian->0,
+	DURATION: {
+		DAYS: 1.0,
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 3,
+			},
+			LESS: {
+				FACTION_IS_CRETONIAN: 1,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {	
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						POPULATION_RACE_CRETONIAN: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,	
+					},
+				},
+			],
+			MARK: {
+				  MARK_WITH_EVENT_KEY: true,
+			},		
+		},	
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_FACTION_IS_CRETONIAN: 1,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],		
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CRETONIAN_AMBITION_YES,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: CRETONIAN_AMBITION_NO,
+				},
+			],		
+		},
+	],	
+},
+
+CRETONIAN_AMBITION_YES: {	
+	DURATION: {
+		DAYS: 0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: CRETONIAN_AMBITION_YES/NO,
+			},
+		],
+	},
+
+	TAGS: {
+		ADD: [
+			CRETONIAN_AMBITION_YES,
+		],	
+	},
+},
+
+CRETONIAN_AMBITION_NO: {	
+	DURATION: {
+		DAYS: 0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: CRETONIAN_AMBITION_YES/NO,
+			},
+		],
+	},
+	
+	TAGS: {
+		ADD: [
+			CRETONIAN_AMBITION_NO,
+		],	
+	},
+},
+
+CRETONIAN_AMBITION_YES/NO: {	
+	ICON: 32->race->Cretonian->0,
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: OPINION,
+				VALUE: 1,
+				INCREASE_PER_DAY: -0.1,
+				IS_MUL: false,
+				LENGHT_DAYS: 16,
+			},
+		],
+	},
+},
+
+CRETONIAN_AMBITION_YES/NO_TALL: {
+	ICON: 32->race->Cretonian->0,
+	DURATION: {
+		DAYS: 1.0,
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 20.0,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 10,
+			},
+		},
+	},
+	
+	TAGS: {
+		ADD: [
+			CRETONIAN_AMBITION_YES/NO_TALL,
+		],
+		REMOVE: [
+			CRETONIAN_AMBITION_YES,
+		],
+		ALLOW: [
+			CRETONIAN_AMBITION_YES,
+		],
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {	
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						POPULATION_RACE_CRETONIAN: 0,
+						FACTION_IS_PLAYER: 0,		
+					},
+				},
+			],
+			MARK: {
+				  MARK_WITH_EVENT_KEY: true,
+			},		
+		},	
+		ROYALTIES: {
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						FACTION_FACTION_IS_CRETONIAN: 1,
+					},
+					GREATER: {
+						FACTION_POPULATION: 0,
+					},
+				},
+			],		
+		},	
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: CREDITS,
+				PER_PERSON: 75,
+			},
+		],
+	},
+},
+
+APPENDAGES: {
+	ICON: 24->resource->Ore->0,
+	DURATION: {
+		DAYS: 1.0,
+		ACTIONS: [
+			{
+				TYPE: EVENT,
+				EVENT: APPENDAGES_MAYBE,
+			},
+		],
+	},
+	
+	OCCURENCE: {
+		CLIMATE: {
+			*: 0.5,
+		},
+		TERRAIN: {
+			*: 1.0,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+				WORLD_REGIONS: 3,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+		],
+	},
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: false,
+			
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,	
+					},
+					EQUAL: {
+						IS_CAPITAL: 0,	
+					},					
+					LESS: {
+						PROP_FERTILTIY: 0.5,
+					},
+				},
+			],
+		},	
+	},
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: APPENDAGES_YES,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: APPENDAGES_NO,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: APPENDAGES_MAYBE,
+				},
+			],		
+		},
+	],
+},
+
+APPENDAGES_YES: {	
+	ICON: 32->HEALTH->0,	
+},
+
+APPENDAGES_NO: {	
+	ICON: 32->DEATH->1,	
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: RESOURCES,
+				AMOUNTS: {
+					RES_METAL: {
+						AMOUNT: 42,
+					},	
+				},
+			},
+		],
+	},
+},
+
+APPENDAGES_MAYBE: {	
+	ICON: 32->INFRA->0,	
+},

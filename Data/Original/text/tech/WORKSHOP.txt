@@ -1,0 +1,400 @@
+NAME: "Crafting",
+TECHS: {
+	CRPT01: {
+		NAME: "Basic Carpentry",
+		DESC: "Improves the output of our Carpenters",
+	},
+	CRPTt1: {
+		NAME: "Carpentry Tools",
+		DESC: "Unlocks tools to be equipped for the Carpenter. Tools must be manually equipped in the workplace.",
+	},
+	CRPT02: {
+		NAME: "Skilled Carpentry",
+		DESC: "Improves the output of our Carpenters",
+	},
+	CRPT03: {
+		NAME: "Profficient Carpentry",
+		DESC: "Improves the output of our Carpenters",
+	},
+	CRPTt2: {
+		NAME: "Advanced Carpentry Tools",
+		DESC: "Unlocks tools to be equipped for the Carpenter. Tools must be manually equipped in the workplace.",
+	},
+	CRPT04: {
+		NAME: "Expert Carpentry",
+		DESC: "Improves the output of our Carpenters",
+	},
+	CRPTu2: {
+		NAME: "Advanced Carpenter",
+		DESC: "Allows you to upgrade your Carpenters. Upgrades cost resources and increases maintenance cost.",
+	},
+	RATI01: {
+		NAME: "Basic Ration making",
+		DESC: "Improves the output of our Rationmakers",
+	},
+	RATIt1: {
+		NAME: "Ration making Tools",
+		DESC: "Unlocks tools to be equipped for the Rationmaker. Tools must be manually equipped in the workplace.",
+	},
+	RATI02: {
+		NAME: "Skilled Ration making",
+		DESC: "Improves the output of our Rationmakers",
+	},
+	RATI03: {
+		NAME: "Profficient Ration making",
+		DESC: "Improves the output of our Rationmakers",
+	},
+	RATIt2: {
+		NAME: "Advanced Ration making Tools",
+		DESC: "Unlocks tools to be equipped for the Rationmaker. Tools must be manually equipped in the workplace.",
+	},
+	RATI04: {
+		NAME: "Expert Ration making",
+		DESC: "Improves the output of our Rationmakers",
+	},
+	RATIu2: {
+		NAME: "Advanced Rationmaker",
+		DESC: "Allows you to upgrade your Rationmakers. Upgrades cost resources and increases maintenance cost.",
+	},
+	CRPTr1: {
+		NAME: "Makeshift Spears",
+		DESC: "Unlocks simple, crude Spear production.",
+	},
+	CRPTc1: {
+		NAME: "Obsidian Spear Excellence",
+		DESC: "Decreases Consumption of input materials when producing stone spears.",
+	},
+	CRPTc2: {
+		NAME: "Spear crafting Excellence",
+		DESC: "Decreases Consumption of input materials when producing spears.",
+	},
+	CRPTc4: {
+		NAME: "Shield crafting Excellence",
+		DESC: "Decreases Consumption of input materials when producing shields.",
+	},
+	CRPTc0: {
+		NAME: "Furniture Excellence",
+		DESC: "Decreases Consumption of input materials when producing furniture.",
+	},
+	RATIc0: {
+		NAME: "Dry biscuit Excellence",
+		DESC: "Decreases Consumption of input materials when producing rations with only bread.",
+	},
+	RATIc1: {
+		NAME: "Biscuit Excellence",
+		DESC: "Decreases Consumption of input materials when producing bread and herb rations.",
+	},
+	RATIc2: {
+		NAME: "Jerky Excellence",
+		DESC: "Decreases Consumption of input materials when meat rations.",
+	},
+	RATIc3: {
+		NAME: "Pemmican Excellence",
+		DESC: "Decreases Consumption of input materials when producing fish rations.",
+	},
+	RATIc4: {
+		NAME: "Concervation Excellence",
+		DESC: "Decreases Consumption of input materials when producing fruit rations.",
+	},
+	RATIc5: {
+		NAME: "Pickling Excellence",
+		DESC: "Decreases Consumption of input materials when producing vegitable rations.",
+	},
+	CRPTr3: {
+		NAME: "Makeshift Battle-Hammers",
+		DESC: "Unlocks production of simple, crude hammers of stone instead of metal.",
+	},
+	CRPTc3: {
+		NAME: "Stone Hammer Excellence",
+		DESC: "Decreases Consumption of input materials when producing stone hammers.",
+	},
+	BOWY00: {
+		NAME: "The Bowyer",
+		DESC: "Unlocks the construction of the Bowyer",
+	},
+	BOWY01: {
+		NAME: "Basic Bow making",
+		DESC: "Improves the output of our Bowyers",
+	},
+	BOWYt1: {
+		NAME: "Bow making Tools",
+		DESC: "Unlocks tools to be equipped for the Bowyer. Tools must be manually equipped in the workplace.",
+	},
+	BOWY02: {
+		NAME: "Skilled Bow making",
+		DESC: "Improves the output of our Bowyers",
+	},
+	BOWY03: {
+		NAME: "Profficient Bow making",
+		DESC: "Improves the output of our Bowyers",
+	},
+	BOWYt2: {
+		NAME: "Advanced Bow making Tools",
+		DESC: "Unlocks tools to be equipped for the Bowyer. Tools must be manually equipped in the workplace.",
+	},
+	BOWY04: {
+		NAME: "Expert Bow making",
+		DESC: "Improves the output of our Bowyers",
+	},
+	BOWYc0: {
+		NAME: "War Bow Excellence",
+		DESC: "Decreases Consumption of input materials when producing bows.",
+	},
+	SMIT01: {
+		NAME: "Basic Forging",
+		DESC: "Improves the output of our Smithies",
+	},
+	SMITt1: {
+		NAME: "Forging Tools",
+		DESC: "Unlocks tools to be equipped for the Smithy. Tools must be manually equipped in the workplace.",
+	},
+	SMIT02: {
+		NAME: "Skilled Forging",
+		DESC: "Improves the output of our Smithies",
+	},
+	SMIT03: {
+		NAME: "Profficient Forging",
+		DESC: "Improves the output of our Smithies",
+	},
+	SMITt2: {
+		NAME: "Advanced Forging Tools",
+		DESC: "Unlocks tools to be equipped for the Smithy. Tools must be manually equipped in the workplace.",
+	},
+	SMIT04: {
+		NAME: "Expert Forging",
+		DESC: "Improves the output of our Smithies",
+	},
+	SMITc0: {
+		NAME: "Tool Excellence",
+		DESC: "Decreases Consumption of input materials when producing tools.",
+	},
+	PAPE00: {
+		NAME: "The Papermaker",
+		DESC: "Unlocks the construction of the Papermaker",
+	},
+	PAPE01: {
+		NAME: "Basic Paper making",
+		DESC: "Improves the output of our Papermakers",
+	},
+	PAPEt1: {
+		NAME: "Paper making Tools",
+		DESC: "Unlocks tools to be equipped for the Papermaker. Tools must be manually equipped in the workplace.",
+	},
+	PAPE02: {
+		NAME: "Skilled Paper making",
+		DESC: "Improves the output of our Papermakers",
+	},
+	PAPE03: {
+		NAME: "Profficient Paper making",
+		DESC: "Improves the output of our Papermakers",
+	},
+	PAPEt2: {
+		NAME: "Advanced Paper making Tools",
+		DESC: "Unlocks tools to be equipped for the Papermaker. Tools must be manually equipped in the workplace.",
+	},
+	PAPE04: {
+		NAME: "Expert Paper making",
+		DESC: "Improves the output of our Papermakers",
+	},
+	PAPEc0: {
+		NAME: "Paper Excellence",
+		DESC: "Decreases Consumption of input materials when producing paper.",
+	},
+	SMITr2: {
+		NAME: "Falcata",
+		DESC: "Unlocks production of the Falcata. A short range weapon, meant for close and prolonged combat.",
+	},
+	SMITc2: {
+		NAME: "Falcata Excellence",
+		DESC: "Decreases Consumption of input materials when producing falcatas.",
+	},
+	SMITr3: {
+		NAME: "Flanx",
+		DESC: "Unlocks production of the mighty Flanx. A devastating, two-handed weapon used to slash your way through enemy formations.",
+	},
+	SMITc3: {
+		NAME: "Flanx Excellence",
+		DESC: "Decreases Consumption of input materials when producing Flanxes.",
+	},
+	MASO00: {
+		NAME: "The Masonry",
+		DESC: "Unlocks the construction of the Masonry",
+	},
+	MASO01: {
+		NAME: "Basic Stone sculpting",
+		DESC: "Improves the output of our Masonries",
+	},
+	MASOt1: {
+		NAME: "Stone sculpting Tools",
+		DESC: "Unlocks tools to be equipped for the Masonry. Tools must be manually equipped in the workplace.",
+	},
+	MASO02: {
+		NAME: "Skilled Stone sculpting",
+		DESC: "Improves the output of our Masonries",
+	},
+	MASO03: {
+		NAME: "Profficient Stone sculpting",
+		DESC: "Improves the output of our Masonries",
+	},
+	MASOt2: {
+		NAME: "Advanced Stone sculpting Tools",
+		DESC: "Unlocks tools to be equipped for the Masonry. Tools must be manually equipped in the workplace.",
+	},
+	MASO04: {
+		NAME: "Expert Stone sculpting",
+		DESC: "Improves the output of our Masonries",
+	},
+	MASOc0: {
+		NAME: "Stone Sculpting Excellence",
+		DESC: "Decreases Consumption of input materials when producing cut stone.",
+	},
+	SMITr4: {
+		NAME: "Warhammers",
+		DESC: "Unlocks production of warhammers. A crude, but effective weapon if in the hands of a strong hands/claws.",
+	},
+	SMITc4: {
+		NAME: "Warhammer Excellence",
+		DESC: "Decreases Consumption of input materials when producing war hammers.",
+	},
+	SMITr1: {
+		NAME: "Full Plate",
+		DESC: "Unlocks full Plate armour.",
+	},
+	SMITc1: {
+		NAME: "Full Plate Excellence",
+		DESC: "Decreases Consumption of input materials when producing plate armour.",
+	},
+	MECH00: {
+		NAME: "The Mechanic",
+		DESC: "Unlocks the construction of the Mechanic",
+	},
+	MECH01: {
+		NAME: "Basic Machine making",
+		DESC: "Improves the output of our Mechanics",
+	},
+	MECHt1: {
+		NAME: "Machine making Tools",
+		DESC: "Unlocks tools to be equipped for the Mechanic. Tools must be manually equipped in the workplace.",
+	},
+	MECH02: {
+		NAME: "Skilled Machine making",
+		DESC: "Improves the output of our Mechanics",
+	},
+	MECH03: {
+		NAME: "Profficient Machine making",
+		DESC: "Improves the output of our Mechanics",
+	},
+	MECHt2: {
+		NAME: "Advanced Machine making Tools",
+		DESC: "Unlocks tools to be equipped for the Mechanic. Tools must be manually equipped in the workplace.",
+	},
+	MECH04: {
+		NAME: "Expert Machine making",
+		DESC: "Improves the output of our Mechanics",
+	},
+	MECHc0: {
+		NAME: "Machinery Excellence",
+		DESC: "Decreases Consumption of input materials when producing machinery.",
+	},
+	POTT01: {
+		NAME: "Basic Pot Making",
+		DESC: "Improves the output of our Potteries",
+	},
+	POTTt1: {
+		NAME: "Pot Making Tools",
+		DESC: "Unlocks tools to be equipped for the Pottery. Tools must be manually equipped in the workplace.",
+	},
+	POTT02: {
+		NAME: "Skilled Pot Making",
+		DESC: "Improves the output of our Potteries",
+	},
+	POTT03: {
+		NAME: "Profficient Pot Making",
+		DESC: "Improves the output of our Potteries",
+	},
+	POTTt2: {
+		NAME: "Advanced Pot Making Tools",
+		DESC: "Unlocks tools to be equipped for the Pottery. Tools must be manually equipped in the workplace.",
+	},
+	POTT04: {
+		NAME: "Expert Pot Making",
+		DESC: "Improves the output of our Potteries",
+	},
+	POTTc0: {
+		NAME: "Pottery Excellence",
+		DESC: "Decreases Consumption of input materials when producing pottery.",
+	},
+	JEWE00: {
+		NAME: "The Jeweller",
+		DESC: "Unlocks the construction of the Jeweller",
+	},
+	JEWE01: {
+		NAME: "Basic Jewellery Making",
+		DESC: "Improves the output of our Jewellers",
+	},
+	JEWEt1: {
+		NAME: "Jewellery Making Tools",
+		DESC: "Unlocks tools to be equipped for the Jeweller. Tools must be manually equipped in the workplace.",
+	},
+	JEWE02: {
+		NAME: "Skilled Jewellery Making",
+		DESC: "Improves the output of our Jewellers",
+	},
+	JEWE03: {
+		NAME: "Profficient Jewellery Making",
+		DESC: "Improves the output of our Jewellers",
+	},
+	JEWEt2: {
+		NAME: "Advanced Jewellery Making Tools",
+		DESC: "Unlocks tools to be equipped for the Jeweller. Tools must be manually equipped in the workplace.",
+	},
+	JEWE04: {
+		NAME: "Expert Jewellery Making",
+		DESC: "Improves the output of our Jewellers",
+	},
+	JEWEc0: {
+		NAME: "Jewellery Excellence",
+		DESC: "Decreases Consumption of input materials when producing jewellery.",
+	},
+	TAIL01: {
+		NAME: "Basic Tailoring",
+		DESC: "Improves the output of our Tailors",
+	},
+	TAILt1: {
+		NAME: "Tailoring Tools",
+		DESC: "Unlocks tools to be equipped for the Tailor. Tools must be manually equipped in the workplace.",
+	},
+	TAIL02: {
+		NAME: "Skilled Tailoring",
+		DESC: "Improves the output of our Tailors",
+	},
+	TAIL03: {
+		NAME: "Profficient Tailoring",
+		DESC: "Improves the output of our Tailors",
+	},
+	TAILt2: {
+		NAME: "Advanced Tailoring Tools",
+		DESC: "Unlocks tools to be equipped for the Tailor. Tools must be manually equipped in the workplace.",
+	},
+	TAIL04: {
+		NAME: "Expert Tailoring",
+		DESC: "Improves the output of our Tailors",
+	},
+	TAILu2: {
+		NAME: "Advanced Tailor",
+		DESC: "Allows you to upgrade your Tailors. Upgrades cost resources and increases maintenance cost.",
+	},
+	TAILc0: {
+		NAME: "Leather Excellence",
+		DESC: "Decreases Consumption of input materials when producing leather clothes.",
+	},
+	TAILc1: {
+		NAME: "Fabric excellence",
+		DESC: "Decreases Consumption of input materials when producing fabric clothes.",
+	},
+	TAILc2: {
+		NAME: "Leather Armour Excellence",
+		DESC: "Decreases Consumption of input materials when producing leather armour.",
+	},
+},
+

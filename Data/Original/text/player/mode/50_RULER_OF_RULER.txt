@@ -1,0 +1,2 @@
+NAME: "Ruler of Kings",
+DESC: "Your subjects are disloyal, your enemies are many, and the very world conspires against you. Only a madman would still reach for greatness.",

@@ -1,0 +1,17 @@
+ICON_I: 13,
+REQUIRES: {
+	GREATERE: {
+		WORLD_REGIONS: 10.0,
+** # of vassals > 5
+	},
+	EQUAL: {
+		PLAY_MODE_40_CONQUERER: 1,
+	},
+},
+UNLOCKS_FACTION: [
+],
+UNLOCKS_REGION: [
+],
+BOOST: {
+	BATTLE_FORMATION_SKILL>MUL: 1.2,
+},

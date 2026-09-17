@@ -1,0 +1,2 @@
+NAME: "The Gourmand",
+DESC: "Gained by having lots of food. Your feasts and lack of table manners are the stuff of legends. Subjects who were unfortunate enough to be caught in your 'splatter zone' will have a reduced appetite for the rest of their lives.",

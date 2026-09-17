@@ -1,0 +1,1653 @@
+{
+  "count": 252,
+  "files": [
+    {
+      "path": "META-INF/versions/9/module-info.cs",
+      "reasons": [
+        "placeholder_program"
+      ]
+    },
+    {
+      "path": "game/battle/formation/DivDeployer.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "game/battle/thread/order/PlanAttackDiv.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "game/battle/util/DIV_SETTING.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "game/battle/util/DIV_SPEC.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "game/boosting/BOOSTABLES.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "game/boosting/Boostable.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "game/boosting/superb/SuperBoostableObj.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "game/event/engine/EContext.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "game/faction/diplomacy/deal/DealBools.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "game/faction/diplomacy/deal/DealDrawfter.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "game/faction/player/PTech.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "game/faction/player/PTitles.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "game/raiding/RaidingMap.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "init/paths/PATHS.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "init/resources/GrowableSprite.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "init/resources/RESOURCE.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "init/resources/STOCKPILE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "init/sprite/SPRITES.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "init/sprite/UI/Icons.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "init/sprite/game/SheetType.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "init/type/BUILDING_PREF.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "init/type/CAUSE_LEAVE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "init/type/TYPEINIT.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "launcher/ScreenSetting.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "menu/MenuPromo.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentAlloc.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentAllocI.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentCommit.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentCommitI.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentDalloc.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentDallocI.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentDecommit.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentDecommitI.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentDestroy.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentDestroyI.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentHooks.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentMerge.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentMergeI.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentPurge.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentPurgeI.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentSplit.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/ExtentSplitI.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/JEmalloc.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/JEmallocAllocator.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/MallocMessageCallback.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/MallocMessageCallbackI.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "org/lwjgl/system/jemalloc/package-info.cs",
+      "reasons": [
+        "placeholder_program"
+      ]
+    },
+    {
+      "path": "settlement/entity/animal/ANIMAL_ROOM_RUINER.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/animal/Animal.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/Humanoid.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/MarchPlan.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/SubFight.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/home/AIModule_Home.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/idle/PlanInterract.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIEventListeners.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIManager.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIModules.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIPlans.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AISTATES.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/subwalk/AISUB_walkTo.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/child/AIModule_Child.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/insane/AIModule_Insane.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/recruit/AIModule_Recruit.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/PlanOddjobber.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/spirte/HSprite.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/spirte/HSprites.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/environment/EUpdater.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/environment/SettEnvMap.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/job/JobBuildStructure.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/job/JobClears.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/job/JobComboPlacer.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "settlement/main/SETT.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/misc/job/JOBMANAGER_HASER.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/overlay/ON_TOP_TILE.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/overlay/RADIUS_INTER.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/overlay/RadiusInter.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "settlement/overlay/SettOverlay.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/path/AVAILABILITY.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/path/components/finder/SCompFinder.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/path/finders/SPathFinder.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/food/farm/ROOM_FARM.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/food/farm/Tile.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/food/fish/Constructor.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/food/hunter/ROOM_HUNTER.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/food/orchard/Constructor.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/food/pasture/ConstructorOutdoor.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/food/pasture/ROOM_PASTURE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/health/asylum/ROOM_ASYLUM.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/health/physician/ROOM_PHYSICIAN.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/home/house/HomeInstance.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/home/house/ROOM_HOME.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/home/house/Sprites.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/mine/Constructor.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/module/ROOM_IDATA_INSTANCE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/module/ROOM_PRODUCER_INSTANCE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/module/consumption/ConsumptionGui.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/refiner/Constructor.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/refiner/ROOM_REFINER.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/woodcutter/Constructor.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/workshop/Constructor.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/admin/Constructor.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/gate/ROOM_GATE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/hauler/HaulerInstance.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/logistics/MoveOrderPullUI.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/logistics/MoveOrderPushUI.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/monument/ROOM_MONUMENTS.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/stockpile/Gui.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/stockpile/ROOM_STOCKPILE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/stockpile/StockpileInstance.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/transport/Gui.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/knowledge/school/ROOM_SCHOOL.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/law/court/ROOM_COURT.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/law/execution/Constructor.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/law/guard/Constructor.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/law/police/ROOM_POLICE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/law/stockade/Constructor.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/law/stocks/ROOM_STOCKS.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/main/MapDataF.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/main/ROOMS.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/main/RoomInstance.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/main/construction/ConstructionInstance.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/main/copy/Copier.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/main/employment/Employer.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/main/employment/RoomEmploymentIns.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/main/job/ROOM_RADIUS.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/military/artillery/ROOM_ARTILLERY.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/military/training/ROOM_M_TRAINER.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/military/training/barracks/ROOM_BARRACKS.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/service/arena/grand/CUtil.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/service/breeder/ROOM_BREEDER.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/service/food/canteen/ROOM_CANTEEN.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/service/food/eatery/RoomDistribution.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/service/food/tavern/Constructor.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/service/hearth/ROOM_HEARTH.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/service/module/ROOM_SERVICER.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/service/nursery/ROOM_NURSERY.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/service/pleasure/ROOM_PLEASURE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/service/stage/ROOM_STAGE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/spirit/grave/GRAVE_JOB.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/spirit/grave/GraveInstance.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "settlement/room/spirit/shrine/Constructor.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/spirit/temple/ROOM_TEMPLES.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/tests/UITradeDebug.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/water/PumpConstructor.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/water/ROOM_PUMP.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/water/pool/ROOM_POOL.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/STATS.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/colls/StatsHome.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/colls/StatsNeeds.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/colls/StatsPopulation.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/colls/StatsReligion.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/colls/StatsWork.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/stats/law/StatCrime.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/muls/StatsMultipliers.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/relation/StatsRelations.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/standing/StandingCitizen.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/stat/SETT_STATISTICS.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/thing/ThingsCorpses.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/thing/halfEntity/HalfEntity.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "settlement/tilemap/floor/Floors.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/tilemap/terrain/TBuilding.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/tilemap/terrain/TForest.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/tilemap/terrain/TFortification.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/tilemap/terrain/TMountain.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/tilemap/terrain/TWater.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/GraphicContext.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "snake2d/PathUtilOnline.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/SPRITE_RENDERER.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/SoundCore.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "snake2d/util/color/COLOR.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/color/OPACITY.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/datatypes/AREA.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/datatypes/BODY_HOLDERE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/datatypes/COORDINATE.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "snake2d/util/datatypes/VECTOR.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/gui/clickable/CLICKABLE.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/light/LIGHT_AMBIENT.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/light/LIGHT_POINT.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/map/MAP_CLEARER.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/map/MAP_INT.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/map/MAP_INTE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/map/MAP_OBJECT.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/map/MAP_OBJECTE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/map/MAP_OBJECT_ISSER.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/misc/STRING_RECIEVER.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/sets/COLLECTION.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/sets/INDEXED.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/sets/LIST.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/sets/Valued.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "snake2d/util/sprite/text/Font.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/data/BOOLEANO.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/data/DOUBLE.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/data/DataO.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/data/LONG_O.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/data/RANMAP.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/gui/common/UIPickerArmy.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "util/gui/misc/GButt.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/gui/misc/GMeter.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/info/GFORMAT.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/keymap/MAPPED.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/keymap/RMAPS.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "util/spritecomposer/ComposerSources.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/statistics/HISTORY.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/statistics/HISTORY_INT.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "util/text/Dic.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "util/text/InsertIndu.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/battle/BattlePlacerAttack.cs",
+      "reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/battle/UISelection.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/UIPanelTopSett.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/bottom/BuildMain.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/law/UILawCrimeList.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/minimap/UIMiniMapSettViewMap.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/room/ModuleEmployment.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/room/ModuleIndustry.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/room/ModuleUpgradable.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/room/UIPanelMain.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/room/UIRoomModule.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "view/sett/ui/room/UIRoomTable.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/room/prints/Entry.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "view/sett/ui/standing/CatReligion.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/subject/UISubjectActions.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/subject/UISubjectProperties.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/sett/ui/subject/UISubjectsList.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/subview/GameWindow.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/ui/advice/UIAdvice.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/ui/div/UIDivCardBattle.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/ui/div/UIDivEditor.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/ui/goods/UIGoodsExport.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/ui/goods/UIGoodsImport.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/ui/tech/Node.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/ui/top/UINotifications.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "view/ui/wiki/WikiRace.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "view/world/ui/army/Army.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/world/ui/faction/Court.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/world/ui/faction/Goods.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/world/ui/region/MiscBasics.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "view/world/ui/region/PlayBuildingsPop.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "world/battle/ResolverPlayer.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "world/battle/spec/BATTLE_RESULT.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "world/entity/WEntity.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "world/entity/WEntityConstructor.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "world/entity/army/WArmyConstructor.cs",
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "world/map/pathing/Comps.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "world/map/regions/centre/CSprite.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "world/map/regions/centre/WCentre.cs",
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "world/map/terrain/WorldMountain.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "world/map/terrain/WorldWater.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "world/other/WorldInfo.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "world/region/RDMilitaryGar.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "world/region/building/Creator.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "world/region/building/RDBuilding.cs",
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,511 @@
+TREE: {
+	0: [FOOD0,_____,MARK0,_____,REL00,REL22,STAG0,AREA0,NURS1,LAV00,_____,HOSP0,_____,],
+	1: [CANT0,INN00,MARK1,TAVER,REL11,REL33,STAG1,AREA1,NURS2,ASY00,LAV01,DOC00,_____,],
+	2: [FOOD1,_____,_____,TAVE1,_____,REL44,STAG2,AREA2,_____,REST0,_____,HOSP1,DOC01,],
+	3: [FOOD5,BAR00,PLEA0,_____,_____,_____,_____,_____,_____,_____,_____,HOSP2,DOC02,],
+	4: [_____,_____,_____,_____,_____,_____,_____,_____,_____,_____,_____,HEALB,_____,],
+},
+
+COLOR: 0_148_255,
+ICON: 32->_ICONS->27,
+CATEGORY: 25,
+TECHS: {
+	NURS1: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 10,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_NURSERY_NORMAL,
+		],
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 250,
+			},
+		},
+	},
+	NURS2: {
+		LEVEL_MAX: 4,
+		LEVEL_COST_INC: 25,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 25,
+		},
+		REQUIRES_TECH_LEVEL: {
+			NURS1: 1,
+		},
+		BOOST: {
+			ROOM_NURSERY_NORMAL>ADD: 1,
+		},
+	},
+	STAG0: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 5,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_STAGE_NORMAL,
+		],
+	},
+	STAG1: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 40,
+		},
+		REQUIRES_TECH_LEVEL: {
+			STAG0: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_STAGE_NORMAL_UPGRADE_1,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 500,
+				},
+		},
+	},
+	STAG2: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 100,
+		},
+		REQUIRES_TECH_LEVEL: {
+			STAG1: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_STAGE_NORMAL_UPGRADE_2,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 1000,
+				},
+		},
+	},
+	AREA0: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 20,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_FIGHTPIT_NORMAL,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 250,
+				},
+		},
+	},
+	AREA1: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 80,
+		},
+		REQUIRES_TECH_LEVEL: {
+			AREA0: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_FIGHTPIT_NORMAL_UPGRADE_1,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 750,
+				},
+		},
+	},
+	AREA2: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 200,
+		},
+		REQUIRES_TECH_LEVEL: {
+			AREA1: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_ARENAG_NORMAL,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 2000,
+				},
+		},
+	},
+	
+	MARK0: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 10,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MARKET_NORMAL_UPGRADE_1,
+		],
+	},
+	TAVER: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 20,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MARK0: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_TAVERN_NORMAL,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 500,
+				},
+		},
+	},
+	TAVE1: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 80,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAVER: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_TAVERN_NORMAL_UPGRADE_1,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 1000,
+				},
+		},
+	},
+	MARK1: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 60,
+		},
+		REQUIRES_TECH_LEVEL: {
+			TAVER: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_MARKET_NORMAL_UPGRADE_2,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 1000,
+				},
+		},
+	},
+	FOOD0: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 10,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 50,
+			},
+		},
+		UNLOCKS_FACTION: [
+			ROOM_EATERY_NORMAL_UPGRADE_1,
+		],
+	},
+	CANT0: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 40,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FOOD0: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_CANTEEN_NORMAL,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 500,
+				},
+		},
+	},
+
+	FOOD1: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 50,
+		},
+		REQUIRES_TECH_LEVEL: {
+			CANT0: 1,
+		},
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 1000,
+				},
+		},
+		UNLOCKS_FACTION: [
+			ROOM_EATERY_NORMAL_UPGRADE_2,
+		],
+	},
+	
+	
+	INN00: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 50,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MARK0: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_INN,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 500,
+				},
+		},
+	},
+	BAR00: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 60,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MARK1: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_BARBER_NORMAL,
+		],
+	},
+	PLEA0: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 75,
+		},
+		REQUIRES_TECH_LEVEL: {
+			MARK1: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_PLEASURE_NORMAL,
+		],
+	},
+	PLEA1: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 50,
+		},
+		REQUIRES_TECH_LEVEL: {
+			PLEA0: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_PLEASURE_NORMAL_UPGRADE_1,
+		],
+	},
+	FOOD5: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 100,
+		},
+		LEVEL_COST_INC: 50,
+		REQUIRES_TECH_LEVEL: {
+			FOOD1: 1,
+		},
+		BOOST: {
+			RATES_HUNGER>ADD: -0.05,
+		},
+	},
+	REL00: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 10,
+		},
+		REQUIRES_TECH_LEVEL: {
+		},
+		UNLOCKS_FACTION: [
+			ROOM_GRAVEYARD_NORMAL,
+		],
+		UNLOCKS_REGION: [],
+		BOOST: {},
+	},
+	REL11: {
+		
+		COSTS: {
+			CIVIC_KNOWLEDGE: 60,
+		},
+		REQUIRES_TECH_LEVEL: {
+			REL00: 1,
+		},
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 1000,
+				},
+		},
+		UNLOCKS_FACTION: [
+			ROOM_TOMB_NORMAL,
+		],
+		UNLOCKS_REGION: [],
+		BOOST: {},
+	},
+	REL22: {
+		ICON: {
+			FG: 16->Misc->2,
+			BG: 32->BG->8,
+			COLOR: 255_100_10,
+		},
+		
+		COSTS: {
+			CIVIC_KNOWLEDGE: 60,
+		},
+		REQUIRES_TECH_LEVEL: {
+			
+		},
+		UNLOCKS_FACTION: [
+			ROOM_SHRINE_AMINION_UPGRADE_1,
+			ROOM_SHRINE_ATHURI_UPGRADE_1,
+			ROOM_SHRINE_CRATOR_UPGRADE_1,
+			ROOM_SHRINE_SHMALOR_UPGRADE_1,
+		],
+	},
+	REL33: {
+		ICON: {
+			FG: 16->Misc->3,
+			BG: 32->BG->9,
+			COLOR: 50_250_250,
+		},
+
+		COSTS: {
+			CIVIC_KNOWLEDGE: 150,
+		},
+		REQUIRES_TECH_LEVEL: {
+			REL22: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_TEMPLE_AMINION,
+			ROOM_TEMPLE_ATHURI,
+			ROOM_TEMPLE_CRATOR,
+			ROOM_TEMPLE_SHMALOR,
+		],
+		REQUIRES: {
+				GREATER: {
+					POPULATION: 2000,
+				},
+		},
+	},
+	REL44: {
+		ICON: {
+			FG: 16->Misc->2,
+			BG: 32->BG->8,
+			COLOR: 255_200_50,
+		},
+		COSTS: {
+			CIVIC_KNOWLEDGE: 180,
+		},
+		REQUIRES_TECH_LEVEL: {
+			REL33: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_SHRINE_AMINION_UPGRADE_2,
+			ROOM_SHRINE_ATHURI_UPGRADE_2,
+			ROOM_SHRINE_CRATOR_UPGRADE_2,
+			ROOM_SHRINE_SHMALOR_UPGRADE_2,
+		],
+	},
+	
+	LAV00: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 20,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_LAVATORY_NORMAL_UPGRADE_1,
+		],
+	},
+	LAV01: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 60,
+		},
+		REQUIRES_TECH_LEVEL: {
+			LAV00: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_LAVATORY_NORMAL_UPGRADE_2,
+		],
+	},
+	HOSP0: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 30,
+		},
+		REQUIRES_TECH_LEVEL: {
+			
+		},
+		UNLOCKS_FACTION: [
+			ROOM_HOSPITAL,
+		],
+	},
+	HOSP1: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 30,
+		},
+		REQUIRES_TECH_LEVEL: {
+			DOC00: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_HOSPITAL_USE_FABRIC,
+		],
+	},	
+	HOSP2: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 30,
+		},
+		REQUIRES_TECH_LEVEL: {
+			HOSP1: 1,
+			DOC01: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_HOSPITAL_USE_OPIATES,
+		],
+	},	
+	DOC00: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 20,
+		},
+		REQUIRES_TECH_LEVEL: {
+			HOSP0: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_PHYSICIAN_NORMAL,
+		],
+	},
+	DOC01: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 50,
+		},
+		REQUIRES_TECH_LEVEL: {
+			DOC00: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_PHYSICIAN_NORMAL_UPGRADE_1,
+		],
+	},
+	DOC02: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 100,
+		},
+		REQUIRES_TECH_LEVEL: {
+			DOC01: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_PHYSICIAN_NORMAL_UPGRADE_2,
+		],
+	},
+	HEALB: {
+		LEVEL_MAX: 200,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 20,
+		},
+		LEVEL_COST_INC: 2,
+		REQUIRES_TECH_LEVEL: {
+			HOSP2: 1,
+			DOC02: 1,
+		},
+		BOOST: {
+			PHYSICS_HEALTH>ADD: 0.03,
+		},
+	},
+	ASY00: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 60,
+		},
+		REQUIRES_TECH_LEVEL: {
+			LAV00: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_ASYLUM,
+		],
+	},
+	REST0: {
+		COSTS: {
+			CIVIC_KNOWLEDGE: 70,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ASY00: 1,
+			LAV01: 1,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_RESTHOME_NORMAL,
+		],
+	},
+},
+

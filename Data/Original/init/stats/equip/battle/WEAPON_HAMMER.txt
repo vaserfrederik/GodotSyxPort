@@ -1,0 +1,53 @@
+RESOURCE: WEAPON_HAMMER,
+WEAR_RATE: 0.1,
+MAX_AMOUNT: 5,
+ARRIVAL_AMOUNT: 0,
+DEFAULT_TARGET: 0,
+
+DIV_SPRITE: {
+	X: 10,
+	Y: -14,
+	Z: 0,
+	ICON: 24->Equipment->3,
+	COLOR: [
+		175_112_66,
+		200_200_200,
+		255_190_0,
+	],
+},
+
+AMOUNT_IN_GARRISON: 0,
+EQUIP_GUARDS: 0,
+SLOT_USAGE: [
+	0, 
+	1.0,
+	1.0,
+	0,
+	0,
+	0,
+	0,
+	0,	
+],
+
+RACE_ALLOWED: [
+	*,
+],
+
+SPRITE: {
+	FILE: Hammer,
+	OFFSET_X: 0.5,
+	OFFSET_Y: 0.45,
+	ANIMATION_DX: -0.1,
+	ANIMATION_DY: 0.3,
+	COLOR: [
+		125_87_64,
+		74_67_64,
+	],
+},
+
+
+BOOST: {
+	BATTLE_BLUNT_ATTACK>MUL: 1.5,
+	BATTLE_PIERCE_ATTACK>ADD: 3.0,
+},
+

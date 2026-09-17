@@ -1,0 +1,65 @@
+ICON: 32->LAW->4,
+TYPE: STOCKS,
+RESOURCES: [FURNITURE,METAL,],
+AREA_COSTS: [0,0,],
+FLOOR: [DIRT,],
+MINI_COLOR: 255_200_0,
+ITEMS: [
+	{
+		COSTS: [1,0.5,],
+		STATS: [10,],
+	},
+],
+SERVICE: {
+	DEFAULT_ACCESS: 1,
+	STANDING: {
+		CITIZEN: 0.5,
+		SLAVE: 0,
+		NOBLE: 1,
+		PRIO: 1,
+		INVERTED: true,
+	},
+	BOOST: {
+		CIVIC_LAW>ADD: 0.2,
+	},
+	SOUND: DUMMY,
+	RADIUS: 200,
+	NEED: STOCKS,
+},
+SPRITES: {
+	BOX: [
+		{
+			COLOR: {
+				FROM: 160_150_150,
+				TO: 145_140_140,
+				GENERATE: 8,
+			},
+			FRAMES: [
+				PODIUM: 6,
+			],
+		},
+	],
+	
+	STOCK_BELOW_1X1: [
+		{
+			ROTATES: true,
+			SHADOW_LENGTH: 2,
+			TINT: true,
+			FRAMES: [
+				PRISON: 3,
+			],
+		},
+	],
+	
+	STOCK_TOP_1X1: [
+		{
+			ROTATES: true,
+			SHADOW_LENGTH: 5,
+			TINT: true,
+			FRAMES: [
+				PRISON: 4,
+			],
+		},
+	],
+},
+

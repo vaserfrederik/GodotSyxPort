@@ -1,0 +1,1008 @@
+{
+  "schema": 1,
+  "strategy": "shared runtime systems; converted C# first; Java only for recovery/ambiguity",
+  "prefixes": [
+    "settlement/entity/humanoid",
+    "settlement/room",
+    "settlement/stats"
+  ],
+  "requested_limit": 100,
+  "selected_count": 20,
+  "selected": [
+    {
+      "path": "settlement/room/main/copy/Copier.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/main/copy/Copier.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/insane/AIModule_Insane.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/types/insane/AIModule_Insane.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/main/BonusExperience.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/BonusExperience.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/food/cannibal/Cage.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/food/cannibal/Cage.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/food/cannibal/CannibalInstance.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/food/cannibal/CannibalInstance.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/food/cannibal/Job.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/food/cannibal/Job.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/food/cannibal/ROOM_CANNIBAL.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/food/cannibal/ROOM_CANNIBAL.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/bench/ROOM_BENCH.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/bench/ROOM_BENCH.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/category/RoomCategories.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/category/RoomCategories.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/copy/BSwap.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/copy/BSwap.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/copy/CopierMass.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/copy/CopierMass.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/copy/ROOM_COPY.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/copy/ROOM_COPY.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/copy/SavedPrints.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/copy/SavedPrints.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/furnisher/FurnisherItemTile.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/furnisher/FurnisherItemTile.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/furnisher/FurnisherItemTools.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/furnisher/FurnisherItemTools.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/furnisher/FurnisherMinimapColor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/furnisher/FurnisherMinimapColor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/job/ROOM_EMPLOY_AUTO.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/job/ROOM_EMPLOY_AUTO.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/food/canteen/SChair.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/food/canteen/SChair.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/retired/AIModule_Retired.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/types/retired/AIModule_Retired.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/tourist/AIModule_Tourist.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/types/tourist/AIModule_Tourist.java",
+      "recovery_reasons": []
+    }
+  ],
+  "deferred_ui_render_constructor_count": 135,
+  "deferred_ui_render_constructor": [
+    {
+      "path": "settlement/entity/humanoid/ai/battle/AIModule_Battle.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/AIModule_Battle.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/BattleUtil.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/BattleUtil.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/InterBattle.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/InterBattle.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/ManPlan.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/ManPlan.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/MarchPlan.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/battle/MarchPlan.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/MarchSoftCollision.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/MarchSoftCollision.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/MarchSubCutTo.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/MarchSubCutTo.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/PlanAttackTile.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/PlanAttackTile.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/PlanEscape.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/PlanEscape.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/PlanRout.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/PlanRout.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/SubFight.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/battle/SubFight.java",
+      "recovery_reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/subject/PlanJoinArmy.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/subject/PlanJoinArmy.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/slave/PlanUprise.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/types/slave/PlanUprise.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/spirte/HCorpseRenderer.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/spirte/HCorpseRenderer.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/spirte/HSprite.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/spirte/HSprite.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/spirte/HSpriteConst.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/spirte/HSpriteConst.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/spirte/HSprites.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/spirte/HSprites.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/food/cannibal/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/food/cannibal/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/food/farm/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/food/farm/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/food/farm/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/food/farm/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/food/orchard/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/food/orchard/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/food/pasture/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/food/pasture/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/health/asylum/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/health/asylum/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/health/asylum/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/health/asylum/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/health/hospital/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/health/hospital/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/health/hospital/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/health/hospital/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/health/physician/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/health/physician/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/health/physician/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/health/physician/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/home/house/HomeHoverer.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/home/house/HomeHoverer.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/home/house/Sprite.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/home/house/Sprite.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/home/house/SpriteCarpet.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/home/house/SpriteCarpet.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/home/house/SpriteConfig.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/home/house/SpriteConfig.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/home/house/Sprites.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/home/house/Sprites.java",
+      "recovery_reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/mine/Constructor.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/industry/mine/Constructor.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/module/consumption/ConsumptionGui.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/industry/module/consumption/ConsumptionGui.java",
+      "recovery_reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/refiner/Constructor.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/industry/refiner/Constructor.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/industry/workshop/Constructor.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/industry/workshop/Constructor.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/admin/Constructor.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/infra/admin/Constructor.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/elderly/ResthomeConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/elderly/ResthomeConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/embassy/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/embassy/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/export/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/export/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/export/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/export/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/hauler/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/hauler/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/hauler/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/hauler/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/importt/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/importt/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/importt/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/importt/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/inn/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/inn/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/inn/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/inn/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/janitor/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/janitor/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/janitor/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/janitor/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/logistics/MoveOrderPullUI.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/infra/logistics/MoveOrderPullUI.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/logistics/MoveOrderPullersUI.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/logistics/MoveOrderPullersUI.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/logistics/MoveOrderPushUI.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/infra/logistics/MoveOrderPushUI.java",
+      "recovery_reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/monument/MConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/monument/MConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/station/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/station/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/station/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/station/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/stockpile/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/stockpile/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/stockpile/Gui.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/infra/stockpile/Gui.java",
+      "recovery_reasons": [
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/infra/transport/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/infra/transport/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/infra/transport/Gui.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/infra/transport/Gui.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/knowledge/laboratory/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/knowledge/laboratory/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/knowledge/library/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/knowledge/library/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/knowledge/school/SchoolConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/knowledge/school/SchoolConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/knowledge/university/UniversityConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/knowledge/university/UniversityConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/law/court/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/law/court/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/law/execution/Constructor.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/law/execution/Constructor.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/law/execution/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/law/execution/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/law/guard/Constructor.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/law/guard/Constructor.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/law/guard/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/law/guard/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/law/police/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/law/police/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/law/police/PoliceConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/law/police/PoliceConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/law/prison/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/law/prison/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/law/prison/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/law/prison/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/law/stockade/Constructor.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/law/stockade/Constructor.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/law/stockade/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/law/stockade/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/law/stocks/MConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/law/stocks/MConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/construction/ConstructionHoverer.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/construction/ConstructionHoverer.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/copy/SavedPrintsPlacer.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/copy/SavedPrintsPlacer.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/throne/Placer.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/throne/Placer.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/main/throne/Sprite.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/main/throne/Sprite.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/military/artillery/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/military/artillery/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/military/artillery/Hoverer.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/military/artillery/Hoverer.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/military/artillery/Placer.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/military/artillery/Placer.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/military/supply/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/military/supply/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/military/supply/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/military/supply/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/military/training/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/military/training/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/military/training/archery/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/military/training/archery/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/military/training/barracks/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/military/training/barracks/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/arena/RoomArenaGui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/arena/RoomArenaGui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/arena/grand/ArenaConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/arena/grand/ArenaConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/arena/pit/ArenaConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/arena/pit/ArenaConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/barber/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/barber/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/breeder/BreederConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/breeder/BreederConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/breeder/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/breeder/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/food/canteen/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/food/canteen/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/food/canteen/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/food/canteen/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/food/eatery/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/food/eatery/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/food/tavern/Constructor.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/service/food/tavern/Constructor.java",
+      "recovery_reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/service/hearth/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/hearth/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/hygine/bath/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/hygine/bath/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/hygine/bath/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/hygine/bath/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/hygine/well/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/hygine/well/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/lavatory/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/lavatory/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/market/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/market/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/nursery/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/nursery/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/nursery/NurseryConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/nursery/NurseryConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/pleasure/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/pleasure/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/speaker/SpeakerConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/speaker/SpeakerConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/service/stage/StageConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/service/stage/StageConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/spirit/dump/Constructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/spirit/dump/Constructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/spirit/shrine/Constructor.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/spirit/shrine/Constructor.java",
+      "recovery_reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/room/spirit/temple/Gui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/spirit/temple/Gui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/spirit/temple/TempleConstructor.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/spirit/temple/TempleConstructor.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/sprite/RoomSprite.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/sprite/RoomSprite.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/sprite/RoomSprite1x1.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/sprite/RoomSprite1x1.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/sprite/RoomSprite1xN.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/sprite/RoomSprite1xN.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/sprite/RoomSpriteBoxN.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/sprite/RoomSpriteBoxN.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/sprite/RoomSpriteCombo.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/sprite/RoomSpriteCombo.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/sprite/RoomSpriteImp.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/sprite/RoomSpriteImp.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/sprite/RoomSpriteRot.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/sprite/RoomSpriteRot.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/sprite/RoomSpriteSimple.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/sprite/RoomSpriteSimple.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/sprite/RoomSpriteTex.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/sprite/RoomSpriteTex.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/sprite/RoomSpriteXxX.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/sprite/RoomSpriteXxX.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/tests/ArtilleryTest.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/tests/ArtilleryTest.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/tests/RoomTests.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/tests/RoomTests.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/tests/UITradeDebug.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/tests/UITradeDebug.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/tests/production/Input.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/tests/production/Input.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/tests/production/Production.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/tests/production/Production.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/tests/production/ProductionSpec.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/tests/production/ProductionSpec.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/tests/production/ProductionTrader.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/tests/production/ProductionTrader.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/tests/production/TestRecipe.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/tests/production/TestRecipe.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/water/PumpConstructor.cs",
+      "status": "recovery_required",
+      "java": "settlement/room/water/PumpConstructor.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/room/water/PumpGui.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/water/PumpGui.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/room/water/WSprite.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/room/water/WSprite.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/stats/util/StatHoverer.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/stats/util/StatHoverer.java",
+      "recovery_reasons": []
+    }
+  ]
+}

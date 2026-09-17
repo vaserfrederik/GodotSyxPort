@@ -1,0 +1,35 @@
+INFO: {
+	NAME: "Training Ground",
+	NAMES: "Training Grounds",
+	DESC: "Where subjects are trained into soldiers, or finish basic training.",
+	WIKI: {
+		CATEGORY: "Military",
+		NAME: "Training Grounds",
+		TEXT: "Subjects who are part of a division can train here. The room can be used for both increasing melee skill and finishing basic training - the latter can be done even if the recruit's division does not have melee training assigned.
+		Training can take a long time, but tech and other things can increase the speed of it. Training is a full-time job, and subjects will not be able to do other work until they meet the training target of their division.",
+	},
+},
+
+STATS: [
+	{
+		NAME: "Capacity",
+		DESC: "The amount of soldiers this room can train",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Training Dummies",
+		DESC: "Increases the amount of soldiers this room can train.",
+	},
+],
+
+EMPLOYMENT: {
+	TITLE: "Conscript",
+	VERB: "Training",
+},
+
+TRAINING: {
+	NAME: "Melee Training",
+	DESC: "Melee training, honed in the Training grounds. Melee training increases battle offence and defence.",
+},

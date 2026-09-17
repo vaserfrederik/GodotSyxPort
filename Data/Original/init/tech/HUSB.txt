@@ -1,0 +1,1277 @@
+CATEGORY: 2,
+COLOR: 158_101_63,
+ICON: 32->_ICONS->10,
+TREE: {
+		00: [______,______,______,______,______,______,______,______,______,______,GLOB00,______,WARB00,______,FISH01,______,],
+		01: [HUNT00,______,ENTL01,______,ONX_01,______,AURU01,______,BALT01,______,GLOB01,______,WARB01,______,FISHt1,______,],
+		02: [______,______,ENTLt1,______,ONX_t1,______,AURUt1,______,BALT02,______,GLOBt1,______,WARBt1,______,FISH02,______,],
+		03: [______,______,ENTL02,______,ONX_02,______,AURU02,______,BALT03,______,GLOB02,______,WARB02,______,FISH03,______,],
+		04: [______,______,ENTL03,______,ONX_03,______,AURU03,______,BALT04,______,GLOB03,______,WARB03,______,FISHt2,______,],
+		05: [______,______,ENTLt2,______,ONX_t2,______,AURUt2,______,______,______,GLOBt2,______,WARBt2,______,FISH04,______,],
+		06: [______,______,ENTL04,______,ONX_04,______,AURU04,______,______,______,GLOB04,______,WARB04,______,FISHu2,______,],
+},
+TECHS: {
+	HUNT00: {
+		LEVEL_MAX: 8,
+		LEVEL_COST_INC: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_HUNTER_NORMAL>ADD: 0.5,
+		},
+	},
+	ENTL01: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Entelodont->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_PASTURE_ENT>ADD: 0.15,
+		},
+	},
+	ENTLt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Entelodont->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ENTL01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_PASTURE_ENT>ADD: 1.0,
+		},
+	},
+	ENTL02: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Entelodont->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ENTLt1: 2,
+		},
+		BOOST: {
+			ROOM_PASTURE_ENT>ADD: 0.15,
+		},
+	},
+	ENTL03: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Entelodont->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ENTL02: 10,
+		},
+		BOOST: {
+			ROOM_PASTURE_ENT>ADD: 0.15,
+		},
+	},
+	ENTLt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Entelodont->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ENTL03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_PASTURE_ENT>ADD: 1.0,
+		},
+	},
+	ENTL04: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Entelodont->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ENTLt2: 2,
+		},
+		BOOST: {
+			ROOM_PASTURE_ENT>ADD: 0.16,
+		},
+	},
+	ONX_01: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Onx->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_PASTURE_ONX>ADD: 0.15,
+		},
+	},
+	ONX_t1: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Onx->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ONX_01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_PASTURE_ONX>ADD: 1.0,
+		},
+	},
+	ONX_02: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Onx->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ONX_t1: 2,
+		},
+		BOOST: {
+			ROOM_PASTURE_ONX>ADD: 0.15,
+		},
+	},
+	ONX_03: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Onx->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ONX_02: 10,
+		},
+		BOOST: {
+			ROOM_PASTURE_ONX>ADD: 0.15,
+		},
+	},
+	ONX_t2: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Onx->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ONX_03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_PASTURE_ONX>ADD: 1.0,
+		},
+	},
+	ONX_04: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Onx->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			ONX_t2: 2,
+		},
+		BOOST: {
+			ROOM_PASTURE_ONX>ADD: 0.16,
+		},
+	},
+	AURU01: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Auroch->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_PASTURE_AUR>ADD: 0.15,
+		},
+	},
+	AURUt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Auroch->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			AURU01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_PASTURE_AUR>ADD: 1.0,
+		},
+	},
+	AURU02: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Auroch->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			AURUt1: 2,
+		},
+		BOOST: {
+			ROOM_PASTURE_AUR>ADD: 0.15,
+		},
+	},
+	AURU03: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Auroch->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			AURU02: 10,
+		},
+		BOOST: {
+			ROOM_PASTURE_AUR>ADD: 0.15,
+		},
+	},
+	AURUt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Auroch->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			AURU03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_PASTURE_AUR>ADD: 1.0,
+		},
+	},
+	AURU04: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Auroch->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			AURUt2: 2,
+		},
+		BOOST: {
+			ROOM_PASTURE_AUR>ADD: 0.16,
+		},
+	},
+	BALT01: {
+		ICON: [ 
+			{
+			BG: 32->BG->6,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Balticrawler->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 2,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION_GARTHIMI_CITIZEN_I: 10,
+			},
+		},
+		BOOST: {
+			ROOM_PASTURE_BALTI>ADD: 0.11,
+		},
+	},
+	BALT02: {
+		ICON: [ 
+			{
+			BG: 32->BG->6,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Balticrawler->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BALT01: 10,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION_GARTHIMI_CITIZEN_I: 510,
+			},
+		},
+		BOOST: {
+			ROOM_PASTURE_BALTI>ADD: 0.11,
+		},
+	},
+	BALT03: {
+		ICON: [ 
+			{
+			BG: 32->BG->6,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Balticrawler->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 7,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BALT02: 10,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION_GARTHIMI_CITIZEN_I: 1010,
+			},
+		},
+		BOOST: {
+			ROOM_PASTURE_BALTI>ADD: 0.11,
+		},
+	},
+	BALT04: {
+		ICON: [ 
+			{
+			BG: 32->BG->6,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Balticrawler->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 10,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BALT03: 10,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION_GARTHIMI_CITIZEN_I: 1510,
+			},
+		},
+		BOOST: {
+			ROOM_PASTURE_BALTI>ADD: 0.11,
+		},
+	},
+	GLOB00: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Globdien->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->6,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 8,
+		},
+		UNLOCKS_REGION: [
+			BUILDING_PASTURE_PASTURE_GLOBDIEN_1,
+		],
+		UNLOCKS_FACTION: [
+			ROOM_PASTURE_GLOBDIEN,
+		],
+	},
+	GLOB01: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Globdien->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GLOB00: 1,
+		},
+		BOOST: {
+			ROOM_PASTURE_GLOBDIEN>ADD: 0.15,
+		},
+	},
+	GLOBt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Globdien->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GLOB01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_PASTURE_GLOBDIEN>ADD: 1.0,
+		},
+	},
+	GLOB02: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Globdien->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GLOBt1: 2,
+		},
+		BOOST: {
+			ROOM_PASTURE_GLOBDIEN>ADD: 0.15,
+		},
+	},
+	GLOB03: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Globdien->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GLOB02: 10,
+		},
+		BOOST: {
+			ROOM_PASTURE_GLOBDIEN>ADD: 0.15,
+		},
+	},
+	GLOBt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Globdien->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GLOB03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_PASTURE_GLOBDIEN>ADD: 1.0,
+		},
+	},
+	GLOB04: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Globdien->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 20,
+		},
+		REQUIRES_TECH_LEVEL: {
+			GLOBt2: 2,
+		},
+		BOOST: {
+			ROOM_PASTURE_GLOBDIEN>ADD: 0.16,
+		},
+	},
+	WARB00: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Mount->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->6,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 30,
+		},
+		UNLOCKS_REGION: [
+			BUILDING_PASTURE_PASTURE_MOUNT_1,
+		],
+		UNLOCKS_FACTION: [
+			ROOM_PASTURE_MOUNT,
+		],
+	},
+	WARB01: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Mount->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WARB00: 1,
+		},
+		BOOST: {
+			ROOM_PASTURE_MOUNT>ADD: 0.15,
+		},
+	},
+	WARBt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Mount->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WARB01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_PASTURE_MOUNT>ADD: 1.0,
+		},
+	},
+	WARB02: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Mount->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WARBt1: 2,
+		},
+		BOOST: {
+			ROOM_PASTURE_MOUNT>ADD: 0.15,
+		},
+	},
+	WARB03: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Mount->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WARB02: 10,
+		},
+		BOOST: {
+			ROOM_PASTURE_MOUNT>ADD: 0.15,
+		},
+	},
+	WARBt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Mount->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WARB03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_PASTURE_MOUNT>ADD: 1.0,
+		},
+	},
+	WARB04: {
+		ICON: [ 
+			{
+			BG: 32->BG->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->animal->Mount->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 18,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WARBt2: 2,
+		},
+		BOOST: {
+			ROOM_PASTURE_MOUNT>ADD: 0.16,
+		},
+	},
+	FISH01: {
+		ICON: [ 
+			{
+			BG: 32->BG->5,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fish->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_FISHERY_NORMAL>ADD: 0.15,
+		},
+	},
+	FISHt1: {
+		ICON: [ 
+			{
+			BG: 32->BG->5,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fish->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->7,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 6,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FISH01: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FISHERY_NORMAL>ADD: 1.0,
+		},
+	},
+	FISH02: {
+		ICON: [ 
+			{
+			BG: 32->BG->5,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fish->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FISHt1: 2,
+		},
+		BOOST: {
+			ROOM_FISHERY_NORMAL>ADD: 0.15,
+		},
+	},
+	FISH03: {
+		ICON: [ 
+			{
+			BG: 32->BG->5,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fish->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 7,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FISH02: 10,
+		},
+		BOOST: {
+			ROOM_FISHERY_NORMAL>ADD: 0.15,
+		},
+	},
+	FISHt2: {
+		ICON: [ 
+			{
+			BG: 32->BG->5,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fish->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->8,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 2,
+		COSTS: {
+			CIVIC_INNOVATION: 22,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FISH03: 7,
+		},
+		BOOST: {
+			EQUIP_LEVEL_TOOL_FISHERY_NORMAL>ADD: 1.0,
+		},
+	},
+	FISH04: {
+		ICON: [ 
+			{
+			BG: 32->BG->5,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fish->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FISHt2: 2,
+		},
+		BOOST: {
+			ROOM_FISHERY_NORMAL>ADD: 0.21,
+		},
+	},
+	FISHu2: {
+		ICON: [ 
+			{
+			BG: 32->BG->5,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 24->resource->Fish->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 126,
+		},
+		REQUIRES_TECH_LEVEL: {
+			FISH04: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_FISHERY_NORMAL_UPGRADE_1,
+		],
+	},
+},
+

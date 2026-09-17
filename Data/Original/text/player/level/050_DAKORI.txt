@@ -1,0 +1,3 @@
+MALE: "Dakori",
+FEMALE: "Dakoress",
+DESC: "Dakori simply means prince. You realm is recognised by other rulers as a proper city-state for good and for worse.",

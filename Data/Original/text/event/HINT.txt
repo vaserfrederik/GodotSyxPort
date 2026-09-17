@@ -1,0 +1,32 @@
+NOBLES: {
+	NAME: "Nobility",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"One of your subjects, {SUBJECT1_NAME}, approached you. {SUBJECT1_HE} believes the {SUBJECT1_RACE_CITY} has grown enough to make governing it entirely by yourself no longer feasible. 
+		 
+		{SUBJECT1_NAME} suggests appointing people who can act in your stead, overseeing the {SUBJECT1_RACE_CITY}'s industries, 'nobles' in other words. Later, once your demesne has grown, they will be crucial for managing your holdings outside of the capital and for conducting diplomacy.
+		
+		Naturally, {SUBJECT1_NAME} has {SUBJECT1_HIMSELF} in mind as your first noble.
+		
+		You can stop your subjects from approaching you with unasked for advice like this - they may not be capable of understanding your grand design.
+		",
+	],
+	CHOICES: [
+		"Consider appointing a noble",
+		"Admonish them",
+	],
+},
+
+NOBLES_YES: {
+	NAME: "Appointing a Noble",
+	DESC: "",
+	MESSAGE: [
+		"You can elevate any of your subjects, though {SUBJECT1_NAME} clearly hopes you choose {SUBJECT1_HIM}. After that, you just have to assign them to an industry or another endeavor.",
+	],
+},
+
+HINT_NO: {
+	NAME: "No Hints",
+	DESC: "",
+},

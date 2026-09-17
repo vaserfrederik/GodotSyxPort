@@ -1,0 +1,37 @@
+INFO: {
+	NAME: "Library",
+	NAMES: "Libraries",
+	DESC: "Libraries produce knowledge to be used to unlock techs. Libraries need to be manned indefinitely to combat the degrade of books.",
+},
+
+WORK: {
+	TITLE: "Scribe",
+	VERB: "Scribing",
+},
+
+STATS: [
+	{
+		NAME: "Workers",
+		DESC: "The amount of scribes.",
+	},
+	{
+		NAME: "Knowledge",
+		DESC: "The amount of knowledge that can be produced.",
+	},
+	{
+		NAME: "Efficiency",
+		DESC: "The efficiency greatly improves knowledge production.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Shelf",
+		DESC: "Where scribes work.",
+	},
+	{
+		NAME: "Carpet",
+		DESC: "Increases the efficiency of the room.",
+	},
+],
+

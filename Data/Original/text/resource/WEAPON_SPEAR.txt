@@ -1,0 +1,3 @@
+NAME: "Spear",
+NAMES: "Spears",
+DESC: "A long stick with a pointy edge. Does not deal a lot of damage, but increases defence in the front of a well organised formation. Its length makes it unsuited for mounted combat.",

@@ -1,0 +1,35 @@
+INFO: {
+	NAME: "Archery Range",
+	NAMES: "Archery Ranges",
+	DESC: "Where subjects train their ranged capabilities, or finish basic training.",
+	WIKI: {
+		CATEGORY: "Military",
+		NAME: "Archery Range",
+		TEXT: "Subjects who are part of a division can train here. The room can be used for both increasing archery skill and finishing basic training - the latter can be done even if the recruit's division does not have archery training assigned.
+		Training can take a long time, but tech and other things can increase the speed of it. Training is a full-time job, and subjects will not be able to do other work until they meet the training target of their division.",
+	},
+},
+
+STATS: [
+	{
+		NAME: "Capacity",
+		DESC: "The amount of soldiers this room can train",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Training Targets",
+		DESC: "Increases the amount of soldiers this room can train.",
+	},
+],
+
+EMPLOYMENT: {
+	TITLE: "Conscript",
+	VERB: "Training",
+},
+
+TRAINING: {
+	NAME: "Archery Training",
+	DESC: "Archery training, honed at the Archery Range. Increases ranged skill.",
+},

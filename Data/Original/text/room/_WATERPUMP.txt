@@ -1,0 +1,29 @@
+INFO: {
+	NAME: "Water Pump",
+	NAMES: "Water Pumps",
+	DESC: "A pump fills a canal network with water pressure. Pumps connected to the same network will stack. A pump must be placed with its end by a natural body of water (ground water).",
+},
+
+WORK: {
+	TITLE: "Waterpumper",
+	VERB: "Pumping water",
+},
+
+STATS: [
+	{
+		NAME: "Workers",
+		DESC: "The amount of workers",
+	},	
+],
+
+ITEMS: [
+	{
+		NAME: "Water Pump",
+		DESC: "",
+	},
+],
+
+UPGRADES: [
+	"Partly mechanises this pump and reduces needed workers by 30%",
+	"Partly mechanises this pump and reduces needed workers by an additional 30%",
+],

@@ -1,0 +1,4 @@
+NAME: "Merchant Prince",
+DESC: "Your city will become the economic and diplomatic center of Syx.
+
+Maintaining peace and trade agreements will be easier, and inflation is reduced. However, both science output and region development suffers.",

@@ -1,0 +1,24 @@
+INFO: {
+	NAME: "Hauler",
+	NAMES: "Haulers",
+	DESC: "Fetches a designated resource and hauls it to a location. Haulers have an increased carry capacity compared to normal subjects and can benefit from capacity boosts. Does not require resources to construct.",
+	WIKI: {
+		CATEGORY: "Logistics",
+		NAME: "Hauler",
+		TEXT: "Haulers work similar to warehouses, and are best used for moving resources at short to medium distances. Due to their increased carry capacity and ability to benefit from capacity boosts, they are much more efficient than normal subjects.
+ 
+Compared to warehouses, haulers cost no maintenance but have a much lower storage capacity. Warehouses also protect better from spoilage.",
+	},
+},
+
+WORK: {
+	TITLE: "Hauler",
+	VERB: "Hauling",
+},
+
+ITEMS: [
+	{
+		NAME: "Hauling Station",
+		DESC: "",
+	},
+],

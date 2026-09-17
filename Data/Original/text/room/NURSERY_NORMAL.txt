@@ -1,0 +1,54 @@
+INFO: {
+	NAME: "Daycare",
+	NAMES: "Daycares",
+	DESC: "A place where children can go during the day, preventing them from spreading mischief and prevents accidents for themselves and others.",
+},
+
+
+BONUS: {
+	NAME: "Child handling",
+	DESC: "Increases the efficiency of Nursery Workers.",
+},
+
+STATS: [
+	{
+		NAME: "Children",
+		DESC: "Capacity of children per day.",
+	},
+	{
+		
+	},
+	{
+		NAME: "Efficiency",
+		DESC: "Increases Efficiency of workers.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Play Station",
+		DESC: "Increases children capacity.",
+	},
+	{
+		NAME: "Carpets",
+		DESC: "Increases children capacity.",
+	},
+	{
+		NAME: "Storage",
+		DESC: "Increases efficiency.",
+	},
+],
+
+WORK: {
+	TITLE: "Child Caretaker",
+	VERB: "Tending to the children.",
+},
+
+SERVICE: {
+	VERB: "Playing",
+	MORE: [
+		"For our young ones, it would be nice to let them have somewhere to play.",
+	],
+},
+
+

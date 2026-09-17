@@ -1,0 +1,130 @@
+ICON: 32->LOGISTICS->6,
+RESOURCES: [LIVESTOCK,METAL,FURNITURE,],
+AREA_COSTS: [0,0,0,],
+FLOOR: STONE1,
+FLOOR2: DIRT,
+MINI_COLOR: 48_139_204,
+ITEMS: [
+	{
+		COSTS: [24,10,16,],
+		STATS: [],
+	},
+],
+WORK: {
+	SHIFT_OFFSET: 0.25,
+	USES_TOOL: true,
+	FULFILLMENT: 0,
+},
+SPRITES: {
+
+	WORK_1X1: [
+		{	
+			ROTATES: false,
+			TINT: true,
+			SHADOW_LENGTH: 4,
+			FRAMES: [
+				STORAGE_B: 0,	
+			],
+		},
+	],
+	
+	WORK_TOP_1X1: [
+		{	
+			ROTATES: false,
+			TINT: true,
+			SHADOW_LENGTH: 3,
+			FRAMES: [
+				STORAGE: 0,	
+				STORAGE: 1,	
+				STORAGE: 2,
+				STORAGE: 10,	
+			],
+		},
+	],
+
+	ANIMAL_BOTTOM_1X1: [
+		{	
+			ROTATES: true,
+			COLOR: 20_60_120,
+			TINT: true,
+			FPS: 5,
+			FRAMES: [
+				BASIN: 3,	
+			],
+		},
+	],
+	
+	ANIMAL_TOP_1X1: [
+		{	
+			ROTATES: true,
+			COLOR: 100_100_100,
+			TINT: true,
+			SHADOW_LENGTH: 2,
+			FRAMES: [
+				BASIN: 4,	
+				BASIN: 5,	
+				BASIN: 6,	
+			],
+		},
+	],
+
+	ROOF_EDGE_1X1: [
+		{	
+			ROTATES: true,
+			SHADOW_HEIGHT: 10,
+			FRAMES: [
+				2xROOF: 4,	
+			],
+		},
+	],
+	ROOF_MID_1X1: [
+		{	
+			ROTATES: true,
+			SHADOW_HEIGHT: 10,
+			FRAMES: [
+				2xROOF: 5,	
+			],
+		},
+	],
+	TORCH_1X1: [
+		{	
+			ROTATES: false,
+			TINT: true,
+			SHADOW_LENGTH: 5,
+			FRAMES: [
+				TABLES: 2,	
+			],
+		},
+	],
+	GROUND_THING_1X1: [
+		{	
+			ROTATES: true,
+			TINT: false,
+			SHADOW_LENGTH: 0,
+			FRAMES: [
+				SPECIAL: 12,	
+			],
+		},
+	],
+	CRATE_BOTTOM_1X1: [
+		{	
+			ROTATES: false,
+			TINT: true,
+			SHADOW_LENGTH: 6,
+			FRAMES: [
+				STORAGE: 8,	
+			],
+		},
+	],
+	CRATE_TOP_1X1: [
+		{	
+			ROTATES: false,
+			TINT: true,
+			SHADOW_LENGTH: 3,
+			FRAMES: [
+				STORAGE: 9,	
+			],
+		},
+	],
+},
+

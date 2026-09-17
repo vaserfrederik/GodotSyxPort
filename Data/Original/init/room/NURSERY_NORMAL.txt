@@ -1,0 +1,192 @@
+ICON: 32->BG->0,
+RESOURCES: [WOOD,FURNITURE,FABRIC,],
+AREA_COSTS: [0,0,0,],
+FLOOR: WOOD,
+MINI_COLOR: 0_255_255,
+
+ITEMS: [
+	{
+		COSTS: [2,2,0,],
+		STATS: [1,0.2,0,],
+	},
+	{
+		COSTS: [0,0,1,],
+		STATS: [0.25,0.05,0,],
+	},
+	{
+		COSTS: [1,1,0,],
+		STATS: [0,0,5,],
+	},
+],
+SERVICE: {
+	RADIUS: 200,
+},
+WORK: {
+	SHIFT_OFFSET: 0.125,
+	USES_TOOL: false,
+	FULFILLMENT: 0.25,
+},
+INDUSTRY: {
+	IN: {
+		FRUIT: 0.5,
+	},
+	OUT: {
+		
+	},
+},
+
+SPRITES: {
+	TABLE_COMBO: {
+		TINT: true,
+		SHADOW_HEIGHT: 5,
+		FRAMES: [
+			COMBO_TABLES: 0,
+			COMBO_TABLES: 1,	
+		],
+	},
+	1x1_CHAIR: {
+		SHADOW_LENGTH: 2,
+		ROTATES: true,
+		FRAMES: [
+			CHAIRS: 0,
+			CHAIRS: 1,
+			CHAIRS: 6,
+			CHAIRS: 7,
+			CHAIRS: 8,
+			CHAIRS: 9,
+		],
+	},
+	STUFF_1X1: {
+		TINT: true,
+		SHADOW_LENGTH: 1,
+		ROTATES: true,
+		FRAMES: [
+			PRISON: 2,
+			PRISON: 5,
+			PRISON: 7,
+			NATURE: 0,
+			NATURE: 1,
+			NATURE: 2,
+			NATURE: 3,
+			NATURE: 4,
+			NATURE: 11,
+			NATURE: 12,
+			TOP: 11,
+			TOP: 12,
+			TOP: 17,
+			TOP: 18,
+		],
+	},
+	CARPET_COMBO: {
+		SHADOW_LENGTH: 0,
+		SHADOW_HEIGHT: 0,
+		FRAMES: [
+			COMBO_CARPETS: 0,
+			COMBO_CARPETS: 1,
+			COMBO_CARPETS: 2,
+			COMBO_CARPETS: 3,
+			COMBO_CARPETS: 4,
+		],
+	},
+	
+	SHELF_1X1: [
+		{
+			ROTATES: true,
+			FPS: 0,
+			SHADOW_LENGTH: 3,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				SHELVES: 0,
+			],
+		},
+		{
+			ROTATES: true,
+			FPS: 0,
+			SHADOW_LENGTH: 3,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				SHELVES: 1,
+			],
+		},
+	],
+
+},
+
+SPRITES2: {
+	1x1_BABY: {
+		FPS: 4,
+		SHADOW_LENGTH: 1,
+		ROTATES: false,
+		FRAMES: [
+			NURSERY: 8,
+			NURSERY: 9,
+		],
+	},
+	1x1_CRIB_TOP: {
+		FPS: 0,
+		SHADOW_LENGTH: 3,
+		SHADOW_HEIGHT: 0,
+		ROTATES: true,
+		FRAMES: [
+			2xBED: 12,
+		],
+	},
+	1x1_CRIB_BOTTOM: {
+		FPS: 0,
+		SHADOW_LENGTH: 3,
+		SHADOW_HEIGHT: 0,
+		ROTATES: true,
+		FRAMES: [
+			2xBED: 13,
+		],
+	},
+	1x1_CRIB_TOP_FENCE: {
+		FPS: 0,
+		SHADOW_LENGTH: 2,
+		SHADOW_HEIGHT: 0,
+		ROTATES: true,
+		FRAMES: [
+			2xBED: 18,
+		],
+	},
+	1x1_CRIB_BOTTOM_FENCE: {
+		FPS: 0,
+		SHADOW_LENGTH: 2,
+		SHADOW_HEIGHT: 0,
+		ROTATES: true,
+		FRAMES: [
+			2xBED: 19,
+		],
+	},		
+	2x2_DECOR: {
+		FPS: 0,
+		SHADOW_LENGTH: 3,
+		SHADOW_HEIGHT: 0,
+		ROTATES: false,
+		FRAMES: [
+			CARPETS: 0,
+		],
+	},
+	1x1_TABLE: {
+		FPS: 0,
+		SHADOW_LENGTH: 3,
+		SHADOW_HEIGHT: 0,
+		ROTATES: false,
+		FRAMES: [
+			TABLES: 1,
+		],
+	},
+	1x1_DECOR: {
+		FPS: 0,
+		SHADOW_LENGTH: 1,
+		SHADOW_HEIGHT: 0,
+		ROTATES: false,
+		FRAMES: [
+			ANIMAL: 0,
+			ANIMAL: 1,
+			ANIMAL: 2,
+			ANIMAL: 3,
+		],
+	},
+},
+

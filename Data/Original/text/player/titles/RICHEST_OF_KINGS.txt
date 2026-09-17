@@ -1,0 +1,2 @@
+NAME: "Richest of Kings",
+DESC: "Gained by having a thriving trade network. Old friends and business partners discourage other factions from attacking you. Requires the Merchant Prince mode to unlock.",

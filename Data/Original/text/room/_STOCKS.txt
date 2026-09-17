@@ -1,0 +1,29 @@
+INFO: {
+	NAME: "Stock",
+	NAMES: "Stocks",
+	DESC: "Send your criminals and unwanted rabble to the stocks, where they can feel ashamed for two seasons before they've served their punishment. A cheap and effective addition to regular punishments for crimes. Subjects generally not like the idea of being put on display for a mischief, but it does wonders for law. Make sure they are placed in crowded areas, so that your subjects get to throw manure and stones at them.",
+},
+
+ITEMS: [
+	{
+		NAME: "Stock",
+		DESC: "",
+	},
+],
+
+STATS: [
+	{
+		NAME: "Spectators",
+		DESC: "The amount of people that can enjoy the show.",
+	},
+],
+
+SERVICE: {
+	VERB: "Watching a punishment",
+	MORE: [
+		"Those evil criminals have it too good. How about a stock where I can throw some garbage on them until their day of reckoning.",
+	],
+	LESS: [
+		"This stocking of criminals, it's barbaric. I think we should quit the practise.",
+	],
+},

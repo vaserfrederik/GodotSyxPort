@@ -1,0 +1,36 @@
+INFO: {
+	NAME: "Hunter",
+	NAMES: "Hunters",
+	DESC: "Hunters are a very good source of food early on. These hunters do not hunt the wild game nearby, but head out each morning into the wilderness beyond your city. The production of hunters may vary due to luck, and having more than 15 of them will diminish their effectiveness due to overhunting in the region.",
+},
+
+WORK: {
+	TITLE: "Hunter",
+	VERB: "Hunting",
+},
+
+STATS: [
+	{
+		NAME: "Hunters",
+		DESC: "The max amount of workers",
+	},	
+	{
+		NAME: "Efficiency",
+		DESC: "Additional furniture increases the efficiency.",
+	},
+	{
+		NAME: "Output",
+		DESC: "The production per day. Note that this is dependent on the amount of employees you will employ.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Butcher Table",
+		DESC: "Where subjects work",
+	},
+	{
+		NAME: "Utilities",
+		DESC: "Increases the efficiency",
+	},
+],

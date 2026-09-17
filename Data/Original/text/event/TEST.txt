@@ -1,0 +1,23 @@
+BOOST_PERM_ADD: {
+	NAME: "Perm Add",
+	DESC: "",	
+	MESSAGE: [
+		"",
+	],
+},
+
+BOOST_PERM_REMOVE: {
+	NAME: "Perm Remove",
+	DESC: "",	
+	MESSAGE: [
+		"",
+	],
+},
+
+BOOST_PERM_FILTER: {
+	NAME: "Perm Filter",
+	DESC: "",	
+	MESSAGE: [
+		"",
+	],
+},

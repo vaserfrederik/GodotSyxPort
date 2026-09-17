@@ -1,0 +1,12 @@
+RANKS: [
+	"Sparabar",
+	"Taxmari",
+	"Asbari",
+	"Sardar",
+	"Grand Sardar",
+	"Padaan",
+	"Grand Padaan",
+	"Anguiri",
+	"Grand Anguiri",
+	"Anarii Ray",
+],

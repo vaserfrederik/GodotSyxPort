@@ -1,0 +1,2 @@
+NAME: "The Nudist",
+DESC: "This title originates from a certain mad despot in the far north. Banning clothes really cuts down on unproductive lingering outside. With this title, your subjects will do their best so it does not come to that.",

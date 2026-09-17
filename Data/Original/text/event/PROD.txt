@@ -1,0 +1,122 @@
+COAL_GOOD: {
+	NAME: "Large coal seams were unearthed",
+	DESC: "Coal gets produced at a rapid pace until the seam narrows again.",
+	MESSAGE: [
+		"The coal seam your miners were following widened significantly. Until it narrows again, coal will be produced much more quickly.",
+	],
+},
+
+CLAY_GOOD: {
+	NAME: "Rich Clay",
+	DESC: "The claypits continue to harvest the bountiful seam.",
+	MESSAGE: [
+		"A thick seam of high quality clay was struck, claypits will effectively produce more clay until it runs out.",
+	],
+},
+
+ORE_GOOD: {
+	NAME: "Rich Ore",
+	DESC: "Rich ore continues to be mined from the veins.",
+	MESSAGE: [
+		"Multiple veins of high-quality ore were found recently. Your miners will produce much more ore until the veins run out.",
+	],
+},
+
+GEM_GOOD: {
+	NAME: "Gem miners get lucky",
+	DESC: "The lucky gem deposits are not depleted yet.",
+	MESSAGE: [
+		"Recently particularly rich deposits of gems were unearthed in your mines. Until the bounty is harvested completely, your mines will produce gems much quicker than before.",
+	],
+},
+
+STONE_GOOD: {
+	NAME: "High quality stone struck",
+	DESC: "More quality stone can still be harvested.",
+	MESSAGE: [
+		"Your stone-miners report hitting a layer of marvelously uniform and workable stone. Until it is depleted, stone will be produced at much higher rates.",
+	],
+},
+
+SITHILON_GOOD: {
+	NAME: "Sithilon motherlode sniffed out",
+	DESC: "The massive sithilon deposit is still getting mined.",
+	MESSAGE: [
+		"Using their special knack for it, your Dondorians uncovered a massive deposit of rich sithilon ore. Until the deposit is depleted, sithilon will be produced at a rapid pace.",
+	],
+},
+
+FRUIT_GOOD: {
+	NAME: "Bountiful Harvest",
+	DESC: "The conditions are currently extraordinary for our fruit farms.",
+	MESSAGE: [
+		"The growth of our fruit farms is showing much promise this year and, if the gods are willing, the harvest will be extra bountiful.",
+	],
+},
+
+FISH_GOOD: {
+	NAME: "Good catch!",
+	DESC: "Fisheries are producing abnormally high amounts.",
+	MESSAGE: [
+		"Reports from our Fisheries indicate the catch is unusually good lately. Make sure we can store all that extra fish.",
+	],
+},
+
+YEAR_CRATOR: {
+	NAME: "A Year of Crator",
+	DESC: "During the Year of Crator agricultural industries are much more effective.",
+	MESSAGE: [
+		"From the tops of the highest mountains waves of blue light swept across Syx for a day. This is a sure sign of Crator's favor and this year will see a rapid growth of flora and fauna. The impressive bounty also serves to teach the people of Syx Cratorian modesty since those who rely on it too much will suffer with the coming of the next year.",
+	],
+},
+
+SMELTER_ADDITIVE: {
+	NAME: "Ancient Powder",
+	DESC: "A decision awaits.",
+	MESSAGE: [
+		"It does not happen often, but sometimes ruin raiders return both alive and in possession of useful items.
+		 
+		An expedition to the depths of a ruin in {PLAYER_RND_REGION_CLOSE} has found storage halls filled with mountains of mysterious powders.
+		While their original purpose may be lost to time, after much trial and error and likely multiple fatalities, the raiders discovered a use for some of them.
+		 
+		Adding just a pinch of white powder to a smelting vessel dramatically reduces the temperature needed to produce useful metal. Your metallurgists were watching the demonstration with awe.
+		 
+		Apparently, they also have a yellow one that is even more efficient but produces thick clouds of noxious smoke.
+		When questioned why they did not present that one, they revealed that it sickens those who touch it.
+		
+		The amount for sale is enormous and is unlikely to ever run out.",
+	],
+	CHOICES: [
+    	"Buy the white powder",
+    	"Buy the yellow powder",
+	],
+},
+
+SMELTER_ADDITIVE_YES: {
+	NAME: "Smelters boosted",
+	DESC: "Your smelters benefit from the ancient additive.",
+	MESSAGE: [
+		"After being paid, the explorers guide your subjects to the vault and you start to move your purchase to a cave near your capital.
+		Besides the giant storage halls the ruins are disappointingly unremarkable and safe. This one could be an exception to the rule.
+		 
+		A caravan from {PLAYER_RND_FACTION_CLOSE} could be seen in an adjacent vault, loading the yellow powder.
+		 
+		The occasional transport now supplies your smelters with the miraculous ingredient.
+		",
+	],
+},
+
+SMELTER_ADDITIVE_MAYBE: {
+	NAME: "Smelters boosted",
+	DESC: "Your smelters benefit from the ancient additive, but exposure to it is quite unhealthy.",
+	MESSAGE: [
+		"After being paid, the explorers guide your subjects to the vault and you start to move your purchase to a cave near your capital.
+		Besides the giant storage halls the ruins are disappointingly unremarkable and safe. This one could be an exception to the rule.
+		 
+		A caravan from {PLAYER_RND_FACTION_CLOSE} could be seen in an adjacent vault, loading the white powder.
+		 
+		The occasional transport now supplies your smelters with the miraculous ingredient.
+		Your subjects are exceedingly careful when handling it, but occasionally a yellow trail can be spotted on the roads your transports take, and the workers in the smelters are becoming rather gaunt.
+		",
+	],
+},

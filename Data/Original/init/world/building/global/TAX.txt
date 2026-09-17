@@ -1,0 +1,67 @@
+AI_BUILDS: true,
+**going to assume you can only get 0.8 out of this. 0.6 is more likely, but it's ok for this to be later game
+** 2200, 1000, 400, 100
+** = 1760, 800 320 80
+
+LEVELS: [
+	{
+		ICON: 32->INFRA->10, 
+		CREDITS: 20000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_TAX_KINGDOM: 4,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -2,
+		},
+		BOOST_GLOBAL: {
+			WORLD_TAX_INCOME>MUL: 1.02,
+		},
+	},
+	{
+		ICON: 32->INFRA->10, 
+		CREDITS: 40000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_TAX_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -10,
+		},
+		BOOST_GLOBAL: {
+			WORLD_TAX_INCOME>MUL: 1.03,
+		},
+	},
+	{
+		ICON: 32->INFRA->10, 
+		CREDITS: 150000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_TAX_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -40,
+		},
+		BOOST_GLOBAL: {
+			WORLD_TAX_INCOME>MUL: 1.05,
+		},
+	},
+	{
+		ICON: 32->INFRA->10, 
+		CREDITS: 500000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_TAX_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -132,
+		},
+		BOOST_GLOBAL: {
+			WORLD_TAX_INCOME>MUL: 1.075,
+		},
+	},	
+],

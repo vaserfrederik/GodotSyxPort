@@ -1,0 +1,803 @@
+CATEGORY: 4,
+COLOR: 255_216_0,
+ICON: 32->_ICONS->13,
+TREE: {
+		00: [BAKE01,BAKEc0,______,BREW01,BREWc0,______,COAL01,COALc0,______,SMEL01,SMELc0,______,WEAV01,WEAVc0,______,],
+		01: [BAKE02,BAKEc1,______,BREW02,BREWc1,______,COAL02,______,______,SMEL02,______,______,WEAV02,______,______,],
+		02: [BAKEu1,______,______,BREWu1,______,______,COALu1,______,______,SMELu1,______,______,WEAVu1,______,______,],
+		03: [BAKE03,______,______,BREW03,______,______,COAL03,______,______,SMEL03,______,______,WEAV03,______,______,],
+		04: [BAKE04,______,______,BREW04,______,______,COAL04,______,______,SMEL04,______,______,WEAV04,______,______,],
+		05: [BAKEu2,______,______,BREWu2,______,______,COALu2,______,______,SMELu2,______,______,WEAVu2,______,______,],
+},
+TECHS: {
+	BAKE01: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_REFINER_BAKERY>ADD: 0.15,
+		},
+	},
+	BAKE02: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BAKE01: 10,
+		},
+		BOOST: {
+			ROOM_REFINER_BAKERY>ADD: 0.15,
+		},
+	},
+	BAKEu1: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 58,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BAKE02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_REFINER_BAKERY_UPGRADE_1,
+		],
+	},
+	BAKE03: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BAKEu1: 1,
+		},
+		BOOST: {
+			ROOM_REFINER_BAKERY>ADD: 0.15,
+		},
+	},
+	BAKE04: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BAKE03: 10,
+		},
+		BOOST: {
+			ROOM_REFINER_BAKERY>ADD: 0.18,
+		},
+	},
+	BAKEu2: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->0,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 84,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BAKE04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_REFINER_BAKERY_UPGRADE_2,
+		],
+	},
+	BAKEc0: {
+		LEVEL_MAX: 5,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BAKEu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_REFINER_BAKERY_0>ADD: 0.1,
+		},
+	},
+	BAKEc1: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BAKEu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_REFINER_BAKERY_1>ADD: 0.1,
+		},
+	},
+	BREW01: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->1,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 8,
+		},
+		BOOST: {
+			ROOM_REFINER_BREWERY>ADD: 0.15,
+		},
+	},
+	BREW02: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->1,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 19,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BREW01: 10,
+		},
+		BOOST: {
+			ROOM_REFINER_BREWERY>ADD: 0.15,
+		},
+	},
+	BREWu1: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->1,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 116,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BREW02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_REFINER_BREWERY_UPGRADE_1,
+		],
+	},
+	BREW03: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->1,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 30,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BREWu1: 1,
+		},
+		BOOST: {
+			ROOM_REFINER_BREWERY>ADD: 0.15,
+		},
+	},
+	BREW04: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->1,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 41,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BREW03: 10,
+		},
+		BOOST: {
+			ROOM_REFINER_BREWERY>ADD: 0.18,
+		},
+	},
+	BREWu2: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->1,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 167,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BREW04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_REFINER_BREWERY_UPGRADE_2,
+		],
+	},
+	BREWc0: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BREWu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_REFINER_BREWERY_0>ADD: 0.1,
+		},
+	},
+	BREWc1: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			BREWu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_REFINER_BREWERY_1>ADD: 0.1,
+		},
+	},
+	COAL01: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_REFINER_COALER>ADD: 0.15,
+		},
+	},
+	COAL02: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COAL01: 10,
+		},
+		BOOST: {
+			ROOM_REFINER_COALER>ADD: 0.15,
+		},
+	},
+	COALu1: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 58,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COAL02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_REFINER_COALER_UPGRADE_1,
+		],
+	},
+	COAL03: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COALu1: 1,
+		},
+		BOOST: {
+			ROOM_REFINER_COALER>ADD: 0.15,
+		},
+	},
+	COAL04: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COAL03: 10,
+		},
+		BOOST: {
+			ROOM_REFINER_COALER>ADD: 0.18,
+		},
+	},
+	COALu2: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->2,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 84,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COAL04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_REFINER_COALER_UPGRADE_2,
+		],
+	},
+	COALc0: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			COALu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_REFINER_COALER_0>ADD: 0.1,
+		},
+	},
+	SMEL01: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_REFINER_SMELTER>ADD: 0.15,
+		},
+	},
+	SMEL02: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMEL01: 10,
+		},
+		BOOST: {
+			ROOM_REFINER_SMELTER>ADD: 0.15,
+		},
+	},
+	SMELu1: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 58,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMEL02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_REFINER_SMELTER_UPGRADE_1,
+		],
+	},
+	SMEL03: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMELu1: 1,
+		},
+		BOOST: {
+			ROOM_REFINER_SMELTER>ADD: 0.15,
+		},
+	},
+	SMEL04: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMEL03: 10,
+		},
+		BOOST: {
+			ROOM_REFINER_SMELTER>ADD: 0.18,
+		},
+	},
+	SMELu2: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->3,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 84,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMEL04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_REFINER_SMELTER_UPGRADE_2,
+		],
+	},
+	SMELc0: {
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			SMELu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_REFINER_SMELTER_0>ADD: 0.1,
+		},
+	},
+	WEAV01: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->0,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 4,
+		},
+		BOOST: {
+			ROOM_REFINER_WEAVER>ADD: 0.15,
+		},
+	},
+	WEAV02: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->1,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 4,
+		COSTS: {
+			CIVIC_INNOVATION: 9,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WEAV01: 10,
+		},
+		BOOST: {
+			ROOM_REFINER_WEAVER>ADD: 0.15,
+		},
+	},
+	WEAVu1: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->4,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 58,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WEAV02: 4,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_REFINER_WEAVER_UPGRADE_1,
+		],
+	},
+	WEAV03: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->2,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 10,
+		COSTS: {
+			CIVIC_INNOVATION: 15,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WEAVu1: 1,
+		},
+		BOOST: {
+			ROOM_REFINER_WEAVER>ADD: 0.15,
+		},
+	},
+	WEAV04: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->3,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 6,
+		COSTS: {
+			CIVIC_INNOVATION: 21,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WEAV03: 10,
+		},
+		BOOST: {
+			ROOM_REFINER_WEAVER>ADD: 0.18,
+		},
+	},
+	WEAVu2: {
+		ICON: [ 
+			{
+			BG: 32->REFINER->4,
+			SHADOW: 3,
+			
+			},
+			{
+			BG: 32->TECH->5,
+			SHADOW: 3,
+			
+			},
+		],
+		LEVEL_MAX: 1,
+		COSTS: {
+			CIVIC_INNOVATION: 84,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WEAV04: 6,
+		},
+		UNLOCKS_FACTION: [
+			ROOM_REFINER_WEAVER_UPGRADE_2,
+		],
+	},
+	WEAVc0: {
+		LEVEL_MAX: 3,
+		COSTS: {
+			CIVIC_KNOWLEDGE: 35,
+		},
+		REQUIRES_TECH_LEVEL: {
+			WEAVu2: 1,
+		},
+		BOOST: {
+			ROOM_CONSUMPTION_REFINER_WEAVER_0>ADD: 0.1,
+		},
+	},
+},
+

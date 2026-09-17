@@ -1,0 +1,29 @@
+INFO: {
+	NAME: "Nature",
+	NAMES: "Nature Monuments",
+	DESC: "Spreads harmony in your settlement.",
+},
+
+ITEMS: [
+	{
+		NAME: "Tree",
+		DESC: "",
+	},
+	{
+		NAME: "Tree (natural)",
+		DESC: "",
+	},
+	{
+		NAME: "Flower",
+		DESC: "",
+	},
+	{
+		NAME: "Flower (natural)",
+		DESC: "",
+	},
+],
+
+MORE: [
+	"The more our city expands the less nature I see around. Please make some space for trees and flowers in your plans.",
+	"Some trees along our roads would be nice.",
+],

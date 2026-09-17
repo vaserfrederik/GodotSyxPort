@@ -1,0 +1,53 @@
+AI_BUILDS: true,
+
+**We will pretend we have the current wf available in our cities: 
+**200, 133, 80, 35, 15
+**x proximity is then worth x * the above.
+**mind you, the prices is the final price, so we need to have the previous price included.
+
+LEVELS: [
+	{
+		ICON: 32->INFRA->3,
+		CREDITS: 200,
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -3,
+			WORLD_VISUAL_ROADS>ADD: 0.1,
+			WORLD_PROXIMITY>ADD: 0.2,
+		},
+	},
+	{
+		ICON: 32->INFRA->3,
+		CREDITS: 200,
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -10,
+			WORLD_VISUAL_ROADS>ADD: 0.2,
+			WORLD_PROXIMITY>ADD: 0.4,
+		},
+	},
+	{
+		ICON: 32->INFRA->3,
+		CREDITS: 200,
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -26,
+			WORLD_VISUAL_ROADS>ADD: 0.4,
+			WORLD_PROXIMITY>ADD: 0.6,
+		},
+	},
+	{
+		ICON: 32->INFRA->3,
+		CREDITS: 400,
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -50,
+			WORLD_VISUAL_ROADS>ADD: 0.8,
+			WORLD_PROXIMITY>ADD: 0.8,
+		},
+	},
+	{
+		ICON: 32->INFRA->3,
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -90,
+			WORLD_VISUAL_ROADS>ADD: 1.0,
+			WORLD_PROXIMITY>ADD: 1.0,
+		},
+	},
+],

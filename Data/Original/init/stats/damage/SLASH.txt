@@ -1,0 +1,17 @@
+
+ATTACK: {
+	ICON: 16->Misc->0,
+	DEFAULT_VALUE: 0,
+},
+DEFENCE: {
+	ICON: 16->Misc->0,
+	DEFAULT_VALUE: 0,
+},
+DEFENCE_DIR: {
+	ICON: 16->Misc->0,
+	DEFAULT_VALUE: 0,
+},
+
+
+
+

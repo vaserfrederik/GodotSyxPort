@@ -1,0 +1,12 @@
+INFO: {
+	NAME: "Guard posts",
+	DESC: "Proximity and access to guard posts.",
+
+},
+
+MORE: [
+	"I don't feel safe in this town.",
+],
+LESS: [
+	"There's too many guards around here, more than enough to keep criminals away. One could amost think your intentions are beyond that.",
+],

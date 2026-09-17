@@ -1,0 +1,45 @@
+INFO: {
+	NAME: "Balticrawler Breeder",
+	NAMES: "Balticrawler Breeder",
+	DESC: "Breeds Balticrawlers that will produce meat. Can almost only be utilized by the Garthimi. Livestock is needed to populate pastures. Balticrawlers are not reliant on fertility and thrive under mountains.",
+},
+
+BONUS: {
+	NAME: "Balticrawler Breeding",
+	DESC: "Makes Balticrawler fatter and plumper",
+},
+
+WORK: {
+	TITLE: "Herder",
+	VERB: "Herding",
+},
+
+STATS: [
+	{
+		NAME: "Workers",
+		DESC: "The amount of workers that will be needed for this area. Building inside a mountain enables more workers and output on a smaller area",
+	},
+	{
+		NAME: "",
+		DESC: "",
+	},
+	{
+		NAME: "",
+		DESC: "",
+	},
+	{
+		NAME: "Output",
+		DESC: "The average amount of resources this pasture will yield daily. This depends on size of the pasture, and the base fertility of the soil.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Storage",
+		DESC: "Resource storage for pasture.",
+	},
+	{
+		NAME: "Hut",
+		DESC: "Small huts and shacks where the cattle can relax.",
+	},
+],

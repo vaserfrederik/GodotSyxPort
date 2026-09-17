@@ -1,0 +1,593 @@
+{
+  "schema": 1,
+  "strategy": "shared runtime systems; converted C# first; Java only for recovery/ambiguity",
+  "prefixes": [
+    "settlement/entity/humanoid/ai",
+    "settlement/stats/colls"
+  ],
+  "requested_limit": 100,
+  "selected_count": 92,
+  "selected": [
+    {
+      "path": "settlement/entity/humanoid/ai/battle/MarchPlan.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/battle/MarchPlan.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/SubFight.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/battle/SubFight.java",
+      "recovery_reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/idle/PlanInterract.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/idle/PlanInterract.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIEventListeners.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/main/AIEventListeners.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIManager.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/main/AIManager.java",
+      "recovery_reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIModules.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/main/AIModules.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIPlans.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/main/AIPlans.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AISTATES.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/main/AISTATES.java",
+      "recovery_reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/subwalk/AISUB_walkTo.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/subwalk/AISUB_walkTo.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/insane/AIModule_Insane.cs",
+      "status": "recovery_required",
+      "java": "settlement/entity/humanoid/ai/types/insane/AIModule_Insane.java",
+      "recovery_reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "path": "settlement/stats/colls/StatsAppearance.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/stats/colls/StatsAppearance.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/stats/colls/StatsGovern.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/stats/colls/StatsGovern.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/AIModule_Battle.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/AIModule_Battle.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/BattleUtil.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/BattleUtil.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/InterBattle.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/InterBattle.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/ManPlan.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/ManPlan.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/MarchSoftCollision.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/MarchSoftCollision.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/MarchSubCutTo.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/MarchSubCutTo.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/PlanAttackTile.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/PlanAttackTile.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/PlanEscape.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/PlanEscape.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/battle/PlanRout.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/battle/PlanRout.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/AIModule_Consumption.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/AIModule_Consumption.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/AIModule_Drink.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/AIModule_Drink.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/AIModule_Food.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/AIModule_Food.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/AIModule_Shop.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/AIModule_Shop.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/D_PlanDrinkGround.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/D_PlanDrinkGround.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/D_PlanDrunk.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/D_PlanDrunk.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/F_PlanEat.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/F_PlanEat.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/F_PlanStarve.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/F_PlanStarve.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/F_SPlanCanteen.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/F_SPlanCanteen.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/F_SPlanEatery.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/F_SPlanEatery.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/M_PlanEquip.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/M_PlanEquip.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/M_PlanMarket.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/M_PlanMarket.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/M_PlanReturn.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/M_PlanReturn.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/PlanTavern.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/PlanTavern.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/PlansServices.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/PlansServices.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/consume/SPlanAbs.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/consume/SPlanAbs.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/danger/AIModule_Danger.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/danger/AIModule_Danger.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/danger/AIModule_Exposure.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/danger/AIModule_Exposure.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/danger/AIModule_Health.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/danger/AIModule_Health.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/danger/PlanInjured.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/danger/PlanInjured.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/danger/PlanSick.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/danger/PlanSick.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/idle/AIModule_Idle.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/idle/AIModule_Idle.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/idle/Inter.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/idle/Inter.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/idle/SubMove.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/idle/SubMove.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/idle/SubStand.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/idle/SubStand.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AI.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/main/AI.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIData.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/main/AIData.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIModule.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/main/AIModule.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AIPLAN.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/main/AIPLAN.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AISTATE.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/main/AISTATE.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AISUB.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/main/AISUB.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/AISUBS.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/main/AISUBS.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/HAI.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/main/HAI.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/main/HEventListener.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/main/HEventListener.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/service/M_PlanBarber.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/service/M_PlanBarber.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/service/M_PlanCourt.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/service/M_PlanCourt.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/service/PlanSkinny.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/service/PlanSkinny.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/subject/PlanJoinArmy.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/subject/PlanJoinArmy.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/subwalk/AISub_follow.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/subwalk/AISub_follow.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/subwalk/PathWalker.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/subwalk/PathWalker.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/subwalk/SubFlee.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/subwalk/SubFlee.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/util/AIPlanGladiator.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/util/AIPlanGladiator.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/util/AIPlanResourceMany.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/util/AIPlanResourceMany.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/util/AIPlanWalkPath.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/util/AIPlanWalkPath.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/util/AIUtilMoveH.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/util/AIUtilMoveH.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/PlanBlueprint.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/PlanBlueprint.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/PlanFetchEquip.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/PlanFetchEquip.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/PlanHangArround.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/PlanHangArround.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/PlanOddHunt.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/PlanOddHunt.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/PlanWork.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/PlanWork.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/SubWork.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/SubWork.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkAbs.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkAbs.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkBuilder.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkBuilder.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkCannibal.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkCannibal.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkDeliveryman.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkDeliveryman.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkEmissary.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkEmissary.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkFarmer.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkFarmer.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkFisherman.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkFisherman.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkGladiator.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkGladiator.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkHooker.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkHooker.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkHunter.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkHunter.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkJudge.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkJudge.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkOrator.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkOrator.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkPolice.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkPolice.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkTemple.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkTemple.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkTransporter.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkTransporter.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/work/WorkTransporterSupply.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/work/WorkTransporterSupply.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/retired/AIModule_Retired.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/types/retired/AIModule_Retired.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/slave/AIModule_Slave.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/types/slave/AIModule_Slave.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/slave/PlanUprise.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/types/slave/PlanUprise.java",
+      "recovery_reasons": []
+    },
+    {
+      "path": "settlement/entity/humanoid/ai/types/tourist/AIModule_Tourist.cs",
+      "status": "reference_pending_semantic_port",
+      "java": "settlement/entity/humanoid/ai/types/tourist/AIModule_Tourist.java",
+      "recovery_reasons": []
+    }
+  ],
+  "deferred_ui_render_constructor_count": 0,
+  "deferred_ui_render_constructor": []
+}

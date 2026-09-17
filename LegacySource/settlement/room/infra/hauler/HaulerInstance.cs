@@ -1,0 +1,1 @@
+﻿Sure, please provide the Java code you'd like me to translate into C#.

@@ -1,0 +1,3 @@
+NAME: "Paper",
+NAMES: "Paper",
+DESC: "Paper has some advantages compared to Leather parchment and Clay tablets.",

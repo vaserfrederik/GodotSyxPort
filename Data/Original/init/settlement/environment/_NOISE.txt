@@ -1,0 +1,7 @@
+DECLINE_VALUE: 0.5,
+ICON: 16->Env->1,
+STANDING: {
+	CITIZEN: 1,
+	MUL: 2,
+	INVERTED: true,
+},

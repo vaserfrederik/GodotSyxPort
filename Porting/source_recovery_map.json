@@ -1,0 +1,1615 @@
+{
+  "count": 184,
+  "matched": 161,
+  "missing": 23,
+  "files": [
+    {
+      "damaged_cs": "META-INF/versions/9/module-info.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program"
+      ]
+    },
+    {
+      "damaged_cs": "game/battle/formation/DivDeployer.cs",
+      "java_source": "game/battle/formation/DivDeployer.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "game/battle/thread/order/PlanAttackDiv.cs",
+      "java_source": "game/battle/thread/order/PlanAttackDiv.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "game/boosting/BOOSTABLES.cs",
+      "java_source": "game/boosting/BOOSTABLES.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "game/boosting/Boostable.cs",
+      "java_source": "game/boosting/Boostable.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "game/boosting/superb/SuperBoostableObj.cs",
+      "java_source": "game/boosting/superb/SuperBoostableObj.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "game/event/engine/EContext.cs",
+      "java_source": "game/event/engine/EContext.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "game/faction/diplomacy/deal/DealBools.cs",
+      "java_source": "game/faction/diplomacy/deal/DealBools.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "game/faction/player/PTech.cs",
+      "java_source": "game/faction/player/PTech.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "game/faction/player/PTitles.cs",
+      "java_source": "game/faction/player/PTitles.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "game/raiding/RaidingMap.cs",
+      "java_source": "game/raiding/RaidingMap.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "init/paths/PATHS.cs",
+      "java_source": "init/paths/PATHS.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "init/resources/GrowableSprite.cs",
+      "java_source": "init/resources/GrowableSprite.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "init/resources/RESOURCE.cs",
+      "java_source": "init/resources/RESOURCE.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "init/sprite/UI/Icons.cs",
+      "java_source": "init/sprite/UI/Icons.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "init/sprite/game/SheetType.cs",
+      "java_source": "init/sprite/game/SheetType.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "launcher/ScreenSetting.cs",
+      "java_source": "launcher/ScreenSetting.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "menu/MenuPromo.cs",
+      "java_source": "menu/MenuPromo.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentAlloc.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentAllocI.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentCommit.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentCommitI.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentDalloc.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentDallocI.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentDecommit.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentDecommitI.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentDestroy.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentDestroyI.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentHooks.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentMerge.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentMergeI.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentPurge.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentPurgeI.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentSplit.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/ExtentSplitI.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/JEmalloc.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/JEmallocAllocator.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/MallocMessageCallback.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/MallocMessageCallbackI.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "org/lwjgl/system/jemalloc/package-info.cs",
+      "java_source": null,
+      "available": false,
+      "reasons": [
+        "placeholder_program"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/animal/Animal.cs",
+      "java_source": "settlement/entity/animal/Animal.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/Humanoid.cs",
+      "java_source": "settlement/entity/humanoid/Humanoid.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/battle/MarchPlan.cs",
+      "java_source": "settlement/entity/humanoid/ai/battle/MarchPlan.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/battle/SubFight.cs",
+      "java_source": "settlement/entity/humanoid/ai/battle/SubFight.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/home/AIModule_Home.cs",
+      "java_source": "settlement/entity/humanoid/ai/home/AIModule_Home.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/idle/PlanInterract.cs",
+      "java_source": "settlement/entity/humanoid/ai/idle/PlanInterract.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/main/AIEventListeners.cs",
+      "java_source": "settlement/entity/humanoid/ai/main/AIEventListeners.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/main/AIManager.cs",
+      "java_source": "settlement/entity/humanoid/ai/main/AIManager.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/main/AIModules.cs",
+      "java_source": "settlement/entity/humanoid/ai/main/AIModules.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/main/AIPlans.cs",
+      "java_source": "settlement/entity/humanoid/ai/main/AIPlans.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/main/AISTATES.cs",
+      "java_source": "settlement/entity/humanoid/ai/main/AISTATES.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/subwalk/AISUB_walkTo.cs",
+      "java_source": "settlement/entity/humanoid/ai/subwalk/AISUB_walkTo.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/types/child/AIModule_Child.cs",
+      "java_source": "settlement/entity/humanoid/ai/types/child/AIModule_Child.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/types/insane/AIModule_Insane.cs",
+      "java_source": "settlement/entity/humanoid/ai/types/insane/AIModule_Insane.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/ai/work/PlanOddjobber.cs",
+      "java_source": "settlement/entity/humanoid/ai/work/PlanOddjobber.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/spirte/HSprite.cs",
+      "java_source": "settlement/entity/humanoid/spirte/HSprite.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/entity/humanoid/spirte/HSprites.cs",
+      "java_source": "settlement/entity/humanoid/spirte/HSprites.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/environment/EUpdater.cs",
+      "java_source": "settlement/environment/EUpdater.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/environment/SettEnvMap.cs",
+      "java_source": "settlement/environment/SettEnvMap.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/job/JobBuildStructure.cs",
+      "java_source": "settlement/job/JobBuildStructure.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/job/JobClears.cs",
+      "java_source": "settlement/job/JobClears.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/job/JobComboPlacer.cs",
+      "java_source": "settlement/job/JobComboPlacer.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/main/SETT.cs",
+      "java_source": "settlement/main/SETT.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/overlay/ON_TOP_TILE.cs",
+      "java_source": "settlement/overlay/ON_TOP_TILE.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/overlay/RADIUS_INTER.cs",
+      "java_source": "settlement/overlay/RADIUS_INTER.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/overlay/RadiusInter.cs",
+      "java_source": "settlement/overlay/RadiusInter.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/overlay/SettOverlay.cs",
+      "java_source": "settlement/overlay/SettOverlay.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/path/components/finder/SCompFinder.cs",
+      "java_source": "settlement/path/components/finder/SCompFinder.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/food/farm/Tile.cs",
+      "java_source": "settlement/room/food/farm/Tile.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/food/fish/Constructor.cs",
+      "java_source": "settlement/room/food/fish/Constructor.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/food/orchard/Constructor.cs",
+      "java_source": "settlement/room/food/orchard/Constructor.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/food/pasture/ConstructorOutdoor.cs",
+      "java_source": "settlement/room/food/pasture/ConstructorOutdoor.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/home/house/HomeInstance.cs",
+      "java_source": "settlement/room/home/house/HomeInstance.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/home/house/Sprites.cs",
+      "java_source": "settlement/room/home/house/Sprites.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/industry/mine/Constructor.cs",
+      "java_source": "settlement/room/industry/mine/Constructor.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/industry/module/consumption/ConsumptionGui.cs",
+      "java_source": "settlement/room/industry/module/consumption/ConsumptionGui.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/industry/refiner/Constructor.cs",
+      "java_source": "settlement/room/industry/refiner/Constructor.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/industry/woodcutter/Constructor.cs",
+      "java_source": "settlement/room/industry/woodcutter/Constructor.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/industry/workshop/Constructor.cs",
+      "java_source": "settlement/room/industry/workshop/Constructor.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/infra/admin/Constructor.cs",
+      "java_source": "settlement/room/infra/admin/Constructor.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/infra/hauler/HaulerInstance.cs",
+      "java_source": "settlement/room/infra/hauler/HaulerInstance.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/infra/logistics/MoveOrderPullUI.cs",
+      "java_source": "settlement/room/infra/logistics/MoveOrderPullUI.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/infra/logistics/MoveOrderPushUI.cs",
+      "java_source": "settlement/room/infra/logistics/MoveOrderPushUI.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/infra/stockpile/StockpileInstance.cs",
+      "java_source": "settlement/room/infra/stockpile/StockpileInstance.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/infra/transport/Gui.cs",
+      "java_source": "settlement/room/infra/transport/Gui.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/law/execution/Constructor.cs",
+      "java_source": "settlement/room/law/execution/Constructor.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/law/guard/Constructor.cs",
+      "java_source": "settlement/room/law/guard/Constructor.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/law/stockade/Constructor.cs",
+      "java_source": "settlement/room/law/stockade/Constructor.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/main/MapDataF.cs",
+      "java_source": "settlement/room/main/MapDataF.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/main/ROOMS.cs",
+      "java_source": "settlement/room/main/ROOMS.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/main/RoomInstance.cs",
+      "java_source": "settlement/room/main/RoomInstance.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/main/construction/ConstructionInstance.cs",
+      "java_source": "settlement/room/main/construction/ConstructionInstance.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/main/copy/Copier.cs",
+      "java_source": "settlement/room/main/copy/Copier.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/main/employment/Employer.cs",
+      "java_source": "settlement/room/main/employment/Employer.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/main/employment/RoomEmploymentIns.cs",
+      "java_source": "settlement/room/main/employment/RoomEmploymentIns.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/service/arena/grand/CUtil.cs",
+      "java_source": "settlement/room/service/arena/grand/CUtil.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/service/food/eatery/RoomDistribution.cs",
+      "java_source": "settlement/room/service/food/eatery/RoomDistribution.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/service/food/tavern/Constructor.cs",
+      "java_source": "settlement/room/service/food/tavern/Constructor.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/service/module/ROOM_SERVICER.cs",
+      "java_source": "settlement/room/service/module/ROOM_SERVICER.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/spirit/grave/GraveInstance.cs",
+      "java_source": "settlement/room/spirit/grave/GraveInstance.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/spirit/shrine/Constructor.cs",
+      "java_source": "settlement/room/spirit/shrine/Constructor.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/tests/UITradeDebug.cs",
+      "java_source": "settlement/room/tests/UITradeDebug.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/room/water/PumpConstructor.cs",
+      "java_source": "settlement/room/water/PumpConstructor.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/stats/STATS.cs",
+      "java_source": "settlement/stats/STATS.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/stats/colls/StatsHome.cs",
+      "java_source": "settlement/stats/colls/StatsHome.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/stats/colls/StatsNeeds.cs",
+      "java_source": "settlement/stats/colls/StatsNeeds.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/stats/colls/StatsPopulation.cs",
+      "java_source": "settlement/stats/colls/StatsPopulation.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/stats/colls/StatsReligion.cs",
+      "java_source": "settlement/stats/colls/StatsReligion.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/stats/colls/StatsWork.cs",
+      "java_source": "settlement/stats/colls/StatsWork.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/stats/law/StatCrime.cs",
+      "java_source": "settlement/stats/law/StatCrime.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/stats/muls/StatsMultipliers.cs",
+      "java_source": "settlement/stats/muls/StatsMultipliers.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/stats/relation/StatsRelations.cs",
+      "java_source": "settlement/stats/relation/StatsRelations.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/stats/standing/StandingCitizen.cs",
+      "java_source": "settlement/stats/standing/StandingCitizen.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/thing/ThingsCorpses.cs",
+      "java_source": "settlement/thing/ThingsCorpses.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/thing/halfEntity/HalfEntity.cs",
+      "java_source": "settlement/thing/halfEntity/HalfEntity.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/tilemap/floor/Floors.cs",
+      "java_source": "settlement/tilemap/floor/Floors.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/tilemap/terrain/TBuilding.cs",
+      "java_source": "settlement/tilemap/terrain/TBuilding.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/tilemap/terrain/TForest.cs",
+      "java_source": "settlement/tilemap/terrain/TForest.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/tilemap/terrain/TFortification.cs",
+      "java_source": "settlement/tilemap/terrain/TFortification.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/tilemap/terrain/TMountain.cs",
+      "java_source": "settlement/tilemap/terrain/TMountain.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "settlement/tilemap/terrain/TWater.cs",
+      "java_source": "settlement/tilemap/terrain/TWater.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "snake2d/GraphicContext.cs",
+      "java_source": "snake2d/GraphicContext.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "snake2d/PathUtilOnline.cs",
+      "java_source": "snake2d/PathUtilOnline.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "snake2d/SoundCore.cs",
+      "java_source": "snake2d/SoundCore.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "snake2d/util/datatypes/COORDINATE.cs",
+      "java_source": "snake2d/util/datatypes/COORDINATE.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "snake2d/util/gui/clickable/CLICKABLE.cs",
+      "java_source": "snake2d/util/gui/clickable/CLICKABLE.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "snake2d/util/sets/INDEXED.cs",
+      "java_source": "snake2d/util/sets/INDEXED.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "snake2d/util/sprite/text/Font.cs",
+      "java_source": "snake2d/util/sprite/text/Font.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "util/data/DataO.cs",
+      "java_source": "util/data/DataO.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "util/data/LONG_O.cs",
+      "java_source": "util/data/LONG_O.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "util/gui/common/UIPickerArmy.cs",
+      "java_source": "util/gui/common/UIPickerArmy.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "util/gui/misc/GButt.cs",
+      "java_source": "util/gui/misc/GButt.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "util/gui/misc/GMeter.cs",
+      "java_source": "util/gui/misc/GMeter.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "util/info/GFORMAT.cs",
+      "java_source": "util/info/GFORMAT.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "util/keymap/MAPPED.cs",
+      "java_source": "util/keymap/MAPPED.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "util/keymap/RMAPS.cs",
+      "java_source": "util/keymap/RMAPS.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "util/spritecomposer/ComposerSources.cs",
+      "java_source": "util/spritecomposer/ComposerSources.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "util/statistics/HISTORY.cs",
+      "java_source": "util/statistics/HISTORY.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "util/text/Dic.cs",
+      "java_source": "util/text/Dic.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "util/text/InsertIndu.cs",
+      "java_source": "util/text/InsertIndu.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/battle/UISelection.cs",
+      "java_source": "view/battle/UISelection.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/UIPanelTopSett.cs",
+      "java_source": "view/sett/UIPanelTopSett.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/bottom/BuildMain.cs",
+      "java_source": "view/sett/ui/bottom/BuildMain.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/law/UILawCrimeList.cs",
+      "java_source": "view/sett/ui/law/UILawCrimeList.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/minimap/UIMiniMapSettViewMap.cs",
+      "java_source": "view/sett/ui/minimap/UIMiniMapSettViewMap.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/room/ModuleEmployment.cs",
+      "java_source": "view/sett/ui/room/ModuleEmployment.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/room/ModuleIndustry.cs",
+      "java_source": "view/sett/ui/room/ModuleIndustry.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/room/ModuleUpgradable.cs",
+      "java_source": "view/sett/ui/room/ModuleUpgradable.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/room/UIPanelMain.cs",
+      "java_source": "view/sett/ui/room/UIPanelMain.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/room/UIRoomModule.cs",
+      "java_source": "view/sett/ui/room/UIRoomModule.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/room/UIRoomTable.cs",
+      "java_source": "view/sett/ui/room/UIRoomTable.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/room/prints/Entry.cs",
+      "java_source": "view/sett/ui/room/prints/Entry.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/standing/CatReligion.cs",
+      "java_source": "view/sett/ui/standing/CatReligion.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/subject/UISubjectActions.cs",
+      "java_source": "view/sett/ui/subject/UISubjectActions.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/subject/UISubjectProperties.cs",
+      "java_source": "view/sett/ui/subject/UISubjectProperties.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/sett/ui/subject/UISubjectsList.cs",
+      "java_source": "view/sett/ui/subject/UISubjectsList.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/subview/GameWindow.cs",
+      "java_source": "view/subview/GameWindow.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/ui/advice/UIAdvice.cs",
+      "java_source": "view/ui/advice/UIAdvice.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/ui/div/UIDivCardBattle.cs",
+      "java_source": "view/ui/div/UIDivCardBattle.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/ui/div/UIDivEditor.cs",
+      "java_source": "view/ui/div/UIDivEditor.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/ui/goods/UIGoodsExport.cs",
+      "java_source": "view/ui/goods/UIGoodsExport.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/ui/goods/UIGoodsImport.cs",
+      "java_source": "view/ui/goods/UIGoodsImport.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/ui/tech/Node.cs",
+      "java_source": "view/ui/tech/Node.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/ui/top/UINotifications.cs",
+      "java_source": "view/ui/top/UINotifications.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "view/ui/wiki/WikiRace.cs",
+      "java_source": "view/ui/wiki/WikiRace.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "view/world/ui/army/Army.cs",
+      "java_source": "view/world/ui/army/Army.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/world/ui/faction/Court.cs",
+      "java_source": "view/world/ui/faction/Court.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/world/ui/faction/Goods.cs",
+      "java_source": "view/world/ui/faction/Goods.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/world/ui/region/MiscBasics.cs",
+      "java_source": "view/world/ui/region/MiscBasics.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "view/world/ui/region/PlayBuildingsPop.cs",
+      "java_source": "view/world/ui/region/PlayBuildingsPop.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "world/battle/ResolverPlayer.cs",
+      "java_source": "world/battle/ResolverPlayer.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "world/battle/spec/BATTLE_RESULT.cs",
+      "java_source": "world/battle/spec/BATTLE_RESULT.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "world/entity/WEntity.cs",
+      "java_source": "world/entity/WEntity.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "world/entity/WEntityConstructor.cs",
+      "java_source": "world/entity/WEntityConstructor.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "world/entity/army/WArmyConstructor.cs",
+      "java_source": "world/entity/army/WArmyConstructor.java",
+      "available": true,
+      "reasons": [
+        "java_syntax_marker"
+      ]
+    },
+    {
+      "damaged_cs": "world/map/pathing/Comps.cs",
+      "java_source": "world/map/pathing/Comps.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "world/map/regions/centre/CSprite.cs",
+      "java_source": "world/map/regions/centre/CSprite.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "world/map/regions/centre/WCentre.cs",
+      "java_source": "world/map/regions/centre/WCentre.java",
+      "available": true,
+      "reasons": [
+        "no_type_declaration"
+      ]
+    },
+    {
+      "damaged_cs": "world/map/terrain/WorldMountain.cs",
+      "java_source": "world/map/terrain/WorldMountain.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "world/map/terrain/WorldWater.cs",
+      "java_source": "world/map/terrain/WorldWater.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "world/other/WorldInfo.cs",
+      "java_source": "world/other/WorldInfo.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "world/region/RDMilitaryGar.cs",
+      "java_source": "world/region/RDMilitaryGar.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "world/region/building/Creator.cs",
+      "java_source": "world/region/building/Creator.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    },
+    {
+      "damaged_cs": "world/region/building/RDBuilding.cs",
+      "java_source": "world/region/building/RDBuilding.java",
+      "available": true,
+      "reasons": [
+        "placeholder_program",
+        "filename_type_mismatch"
+      ]
+    }
+  ]
+}

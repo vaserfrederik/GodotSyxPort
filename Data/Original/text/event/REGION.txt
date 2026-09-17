@@ -1,0 +1,1423 @@
+COEXISTENCE: {
+	NAME: "Unfriendly Neighbors",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"Sometimes your subjects and nobles complain about the ever-growing bureaucracy in your empire, and the way it slows everything down.
+		Depending on how full your desk looks on a given day, you might be tempted to agree with them, but sometimes you get reminders about what happens when things escape the attention of your administrators:
+ 
+		{REGION1_NAME} has a large population of both Humans and Dondorians, and most settlements there predate your rule. Some of them are likely completely unaware of you and your tax men.
+ 
+		On a certain stretch of mountain, both Humans and Dondorians settled. Since they were located on opposite sides, both were completely unaware of the other. While the Dondorians dug deep into the mountain, the Humans uncharacteristically settled on the slopes.
+		Apparently, the strenuous way up to their dwellings was made up by the view and the easily shapeable stone, which made for quickly constructed and robust dwellings.
+ 
+		Very recently, both settlements became aware of one another, when the Human sewer system was breached and flooded the Dondorian halls.
+ 
+		This catastrophic event made for a terrible first impression, and since then parts of the Human town mysteriously collapsed.
+ 
+		Apparently, no one looked at the maps and noticed the problem, and now this whole mess is on your desk.
+		Both sides fault the other, and maintain that they were there first. While it might be possible to find out for certain who, if anyone, was at fault for the initial incident, that would not solve anything at this point.
+ 
+		If left unresolved, this will will likely end in large scale bloodshed. You can either resettle the Dondorians or the Humans.
+		The Dondorians have offered bribes of shipments of cut stone and furniture. The Human town had attracted a lot of semi-retired merchants due to its picturesque look, and offers money and their connections.
+",
+	],
+	CHOICES: [
+		"Favor Humans",
+		"Favor Dondorians",
+	],
+},
+
+COEXISTENCE_YES: {
+	NAME: "Humans favored",
+	DESC: "The Humans are grateful, but few Dondorians want to live in the region now.",
+	
+	MESSAGE: [
+		"A surprising amount of money for the size of the town made its way into your coffers. 
+		The distorted news of this whole event has spread through your empire, and everyone has an opinion on it by now. Predictably, Dondorians are not happy with your judgment while Humans laud your wisdom.
+		",
+	],
+},
+
+COEXISTENCE_NO: {
+	NAME: "Dondorians favored",
+	DESC: "The Dondorians are grateful, but few Humans want to live in the region now.",
+	
+	MESSAGE: [
+		"As promised, shipments of well-cut stone and furniture appropriate for SPECIES use have been delivered to you. 
+		The distorted news of this whole event has spread through your empire, and everyone has an opinion on it by now. Predictably, Humans are not happy with your judgment while Dondorians laud your wisdom.
+		",
+	],
+},
+
+COEXISTENCE_MAYBE: {
+	NAME: "Situation deteriorates",
+	DESC: "Your subjects have taken the matter in their own, now bloody, hands.",
+	
+	MESSAGE: [
+		"The Humans and Dondorians in {REGION1_NAME} are now warring. This will likely continue until the contentious mountain is rendered uninhabitable to both sides.
+		",
+	],
+},
+
+DOOMED_RAID: {
+	NAME: "Unfriendly Neighbors",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"{ROYALTY1_FACTION_FACTION} sends you an odd proposal. According to them, a band of Tilapi raiders, distantly related to them, are going to attack you soon. They are unlikely to be a problem for your forces.
+ 
+		{ROYALTY1_FACTION_FACTION_RULER} tried to stop them, perhaps because of fondness for you, perhaps because the raid was doomed from the start. The raiders refused, partly because they burned too many bridges, both figuratively and literally, on their way and are unable to retreat back to their homes.
+ 
+		If you allow the raiders passage through your lands, you could avoid the fight and improve your relations with Tilapis and {ROYALTY1_FACTION_FACTION_RULER} in particular. However, even with attentive escorts, moving a half-willing host of Tilapis through your lands will lead to banditry.
+		",
+	],
+	CHOICES: [
+		"Allow them to retreat",
+		"Refuse",
+	],
+},
+
+DOOMED_RAID_YES: {
+	NAME: "Raiders retreated",
+	DESC: "You have made a Tilapi friend, but raider remnants plague your roads.",
+	
+	MESSAGE: [
+		"Escorting the raiders through your realm went smoothly, but as expected, some of them went missing along the way. 
+		{ROYALTY1_NAME} appreciates your leniency, and perhaps her influence will make raids like this less frequent.
+		",
+	],
+},
+
+DOOMED_RAID_NO: {
+	NAME: "Raiders fought",
+	DESC: "",
+	
+	MESSAGE: [
+		"The Tilapi host makes it way into your lands. {ROYALTY1_NAME} was unsurprised by your refusal to spare the raiders and seemingly bears you no ill will.
+		",
+	],
+},
+
+CHARITY_REGION: {
+	NAME: "Squalor",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"{REGION1_NAME} is usually fertile enough to sustain its population on its own, but a string of bad harvests has emptied its granaries. While your taxes are unaffected for now, your subjects have already started to sell their furniture and heirlooms to pay for food.
+ 
+		The increasing squalor in the region is already being talked about abroad, which reflects poorly on you. 
+		",
+	],
+	CHOICES: [
+		"Lower taxes",
+		"Do nothing",
+	],
+},
+
+CHARITY_REGION_YES: {
+	NAME: "Squalor ended",
+	DESC: "Your generosity is being talked about.",
+	
+	MESSAGE: [
+		"Thanks to the lowered taxes, your subjects can afford a reasonable standard of living again.
+		 
+		Your swift and generous action reflects well on you.
+		",
+	],
+},
+
+CHARITY_REGION_NO: {
+	NAME: "Squalor continues",
+	DESC: "Your inaction damaged your reputation.",
+	
+	MESSAGE: [
+		"As the conditions in {REGION1_NAME} continue to deterioate, so does your reputation. 
+		
+		Your subjects still manage to pay their taxes but have no money left for anything else. Your empire's inhabitants look upon this development with worry, fearful of what they might have to endure in the future.
+		Other rulers may not do any differently, despite the expectations of tradition, but the situation in {REGION1_NAME} is a very visible and obvious example, which invites disdain.
+		",
+	],
+},
+
+CULTOFPERSONALITY: {
+	NAME: "Cult found",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"A worrying development has occurred in {REGION1_NAME}. A strange cult has spread, venerating and praying to a mortal. Usually, cults like this are rooted out without mercy when they are found, but there is something notable about this one:
+ 
+		They revere you, {PLAYER_FACTION_RULER} of {PLAYER_FACTION}. Supposedly, they even have pictures and statues with your likeness in little shrines at home. For some reason, your flag is affixed to their dwellings, which made them very easy to find once your soldiers knew what to look for.
+ 	 
+		You did not notice anything divine about yourself, but perhaps they know something you don't? Besides the practice of using body parts of their 'god' in curses, which is pretty disturbing now that you are experiencing it from the other side, they seem pretty harmless and do not oppose the faith directly.
+ 	 
+		If you were to legalize the cult, it might spread - probably not to the capital since you do not look very divine up close. However, this would likely sour relations with most of your peers due to the theological acrobatics you would have to perform.
+		",
+	],
+	CHOICES: [
+		"Legalize it",
+		"Ban it",
+	],
+},
+
+CULTOFPERSONALITY_YES: {
+	NAME: "Cult spreads",
+	DESC: "You have your very own cult.",
+	
+	MESSAGE: [
+		"Your new cult heeds your hasty alterations to their creed. You now occupy an intentionally poorly defined position in the pantheon, and they will still be part of the faith. 
+		With time, it will surely spread. While they might be fanatically loyal now, they still have their limits, and you are not the only one who has an understanding of theology. If you turned out to be a 'sub-par incarnation' or 'flawed reflection of their object of worship' instead, they might still act against you.
+		 
+		{REGION1_NAME}, the origin of the cult, will be much more loyal, but other regions are unlikely to adopt this new faith fully. 
+		",
+	],
+},
+
+CULTOFPERSONALITY_YES_FOLLOW: {
+	NAME: "Cult spreads",
+	DESC: "You have your very own cult.",
+},
+
+CULTOFPERSONALITY_NO: {
+	NAME: "Cult banned",
+	DESC: "You refused the temptation of divinity - a feat that engenders respect from your peers.",
+	
+	MESSAGE: [
+		"You explicitly forbade worship of you and broke up the cult. Usually, more violent measures are employed, but in this case, there was no need. 
+		The whole thing became public knowledge, and your peers appreciate you resisting temptation. Besides the religious aspect, such a cult would have inevitably caused them problems sooner or later.
+		",
+	],
+},
+
+CULTOFPERSONALITY_NO_FOLLOW: {
+	NAME: "Cult spreads",
+	DESC: "You refused the temptation of divinity - a feat that engenders respect from your peers.",
+},
+
+FAMINE: {
+	NAME: "Rumours of Famine",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"Rumors about a great famine circulate. Droughts, floods, and storms have ravaged farms across Syx. On their own, those events would not be a cause for concern, but too many happened this year. If worst comes to worst, the people of Syx will face starvation.
+		 
+		Your demesne seems oddly fine. You could emphasize that, which could calm spirits somewhat, or invent a few setbacks in your realm, which should add fuel to the fire.
+		",
+	],
+	CHOICES: [
+		"Calm spirits",
+		"Foster rumor",
+	],
+},
+
+FAMINE_YES: {
+	NAME: "Minor Famine",
+	DESC: "Harvests across Syx were bad this year.",
+	
+	MESSAGE: [
+		"It turns out that the rumor had some truth to it; the harvests were bad, but not as bad as it suggested. Your demesne and many others were just fine, which prevented a panic that could have led to hoarding and profiteering.
+		 
+		Nonetheless, the prices for farm products will be quite a bit higher this year.
+		",
+	],
+},
+
+FAMINE_NO: {
+	NAME: "Major Famine",
+	DESC: "Syx faces starvation, though your demesne is fine.",
+	
+	MESSAGE: [
+		"The perceived state of your empire added to the concerns about the harvest, which caused those, who could afford to, to hoard food and other things. Speculation by merchants added to the confusion and soon prices skyrocketed.
+		 
+		While the situation may not be as dire as perceived, importing food is going to be very costly.
+		",
+	],
+},
+
+SKELETON: {
+	NAME: "Ancient Graveyard",
+	DESC: "The graveyard excavation yields cut stone.",
+	
+	MESSAGE: [
+		"An unseasonal flood in {REGION1_NAME} unearthed a disquieting find. Massive bones protrude from the wet earth. While the scholars are still debating about what kind of creature they belonged to - currently evenly split between fire-breathing, winged spidersnakes and giant, humanoid Onx - your more practically inclined subjects have noted that the bones make for excellent construction material.
+		 
+		They are sturdy and easily shapeable, and could be used for the same purposes as more laboriously shaped stone.
+		 
+		A nearby brook was already redirected to flow over the bone fields, slowly unearthing more of them.
+		",
+	],
+},
+
+DONDORIAN_FOREST: {
+	NAME: "Dondorian Forest",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"{REGION1_NAME} contains a magical forest, which accounts for most of its wood production. Within its center, trees that are cut down can be found whole and alive the next day. After this was discovered, the woodcutters in {REGION1_NAME} built mechanical contraptions that allow these trees to be felled and processed with minimal labor.
+
+		Recently, faces have begun to appear on the bark of these trees - Dondorian faces. They appear disturbingly lifelike, but cautious examinations revealed only wood beneath.
+		 
+		This has attracted the attention of Dondorians in all of Syx. While {REGION1_NAME} is not known for spawning many Dondorians, some are still hopeful to find information on their Origin within the forest.
+
+		They want to mount an expedition, and dig deep beneath the forest soil, the most likely origin of the trees, and perhaps them as well.
+
+		Refusing would turn every Dondorian against you. Accepting will disrupt the region for a while, leading to lowered taxes in general, but you would receive denari as compensation.
+		",
+	],
+	CHOICES: [
+		"Allow expedition",
+		"Refuse",
+	],
+},
+
+DONDORIAN_FOREST_YES: {
+	NAME: "Dondorians start excavation",
+	DESC: "Your region is disrupted while the digging continues.",
+	
+	MESSAGE: [
+		"After an exchange of assurances, a huge throng of Dondorians makes its way into the forest. The camp bristles with weapons, but there are also various specialists present that could prove useful - scholars, miners, ruin explorers and more.
+		 
+		They have refused offers of assistance and permit no outside observers. One piece of information still made its way to you: they found worked metal beneath the soil. It slopes very slightly, suggesting a dome of gargantuan proportions.
+		",
+	],
+},
+
+DONDORIAN_FOREST_YES_FOLLOW: {
+	NAME: "The Dondorians found something",
+	DESC: "The magical forest expanded in size. Your veteran woodcutters have stopped caring about the faces.",
+	
+	MESSAGE: [
+		"The Dondorian expedition in {REGION1_NAME} finally found something. According to your subjects, most of the Dondorians descended into the shaft they dug and did not return for a week.
+ 
+		The few who eventually made it back to the surface were kept hidden in tents, but woodcutters would hear screams echo through the forest frequently, until they stopped all at once, a day before the Dondorians announced their departure.
+		The haunted-looking representative did not share much, but this is likely one of the many secrets that are better left unknown. 
+ 		 
+		The shaft they dug had been collapsed, and your woodcutters quickly resumed work in the center. The magical trees still continued to appear every morning, but your subjects noticed two changes:
+		The magical area had increased in size, and new, unfamiliar faces joined the old ones on the bark.
+		",
+	],
+},
+
+DONDORIAN_FOREST_NO: {
+	NAME: "Refused Dondorians",
+	DESC: "Dondorians consider you an obstacle to be removed.",
+	
+	MESSAGE: [
+		"Predictably, your refusal did not change their plans. They will find out what is hidden there and no cost is too great.
+		",
+	],
+	CHOICES: [
+		"Yield",
+	],
+},
+
+DONDORIAN_FOREST_NO_FOLLOW: {
+	NAME: "Refused Dondorians",
+	DESC: "Dondorians consider you an obstacle to be removed.",
+	
+	MESSAGE: [
+		"You resisted successfully. Dondorians will uncover the mysteries of {REGION1_NAME}, but perhaps not in this age. For now, they focus their energies towards more attainable goals.
+		",
+	],
+},
+
+
+WEAPON_PRICE_U: {
+	NAME: "Rumors of Raiders",
+	DESC: "Military equipment is priced highly due to recent raids.",
+	
+	MESSAGE: [
+		"Attacks from raiders are on the rise. Several of your peers were accosted recently, and it looks like something beyond your corner of Syx is spurring them on.
+		The usual rumors make the rounds - that they are fleeing something, that one of the old empires shook off its lethargy, and so on.
+
+		While the veracity of the rumors is very doubtful, the raiders are very real, and prices for high-end military equipment are high.
+		",
+	],
+},
+
+GARTHIMI_TROUBLES: {
+	NAME: "Garthimi hives are suffering",
+	DESC: "The hives are weakened economically.",
+	
+	MESSAGE: [
+		"Something is happening to faraway Garthimi hives. The prices of things like ore and meat are on the rise, a sure sign they are having some difficulties below.
+		While nothing definite is known by non-Garthimi, it is likely either an epidemic or a case of digging too deep. 
+		",
+	],
+},
+
+MINING_PEACE: {
+	NAME: "Peaceful underground",
+	DESC: "Minerals are much cheaper.",
+	
+	MESSAGE: [
+		"The underground of Syx has been quite peaceful for some time now. The reason for this is not known, but even Garthimi and Dondorians have agreed to a truce underground to make use of the ability to range further beneath.
+		 
+		Minerals are going to be cheaper for some time.
+		",
+	],
+},
+
+DONDORIAN_ECONOMY: {
+	NAME: "Dondorians embark on a new Quest",
+	DESC: "Fewer Dondorians are selling their crafts.",
+	
+	MESSAGE: [
+		"The Dondorians have found a new lead on their mysterious Origin. As usual, they plan to enter one of the most cursed regions of Syx. You do not know what manner of thing blocks their way, but it is surely formidable, for the unguarded ruins were searched by them long ago.
+ 
+		United in purpose, they either join the expedition directly, or send money and supplies. Unless something goes catastrophically wrong, this whole business should not affect you directly, but since the best crafters on Syx are now otherwise occupied, prices for some goods are going to rise.
+		",
+	],
+},
+
+SITHILON_RUSH: {
+	NAME: "Rumors of Sithilon veins",
+	DESC: "You are still investigating the truth of the matter.",
+	
+	MESSAGE: [
+		"There are rumors about large veins of sithilon being found in {REGION1_NAME}. As far as you know, the region never had deposits of sufficient quality and quantity to make extraction feasible, which makes the claims of large, pure veins of it being available on the surface very unlikely to be true.
+ 
+		Just in case, you send some people over to keep an eye on the regional authorities.
+		",
+	],
+},
+
+SITHILON_FOLLOW: {
+	NAME: "Sithilon rumor proven false",
+	DESC: "The region benefits economically, but unrest is mounting.",
+	
+	MESSAGE: [
+		"It turns out that the rumor about Sithilon in {REGION1_NAME} was just that: a rumor. No Sithilon was found by the the many hopeful prospectors that visited the region. After thoroughly combing through the accessible parts of the mountainsides, even the most stubborn of them admitted defeat.
+ 
+		Selling picks, climbing gear, provisions and other necessities boosted the regional economy quite a bit, but many of those attracted by the sithilon rush were left with nothing and are now begging in the streets, reducing the stability of the region.
+		",
+	],
+},
+
+TAX_EVASION: {
+	NAME: "Administrative error uncovered",
+	DESC: "The region's taxes are much higher, but your subjects miss being mostly tax-free.",
+	
+	MESSAGE: [
+		"An administrator in {REGION1_NAME} recently unearthed a bureaucratic error that should have been glaringly obvious - Humans were not taxed at all if they fulfilled some seemingly random requirements.
+		 
+		It is not clear yet whether this error was introduced deliberately or just a display of staggering incompetence, but many made use of it and conducted business in another's name, paying no taxes at all.
+		 
+		Either way, the taxes from {REGION1_NAME} are going to be a lot higher for the foreseeable future, until corruption or some other thing devours the excess, as it usually does. 
+		The populace is not happy about suddenly paying the normal amount of taxes, having long since gotten used to and justified the tax exploit.
+		",
+	],
+},
+
+SERPENT: {
+	NAME: "Unusual predation",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"{REGION1_NAME}'s pastures have lost a lot of their flocks to predation recently. Your subjects were not idle and fortified them with palisades, but it did not slow whatever did this down at all. The walls were not forced open, and no tunnels were dug beneath them. 
+		That leaves flying, climbing, or very large predators. Whenever livestock went missing, metallic scales could be found. The scales are similar to forged metal and could be fashioned into weapons or armor.
+ 
+		Near the end of the report, almost as an afterthought, was mentioned that nothing besides blood could be found at the sites of the attacks.
+ 
+		You could command your subjects to find whatever did this and kill it, or you could tell them to avoid conflict and collect the scales. The scales would be used partly to buy replacement livestock, and the rest would be delivered to you.
+		",
+	],
+	CHOICES: [
+		"Confront",
+		"Collect",
+	],
+},
+
+SERPENT_YES: {
+	NAME: "Predator confronted",
+	DESC: "",
+	
+	MESSAGE: [
+		"Apparently, tracking down the beasts was easily accomplished. Following the scales glinting in the sunlight was the obvious solution, but without an official command, no one had tried for similarly obvious reasons. A large burrow in an empty field was where the trail ended.
+		The first party, armed with the best equipment the local garrison had available, never returned to the surface. 
+		 
+		Collapsing the burrow was deemed useless since a quick sweep of the area revealed multiple other entrances, so the garrison commander had fresh wood piled up in one entrance, lit it and sealed it with earth, thinking smoke would eventually force the inhabitants out.
+		 
+		As most of your subjects old enough to hold a weapon in {REGION1_NAME} saw smoke leaving the other entrances of the burrow, a rumbling could be felt.
+		Shortly after, it emerged. If its kind ever had a name, it has been lost to history. A metal-clad serpent, as thick as a man is tall. 
+ 
+		The battle was a disaster, no weapon could pierce its scales, and no one could withstand its sheer mass as it used its body to crush your subjects en masse.
+		Despite routing almost immediately, your forces sustained heavy casualties. 
+ 
+		After this, a brave few went back to scout, and they saw the serpent leave its burrow with a bulging throat. Even after several days, it did not return. Attacks on livestock stopped regionwide.
+		Your subjects ventured below after this and discovered two things of note:
+ 
+		A whole shed skin, which gave the explorers quite a fright, and a few thick shards of eggshell.
+		",
+	],
+},
+
+SERPENT_NO: {
+	NAME: "Scale collection",
+	DESC: "Your subjects are collecting the scales.",
+	
+	MESSAGE: [
+		"Relieved at not having to confront the beasts directly, your subjects started to collect the glittering scales methodically. Considering how long this had been going on before, there should be a wealth of them on the fields, but it seems your herders took them for themselves.
+		Some overeager subjects followed followed a trail of glittering scales back to an empty field, dotted with burrow entrances, which were large enough to admit them entrance. They wisely decided against exploring further.
+ 
+		After this, your administrators noticed an increase in the amount of metal gathered per week, and sometimes your subjects even found them in little piles.
+ 
+		The collection still continues.
+		",
+	],
+},
+
+SERPENT_NO_FOLLOW: {
+	NAME: "Predation stopped",
+	DESC: "",
+	
+	MESSAGE: [
+		"The predation on your pastures has ceased. Your subjects cautiously explored the previously discovered burrow, and found not much besides a few shards of eggshell of incredible thickness and the occasional scale.
+		 
+		The collected scales were delivered to your capital.
+		",
+	],
+},
+
+**WIP
+STARVATION: {
+	NAME: "Saved from Starvation",
+	DESC: "",
+	
+	MESSAGE: [
+		"A caravan from {ROYALTY1_FACTION_FACTION}, bearing the sigil of {ROYALTY1_FACTION_FACTION_RULER}, enters your capital. A letter adorned with the same is presented to you:
+		 
+		 
+		{FACTION1_FACTION_RACE_HELLO} I will dispense with the formalities - we heard of your plight, and having faced starvation as well, we decided to help you out. Take this food and sate your subjects.
+		 
+		Let's pray Syx will be kind to both of us, and that we may never know hunger again. {ROYALTY1_FACTION_FACTION}
+		 
+		 
+		Your neighbor, 
+		 
+		{ROYALTY1_FACTION_FACTION_RULER}.
+		",
+	],
+},
+
+STARVATION_CONT: {
+	NAME: "Saved from Starvation2",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"Word is that {ROYALTY1_FACTION_FACTION}, who once helped you, is very close to starvation. Poor harvests combined with the emergence of new vermin capable of burrowing straight into granaries are responsible for that.
+		Its ruler sent you a letter:
+		
+		
+		{PLAYER_FACTION_RULER}, despite my best efforts, {ROYALTY1_FACTION_FACTION} is facing starvation. Once I helped you when your subjects hungered, and now I am in need of aid. Please share your food with us.
+
+
+		Your neighbor,
+
+		{ROYALTY1_FACTION_FACTION_RULER}.
+		",
+	],
+	CHOICES: [
+		"Aid",
+		"Refuse",
+	],
+},
+
+STARVATION_CONT_YES: {
+	NAME: "Returned the Favor",
+	DESC: "Preventing them from starving has earned you a lifelong friend.",
+	
+	MESSAGE: [
+		"A brief missive arrived after the food was distributed in {ROYALTY1_FACTION_FACTION}:
+		
+		
+		Thank you for the assistance, friend. I will not forget this.
+		",
+	],
+
+},
+
+STARVATION_CONT_NO: {
+	NAME: "Mortal Enemy made",
+	DESC: "This faction despises you because you did not aid them.",
+	
+	MESSAGE: [
+		"After you made it clear that you would send no aid, the following missive arrived:
+		 
+		 
+		{ROYALTY1_INDUVIDUAL_RACE_CURSE} We helped you when you at your lowest, and this is how you repay us? We may be starving, but hate will sustain us until we have rectified this injustice!
+		 
+		 
+		Your sworn enemy,
+		 
+		{ROYALTY1_FACTION_FACTION_RULER}.
+		",
+	],
+},
+
+DEVELOPMENT: {
+	NAME: "Land development",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"In your predominantly Human region, {REGION1_NAME}, the Tilapi minority lays claim to many stretches of undeveloped land. This includes minor mines, forests full of game, and prime settlement spots. 
+		Your Human subjects want to make use of these areas. While the gains will not be enough to affect the output of any one resource, the lower costs of living would allow for higher taxes.
+		 
+		The undeveloped parts of the region are your property, and the Tilapis have just assumed custodianship so it would be within your rights to let the Humans settle there. 
+		If you support the Humans, the region will be a bit more productive for a while, but experience tells you that the Tilapis will find ways to discourage the settlers sooner or later.
+		Usually, they can not be traced back to them directly, but everyone knows who was responsible.
+		",
+	],
+	CHOICES: [
+		"Favor Humans",
+		"Favor Tilapis",
+	],
+},
+
+DEVELOPMENT_YES: {
+	NAME: "Favored Humans",
+	DESC: "Your favoring of the Humans is still remembered.",
+	
+	MESSAGE: [
+		"With your explicit authority, the Humans quickly spread from their traditional settlements in {REGION1_NAME} and begin developing the wilder parts of it. The economic boom will lead to increased taxes for a while, but Tilapis in general are predictably unhappy about this.
+		",
+	],
+},
+
+DEVELOPMENT_NO: {
+	NAME: "Favored Tilapis",
+	DESC: "Your favoring of the Tilapis is still remembered.",
+	
+	MESSAGE: [
+		"Reaffirming the claims of the Tilapis was something that came as a bit of a surprise to them. News of this quickly spread to their kin in other lands.
+		",
+	],
+},
+
+RAID_ASSISTANCE: {
+	NAME: "A curious proposal",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"You recently received a letter from {ROYALTY1_FACTION_FACTION_RULER}, ruler of {ROYALTY1_FACTION_FACTION}. {ROYALTY1_INDUVIDUAL_HEC} recently sponsored an 'expedition' into the far corners of Syx. This venture was only partly successful. While it did yield returns, part of {ROYALTY1_INDUVIDUAL_HIS} forces were captured, and it turned out that the faction had larger, more warlike allies.
+		 
+		{ROYALTY1_FACTION_FACTION_RULER} expects that {ROYALTY1_INDUVIDUAL_HIS} lands will soon be attacked in retaliation, and {ROYALTY1_INDUVIDUAL_HE} has no forces to spare at the moment.
+ 
+		Due to their unfamiliarity with the local rulers, it should be possible to mislead the raiders into attacking you instead, but the deception would need your cooperation. 
+ 
+		{ROYALTY1_FACTION_FACTION_RULER} offers monetary recompense and {ROYALTY1_INDUVIDUAL_HIS} gratitude.
+ 
+		Refusing will weaken {ROYALTY1_FACTION_FACTION}'s armies.
+		",
+	],
+	CHOICES: [
+		"Accept",
+		"Refuse",
+	],
+},
+
+RAID_ASSISTANCE_YES: {
+	NAME: "Raid redirected",
+	DESC: "Your assistance with the raiders is appreciated.",
+	
+	MESSAGE: [
+		"{ROYALTY1_FACTION_FACTION_RULER} is ecstatic that you accepted. Convincing the raiders that you were their actual target was pretty easy. The fact that they had gotten lost and were going in circles for days likely helped them overlook the convenience of finding such accurate information by chance.
+		",
+	],
+},
+
+RAID_ASSISTANCE_NO: {
+	NAME: "Raiders",
+	DESC: "Without your aid, the raiders inflicted a lot of damage on your peer.",
+	
+	MESSAGE: [
+		"Due to how unprepared {ROYALTY1_FACTION_FACTION} was, the raiders were able to cause a lot of damage before they were repelled. 
+		 
+		{ROYALTY1_FACTION_FACTION}'s army is in shambles. Most of {ROYALTY1_FACTION_FACTION_RULER}'s subjects are busy rebuilding {ROYALTY1_INDUVIDUAL_HIS} realm, and demand for construction materials has risen.
+		",
+	],
+},
+
+RAID_ASSISTANCE_YES_FOLLOW: {
+	NAME: "Raiders",
+	DESC: "",
+	
+	MESSAGE: [
+		"A band of raiders is at your borders. It seems like they are related to the faction that you misled into attacking you earlier. They seem quite a bit stronger than the first group, but that also means that it is unlikely that a third attempt will be made.
+		",
+	],
+},
+
+OPIATE_SMUGGLING: {
+	NAME: "Regional smuggling operation",
+	DESC: "A decision awaits.",
+	
+	MESSAGE: [
+		"Your region, {REGION1_NAME}, known for its opiate farms, has attracted the ire of many neighboring factions. 
+		 
+		It turns out that a good portion of the harvest went unreported and was smuggled to almost every corner of Syx. {REGION1_NAME} was the origin of most of the drugs plaguing the wider area.
+		Your administrators have already dismantled the organization, but there is already a sizeable pile of demands for reparations on your desk. 
+		 
+		You could ignore them, which would not be received well. You could use some of the extra opiates to fund reparations. No matter what you do, more of the next harvest in {REGION1_NAME} will make its way to your capital.
+		 
+		It is unlikely that the boosted productivity will last; without your direct supervision, there are too many opportunities for corruption.
+		",
+	],
+	CHOICES: [
+		"Make reparations",
+		"Ignore the demands",
+	],
+},
+
+OPIATE_SMUGGLING_YES: {
+	NAME: "Made reparations",
+	DESC: "Without smuggling, opiate taxes have increased.",
+	
+	MESSAGE: [
+		"Your money quickly mollified your peers. Perhaps some of it will even make it to their subjects, but most will likely be used to cover the tax loss caused by the smuggling operation.
+		",
+	],
+},
+
+OPIATE_SMUGGLING_NO: {
+	NAME: "No reparations made",
+	DESC: "Without smuggling, opiate taxes have increased. However, not paying reparations has soured relations with your peers.",
+	
+	MESSAGE: [
+		"You refused the demands. While they had only tenuous legal grounds, traditionally, it is expected for rulers to assume responsibility for things like this. The fact that the criminals clearly had no connection to you, evidenced by them funding subversive activities in your demesne, keeps the political fallout manageable.
+		",
+	],
+},
+
+CONFLICT_HUMAN: {
+	NAME: "Tilapi Conspiracy",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"The Tilapis of {REGION1_NAME} have been plotting treason. Resentment about being ruled by a Human has simmered unnoticed by your administrators for a long time, and the Tilapis have funded a number of raiders in secret.
+		The conspiracy was noticed by one of your administrators, who investigated suspicious financial activities. {PLAYER_CITY_RND_NAME_RACE_1} was killed, but not before they managed to report their findings.
+     	 
+		The reported conspirators will be put to death. There are likely a lot more who were able to cover their tracks.
+    	 
+		Drastic measures might be able to root out most of them, and an indiscriminate seizure of Tilapi assets along with it will prevent this from reoccurring for the foreseeable future.
+		Alternatively, you could be lenient, which will have less of an impact on the region and may be enough to convince the Tilapis that being ruled by a Human is not so bad.
+    	",
+	],
+	CHOICES: [
+    	"Take drastic measures",
+    	"Be lenient",
+	],
+},
+
+CONFLICT_HUMAN_YES: {
+	NAME: "Tilapi Conspiracy rooted out",
+	DESC: "Your purge of the treasonous Tilapis improved loyalty.",
+    
+	MESSAGE: [
+    	"Luckily, your garrison remained loyal or just acknowledged the futility of fighting your whole empire. In a short time, they accomplished the goals set by you.
+		Many Tilapis violently opposed them, but they were no match for trained soldiers. About half of the Tilapi population was killed, either during the searches and seizures or after quick trials.
+    	 
+		No doubt, many Humans took the opportunity to settle old grudges.
+    	 
+		The seized assets are already on their way to your treasury, and the region is pacified.
+    	",
+	],
+},
+
+CONFLICT_HUMAN_NO: {
+	NAME: "Mercy shown to Tilapis",
+	DESC: "Your mercy when dealing with the treasonous Tilapis is still remembered.",
+    
+	MESSAGE: [
+    	"The trials for the main conspirators were held publicly and finished without incident. Reportedly, the opinions of the Tilapis are split. Some think that the lenient response is a sign of weakness, but most seem to speak far more positively of your reign; recent history is full of examples of what usually happens in cases like this. If they were ruled by most other despots, they would likely be dead by now.
+    	 
+		While the loyalty of the region is assured for the foreseeable future, and will likely improve further in the coming months, it seems that some of the Tilapis are still actively working against you. Your actions surprised your Tilapi peers.
+		 
+		A suspiciously well-equipped raider was recently noticed in your corner of Syx.
+    	",
+	],
+},
+
+CONFLICT_HUMAN_NO_FOLLOW: {
+	NAME: "Tilapi Raider",
+	DESC: "",
+    
+	MESSAGE: [
+    	"The raider approaching your realm was likely funded by the traitorous Tilapis of {REGION1_NAME}. Their support has been waning after your display of mercy, so this should be their last act of defiance for the foreseeable future.
+    	",
+	],
+},
+
+CONFLICT_TILAPI: {
+	NAME: "Human Conspiracy",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"The Humans of {REGION1_NAME} have been plotting treason. Resentment about being ruled by a Tilapi has simmered unnoticed by your administrators for a long time, and the Humans have funded a number of raiders in secret.
+		The conspiracy was noticed by one of your administrators, who investigated suspicious financial activities. {PLAYER_CITY_RND_NAME_RACE_1} was killed, but not before she managed to report her findings.
+     	 
+		The reported conspirators will be put to death. There are likely a lot more who were able to cover their tracks.
+    	 
+		Drastic measures might be able to root out most of them, and an indiscriminate seizure of Human assets along with it will prevent this from reoccurring for the foreseeable future.
+		Alternatively, you could be lenient, which will have less of an impact on the region and may be enough to convince the Humans that being ruled by a Tilapi is not so bad.
+    	",
+	],
+	CHOICES: [
+    	"Take drastic measures",
+    	"Be lenient",
+	],
+},
+
+CONFLICT_TILAPI_YES: {
+	NAME: "Human Conspiracy rooted out",
+	DESC: "Your purge of the treasonous Humans improved loyalty.",
+    
+	MESSAGE: [
+    	"Luckily, your garrison remained loyal or just acknowledged the futility of fighting your whole empire. In a short time, they accomplished the goals set by you.
+		Many Humans violently opposed them, but they were no match for trained soldiers. About half of the Human population was killed, either during the searches and seizures or after quick trials.
+    	 
+		No doubt, many Tilapis took the opportunity to settle old grudges.
+    	 
+		The seized assets are already on their way to your treasury, and the region is pacified.
+    	",
+	],
+},
+
+CONFLICT_TILAPI_NO: {
+	NAME: "Mercy shown to Humans",
+	DESC: "Your mercy when dealing with the treasonous Humans is still remembered.",
+    
+	MESSAGE: [
+    	"The trials for the main conspirators were held publicly and finished without incident. Reportedly, the opinions of the Humans are split. Some think that the lenient response is a sign of weakness, but most seem to speak far more positively of your reign; recent history is full of examples of what usually happens in cases like this. If they were ruled by most other despots, they would likely be dead by now.
+    	 
+		While the loyalty of the region is assured for the foreseeable future, and will likely improve further in the coming months, it seems that some of the Humans are still actively working against you. Your actions surprised your Human peers.
+		 
+		A suspiciously well-equipped raider was recently noticed in your corner of Syx.
+    	",
+	],
+},
+
+CONFLICT_TILAPI_NO_FOLLOW: {
+	NAME: "Human Raider",
+	DESC: "",
+    
+	MESSAGE: [
+    	"The raider approaching your realm was likely funded by the traitorous Humans of {REGION1_NAME}. Their support has been waning after your display of mercy, so this should be their last act of defiance for the foreseeable future.
+    	",
+	],
+},
+
+CONFLICT_CRETONIAN: {
+	NAME: "Amevian Conspiracy",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"The Amevias of {REGION1_NAME} have been plotting treason. Resentment about being ruled by a Cretonian has simmered unnoticed by your administrators for a long time, and the Amevias have funded a number of raiders in secret.
+		The conspiracy was noticed by one of your administrators, who investigated suspicious financial activities. {PLAYER_CITY_RND_NAME_RACE_1} was killed, but not before they managed to report their findings.
+     	 
+		The reported conspirators will be put to death. There are likely a lot more who were able to cover their tracks.
+    	 
+		Drastic measures might be able to root out most of them, and an indiscriminate seizure of Amevian assets along with it will prevent this from reoccurring for the foreseeable future.
+		Alternatively, you could be lenient, which will have less of an impact on the region and may be enough to convince the Amevias that being ruled by a Cretonian is not so bad.
+    	",
+	],
+	CHOICES: [
+    	"Take drastic measures",
+    	"Be lenient",
+	],
+},
+
+CONFLICT_CRETONIAN_YES: {
+	NAME: "Amevian Conspiracy rooted out",
+	DESC: "Your purge of the treasonous Amevias improved loyalty.",
+    
+	MESSAGE: [
+    	"Luckily, your garrison remained loyal or just acknowledged the futility of fighting your whole empire. In a short time, they accomplished the goals set by you.
+		Many Amevias violently opposed them, but they were no match for trained soldiers. About half of the Amevia population was killed, either during the searches and seizures or after quick trials.
+    	 
+		No doubt, many Cretonians took the opportunity to settle old grudges.
+    	 
+		The seized assets are already on their way to your treasury, and the region is pacified.
+    	",
+	],
+},
+
+CONFLICT_CRETONIAN_NO: {
+	NAME: "Mercy shown to Amevias",
+	DESC: "Your mercy when dealing with the treasonous Amevias is still remembered.",
+    
+	MESSAGE: [
+    	"The trials for the main conspirators were held publicly and finished without incident. Reportedly, the opinions of the Amevias are split. Some think that the lenient response is a sign of weakness, but most seem to speak far more positively of your reign; recent history is full of examples of what usually happens in cases like this. If they were ruled by most other despots, they would likely be dead by now.
+    	 
+		While the loyalty of the region is assured for the foreseeable future, and will likely improve further in the coming months, it seems that some of the Amevias are still actively working against you. Your actions surprised your Amevian peers.
+		 
+		A suspiciously well-equipped raider was recently noticed in your corner of Syx.
+    	",
+	],
+},
+
+CONFLICT_CRETONIAN_NO_FOLLOW: {
+	NAME: "Amevian Raider",
+	DESC: "",
+    
+	MESSAGE: [
+    	"The raider approaching your realm was likely funded by the traitorous Amevias of {REGION1_NAME}. Their support has been waning after your display of mercy, so this should be their last act of defiance for the foreseeable future.
+    	",
+	],
+},
+
+CONFLICT_GARTHIMI: {
+	NAME: "Dondorian Conspiracy",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"The Donorians of {REGION1_NAME} have been plotting treason. Resentment about being ruled by a Garthimi has simmered unnoticed by your administrators for a long time, and the Dondorians have funded a number of raiders in secret.
+		The conspiracy was noticed by one of your administrators, who investigated suspicious financial activities. {PLAYER_CITY_RND_NAME_RACE_1} was killed, but not before it managed to report its findings.
+     	 
+		The reported conspirators will be put to death. There are likely a lot more who were able to cover their tracks.
+    	 
+		Drastic measures might be able to root out most of them, and an indiscriminate seizure of Dondorian assets along with it will prevent this from reoccurring for the foreseeable future.
+		Alternatively, you could be lenient, which will have less of an impact on the region and may be enough to convince the Dondorians that being ruled by a Garthimi is not so bad.
+    	",
+	],
+	CHOICES: [
+    	"Take drastic measures",
+    	"Be lenient",
+	],
+},
+
+CONFLICT_GARTHIMI_YES: {
+	NAME: "Dondorian Conspiracy rooted out",
+	DESC: "Your purge of the treasonous Dondorians improved loyalty.",
+    
+	MESSAGE: [
+    	"Luckily, your garrison remained loyal or just acknowledged the futility of fighting your whole empire. In a short time, they accomplished the goals set by you.
+		Many Dondorians violently opposed them, but they were no match for trained soldiers. About half of the Dondorian population was killed, either during the searches and seizures or after quick trials.
+    	 
+		No doubt, many Garthimi took the opportunity to settle old grudges.
+    	 
+		The seized assets are already on their way to your treasury, and the region is pacified.
+    	",
+	],
+},
+
+CONFLICT_GARTHIMI_NO: {
+	NAME: "Mercy shown to Dondorians",
+	DESC: "Your mercy when dealing with the treasonous Dondorians is still remembered.",
+    
+	MESSAGE: [
+    	"The trials for the main conspirators were held publicly and finished without incident. Reportedly, the opinions of the Dondorians are split. Some think that the lenient response is a sign of weakness, but most seem to speak far more positively of your reign; recent history is full of examples of what usually happens in cases like this. If they were ruled by most other despots, they would likely be dead by now.
+    	 
+		While the loyalty of the region is assured for the foreseeable future, and will likely improve further in the coming months, it seems that some of the Dondorians are still actively working against you. Your actions surprised your Dondorian peers.
+		 
+		A suspiciously well-equipped raider was recently noticed in your corner of Syx.
+    	",
+	],
+},
+
+CONFLICT_GARTHIMI_NO_FOLLOW: {
+	NAME: "Dondorian Raider",
+	DESC: "",
+    
+	MESSAGE: [
+    	"The raider approaching your realm was likely funded by the traitorous Dondorians of {REGION1_NAME}. Their support has been waning after your display of mercy, so this should be their last act of defiance for the foreseeable future.
+    	",
+	],
+},
+
+CONFLICT_DONDORIAN: {
+	NAME: "Garthimi Conspiracy",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"The Garthimi of {REGION1_NAME} have been plotting treason. Resentment about being ruled by a Dondorian has simmered unnoticed by your administrators for a long time, and the Garthimi have funded a number of raiders in secret.
+		The conspiracy was noticed by one of your administrators, who investigated suspicious financial activities. {PLAYER_CITY_RND_NAME_RACE_1} was killed, but not before he managed to report his findings.
+     	 
+		The reported conspirators will be put to death. There are likely a lot more who were able to cover their tracks.
+    	 
+		Drastic measures might be able to root out most of them, and an indiscriminate seizure of Garthimi assets along with it will prevent this from reoccurring for the foreseeable future.
+		Alternatively, you could be lenient, which will have less of an impact on the region and may be enough to convince the Garthimi that being ruled by a Dondorian is not so bad.
+    	",
+	],
+	CHOICES: [
+    	"Take drastic measures",
+    	"Be lenient",
+	],
+},
+
+CONFLICT_DONDORIAN_YES: {
+	NAME: "Garthimi Conspiracy rooted out",
+	DESC: "Your purge of the treasonous Garthimi improved loyalty.",
+    
+	MESSAGE: [
+    	"Luckily, your garrison remained loyal or just acknowledged the futility of fighting your whole empire. In a short time, they accomplished the goals set by you.
+		Many Garthimi violently opposed them, but they were no match for trained soldiers. About half of the Garthimi population was killed, either during the searches and seizures or after quick trials.
+    	 
+		No doubt, many Dondorians took the opportunity to settle old grudges.
+    	 
+		The seized assets are already on their way to your treasury, and the region is pacified.
+    	",
+	],
+},
+
+CONFLICT_DONDORIAN_NO: {
+	NAME: "Mercy shown to Garthimi",
+	DESC: "Your mercy when dealing with the treasonous Garthimi is still remembered.",
+    
+	MESSAGE: [
+    	"The trials for the main conspirators were held publicly and finished without incident. Reportedly, the opinions of the Garthimi are split. Some think that the lenient response is a sign of weakness, but most seem to speak far more positively of your reign; recent history is full of examples of what usually happens in cases like this. If they were ruled by most other despots, they would likely be dead by now.
+    	 
+		While the loyalty of the region is assured for the foreseeable future, and will likely improve further in the coming months, it seems that some of the Garthimi are still actively working against you. Your actions surprised your Garthimi peers.
+		 
+		A suspiciously well-equipped raider was recently noticed in your corner of Syx.
+    	",
+	],
+},
+
+CONFLICT_DONDORIAN_NO_FOLLOW: {
+	NAME: "Garthimi Raider",
+	DESC: "",
+    
+	MESSAGE: [
+    	"The raider approaching your realm was likely funded by the traitorous Garthimi of {REGION1_NAME}. Their support has been waning after your display of mercy, so this should be their last act of defiance for the foreseeable future.
+    	",
+	],
+},
+
+CONFLICT_Q_AMEVIA: {
+	NAME: "Cretonian Conspiracy",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"The Cretonians of {REGION1_NAME} have been plotting treason. Resentment about being ruled by an Amevia has simmered unnoticed by your administrators for a long time, and the Cretonians have funded a number of raiders in secret.
+		The conspiracy was noticed by one of your administrators, who investigated suspicious financial activities. {PLAYER_CITY_RND_NAME_RACE_1} was killed, but not before he managed to report his findings.
+     	 
+		The reported conspirators will be put to death. There are likely a lot more who were able to cover their tracks.
+    	 
+		Drastic measures might be able to root out most of them, and an indiscriminate seizure of Cretonian assets along with it will prevent this from reoccurring for the foreseeable future.
+		Alternatively, you could be lenient, which will have less of an impact on the region and may be enough to convince the Cretonians that being ruled by an Amevia is not so bad.
+    	",
+	],
+	CHOICES: [
+    	"Take drastic measures",
+    	"Be lenient",
+	],
+},
+
+CONFLICT_Q_AMEVIA_YES: {
+	NAME: "Cretonian Conspiracy rooted out",
+	DESC: "Your purge of the treasonous Cretonians improved loyalty.",
+    
+	MESSAGE: [
+    	"Luckily, your garrison remained loyal or just acknowledged the futility of fighting your whole empire. In a short time, they accomplished the goals set by you.
+		Many Cretonians violently opposed them, but they were no match for trained soldiers. About half of the Cretonian population was killed, either during the searches and seizures or after quick trials.
+    	 
+		No doubt, many Amevias took the opportunity to settle old grudges.
+    	 
+		The seized assets are already on their way to your treasury, and the region is pacified.
+    	",
+	],
+},
+
+CONFLICT_Q_AMEVIA_NO: {
+	NAME: "Mercy shown to Cretonians",
+	DESC: "Your mercy when dealing with the treasonous Cretonians is still remembered.",
+    
+	MESSAGE: [
+    	"The trials for the main conspirators were held publicly and finished without incident. Reportedly, the opinions of the Cretonians are split. Some think that the lenient response is a sign of weakness, but most seem to speak far more positively of your reign; recent history is full of examples of what usually happens in cases like this. If they were ruled by most other despots, they would likely be dead by now.
+    	 
+		While the loyalty of the region is assured for the foreseeable future, and will likely improve further in the coming months, it seems that some of the Cretonians are still actively working against you. Your actions surprised your Cretonian peers.
+		 
+		A suspiciously well-equipped raider was recently noticed in your corner of Syx.
+    	",
+	],
+},
+
+CONFLICT_Q_AMEVIA_NO_FOLLOW: {
+	NAME: "Cretonian Raider",
+	DESC: "",
+    
+	MESSAGE: [
+    	"The raider approaching your realm was likely funded by the traitorous Cretonians of {REGION1_NAME}. Their support has been waning after your display of mercy, so this should be their last act of defiance for the foreseeable future.
+    	",
+	],
+},
+
+GARTHIMI_CAUGHT: {
+	NAME: "Diplomatic Incident",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"Your loyal Garthimi in {REGION1_NAME} made a terrible mistake: they got caught! Unbeknownst to you, they had been planning to supplement the regional finances with small raids on your neighbor, {ROYALTY1_FACTION_FACTION}, intending to send the loot to you.
+		The first raid was a success, but they did not cover their tracks well enough.
+		 
+		While your subjects were well-meaning and likely never told you to allow you to deny knowledge of their activities, no one will believe you, especially if you do not give the loot back.
+		The heads of the ones responsible were also featured somewhere in the rather verbose letter you received from {ROYALTY1_NAME}.
+    	",
+	],
+	CHOICES: [
+    	"Comply fully",
+    	"Send only the loot",
+		"Keep the loot",
+	],
+},
+
+GARTHIMI_CAUGHT_YES: {
+	NAME: "Suspicions allayed",
+	DESC: "After making it abundantly clear that you had nothing to do with the raid, relations increased with your peer.",
+    
+	MESSAGE: [
+    	"After receiving both the stolen loot and the ones responsible, {ROYALTY1_NAME} seemed to believe your innocence.
+		Your Garthimi knew the risks and understood the importance of this gesture and did not resist capture.
+		 
+		{ROYALTY1_NAME} thinks you are extraordinarily trustworthy for a Garthimi.
+    	",
+	],
+},
+
+GARTHIMI_CAUGHT_NO: {
+	NAME: "Suspicions persist",
+	DESC: "You are still suspected of having ordered the raid, though giving back what was stolen may prevent relations from breaking down.",
+    
+	MESSAGE: [
+    	"The return of the stolen goods was appreciated, but {ROYALTY1_NAME} still believes you are directly responsible for the raid.
+    	",
+	],
+},
+
+GARTHIMI_CAUGHT_MAYBE: {
+	NAME: "Refused to comply",
+	DESC: "The faction is convinced you ordered the raid.",
+    
+	MESSAGE: [
+    	"Your refusal removed any doubts {ROYALTY1_NAME} might have had about your involvement.
+    	",
+	],
+},
+
+HEIR_GIFT: {
+	NAME: "Diplomatic Opportunity",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"You recently learned of the bitter quarrel between {ROYALTY1_FACTION_FACTION_RULER}, ruler of {ROYALTY1_FACTION_FACTION}, and their heir, {ROYALTY1_INDUVIDUAL_NAME}. 
+		The details are a matter of speculation, but {ROYALTY1_FACTION_FACTION_RULER} has grown increasingly unhappy about {ROYALTY1_INDUVIDUAL_NAME} being first in line to the throne.
+		 
+		{ROYALTY1_NAME} would surely appreciate some political and financial assistance while defending {ROYALTY1_INDUVIDUAL_HIS} place in the line of succession.
+		Your assistance could be the difference in {ROYALTY1_INDUVIDUAL_HIM} ascending to the throne or not, something {ROYALTY1_INDUVIDUAL_HE} would be eternally grateful for. 
+		 
+		Intervening in the affairs of other rulers, and especially the succession, is not something your peers would usually condone, but this quarrel has been going on for quite some and has become rather public with both sides involving outsiders. No doubt many would not mind an intervention too much if it meant not hearing another word about it.
+    	",
+	],
+	CHOICES: [
+    	"Back the heir",
+	],
+},
+
+HEIR_GIFT_YES: {
+	NAME: "Intervened in Succession",
+    
+	MESSAGE: [
+    	"Your financial support and political assistance tipped the scales. {ROYALTY1_INDUVIDUAL_NAME} will not lose {ROYALTY1_INDUVIDUAL_HIS} status as first heir, something {ROYALTY1_FACTION_FACTION_RULER} seems to have made peace with.
+		 
+		Until {ROYALTY1_FACTION_FACTION_RULER} dies or abdicates, {ROYALTY1_INDUVIDUAL_NAME}'s gratitude will not be worth much.
+    	",
+	],
+},
+
+HEIR_GIFT_YES_FOLLOW: {
+	NAME: "Backed the Heir",
+},
+
+GEM_GROVE: {
+	NAME: "Gem Grove",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"The 'shimmering grove' of {REGION1_NAME} was a secret to outsiders until recently. Large amounts of polished gems of all kinds are scattered on the grass of a certain meadow located in the most ancient forest of the region.
+		Reportedly, the sight is breathtaking. The locals are fiercely protective of it and sometimes even add to the collection. Each morning, the gems can be found in a new configuration; allegedly, this is not done by the caretakers of the grove.
+		 
+		Centuries of secrecy have now come to an end due to a drunken slip of the tongue, and outsiders are coveting the poorly protected riches. You received a letter penned by the local notables imploring you to help protect the grove. 
+		Supposedly, they are not worried about theft but a curse. Desperate people have taken gems before, and they all met a grisly end within days. 
+		 
+		They are worried about what will happen if large amounts are taken at once. 
+		 
+		You could seize the treasure for yourself or help them protect it.
+		",
+	],
+	CHOICES: [
+    	"Protect it",
+    	"Collect gems",
+	],
+},
+
+GEM_GROVE_YES: {
+	NAME: "Protected Grove",
+  	DESC: "The locals are very grateful for your assistance.",  
+	MESSAGE: [
+    	"Your garrison quickly established a protective cordon around the grove. Camping within the ancient forest was less of an ordeal than anticipated, as larger predators seemed to avoid the area.
+		One day, your regional commander was found strewn across a section of forest along with the remains of their tent. According to the locals, that inevitably happens after taking from the grove. No one else tried their luck after this.
+		 
+		The locals are grateful for your actions, and some pretty severe cases of tax fraud were anonymously reported to your administrators.
+    	",
+	],
+},
+
+GEM_GROVE_NO: {
+	NAME: "Seized Gems",
+ 	DESC: "Seizing the gems and the bloody aftereffects thereof lowered regional loyalty.",   
+	MESSAGE: [
+    	"After receiving your orders, your garrison quickly collected the unprotected gems. The local populace did not resist and fled the area once they noticed what was happening.
+		The treasure was already in transit to your capital when the murders were noticed. The garrison commander and quite a few soldiers likely took some for themselves, and could be found in pieces among the remains of the barracks. Witnesses and other soldiers were also killed, but their bodies were still recognizable.
+		 
+		Luckily, it seems whatever did this lost the trail there and is now violently searching the region. 
+		 
+		There is a silver lining: it can not understand speech, or at least the common tongue. The killed locals would have gladly told it that you ordered this and how to find you.
+    	",
+	],
+},
+
+GEM_GROVE_NO_FOLLOW: {
+	NAME: "Peace returns to Region",
+    
+	MESSAGE: [
+    	"It seems that {REGION1_NAME} is finally peaceful again. The killings and destruction have stopped, and your surviving administrators were able to reestablish some order. The grove is silent - nothing except for a set of deep gouges carved into the grass and the bedrock beneath remains there. 
+    	",
+	],
+},
+
+DEPTH_FASCINATION: {
+	NAME: "Amevian Fascination",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"Amevias flock to {REGION1_NAME}, believing it to be close to their mystical Depths. Even the Amevias do not know what changed, only that they need to be there.
+		They are threatening to overcrowd the region, and their zeal will allow them to outlast the other inhabitants, which will convert the region to be exclusively Amevian.
+		 
+		Allowing the migration would have benefits to taxation, partly because fewer species are easier to manage. Richer Amevias have both the means to make the journey and endure the overcrowded conditions.
+		Alternatively, you could impose strict restrictions on immigration. 
+		 
+		Reactions from Amevian rulers are surprisingly subdued, and not a single one has expressed interest in {REGION1_NAME}.
+		",
+	],
+	CHOICES: [
+    	"Allow migration",
+    	"Prevent migration",
+	],
+},
+
+DEPTH_FASCINATION_YES: {
+	NAME: "Amevian Migration",
+  	DESC: "Amevias from all over Syx travel here to be close to the Depths. The region has been rendered mostly uninhabitable to others.",  
+	MESSAGE: [
+    	"The Amevias quickly start their takeover of {REGION1_NAME}. They buy houses, workshops, and land at huge markups. The few holdouts soon find themselves alone in a sea of unfamiliar, reptilian faces.
+		 
+		Construction of a network of salt-water canals, supposed to make the areas further from the shore habitable for Amevias, begins. While this will permanently lower fertility in the region, the otherwise equanimous Amevias will likely build these in secret if you forbid them.
+		 
+		Your administrator's reports note another change. While the Amevias are perfectly cordial and quite happy with being ruled by you, your {PLAYER_FACTION_RACIAN} officials feel increasingly unwelcome. They mention strange patterns carved into hills and cliffsides alike and seem to skirt around mentioning something. 
+		{REGION1_NAME} has become almost uninhabitable to other species.
+    	",
+	],
+},
+
+DEPTH_FASCINATION_NO: {
+	NAME: "Amevian Migration prevented",
+ 	DESC: "",   
+	MESSAGE: [
+    	"Strict limitations on immigration and land allocation keep the population ratios of {REGION1_NAME} the same as before.
+    	",
+	],
+},
+
+DEPTH_FASCINATION_YES_CONT: {
+	NAME: "Amevias disappeared",
+ 	DESC: "",   
+	MESSAGE: [
+    	"Your administrators almost did not notice the disappearances, because the Amevias in {REGION1_NAME} did not deem the disappearance of about a fifth of their number noteworthy.
+		 
+		The few questioned Amevias did not seem to know anything. While they are terrible liars, your {PLAYER_FACTION_RACES} in the region will not be able to question everyone.
+		 
+		This mystery will likely remain unsolved. The possessions of the disappeared have been sold, and the money is on its way to your treasury.
+    	",
+	],
+},
+
+CRETONIAN_AMBITION: {
+    NAME: "New Cretonia #392",
+     DESC: "A decision awaits.",   
+    MESSAGE: [
+        "Cretonia was a fabled land of plenty, the homeland of the first Cretonians. After many failed attempts to locate it, Cretonians decided to recreate it.
+		Non-Cretonian historians are divided on whether Cretonia was a real place or just an idea that congealed from many tribal myths and legends, which romanticized the past.
+		 
+		However, they do agree on both the expeditions in search of Cretonia and attempts to recreate it being excellent examples of very poor planning. While the often whimsical nature of Cretonians ensures the dream of Cretonia will not die, it also led to hundreds of migrations that were doomed from the start.
+		Sometimes, if the expeditions did not try to sail the most tempestuous seas in search of hidden islands (expeditions #35, 71, 224), or tried to settle near feral Garthimi (#1, 120-125), or engaged in other foolhardy endeavors, they had limited success.
+		 
+		Invariably, the Cretonians grew dissatisfied with what they had created or their leadership, and the search for Cretonia began anew.
+		 
+		 
+		Two Chieftains of renown among the free Cretonians have come to you with a curious proposal. They want to create Cretonia in your realm. {REGION1_NAME} has a large amount of barely explored, unused, fertile land. The reason for it being vacant is rather simple: tradition, maps, folktales, and signs of varying age declare that part of the region to be dangerous beyond measure.
+		No one wants to settle there.
+		 
+		The two chieftains are convinced that Cretonia is found there. Both claim to have received visions, guiding them to that place. More importantly, they managed to convince quite a lot of Cretonians.
+		Both chieftains are not too fond of their counterpart and refuse to share power. One of them seems to be a typical Cretonian in look and manners, if two heads taller. The other lacks his bulk, but is covered in scars, most of which definitely were not caused by rituals.
+		 
+		They know trying to settle owned land without the ruler's consent would go poorly (#11-14, 203, 368, 391). 
+		 
+		Granting them the ability to self-govern to an extent will lead to lower loyalty in the region, due to introducing ideas of independence. You can expect to receive tribute of some kind.
+        ",        
+    ],
+    CHOICES: [
+        "Choose the tall one",
+        "Choose the scarred one",
+        "Refuse",
+    ],
+},
+
+CRETONIAN_AMBITION_YES/NO: {
+    NAME: "New Cretonia Enclave",
+     DESC: "Cretonian rulers look favorably on the enclave.",   
+    MESSAGE: [
+        "Your chosen chieftain soon leads the tribes to their new homeland. They seem reasonably well equipped and should be able to settle the area. 
+		 
+		Time will tell if New Cretonia #392 will fare better than the others. The locals in {REGION1_NAME} are very doubtful.
+        ",        
+    ],
+},
+
+CRETONIAN_AMBITION_YES/NO_TALL: {
+    NAME: "New Cretonia Tribute",
+     DESC: "",   
+    MESSAGE: [
+        "The New Cretonia enclave in {REGION1_NAME} seems to prosper, but attacks on outlying farmsteads have started to dampen Cretonian enthusiasm. 
+		Whole families vanish, while leaving tools and valuables behind. The once-tribal Cretonians are forced to live closer together for protection, something they are not used to and which is not ideal for working the land.
+		 
+		The Chieftain of Cretonia is still optimistic and sends you your first tribute.
+        ",        
+    ],
+},
+
+CRETONIAN_AMBITION_YES/NO_TALL_FOLLOW: {
+    NAME: "New Cretonia requests Aid",
+     DESC: "A decision awaits.",   
+    MESSAGE: [
+        "The situation in New Cretonia has worsened. The attacks have become more frequent and are no longer limited to outlying farms. 
+		The Cretonians request aid. Wood and stone for reinforcements, and a bit of weaponry. While few Cretonians still think this venture will produce the New Cretonia of their dreams, your help, or lack thereof, will not go unnoticed.
+        ",        
+    ],
+    CHOICES: [
+        "Send supplies",
+        "Refuse",
+    ],
+},
+
+CRETONIAN_AMBITION_YES/NO_TALL_FOLLOW_FOLLOW: {
+    NAME: "New Cretonia failed",
+     DESC: "",   
+    MESSAGE: [
+        "New Cretonia has been lost. Messengers have failed to return for a while now, and scouts from the regional garrison did not fare any better. 
+		 
+		New warning markers were erected on the edges of the area, warning travellers and explorers away.
+        ",        
+    ],
+},
+
+CRETONIAN_AMBITION_YES/NO_KURTZ: {
+    NAME: "New Cretonia Tribute",
+     DESC: "A decision awaits.",   
+    MESSAGE: [
+        "Your officials in {REGION1_NAME} have kept track of the influx of Cretonians into the enclave. By their count, New Cretonia should have more population than the entire region by now.
+		 
+		The Grand Chieftain of New Cretonia finally offered you your due. However, due to complications he only alludes to, he wants to pay in Cretonian slaves, the most destitute of settlers. 
+		Things must be extremely dire in the enclave. You have this offer in writing, and the language used is not vague enough to confuse the average Cretonian. Making it public would end his reign.
+        ",        
+    ],
+    CHOICES: [
+        "Accept the slaves",
+        "Refuse",
+    ],
+},
+
+CRETONIAN_AMBITION_YES/NO_KURTZ_NO: {
+    NAME: "Refused Cretonian Slaves",
+     DESC: "You prevented the enslavement of many Cretonians.",   
+    MESSAGE: [
+        "Making the refusal and its nature public led to a quick change in leadership.
+        ",        
+    ],
+},
+
+CRETONIAN_AMBITION_YES/NO_KURTZ_YES_FOLLOW: {
+    NAME: "New Cretonia Tribute",
+     DESC: "",   
+    MESSAGE: [
+        "Another shipment of slaves from New Cretonia arrived today. They seem strangely content with their fate.
+        ",        
+    ],
+},
+
+CRETONIAN_AMBITION_YES/NO_KURTZ_YES_FOLLOW_FOLLOW: {
+    NAME: "The end of New Cretonia",
+     DESC: "",   
+    MESSAGE: [
+        "Contact with New Cretonia has been lost. A few deranged, starving Cretonians wandered out of the enclave and were questioned. Most just muttered about 'the horror', but the more lucid ones were able to give a scattered account of what happened.
+		 
+		The initial settling went well, and soon the area was dotted with small farms. Months later, the outlying farms started to be attacked by something - no bodies, no blood, just empty dwellings. As the casualties mounted, the Grand Chieftain decided to keep this information secret to ensure the success of New Cretonia. Hostages ensured no one would warn the incoming settlers.
+		 
+		It might have worked if the attacks had stopped, but they continued, and soon even harsher methods of ensuring compliance were used. With most of the Cretonians rebellious, only the most trusted ones could be allowed to work the fields or supervise, which led to starvation. New settlers were guided carefully past desolate farmsteads and scenes of carnage and were left unaware of the danger.
+		 
+		The survivors do not know what happened in the end. They had fled earlier and hid. As starvation drove them from their hiding places, they noticed the lack of patrols and left.
+		 
+		Scouts sent to find out more never came back, and now new warning markers dot the edges of the area.
+        ",        
+    ],
+},
+
+APPENDAGES: {
+	NAME: "Strange Creature",
+	DESC: "A decision awaits.",
+    
+	MESSAGE: [
+    	"As your prospectors in {REGION1_NAME} surveyed the farthest parts of your region for ore, they noticed blood smeared across the rust-flecked rocks at many sites. Following a bloody trail, they found a house in the middle of a wasteland, with an unknown creature inhabiting it. 
+		 
+		A greenish humanoid wearing ancient, tattered garb, speaking in tongues not known. It is regularly visiting the prospective mining sites, running its fingers across the rocks until they are raw.
+		 
+		This creature is old and may hold answers to long-held questions, but your more cautious advisors note that anything that lived for that long is likely quite dangerous. 
+		",
+	],
+	CHOICES: [
+    	"Attempt communication",
+    	"Kill it",
+		"Ignore it",
+	],
+},
+
+APPENDAGES_YES: {
+	NAME: "Communication",
+  	DESC: "",  
+	MESSAGE: [
+    	"Your researchers either went mad or gained the knowledge they craved - it is hard to tell. After just a few days, they only responded in the same warbling speech as the creature. They spend most of their time in the house. There are fewer now.
+		 
+		Your subjects are making sure none of them try to leave for your cities.
+    	",
+	],
+},
+
+APPENDAGES_NO: {
+	NAME: "House of Horrors",
+ 	DESC: "",   
+	MESSAGE: [
+    	"Your forces surrounded the house, after making sure the creature was inside. The wooden parts of the construction had rotted away long ago, so setting fire to it was not an option. Within its lair, your soldiers found nothing except for layers of filth, a mound of humanoid bones, and a pile of rusty eating utensils. 
+		 
+		The creature was not found. It has not been seen since.
+    	",
+	],
+},
+
+APPENDAGES_MAYBE: {
+	NAME: "",
+ 	DESC: "",   
+	MESSAGE: [
+    	"You leave this mystery alone. You are not the first to lay claim to this region, and yet the creature is still here. Did your predecessors have the same idea, or did their efforts fail?
+    	",
+	],
+},

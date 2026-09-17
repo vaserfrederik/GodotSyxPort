@@ -1,0 +1,209 @@
+NAME: "New Cretonia #2",
+DESC: "Continue helping Hotam Greattusk make New Cretonia thrive by setting up exports.",
+
+CUTSCENE: {
+	TITLE: "New Cretonia",
+	BODY: 
+	"
+	Hotam Greattusk's new settlement thrived, and more displaced Cretonians from Coralia came and joined him. 
+	
+	A new chapter had begun for the Cretonian Race. There was no going back to the old days of small, independent tribes, easily swallowed up by Men. From their suffering, they had gained wisdom, and the benefits of unity and cooperation. 
+	
+	To the north lie the Prygian Mountains, and a Dondorian mountain hall. And to the north-west, a Tilapian grove. Hotam realized the importance of establishing relations with these two realms, and only together would they be able to withstand the expansion of what they called white-skins. 
+	
+	New Cretonia was destined to grow and become the centre and refuge of the Cretonian race.
+	",
+},
+
+MISSIONS: {
+
+	INTRO: {
+		NAME: "A New Cretonia",
+		DESC: 
+		"Ah, good to see you again, my young chieftain. The foundation of our tribe is now solid like stomped manure, but we shall press on in Crator's honour. 
+		 
+		All creatures of Syx like different things to eat. As stated by Crator himself, we, the mighty Cretonians, have the best of taste. It is time you get familiar with us.
+		
+		Click on one of our tribesmen, then click the question-mark which will bring you to the tome of knowledge. See and learn what we prefer.
+		",
+		GOAL: "Click a Cretonian subject, then click the question-mark to go to the Tome of knowledge. Study it.",
+	},
+	
+	FRUIT: {
+		NAME: "Fruit",
+		DESC: 
+		"Good student you are. As you might have read, we Cretonians prefer vegetables, bread and fruit. It is thus time we expand our farming endevours and build a fruit farm. I have some fruit seeds for you. Without my intervention, worry not. There is wild growing ones that can be used as seeds. Scout for them and harvest when ripe.
+		",
+		GOAL: "Build fruit farms for 5 fruit farmers",
+	},
+	
+	FOOD_STALL: {
+		NAME: "Food Stall",
+		DESC: 
+		"
+		Ah, the thought of ripe plums makes water in my mouth and makes my tusks tremble. Remember to store the harvest in a warehouse so that it doesn't spoil.
+		
+		We can eat off the ground just fine, but to make sure everyone gets the correct serving and their preference fulfilled, we should build a food stall.
+		A food stall requires workers to haul food to the stall. Remember not to build too big or too small.
+		",
+		GOAL: "Build a food stall and let your subjects use it.",
+	},
+	
+	SPEAKER: {
+		NAME: "Speaker",
+		
+		DESC: 
+		"Crator is with us, our tribe is growing. New Cretonia is being formed. Don't forget to accept a modest amount of immigrants to do the work that is needed. And don't forget to produce and store enough food. We must spread the news of our greatness, to our people and beyond. A public speaker must be constructed!
+		",
+		GOAL: "Construct a speaker and let your subjects use it.",
+	},
+	
+	CARPENTER: {
+		NAME: "Carpenter",
+		
+		DESC: 
+		"Furniture is needed. We Cretonians are the best craftsmen in Syx, although the whiteskins would disagree out of envy of our musk. It is time to build a carpenter.
+		",
+		GOAL: "Build a carpenter and employ 2 workers.",
+	},
+	
+	WOODCUTTER: {
+		NAME: "Woodcutting",
+		
+		DESC: 
+		"Hopefully we still have some wood to cut down in the surrounding land. But that will run out eventually, and we need an ample and steady supply of wood. We should construct a woodcutter that cuts some wood for us every day, until the day of the final harvest.
+		
+		Woodcutters are best placed where trees grow, and where there is water in the ground. They can be placed elsewhere, but will take up a lot of precious space. Distance is also important as you will soon see. Despite our strong legs, we do not enjoy walking far distances. 
+		",
+		GOAL: "Build a woodcutter for at least 5 workers. Note that the woodcutter requires furniture, which must be produced in your carpenter.",
+	},
+	
+	FURNITURE: {
+		NAME: "Furniture",
+		DESC: "Now that we have some fine stuff, we can allow some furniture to be had for our tribesmen's homes. Click the citizen panel button, select your race, then click 'Access', then allocate 1 bar each to wood and furniture.",
+		GOAL: "Allow 1 wood and 1 furniture for your Cretonians citizens in the Citizens/Access panel",
+	},
+	
+	MARKET: {
+		NAME: "Market",
+		DESC: "Yes, yes, you are catching on! Last night during fornication, one of my wives told me that you had the intellect of a Globdien, but I will prove her wrong! 
+		
+		We have allowed our brethren some basic furnishings for their homes. They will be happy about that. But they have nowhere to acquire it. We must therefore build a market.",
+		GOAL: "Build a market.",
+	},
+	
+	AS_A_RULER: {
+		NAME: "Info",
+		DESC: "As a ruler, there are some things you should keep an eye on. Let us go over them again. 
+		Loyalty - without it, our subjects will rebel. Keep an eye on this bar, and make sure it's full by providing our brothers with services and do not mistreat them. 
+		A big factor of loyalty is housing, make sure everyone has one. 
+		I've been nagging about food, and I'll nag you again. Always ensure we are producing more than we eat. 
+		Employment - every Cretonian without employment eats our food and uses our services. Make sure everyone is doing something to contribute. Each place of employment has something called workload. It should be as close to 100% as possible. If it's lower, it means the workers are slacking, and might be better off doing something else.
+		It's easy, you just count in your head, lets see, if workload is at 30%, and there are 10 Cretonian, you just take 36 and 10, flip them around, add 3, and remove 2, and Crator be praised, you know that 17 Cretonians can be fired and put elsewhere.   
+		",
+		GOAL: "Digest this info for awhile.",
+	},
+	
+	INSANE: {
+		NAME: "Insane",
+		DESC: "One of our people has become a bit peculiar from the stress of our exodus. We cretonians have a strong spirit, but at times our will may break. There is not much we can do about this now, other than tending to this Cretonian and make sure they don't injure themselves.
+		",
+		GOAL: "Watch your insane Cretonian subject for awhile.",
+	},
+	
+	DEATH: {
+		NAME: "Death",
+		DESC: "Crator calls us all when the time is right, and this is what has happened here today. It is a grave sin to let the departed rot away in the streets, so I suggest we build a grave where this body can be placed with some dignity, lest the spirits punish us by sending a plague.",
+		GOAL: "Build a mass grave.",
+	},
+	
+	GROW: {
+		NAME: "Grow",
+		DESC: "You now have ample services available to us. We like that, and the rumour will spread to surrounding tribes, and they will join us. Let us bolster our numbers. Don't forget to expand housing, food production and storage along the way. Remember you can speed up time when waiting. Try tapping '4' twice on your key contraption to speed up time.",
+		GOAL: "Grow your numbers to at least 40 Cretonians",
+	},
+	
+
+	
+	EXPORT: {
+		NAME: "Trade",
+		DESC: "We must now learn to trade. Before anything, we must construct an export depot. Do so.",
+		GOAL: "Build an export depot",
+	},
+	
+	DEPOT_SETTING: {
+		NAME: "Export",
+		DESC: "Now, select a resource in the export depot. Since we Cretonians are expert vegetable growers, and we should have some vegetable surplus, we should export this. Click the depot and select the resource. Also select how much should be exported of our stored surplus.",
+		GOAL: "Select vegetables to be exported",
+	},
+	
+	DEPOT_SETTING2: {
+		NAME: "Export Settings",
+		DESC: "Good, your goal now is to get some vegetables into the export depot. You might need to adjust some settings. 
+		Firstly, you need warehouses with vegetables in them, or vegetables on the field for that matter.
+		Secondly, you need someone employed in the depot.
+		Thirdly, you must then make the export worker fetch something. To fetch from a warehouse, the warehouse priority-fetch must be disabled, while priority-fetch should be enabled in the depot.
+		",
+		GOAL: "Follow the instructions in the export depot UI to set it up. Then fill it with some vegetables.",
+	},
+	
+	TRADE_DEAL: {
+		NAME: "Trade Partner",
+		DESC: "There's a Dondorian settlement nearby. Dondorians are a funny bunch, they have no mind to grow things, but spend all their days in their mountain halls, mining ores or crafting contraptions. They are impossible to have a chat with. Talking to stones is more exciting.
+		
+		But they are useful to us, and will undoubtedly buy our vegetables. We must just broker a trade agreement with them first. Greedy as they are, they will expect some payment from us, while we have no coin to do so. Hence I give you one of my wives earrings, It's worth quite a lot, I'll add it to the tribe's treasury.
+		",
+		GOAL: "Navigate to the world view.",
+	},
+	
+	TRADE_DEAL2: {
+		NAME: "Trade Deal",
+		DESC: "
+		Now find the Dondorian faction and click it. Do some diplomacy, and use my spoiled wife's trinkets to barter a deal.
+		",
+		GOAL: "Create a trade agreement with your neighbouring faction.",
+	},
+	
+	INCOME: {
+		NAME: "Income",
+		DESC: "Good, while the Dondorians do not treasure vegetables as food, they will still buy them at a fair price. Our work here is done. All that remains is that you sell at least 200 vegetables in a year.
+		",
+		GOAL: "Sell 200 vegetables per year.",
+	},
+	
+	END: {
+		NAME: "Mission Complete",
+		DESC: "Very good. We have now established a self-sustaining colony. Your mission here is complete. You may choose to continue playing, or exit.
+		 
+		The tutorial campaign ends here for now. In the future, more missions will be available.",
+		GOAL: "You have succeeded",
+	},
+
+},
+
+UI: {
+	WIKI: [
+		"Click this button!",
+	],
+	FURNITURE: [
+		"1. Allow access to 1 wood",
+		"2. Allow access to 1 furniture",
+	],
+	EXPORT_RESOURCE: [
+		"Click here and select vegetables.",
+	],
+	EXPORT_SETTINGS: [
+		"1. Make sure prioritised fetching is enabled, making the workers fetch vegetables from warehouses to sell.",
+		"2. Make sure the radius covers the warehouses with vegetables in them.",
+		"3. Decide how much surplus should be exported.",
+	],
+	DIPLO: [
+		"1. Click Here!.",
+	],	
+	DIPLO2: [
+		"1. Select trade.",
+		"2. Select barter.",
+		"3. Accept.",
+	],	
+	
+},

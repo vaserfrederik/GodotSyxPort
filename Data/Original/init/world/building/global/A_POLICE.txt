@@ -1,0 +1,68 @@
+AI_BUILDS: true,
+** 1 WF = 0.2 loyalty
+** 5 WF = 1 loyalty
+** 2200, 1000, 400, 100
+** regions 20, 10, 5, 2
+
+LEVELS: [
+	{
+		ICON: 32->INFRA->6,
+		CREDITS: 40000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_A_POLICE_KINGDOM: 4,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -2,
+		},
+		BOOST_GLOBAL: {
+			WORLD_LOYALTY*>ADD: 0.2,
+		},
+	},
+	{
+		ICON: 32->INFRA->6,
+		CREDITS: 100000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_A_POLICE_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -10,
+		},
+		BOOST_GLOBAL: {
+			WORLD_LOYALTY*>ADD: 0.4,
+		},
+	},
+	{
+		ICON: 32->INFRA->6,
+		CREDITS: 200000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_A_POLICE_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -60,
+		},
+		BOOST_GLOBAL: {
+			WORLD_LOYALTY*>ADD: 1.2,
+		},
+	},
+	{
+		ICON: 32->INFRA->6,
+		CREDITS: 500000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_A_POLICE_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -150,
+		},
+		BOOST_GLOBAL: {
+			WORLD_LOYALTY*>ADD: 1.5,
+		},
+	},
+],

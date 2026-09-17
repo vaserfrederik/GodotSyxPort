@@ -1,0 +1,11 @@
+DECLINE_VALUE: 1.0,
+ICON: 16->Env->8,
+BOOST: {
+	CIVIC_LAW>ADD: 0.2,
+},
+STANDING: {
+	CITIZEN: 4,
+	SLAVE: 2,
+	MUL: 2,
+	INVERTED: true,
+},

@@ -1,0 +1,69 @@
+AI_BUILDS: true,
+
+**1 health = 5 workforce
+** 2200, 1000, 400, 100
+** 2200 is roughly 15 regions. lets do 15, 10, 5, 2
+**test. use local health for 5 WF = 1 health. If you have 2 regions, you get 0.1 health for 1 WF, which means 0.2 health for 1 WF, which means 5 WF per health, checks out.
+LEVELS: [
+	{
+		ICON: 32->HEALTH->1, 
+		CREDITS: 20000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_HYGINE_KINGDOM: 4,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -1,
+		},
+		BOOST_GLOBAL: {
+		  	
+			WORLD_HEALTH>ADD: 0.1,
+		},
+	},
+	{
+		ICON: 32->HEALTH->1, 
+		CREDITS: 40000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_HYGINE_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -10,
+		},
+		BOOST_GLOBAL: {
+			WORLD_HEALTH>ADD: 0.4,
+		},
+	},
+	{
+		ICON: 32->HEALTH->1, 
+		CREDITS: 150000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_HYGINE_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -38,
+		},
+		BOOST_GLOBAL: {
+			WORLD_HEALTH>ADD: 0.75,
+		},
+	},
+	{
+		ICON: 32->HEALTH->1, 
+		CREDITS: 500000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_HYGINE_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -112,
+		},
+		BOOST_GLOBAL: {
+			WORLD_HEALTH>ADD: 1.5,
+		},
+	},
+],

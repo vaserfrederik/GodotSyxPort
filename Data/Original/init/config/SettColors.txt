@@ -1,0 +1,33 @@
+MINIMAP: {
+	TREE: {R:58, G:104, B:26,},
+	WATER: {R:60, G:80, B:100,},
+	WATER_DEEP: {R:45, G:65, B:82,},
+	ROCK: {R:63, G:53, B:53,},
+	GROWABLE: {R:255, G:216, B:10,},
+	MOUNTAIN: {R:63, G:56, B:42,},
+},
+
+WATER: {
+	NORMAL: {R:60, G:150, B:200,},
+	WINTER: {R:60, G:140, B:160,},
+},
+
+GROUND_SAND: {
+	DRY: {R:208, G:194, B:142,},
+	WET: {R:150, G:126, B:102,},
+},
+
+GROUND_WOODS: {
+	DRY: {R:186, G:162, B:132,},
+	WET: {R:124, G:112, B:96,},
+},
+
+GROUND_PASTURE: {
+	DRY: {R:144, G:144, B:112,},
+	WET: {R:96, G:78, B:64,},
+},
+
+GROUND_ROCK: {
+	DRY: {R:255, G:255, B:255,},
+	WET: {R:255, G:255, B:255,},
+},

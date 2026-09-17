@@ -1,0 +1,125 @@
+ICON: 32->MONUMENT->7,
+RESOURCES: [WOOD,STONE_CUT,],
+AREA_COSTS: [0,0,],
+MINI_COLOR: 48_139_204,
+FLOOR: GRASS,
+SOLID: false,
+ITEMS: [
+	{
+		COSTS: [0,1,],
+		STATS: [],
+	},
+	{
+		COSTS: [4,0,],
+		STATS: [],
+	},
+	{
+		COSTS: [4,0,],
+		STATS: [],
+	},
+],
+STANDING: {
+	CITIZEN: 0,
+	NOBLE: 0,
+	SLAVE: 0,
+	PRIO: 22,
+	MULTIPLIER: 1,
+},
+FULFILLMENT_BONUS: {
+	CIVIC_LAW>ADD: 0.25,
+},
+MAX_VALUE: 4,
+SPRITES: [
+	{
+		1x1: {
+			FPS: 0,
+			SHADOW_LENGTH: 2,
+			SHADOW_HEIGHT: 6,
+			ROTATES: true,
+			FRAMES: [
+				MONUMENT: 2,
+			],
+		},
+		2x2: {
+			FPS: 0,
+			SHADOW_LENGTH: 4,
+			SHADOW_HEIGHT: 8,
+			ROTATES: true,
+			FRAMES: [
+				MONUMENT: 2,
+			],
+		},
+		3x3: {
+			FPS: 0,
+			SHADOW_LENGTH: 6,
+			SHADOW_HEIGHT: 10,
+			ROTATES: true,
+			FRAMES: [
+				MONUMENT: 2,
+			],
+		},
+		FLOOR_COMBO: {
+			COLOR: {R:155, G:140, B:120,},
+			SHADOW_LENGTH: 0,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				COMBO_PODEUM: 1,
+			],
+		},
+	},
+	{
+		1x1: {
+			FPS: 0,
+			SHADOW_LENGTH: 0,
+			SHADOW_HEIGHT: 5,
+			ROTATES: true,
+			FRAMES: [
+				SEVERED_HEAD_1X1: 0,
+			],
+		},
+		FLOOR_COMBO: {
+			SHADOW_LENGTH: 0,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				COMBO_PODEUM: 1, 
+			],
+		},
+	},
+	{
+		1x1: {
+			FPS: 0,
+			SHADOW_LENGTH: 1,
+			SHADOW_HEIGHT: 4,
+			ROTATES: false,
+			FRAMES: [
+				SKULL_MOUND_1X1: 0,
+			],
+		},
+		2x2: {
+			FPS: 0,
+			SHADOW_LENGTH: 1,
+			SHADOW_HEIGHT: 4,
+			ROTATES: false,
+			FRAMES: [
+				SKULL_MOUND_2X2: 0,
+			],
+		},
+		3x3: {
+			FPS: 0,
+			SHADOW_LENGTH: 1,
+			SHADOW_HEIGHT: 4,
+			ROTATES: false,
+			FRAMES: [
+				SKULL_MOUND_3X3: 0,
+			],
+		},
+		FLOOR_COMBO: {
+			SHADOW_LENGTH: 0,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+					COMBO_PODEUM: 1, 
+			],
+		},
+	},
+],
+

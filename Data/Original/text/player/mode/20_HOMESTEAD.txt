@@ -1,0 +1,4 @@
+NAME: "Homestead",
+DESC: "Focus on self-sufficiency. Only your city will matter.
+
+Your subjects are more easily satisfied, but diplomacy and region development is costlier. Factions are less likely to declare war.",

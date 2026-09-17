@@ -1,0 +1,11 @@
+INFO: {
+	NAME: "Public Punishment",
+	DESC: "Reminds your subjects of what disobedience gets you.",
+},
+
+MORE: [
+	"There's nothing like a good ol' execution. I'd like so see more!",
+],
+LESS: [
+	"I'm all for people getting what they deserve. But you might have gone a bit overboard with all this death on every street.",
+],

@@ -1,0 +1,2 @@
+NAME: "Ruler of Kings",
+DESC: "A master of Syx, a title only granted to the greats. Requires the Ruler of kings mode to unlock.",

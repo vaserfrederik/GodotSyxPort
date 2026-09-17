@@ -1,0 +1,93 @@
+NOBLES: {
+	ICON: 32->INFRA->0,	
+	DURATION: {
+		DAYS: 1.0,
+	},
+	OCCURENCE: {
+		CLIMATE: {
+			*: 100.0,
+		},
+		TERRAIN: {
+			*: 1,
+		},
+		RACE: {
+			*: 1.0,
+		},
+		REQUIRES: {
+			GREATER: {
+				POPULATION: 1000,
+			},
+			LESS: {
+				POPULATION_NOBLE: 1,
+			},
+		},
+		MAX_SPAWNS: 1,
+	},
+	
+	SELECTION: {
+		SUBJECTS: {
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			
+			USE_AS_ICON: true,
+			
+			FILTERS: [
+				{
+					EQUAL: {
+						RACE_IS_PLAYER: 1,
+						CLASS_CITIZEN: 1,
+					},
+				},
+			],
+		},		
+	},
+	TAGS: {
+		ALLOW_NOT: [
+			CHAIN_ONGOING,
+			HINT_NO,
+		],
+	},	
+	
+	CHOICES: [
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: NOBLES_YES,
+					KEEP_INFO: true,
+				},
+			],		
+		},
+		{
+			ACTIONS: [
+				{
+					TYPE: EVENT,
+					EVENT: HINT_NO,
+				},
+			],		
+		},
+	],
+},
+
+NOBLES_YES: {
+	ICON: 32->INFRA->0,	
+	SELECTION: {
+		SUBJECTS: {
+			USE_AS_ICON: true,
+		},		
+	},
+},
+
+HINT_NO: {
+	ICON: 32->INFRA->0,	
+	
+	TAGS: {
+		ADD: [
+			HINT_NO,
+		],
+	},	
+},

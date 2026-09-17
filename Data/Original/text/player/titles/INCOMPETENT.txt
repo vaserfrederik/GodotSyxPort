@@ -1,0 +1,2 @@
+NAME: "The Provider",
+DESC: "Gained by providing cozy homes to your subjects, while relying only on yourself. Requires the mode Homestead to unlock.",

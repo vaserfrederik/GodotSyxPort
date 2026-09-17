@@ -1,0 +1,261 @@
+ICON: 32->HEALTH->1,
+RESOURCES: [FURNITURE,STONE_CUT,TOOL,],
+AREA_COSTS: [0,0,0,],
+FLOOR: [DIRT,STONE1,STONE2,],
+MINI_COLOR: 20_20_255,
+ITEMS: [
+	{
+		COSTS: [1,1,0,],
+		STATS: [0.25,1,0,],
+	},
+	{
+		COSTS: [1,1,2,],
+		STATS: [0,0,0.5,],
+	},
+],
+WORK: {
+	SHIFT_OFFSET: 0.65,
+	SOUND: DUMMY,
+	USES_TOOL: true,
+	FULFILLMENT: 0.75,
+},
+SERVICE: {
+	RADIUS: 164,
+	STANDING: {
+		CHILD: true,
+		CITIZEN: 1,
+		SLAVE: 0.5,
+		NOBLE: 0.5,
+		PRIO: 22,
+	}, 
+	NEED: DOCTOR,
+	BOOST: {
+		PHYSICS_HEALTH>MUL: 4.0,
+	},
+},
+UPGRADES: [
+	{
+		RESOURCE_MASK: [1,0,0,0,],
+		BOOST: 0,
+	},
+	{
+		RESOURCE_MASK: [2,2,0,0,],
+		BOOST: 0.5,
+	},
+	{
+		RESOURCE_MASK: [2,2,3,0,],
+		BOOST: 1.0,
+	},
+],
+SPRITES: {
+	BUNK_1X1_TOP: [
+		{
+			SHADOW_LENGTH: 5,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				2xBED: 16,
+			],
+		},
+		{
+			SHADOW_LENGTH: 5,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				2xBED: 4,
+			],
+		},
+		{
+			SHADOW_LENGTH: 5,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				2xBED: 8,
+			],
+		},
+	],
+	BUNK_1X1_BOTTOM: [
+		{
+			SHADOW_LENGTH: 5,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				2xBED: 17,
+			],
+		},
+		{
+			SHADOW_LENGTH: 5,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				2xBED: 5,
+			],
+		},
+		{
+			SHADOW_LENGTH: 5,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				2xBED: 9,
+			],
+		},
+	],
+	TABLE_COMBO: [
+		{
+			COLOR: {R: 180, G: 180, B: 180,},
+			SHADOW_LENGTH: 7,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				COMBO_TABLES: 4,
+			],
+		},
+		{
+			COLOR: {R: 255, G: 200, B: 180,},
+			SHADOW_LENGTH: 7,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				COMBO_TABLES: 4,
+			],
+		},
+		{
+			COLOR: {R: 255, G: 200, B: 180,},
+			SHADOW_LENGTH: 7,
+			SHADOW_HEIGHT: 0,
+			FRAMES: [
+				COMBO_TABLES: 5,
+			],
+		},
+	],
+	SHELF_1X1: [
+		{
+			SHADOW_LENGTH: 7,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				SHELVES: 0,
+			],
+		},
+		{
+			SHADOW_LENGTH: 7,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				SHELVES: 0,
+			],
+		},
+		{
+			SHADOW_LENGTH: 7,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				SHELVES: 1,
+			],
+		},
+	],
+	SHELF_ONTOP_1X1: [
+		{
+			SHADOW_LENGTH: 1,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				TOP: 26,
+				TOP: 27,
+				WORK: 37,
+				WORK: 36,
+			],
+		},
+		{
+			SHADOW_LENGTH: 1,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				TOP: 19,
+				TOP: 20,
+				TOP: 21,
+				TOP: 22,
+				TOP: 7,
+				TOP: 8,
+				WORK: 37,
+				WORK: 36,
+			],
+		},
+		{
+			SHADOW_LENGTH: 1,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				TOP: 19,
+				TOP: 20,
+				TOP: 21,
+				TOP: 22,
+				TOP: 7,
+				TOP: 8,
+				WORK: 37,
+				WORK: 36,
+			],
+		},
+	],
+	TABLE_ONTOP_1X1: [
+		{
+			SHADOW_LENGTH: 1,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				TOP: 6,
+				TOP: 7,
+				TOP: 8,
+			],
+		},
+		{
+			SHADOW_LENGTH: 1,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				TOP: 5,
+				TOP: 6,
+				TOP: 7,
+				TOP: 8,
+			],
+		},
+		{
+			SHADOW_LENGTH: 1,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				TOP: 0,
+				TOP: 1,
+				TOP: 5,
+				TOP: 6,
+				TOP: 7,
+				TOP: 8,
+			],
+		},
+	],
+	STORAGE_1X1: [
+		{
+			SHADOW_LENGTH: 3,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				STORAGE: 0,
+				STORAGE: 1,
+				STORAGE: 2,
+			],
+		},
+		{
+			SHADOW_LENGTH: 3,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				STORAGE: 0,
+				STORAGE: 1,
+				STORAGE: 2,
+			],
+		},
+		{
+			SHADOW_LENGTH: 3,
+			SHADOW_HEIGHT: 0,
+			ROTATES: true,
+			FRAMES: [
+				STORAGE: 3,
+				STORAGE: 4,
+				STORAGE: 13,
+			],
+		},
+	],
+},
+

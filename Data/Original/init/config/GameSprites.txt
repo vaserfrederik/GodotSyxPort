@@ -1,0 +1,19 @@
+HEAD_SPIKE_1X1: {
+	FILE: MISC2,
+	ROW: 0,
+},
+
+SKULL_SMALL_1X1: {
+	FILE: DEATH,
+	ROW: 3,
+},
+
+SKULL_MEDIUM_1X1: {
+	FILE: DEATH,
+	ROW: 4,
+},
+
+SKULL_BIG_1X1: {
+	FILE: DEATH,
+	ROW: 2,
+},

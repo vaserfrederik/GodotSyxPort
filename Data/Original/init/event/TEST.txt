@@ -1,0 +1,238 @@
+BOOST_PERM_ADD: {
+	ICON: 32->LAW->1,
+
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 20.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			FILTERS: [
+				{
+					EQUAL: {
+						HAS_BOOST_PERM: 0,
+					},
+				},
+			],
+		},
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST: {
+					BEHAVIOUR_SUBMISSION>MUL: 1.1,
+				},
+			},
+		],
+	},
+},
+
+BOOST_PERM_REMOVE: {
+	ICON: 32->LAW->1,
+
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 500.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			FILTERS: [
+				{
+					EQUAL: {
+						HAS_BOOST_PERM: 1,
+					},
+				},
+			
+			],
+		},
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM_REMOVE,
+			},
+		],
+	},
+},
+
+BOOST_PERM_ADD_TO_EXISTING: {
+	ICON: 32->LAW->1,
+
+	
+	SELECTION: {
+		REGIONS: {
+			MAX_AMOUNT: {
+				AMOUNT: 500.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			FILTERS: [
+				{
+					EQUAL: {
+						HAS_BOOST_PERM: 1,
+					},
+				},
+			
+			],
+		},
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST: {
+					BEHAVIOUR_SUBMISSION>MUL: 1.1,
+				},
+			},
+		],
+	},
+},
+
+SELECTION_MARK_ADD: {
+	ICON: 32->LAW->1,
+
+	SELECTION: {
+		
+		REGIONS: {
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,
+					},
+				},
+				{
+					LESS: {
+						FACTION_IS_PLAYER: 1,
+					},
+				},
+			],
+			MARK: {
+				MARK_WITH_EVENT_KEY: true,
+			},
+			MAX_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+		},
+	},
+},
+
+SELECTION_MARK_REMOVE: {
+	ICON: 32->LAW->1,
+
+	SELECTION: {
+
+		REGIONS: {
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,
+					},
+				},
+				{
+					LESS: {
+						FACTION_IS_PLAYER: 1,
+					},
+				},
+			],
+			MARK: {
+				CLEAR_EVENT_KEY: TEST_SELECTION_MARK_ADD,
+			},
+			MAX_AMOUNT: {
+				AMOUNT: 500.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+		},
+	},
+},
+
+SELECTION_MARK_MARKED: {
+	ICON: 32->LAW->1,
+
+	SELECTION: {
+		REGIONS: {
+			FILTERS: [
+				{
+					GREATER: {
+						FACTION_IS_PLAYER: 0,
+					},
+				},
+				{
+					LESS: {
+						FACTION_IS_PLAYER: 1,
+					},
+				},
+			],
+			MARK: {
+				ALLOW_ONLY_MARK: TEST_SELECTION_MARK_ADD,
+			},
+			MAX_AMOUNT: {
+				AMOUNT: 500.0,
+			},
+			MIN_AMOUNT: {
+				AMOUNT: 1.0,
+			},
+		},
+	},
+	
+	ON_SPAWN: {
+		ACTIONS: [
+			{
+				TYPE: BOOST_PERM,
+				BOOST: {
+					BEHAVIOUR_SUBMISSION>MUL: 1.1,
+				},
+			},
+		],
+	},
+},
+
+TAG_ADD: {
+	ICON: 32->LAW->1,
+
+	TAGS: {
+		ADD: [Tag,],
+	},
+
+},
+
+TAG_REMOVE: {
+	ICON: 32->LAW->1,
+
+	TAGS: {
+		REMOVE: [Tag,],
+	},
+},
+
+TAG_ALLOW: {
+	ICON: 32->LAW->1,
+
+	TAGS: {
+		ALLOW: [Tag,],
+	},
+
+},
+
+TAG_ALLOW_NOT: {
+	ICON: 32->LAW->1,
+
+	TAGS: {
+		ALLOW_NOT: [Tag,],
+	},
+},
+

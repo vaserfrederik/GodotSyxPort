@@ -1,0 +1,3 @@
+MALE: "Emir",
+FEMALE: "Emiress",
+DESC: "An Emir is a rightful ruler of a land. As such, we can now conduct trade with our neighbours.",

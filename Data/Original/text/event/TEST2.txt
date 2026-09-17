@@ -1,0 +1,10 @@
+AMEVIA_HYGIENE: {
+	NAME: "Medical discovery",
+	DESC: "Is this visible?",
+	MESSAGE: [
+		"A bad storm is {inssert}coming. You should prepare to build some stuff.",
+		"God speed to you young padawan.",
+	],
+	SUBJECT: "Anticipating the bad storm.",
+
+},

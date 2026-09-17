@@ -1,0 +1,37 @@
+INFO: {
+	NAME: "Speaker",
+	NAMES: "Speakers",
+	DESC: "A public speaker informing your citizens about news and gossip. Without these, subjects will need to form their own opinions about their ruler's decisions, and neither despots nor their subjects want that.",
+},
+
+WORK: {
+	TITLE: "Speaker",
+	VERB: "Spreading news.",
+},
+
+STATS: [
+	{
+	
+	},
+	{
+		NAME: "Spectators",
+		DESC: "The amount of spectators",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Speaker",
+		DESC: "",
+	},
+],
+
+SERVICE: {
+	VERB: "Listening to news.",
+	MORE: [
+		"Gossip is fine and all, but I would like some way of getting more official news.",
+		"We could use more speakers for emergency proclamations around here.",
+		"We have nowhere to hear your proclamations from, my {RACE_LORD}. Me and my kin would like to stay up to date through a public speaker.",
+		"More speakers are needed to keep us informed about the happenings in nearby settlements.",
+	],	
+},

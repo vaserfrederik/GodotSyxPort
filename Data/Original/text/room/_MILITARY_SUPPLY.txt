@@ -1,0 +1,36 @@
+INFO: {
+	NAME: "Army Supply Depot",
+	NAMES: "Army Supply Depots",
+	DESC: "Needed to supply armies on the world map.",
+	WIKI: {
+		CATEGORY: "Military",
+		NAME: "Army Supply Depot",
+		TEXT: "This building can be used to send supplies to armies on the world map. Workers will gather the selected resources here and then transport them off map.
+		
+		Arms, armor and drinks are non-essential supplies, but soldiers who lack Clothes or Rations will desert quickly. Mercenaries do not need to be supplied.",
+	},
+},
+
+WORK: {
+	TITLE: "Trader",
+	VERB: "Delivering Army supplies",
+},
+
+STATS: [
+	{
+		NAME: "Workers",
+		DESC: "The amount of workers that can be employed.",
+	},
+	{
+		NAME: "Storage",
+		DESC: "The amount of storage",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Crates",
+		DESC: "Where goods are stored.",
+	},
+],
+

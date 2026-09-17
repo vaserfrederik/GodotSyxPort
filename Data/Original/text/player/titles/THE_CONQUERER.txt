@@ -1,0 +1,2 @@
+NAME: "The Conquerer",
+DESC: "Gained by exporting your brand of civilization to others. Your soldiers benefit from your experience, making them significantly better at fighting in formation. Requires the Warlord mode to unlock.",

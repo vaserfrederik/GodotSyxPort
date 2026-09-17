@@ -1,0 +1,50 @@
+INFO: {
+	NAME: "Secret Police",
+	NAMES: "Secret Police",
+	DESC: "Many crimes go unsolved, but they don't have to. Confession by torture is a highly effective method to stop crimes, finding just who caused last year's crop failure, outbreak, or simply people who are planning some mischief against you. Heck, you don't even need crimes at all, just a round of torture is very healthy to your subject's loyalty, but affects happiness in a bad way.",
+	WIKI: {
+		CATEGORY: "Law",
+		NAME: "Secret Police",
+		TEXT: "Where caught criminals and other prisoners are taken for introduction to their new career - slaves.",
+		CATEGORIES: [],
+	},
+},
+
+WORK: {
+	TITLE: "Secret Police",
+	VERB: "Interrogating.",
+},
+
+STATS: [
+	{
+		NAME: "Clients",
+		DESC: "Maximum prisoners.",
+	},
+	{
+		NAME: "Efficiency",
+		DESC: "Efficiency of The room.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Rack Bed",
+		DESC: "Rack Chair",
+	},
+	{
+		NAME: "Rack Chair",
+		DESC: "Rack Chair",
+	},
+	{
+		NAME: "Medusa",
+		DESC: "Medusa",
+	},
+	{
+		NAME: "Gibbet Cage",
+		DESC: "Gibbet Cage",
+	},
+	{
+		NAME: "Auxiliaries",
+		DESC: "Auxiliaries",
+	},
+],

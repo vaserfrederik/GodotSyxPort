@@ -1,0 +1,89 @@
+RESOURCE: BOW,
+MAX_AMOUNT: 5,
+ARRIVAL_AMOUNT: 0,
+WEAR_RATE: 0.1,
+DEFAULT_TARGET: 0,
+AMOUNT_IN_GARRISON: 0,
+EQUIP_GUARDS: 0,
+
+DIV_SPRITE: {
+	X: -11,
+	Y: -14,
+	Z: 0,
+	ICON: 24->Equipment->5,
+	COLOR: [
+		175_112_66,
+		200_200_200,
+		255_190_0,
+	],
+},
+
+AMMUNITION_AMOUNT: 40,
+AMMUNITION_REPLENISH_TIME_HOURS: 24,  
+
+SLOT_USAGE: [
+	0, 
+	0,
+	1.0,
+	0,
+	0,
+	0,
+	0,
+	0,	
+],
+
+RACE_ALLOWED: [
+	*,
+],
+
+SPRITE: {
+	FILE: Bow,
+	OFFSET_X: -0.6,
+	OFFSET_Y: 0.2,
+	ANIMATION_DX: 0.3,
+	ANIMATION_DY: 0.5,
+	COLOR: [
+		79_46_36,
+		196_196_196,
+	],
+},
+
+BOOST: {
+	PHYSICS_SPEED>MUL: 0.9,
+},
+
+PROJECTILE: {
+	COLOR: 30_20_8,
+	**SPRITE_FILE: sprites/settlement/projectile
+	** ^^ if not present, then a special arrow is drawn
+	
+	FROM: {
+		TILE_SPEED: 35,
+		RELOAD_SECONDS: 30,
+		ACCURACY: 0.8,
+		MAX_ARCH_ANGLE_DEGREES: 50,
+		DEXTERITY: 0,
+		DAMAGE: {
+			PIERCE: 4, 
+		},
+		MASS: 0.4,
+		TILE_RADIUS_DAMAGE: 0,
+	},
+	
+	TO: {
+		TILE_SPEED: 45,
+		RELOAD_SECONDS: 3,
+		ACCURACY: 0.98,
+		MAX_ARCH_ANGLE_DEGREES: 75,
+		DEXTERITY: 0,
+		DAMAGE: {
+			PIERCE: 12,
+		},
+		MASS: 0.4,
+		TILE_RADIUS_DAMAGE: 0,
+	},
+},
+
+
+
+

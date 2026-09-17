@@ -1,0 +1,18 @@
+NAME: "Pierce",
+ATTACK: {
+	NAME: "Pierce Damage",
+	DESC: "Pierce armor defends against this.",
+},
+DEFENCE: {
+	NAME: "Pierce Armour",
+	DESC: "Reduces incoming pierce damage.",
+},
+DEFENCE_DIR: {
+	NAME: "Pierce Block",
+	DESC: "Reduces incoming pierce damage on a successful block.",
+},
+
+
+
+
+

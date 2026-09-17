@@ -1,0 +1,2 @@
+NAME: "Despot",
+DESC: "Standard difficulty. Syx will resist your efforts to shape it. Expect to spend a long time mastering it.",

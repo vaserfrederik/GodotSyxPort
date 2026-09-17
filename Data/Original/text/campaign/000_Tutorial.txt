@@ -1,0 +1,345 @@
+NAME: "New Cretonia #1 (Tutorial)",
+DESC: "Learn the very basics of the game as you partake in Hotam Greattusk's struggle to build a new settlement for his Cretonian tribe.",
+
+CUTSCENE: {
+	TITLE: "The struggles of Hotam Greattusk",
+	BODY: 
+	"
+Since their creation, the stout, yet short, Cretonians once inhabited the large and fertile plains of Coralia. They first made contact with Men in the year 349 of the Third Age, as a trading vessel from the kingdom of Agari went off course and encountered one of their settlements and after some initial suspicion a trade agreement was struck.
+%r%
+%r%
+The Cretonians are many things, but they do not possess a business mind. Men offered many new things, and trinkets that they had not seen before and they gladly traded gems for glass beads, and fine meat and hides for watered down Piwa. Eventually the Cretonians were in debt and started trading their lands for what they now had grown to depend on. 
+%r%
+%r%
+The Agarians were not the only kingdom, soon the northern Franshi kingdom, and the  Ennurian nomads established colonies to sap the richness of the Cretonian ancestral lands.  In 353, the War of Golden Rose broke out, and it quickly spread to Coralia. All three parties enlisted Cretonians in their ranks. Despite their short stature, they possess great strength.
+%r%
+%r%
+The war was brutal, and many great heroes fell,  The Franshi burned and slaughtered those Cretonian tribes that had picked the wrong side. Coralia laid in ruins.
+%r%
+%r%
+It was at this time that a Cretonian chieftain by the name of Hotam Greattusk was declared Numbi by the Shamans, and tasked with finding a new home for his people. He gathered what was left of his tribe and set out to cross the Prygian mountains in search of a new home.  Finally he reached the plains of Samba and settled by the river of Krios. He called this land "New Cretonia".
+	",
+},
+
+MISSIONS: {
+
+	INTRO: {
+		NAME: "Welcome",
+		DESC: 
+		"Crator's Blessings, we made it into Samba, now the rest is up to you. I'm Hotam Greattusk, and I will guide you through the first steps of your journey. Know that I'm no wet-nurse, it's important that you do only what I tell you. Do not click anything without my permission, or you might compromise our mission. 
+		 
+		First, my young chieftain, you must learn a thing or two about navigating your surroundings. You move your view with those 'wasd' key-things, and change height with the mouse wheel or with the small +/- buttons by the minimap.
+		
+		If you find yourself in want of these instructions again, I'm over here, just click my portrait. Now right click your hand-device to close this message and get to work.
+		",
+		GOAL: "Close this message, and move the camera around with the WASD-keys.",
+	},
+	
+	ZOOM: {
+		NAME: "Zoom & Minimap",
+		DESC: 
+		"Now try the zoom. You zoom using the mouse-wheel, or the zoom buttons below the mini-map to the right. Try to zoom all the way out and explore the map.
+		",
+		GOAL: "Zoom all the way out and back in again.",
+	},
+	
+	FIND_BACK: {
+		NAME: "Get back",
+		DESC: 
+		"
+		Good. To test your prowess, I've thrown you off on the map. Now find your way back to your subjects and the throne room. I'll add a little magic arrow to guide you.
+		",
+		GOAL: "Use the movement keys or the minimap to find your way back to the throne room.",
+	},
+	
+	WAREHOUSE_BUILD: {
+		NAME: "Storage",
+		
+		DESC: 
+		"Good. Our first task should be food. Food is very important. If we run out of edibles, we are doomed, not to rush you, your majesty.
+		
+		To prevent our stores from spoiling, we should store these goods in a warehouse, so let's get the brothers busy building one. You will find the option to build one down below. There is a lot to constructing a room, but surely a great mind like yourself can figure it out.
+		
+		First you lay out the area of the room. Each room then has items that need to be clicked and placed inside this area. You must place down at least 6 crates. May Crator guide your hand.
+		",
+		GOAL: "Construct a warehouse with at least 6 crates.",
+	},
+	
+	WAREHOUSE_FAIL: {
+		NAME: "Build Failed",
+		
+		DESC: 
+		"I see you have constructed the warehouse. But you did not make 6 crates, did you? No matter, you can build another one. As long as you have 6 crates in total.
+		",
+		GOAL: "",
+	},
+	
+	
+	
+	WAREHOUSE_ALLOCATE: {
+		NAME: "Warehouse",
+		DESC: "By Crator's whiskers, this is good progress. Now I need for you to click the warehouse to allocate one dedicated worker (Deliveryman), and also allocate 2 crates for meat.",
+		GOAL: "Allocate 1 warehouse worker. Allocate 2 crates for meat.",
+	},
+	
+	HUNTING: {
+		NAME: "Hunting",
+		DESC: "We must now store up some food to get us through the initial phase of our settlement. We Cretonians have no taste for flesh, but it is what we have at hand. By scrolling the map, you will find spots of wild game. You can select these beasts to be hunted. You'll find the action at the bottom.
+		%r%%r%
+		Take care not to over-hunt. Naturally, the beasts reproduce, but if you exterminate them completely, they are gone forever. Aggressive hunting can also trigger an aggressive response.
+		",
+		GOAL: "Hunt to store 50 units of meat.",
+	},
+	
+	CLEARING_ALLOCATE: {
+		NAME: "Building Materials",
+		DESC: "By Yeetha's tusk! That will keep us fed awhile. 
+		Now let us dwell on construction. Construction needs materials. For our early crude buildings, wood and stone will suffice. We must replenish our stock of this. Our first mission is to allocate crates in our warehouse for said materials. I hope there is space for 4 additional crates, as you need 2 of wood and stone each. Otherwise, another warehouse is needed. I will highlight the warehouse for you if this is the case. 
+		",
+		GOAL: "Allocate 2 crates for wood and stone each.",
+	},
+	
+	CLEARING: {
+		NAME: "Building Materials",
+		DESC: "Good. Now, order our tribesmen to clear some wood and stone. Use the tool I have highlighted and look for trees and piles of stone to select. I want at least 50 units stored of each in our warehouse.
+		Remember to have a worker allocated in the warehouse, along with at least 1 crate each for wood and stone.
+		",
+		GOAL: "Clear wood and stone, and make sure 50 of each gets stored in the warehouse.",
+	},
+	
+	CLEARING2: {
+		NAME: "Building Materials",
+		DESC: "
+		Good work. Our brothers and sisters are busy chopping wood and smashing rock. If they are close enough to the warehouse, they will carry their produce to it. If not, then it is up to the warehouse worker to fetch it.
+		Note that a warehouse worker is capable of moving large hauls of resources, while your odd-jobbers can only move a few at a time.
+		",
+		GOAL: "Store 50 wood and stone in the warehouse.",
+	},
+	
+	HEARTH: {
+		NAME: "Hearth",
+		DESC: "We are good now, but soon temperatures will fall. Cretonians are hot-blooded creatures, and we will run the risk of freezing to death. A hearth must be constructed.
+		",
+		GOAL: "Construct a hearth.",
+	},
+	
+	WELL: {
+		NAME: "Well",
+		DESC: "A well is also a primitive construction that is essential to us. Not only does it allow us to cool off if temperatures are too high, but it also allows us to keep our whiskers clean. Build one.
+		",
+		GOAL: "Construct a well.",
+	},
+	
+	SERVICES: {
+		NAME: "Services",
+		DESC: "In order for our subjects to thrive, they need services. Wells and hearths are services. Services has a maximum capacity of subjects that they can serve at any time. These you've built should be fine for us in this regard, but still, click both the well and the hearth and familiarize yourself with their information.
+		Then, I want you to sit back and watch as our brothers and sisters use the services. Do not peek at the womanfolk by the well - that is how one of my birth-brothers died.
+		",
+		GOAL: "Watch Cretonians use your new services.",
+	},
+	
+	MAINTENANCE: {
+		NAME: "Janitor",
+		DESC: "Almost everything in this world requires maintenance in the form of labour and resources. Without it, structures will decay and lose their efficiency. That's why it's time to build a janitor!",
+		GOAL: "Build a Janitor",
+	},
+	
+	MAINTENANCE_EXPL: {
+		NAME: "Maintenance",
+		DESC: "Very good. Maintenance is needed for almost all buildings. The janitors use resources for their maintenance work. Now allocate one worker to your janitor room. Also enable auto employment, which will automatically regulate how many janitors will be employed, based on the need for them.",
+		GOAL: "Allocate a janitor & enable auto employ for the janitor room.",
+	},
+	
+	FARM: {
+		NAME: "Farming",
+		DESC: "Now let's explore some more sustainable means of food production. Let's do some farming. I've given you some vegetables to use as seeds. When on your own, you can forage or trade for these. Now build vegetable farms enough for 5 farmers. 9x9 tiles are enough for 1 farmer to be busy, and you may build one big farm, or several. Place your farm right next to the river for natural irrigation. And select the most fertile tiles.", 
+		GOAL: "Build vegetable farms for 5 farmers in total. The farm must be irrigated and fertile.",
+	},
+	
+	FARM_FAIL_RES: {
+		NAME: "Farming?",
+		DESC: "Crator's curses! You've run out of vegetables somehow. A leader needs to handle their vegetables! I've given you a new batch, don't mess up this time.", 
+		GOAL: "",
+	},
+	
+	FARM_FAIL: {
+		NAME: "Build Fail",
+		
+		DESC: 
+		"You failed in your task somehow, did you not listen? I said build by the water for irrigation purposes. Build on the most fertile tiles. It should not be that hard. Now you have to remove your farm and try again!
+		",
+		GOAL: "",
+	},
+	
+	FOOD: {
+		NAME: "Food",
+		DESC: "
+			Food is now the most pressing issue. You can quickly check our food situation by looking at or clicking the counter I have marked for you. Hovering over the food icons on the right can also give you some information. The numbers might look dire now, but soon our vegetable farms should yield vegetables for us to eat.
+		",
+		GOAL: "Enter the food menu and have a look.",
+	},
+	
+	FOOD_ALLOCATE: {
+		NAME: "Food storage",
+		DESC: "
+			Check back on the food menu from time to time. It is of utmost importance that we produce more than we eat. Farms are good, but a bit tricky. They only yield food at harvest once per year, but the yield is plentiful. The farmers need to work the farm for the full year to provide the optimal harvest. Allocate storage for the upcoming harvest.
+		",
+		GOAL: "Allocate 3 crates for vegetables. (If need be, build another warehouse).",
+	},
+	
+	LOYALTY: {
+		NAME: "Loyalty",
+		DESC: "Good, now we must wait. If you run out of food prior to the harvest, you should know what to do. Hunt and Forage. 
+		
+		Now it's time for us to explore loyalty. Loyalty is your citizens love for you, and you need it. The primary source of loyalty is to build things that your subjects like. Open up the loyalty panel and have a quick glance at what things you can do to please our people.",
+		GOAL: "Open the loyalty panel, have a look, and close it.",
+	},
+	
+	HOUSING: {
+		NAME: "Housing",
+		DESC: "Housing is essential for your subjects and a great source of loyalty. Basic housing is easy and cheap to set up, and can later be upgraded by allowing your subjects furniture, but that's for later. Now, make haste and build some houses for us.",
+		GOAL: "Construct housing for 10 people in total.",
+	},
+	
+	ROADS: {
+		NAME: "Roads",
+		DESC: "We, as Cretonians, enjoy the grass under our feet, but we also appreciate a natural, paved path. I've asked around, and we would like for you to build some dirt roads.",
+		GOAL: "Build 10 tiles of Dirt Road in the vicinity of your housing.",
+	},
+	
+	IMMIGRANTS: {
+		NAME: "Immigration!",
+		DESC: "Your subjects are now enjoying your village to a degree that they recommend it to their friends. Immigration will spawn when your happiness is over a certain degree. You can have a look at what factors that make up your happiness by clicking the citizen button top-right. It will give you an idea of how to progress later on. 
+		To accept the new immigrants, you can do so in the citizen panel -> select species -> population, or by double clicking the species in the panel to the right. Be careful not to accept too many at once. They are more mouths to feed, so remember to put them to work!
+		",
+		GOAL: "Accept an immigrant",
+	},
+	
+	GROW: {
+		NAME: "Finish the mission",
+		DESC: "Excellent. At this stage you know more than I do. Just continue to improve your settlement. Build some farms, and forage if you must for the initial seeds. I, and my brothers and sisters, will do our best to follow your instructions. Together, we will see a new Cretonia.
+		",
+		GOAL: "Grow to 20 Cretonians and have 16 food days worth of food stored",
+	},
+	
+	END: {
+		NAME: "Mission Complete",
+		DESC: "Very good. We have now established a self-sustaining colony. Your mission here is complete. You may choose to continue playing, or start a new game. The second tutorial mission can be accessed in the menu now.",
+		GOAL: "You have succeeded",
+	},
+
+},
+
+EXTRA: {
+
+	SPEED: {
+		NAME: "Speed",
+		DESC: "In the world of Syx, things take time. Tasks like construction and clearing are completed in days, not minutes. Luckily, you can use this ancient contraption to speed up the passage of time. You can also use the 1, 2, 3, and 4 buttons.",
+		GOAL: "Make 10 seconds pass.",
+	},
+	
+	OUT_OF_RES: {
+		NAME: "",
+		DESC: "",
+		GOAL: "",
+	},
+	
+	OUT_OF_RES2: {
+		NAME: "Construction Materials",
+		DESC: "Cursed be the Lord of Chaos! You have run out of construction materials. I trust you're not building too large buildings? You must now fell some trees and mine some rock. There should be some close by. Use the terraform tool at the bottom panel for it.",
+		GOAL: "",
+	},
+	
+	OUT_OF_FOOD: {
+		NAME: "Food stores finished",
+		DESC: "We have run out of food! You are taking very long to get things done, are you playing about with the speed contraption? Make sure that your subjects work on achieving our goals at all times, and that you do not assign too monumental of tasks, or we will all die of high age.
+		
+		Here, I have some extra rations in my pocket to let us last a little longer. Now go on and continue our work.
+		",
+		GOAL: "",
+	},
+	
+	OUT_OF_FOOD2: {
+		NAME: "Food stores done",
+		DESC: "Gods beneath! We have run out of food. This can be catastrophic. Soon our people will starve and die. Quickly now, use the tools I have shown you to either hunt or forage to replenish our stores!
+		",
+		GOAL: "Harvest some food.",
+	},
+	
+	GAME_OVER: {
+		NAME: "Failure",
+		DESC: "I'm not sure how you did it, but you've managed to kill off a big number of our brothers and sisters. I'm afraid I can't help you any further, and I'd recommend you restart this tutorial.",
+		GOAL: "You've failed. Start over.",
+	},
+	
+	OVERBUILD: {
+		NAME: "Construction!",
+		
+		DESC: 
+		"What are you, the king of Suma? Even my daftest of nephews can see that you are building too big and too much. Being overly ambitious will lead to nothing getting done. 
+		
+		You must remove some of this mess and try again. You'll find the tool to remove the room down here.",
+		GOAL: "Remove construction plans for rooms that are too plentiful or big.",
+	},
+	
+	OVERWORK: {
+		NAME: "Relax",
+		
+		DESC: 
+		"Careful with how many tasks you give to your subjects. As Ruthgard said: 'if there is too much to do, nothing gets done.' You should cancel some of your current tasks.",
+		GOAL: "Remove some jobs to get to manageable levels.",
+	},
+	
+	OVERJOB: {
+		NAME: "Employment",
+		
+		DESC: 
+		"Your subjects are busy. This is good. But at this moment, there is no one left which can dedicate themselves to pure odd-work, such as construction, hunting or building. 
+		
+		You should regulate your workers by clicking each room and decrease the number of employees. Chances are they are not needed there in any case.",
+		GOAL: "Free up some employees in rooms to get some odd-jobbers.",
+	},
+	
+	DEATH: {
+		NAME: "Death",
+		DESC: "One of our brethren has now joined Crator in the palace of Erebert. Our numbers are dwindling. But fear not, I have some relatives not far from here. They are not of the best of stock, but they will do. I will send for them now to come and replenish our numbers.",
+		GOAL: "Wait for new arrivals of Cretonians.",
+	},
+	
+	HARVEST: {
+		NAME: "Harvest",
+		DESC: "Ah, it's the time of year when the wild crops are ripe. These crops will replenish our food stores. You can find these patches of edibles on the minimap (zoom out), but I have directed your view on the closest one. Order our men to harvest some.",
+		GOAL: "Harvest some wild crops.",
+	},
+
+},
+
+UI: {
+
+	BUILD_WAREHOUSE: [
+		"1. Click this button. Then click and hold the left mouse button on the map to assign the area of the warehouse.",
+		"2. If need be, remove some of the area. The area should be around 5x5, not much bigger. The whole area needs to be connected.",
+		"3. On the edges of this area, walls will be built. Use the highlighted button to select a tool that lets you convert some walls into doorways so that the room can be accessed.",
+		"4. Now click an item here (crates), and place at least 6 of them within the designated area of the room.",
+		"5. When you are done, click this button to finish the plans for the room.",
+	],
+	
+	BUILD_JANITOR: [
+		"1. Assign the area.",
+		"2. Remove some of the area if need be.",
+		"3. Make an opening to the room.",
+		"4. Place down a workstation. Then place down utilities until 'Efficiency' shows 100%.",
+		"5. When you are done, click this button to finish planning the room.",
+	],
+	
+	WAREHOUSE_SETTING: [
+		"1. Click here to allocate a worker.",
+		"2. Find meat in this list, and use the plus and minus buttons to allocate crates to this resource.",
+	],
+	
+	BUILD_FARM: [
+		"1. Farms depend on irrigation. Before you can create artificial irrigation, building next to natural fresh-water sources is the only option.",
+		"2. Fertility is very important. The drop on the map signifies irrigation and the colour (lighter = better) fertility. Try to place the room on high fertility tiles.",
+	],
+
+},

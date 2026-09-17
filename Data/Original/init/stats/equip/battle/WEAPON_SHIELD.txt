@@ -1,0 +1,51 @@
+RESOURCE: WEAPON_SHIELD,
+WEAR_RATE: 0.1,
+MAX_AMOUNT: 5,
+ARRIVAL_AMOUNT: 0,
+DEFAULT_TARGET: 0,
+
+DIV_SPRITE: {
+	X: -14,
+	Y: -16,
+	Z: 0,
+	ICON: 24->Equipment->4,
+	COLOR: [
+		175_112_66,
+		200_200_200,
+		255_190_0,
+	],
+},
+
+AMOUNT_IN_GARRISON: 1,
+EQUIP_GUARDS: 0,
+SLOT_USAGE: [
+	0, 
+	0,
+	1.0,
+	0,
+	0,
+	0,
+	0,
+	0,	
+],
+
+RACE_ALLOWED: [
+	*,
+],
+
+SPRITE: {
+	FILE: Shield,
+	OFFSET_X: -0.3,
+	OFFSET_Y: 0.4,
+	ANIMATION_DX: -0.1,
+	ANIMATION_DY: 0,
+	COLOR: [
+		125_87_64,
+		79_46_36,
+	],
+},
+
+BOOST: {
+	BATTLE_BLUNT_DEFENCE_DIR>MUL: 4,
+},
+

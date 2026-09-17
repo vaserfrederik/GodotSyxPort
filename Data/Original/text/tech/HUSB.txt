@@ -1,0 +1,180 @@
+NAME: "Husbandry",
+TECHS: {
+	HUNT00: {
+		NAME: "Hunting",
+		DESC: "Increases performance of the hunter",
+	},
+	ENTL01: {
+		NAME: "Basic Entelodont breeding",
+		DESC: "Improves the output of our Entelodont Pastures",
+	},
+	ENTLt1: {
+		NAME: "Entelodont breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Entelodont Pasture. Tools must be manually equipped in the workplace.",
+	},
+	ENTL02: {
+		NAME: "Skilled Entelodont breeding",
+		DESC: "Improves the output of our Entelodont Pastures",
+	},
+	ENTL03: {
+		NAME: "Profficient Entelodont breeding",
+		DESC: "Improves the output of our Entelodont Pastures",
+	},
+	ENTLt2: {
+		NAME: "Advanced Entelodont breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Entelodont Pasture. Tools must be manually equipped in the workplace.",
+	},
+	ENTL04: {
+		NAME: "Expert Entelodont breeding",
+		DESC: "Improves the output of our Entelodont Pastures",
+	},
+	ONX_01: {
+		NAME: "Basic Onx breeding",
+		DESC: "Improves the output of our Onx Pastures",
+	},
+	ONX_t1: {
+		NAME: "Onx breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Onx Pasture. Tools must be manually equipped in the workplace.",
+	},
+	ONX_02: {
+		NAME: "Skilled Onx breeding",
+		DESC: "Improves the output of our Onx Pastures",
+	},
+	ONX_03: {
+		NAME: "Profficient Onx breeding",
+		DESC: "Improves the output of our Onx Pastures",
+	},
+	ONX_t2: {
+		NAME: "Advanced Onx breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Onx Pasture. Tools must be manually equipped in the workplace.",
+	},
+	ONX_04: {
+		NAME: "Expert Onx breeding",
+		DESC: "Improves the output of our Onx Pastures",
+	},
+	AURU01: {
+		NAME: "Basic Auruch breeding",
+		DESC: "Improves the output of our Auruch Pastures",
+	},
+	AURUt1: {
+		NAME: "Auruch breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Auruch Pasture. Tools must be manually equipped in the workplace.",
+	},
+	AURU02: {
+		NAME: "Skilled Auruch breeding",
+		DESC: "Improves the output of our Auruch Pastures",
+	},
+	AURU03: {
+		NAME: "Profficient Auruch breeding",
+		DESC: "Improves the output of our Auruch Pastures",
+	},
+	AURUt2: {
+		NAME: "Advanced Auruch breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Auruch Pasture. Tools must be manually equipped in the workplace.",
+	},
+	AURU04: {
+		NAME: "Expert Auruch breeding",
+		DESC: "Improves the output of our Auruch Pastures",
+	},
+	BALT01: {
+		NAME: "Basic Balticrawler breeding",
+		DESC: "Improves the output of our Balticrawler Pastures",
+	},
+	BALT02: {
+		NAME: "Skilled Balticrawler breeding",
+		DESC: "Improves the output of our Balticrawler Pastures",
+	},
+	BALT03: {
+		NAME: "Profficient Balticrawler breeding",
+		DESC: "Improves the output of our Balticrawler Pastures",
+	},
+	BALT04: {
+		NAME: "Expert Balticrawler breeding",
+		DESC: "Improves the output of our Balticrawler Pastures",
+	},
+	GLOB00: {
+		NAME: "The Globdien Pasture",
+		DESC: "Unlocks the construction of the Globdien Pasture",
+	},
+	GLOB01: {
+		NAME: "Basic Globdien breeding",
+		DESC: "Improves the output of our Globdien Pastures",
+	},
+	GLOBt1: {
+		NAME: "Globdien breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Globdien Pasture. Tools must be manually equipped in the workplace.",
+	},
+	GLOB02: {
+		NAME: "Skilled Globdien breeding",
+		DESC: "Improves the output of our Globdien Pastures",
+	},
+	GLOB03: {
+		NAME: "Profficient Globdien breeding",
+		DESC: "Improves the output of our Globdien Pastures",
+	},
+	GLOBt2: {
+		NAME: "Advanced Globdien breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Globdien Pasture. Tools must be manually equipped in the workplace.",
+	},
+	GLOB04: {
+		NAME: "Expert Globdien breeding",
+		DESC: "Improves the output of our Globdien Pastures",
+	},
+	WARB00: {
+		NAME: "The Warbeast Pasture",
+		DESC: "Unlocks the construction of the Warbeast Pasture",
+	},
+	WARB01: {
+		NAME: "Basic Warbeast breeding",
+		DESC: "Improves the output of our Warbeast Pastures",
+	},
+	WARBt1: {
+		NAME: "Warbeast breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Warbeast Pasture. Tools must be manually equipped in the workplace.",
+	},
+	WARB02: {
+		NAME: "Skilled Warbeast breeding",
+		DESC: "Improves the output of our Warbeast Pastures",
+	},
+	WARB03: {
+		NAME: "Profficient Warbeast breeding",
+		DESC: "Improves the output of our Warbeast Pastures",
+	},
+	WARBt2: {
+		NAME: "Advanced Warbeast breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Warbeast Pasture. Tools must be manually equipped in the workplace.",
+	},
+	WARB04: {
+		NAME: "Expert Warbeast breeding",
+		DESC: "Improves the output of our Warbeast Pastures",
+	},
+	FISH01: {
+		NAME: "Basic Fishery breeding",
+		DESC: "Improves the output of our Fisheries",
+	},
+	FISHt1: {
+		NAME: "Fishery breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Fishery. Tools must be manually equipped in the workplace.",
+	},
+	FISH02: {
+		NAME: "Skilled Fishery breeding",
+		DESC: "Improves the output of our Fisheries",
+	},
+	FISH03: {
+		NAME: "Profficient Fishery breeding",
+		DESC: "Improves the output of our Fisheries",
+	},
+	FISHt2: {
+		NAME: "Advanced Fishery breeding Tools",
+		DESC: "Unlocks tools to be equipped for the Fishery. Tools must be manually equipped in the workplace.",
+	},
+	FISH04: {
+		NAME: "Expert Fishery breeding",
+		DESC: "Improves the output of our Fisheries",
+	},
+	FISHu2: {
+		NAME: "Advanced Fishery",
+		DESC: "Allows you to upgrade your Fisheries. Upgrades cost resources and increases maintenance cost.",
+	},
+},
+

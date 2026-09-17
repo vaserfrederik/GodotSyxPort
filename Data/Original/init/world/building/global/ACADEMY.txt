@@ -1,0 +1,68 @@
+**	10 garrison = 1 workforce
+** 2200, 1000, 400, 100
+** 2200 is roughly 15 regions. lets do 15, 10, 5, 2
+
+AI_BUILDS: true,
+LEVELS: [
+	{
+		ICON: 32->TRAINING->0, 
+		CREDITS: 40000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_ACADEMY_KINGDOM: 4,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -2,
+		},
+		BOOST_GLOBAL: {
+			WORLD_GARRISON>ADD: 10,
+		},
+	},
+	{
+		ICON: 32->TRAINING->0, 
+		CREDITS: 150000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_ACADEMY_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -25,
+		},
+		BOOST_GLOBAL: {
+			WORLD_GARRISON>ADD: 25,
+		},
+	},
+	{
+		ICON: 32->TRAINING->0, 
+		CREDITS: 400000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_ACADEMY_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -50,
+		},
+		BOOST_GLOBAL: {
+			WORLD_GARRISON>ADD: 50,
+		},
+	},
+	{
+		ICON: 32->TRAINING->0, 
+		CREDITS: 400000,
+		REQUIRES: {
+			LESS: {
+				BUILDING_GLOBAL_ACADEMY_KINGDOM: 5,
+			},
+		},
+		BOOST: {
+			WORLD_POINT_WORKFORCE>ADD: -150,
+		},
+		BOOST_GLOBAL: {
+			WORLD_GARRISON>ADD: 100,
+		},
+	},
+],
+

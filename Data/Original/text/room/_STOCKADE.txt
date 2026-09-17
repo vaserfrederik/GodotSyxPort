@@ -1,0 +1,36 @@
+INFO: {
+	NAME: "Stockade",
+	NAMES: "Stockades",
+	DESC: "A place to securely hold apprehended criminals and captives before processing them in a law facility.",
+	WIKI: {
+		CATEGORY: "Law",
+		NAME: "Stockades",
+		TEXT: "Stockades are used to hold criminals and war captives. Without stockades, the punishment will default to 'exile'.
+		 
+		Wardens are needed to prevent escape and deliver food.",
+		CATEGORIES: [],
+	},
+},
+
+WORK: {
+	TITLE: "Jailer",
+	VERB: "Tending to prisoners",
+},
+
+STATS: [
+	{
+		NAME: "Guards",
+		DESC: "The amount of guards needed.",
+	},
+	{
+		NAME: "Prisoners",
+		DESC: "Prisoner Capacity.",
+	},
+],
+
+ITEMS: [
+	{
+		NAME: "Entrance",
+		DESC: "The entrance of the stockade. Must be placed on the edge of the room.",
+	},
+],

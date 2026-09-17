@@ -1,0 +1,152 @@
+NAME: "Refining",
+TECHS: {
+	BAKE01: {
+		NAME: "Basic Baking",
+		DESC: "Improves the output of our Bakeries",
+	},
+	BAKE02: {
+		NAME: "Skilled Baking",
+		DESC: "Improves the output of our Bakeries",
+	},
+	BAKEu1: {
+		NAME: "Improved Bakery",
+		DESC: "Allows you to upgrade your Bakeries. Upgrades cost resources and increases maintenance cost.",
+	},
+	BAKE03: {
+		NAME: "Profficient Baking",
+		DESC: "Improves the output of our Bakeries",
+	},
+	BAKE04: {
+		NAME: "Expert Baking",
+		DESC: "Improves the output of our Bakeries",
+	},
+	BAKEu2: {
+		NAME: "Advanced Bakery",
+		DESC: "Allows you to upgrade your Bakeries. Upgrades cost resources and increases maintenance cost.",
+	},
+	BAKEc0: {
+		NAME: "Wood oven Excellence",
+		DESC: "Decreases consumption when making bread with wood as fuel.",
+	},
+	BAKEc1: {
+		NAME: "Coal oven Excellence",
+		DESC: "Decreases consumption when making bread with coal as fuel.",
+	},
+	BREW01: {
+		NAME: "Basic Brewing Drink",
+		DESC: "Improves the output of our Breweries",
+	},
+	BREW02: {
+		NAME: "Skilled Brewing Drink",
+		DESC: "Improves the output of our Breweries",
+	},
+	BREWu1: {
+		NAME: "Improved Brewery",
+		DESC: "Allows you to upgrade your Breweries. Upgrades cost resources and increases maintenance cost.",
+	},
+	BREW03: {
+		NAME: "Profficient Brewing Drink",
+		DESC: "Improves the output of our Breweries",
+	},
+	BREW04: {
+		NAME: "Expert Brewing Drink",
+		DESC: "Improves the output of our Breweries",
+	},
+	BREWu2: {
+		NAME: "Advanced Brewery",
+		DESC: "Allows you to upgrade your Breweries. Upgrades cost resources and increases maintenance cost.",
+	},
+	BREWc0: {
+		NAME: "Piwa Excellence",
+		DESC: "Decreases consumption when making Piwa.",
+	},
+	BREWc1: {
+		NAME: "Shedeh Excellence",
+		DESC: "Decreases consumption when making Shedeh.",
+	},
+	COAL01: {
+		NAME: "Basic Charcoaling",
+		DESC: "Improves the output of our Charcoalers",
+	},
+	COAL02: {
+		NAME: "Skilled Charcoaling",
+		DESC: "Improves the output of our Charcoalers",
+	},
+	COALu1: {
+		NAME: "Improved Charcoaler",
+		DESC: "Allows you to upgrade your Charcoalers. Upgrades cost resources and increases maintenance cost.",
+	},
+	COAL03: {
+		NAME: "Profficient Charcoaling",
+		DESC: "Improves the output of our Charcoalers",
+	},
+	COAL04: {
+		NAME: "Expert Charcoaling",
+		DESC: "Improves the output of our Charcoalers",
+	},
+	COALu2: {
+		NAME: "Advanced Charcoaler",
+		DESC: "Allows you to upgrade your Charcoalers. Upgrades cost resources and increases maintenance cost.",
+	},
+	COALc0: {
+		NAME: "Charcoaling Excellence",
+		DESC: "Decreases consumption when making coal in the charcoaler.",
+	},
+	SMEL01: {
+		NAME: "Basic Metal Smelting",
+		DESC: "Knowing the perfect temperature and how to achieve it quickly is the first step towards making your smelters competitive.",
+	},
+	SMEL02: {
+		NAME: "Skilled Metal Smelting",
+		DESC: "Improved safety procedures, like the safety squint, make your workers far more productive. They spend a lot less time avoiding work out of fear for their lives.",
+	},
+	SMELu1: {
+		NAME: "Improved Smelter",
+		DESC: "Besides improvements to the smelting vessels, this upgrade adds accurate temperature readouts, allowing for smaller safety margins when heating.",
+	},
+	SMEL03: {
+		NAME: "Profficient Metal Smelting",
+		DESC: "Investigations into how fast the crucibles can be heated and cooled before they crack lower the time between batches.",
+	},
+	SMEL04: {
+		NAME: "Expert Metal Smelting",
+		DESC: "Knowledge of even minute differences between ores enhances productivity - impurities can affect the process greatly.",
+	},
+	SMELu2: {
+		NAME: "Advanced Smelter",
+		DESC: "With this upgrade, part of the ore-loading process has been automated. Additionally, better ventilation ensures your workers keep a clear head.",
+	},
+	SMELc0: {
+		NAME: "Smelting Excellence",
+		DESC: "Research into minimizing the production and metal content of slag would increase the metal produced per load of ore.",
+	},
+	WEAV01: {
+		NAME: "Basic Weaving Clothes",
+		DESC: "Improves the output of our Weavers",
+	},
+	WEAV02: {
+		NAME: "Skilled Weaving Clothes",
+		DESC: "Improves the output of our Weavers",
+	},
+	WEAVu1: {
+		NAME: "Improved Weaver",
+		DESC: "Allows you to upgrade your Weavers. Upgrades cost resources and increases maintenance cost.",
+	},
+	WEAV03: {
+		NAME: "Profficient Weaving Clothes",
+		DESC: "Improves the output of our Weavers",
+	},
+	WEAV04: {
+		NAME: "Expert Weaving Clothes",
+		DESC: "Improves the output of our Weavers",
+	},
+	WEAVu2: {
+		NAME: "Advanced Weaver",
+		DESC: "Allows you to upgrade your Weavers. Upgrades cost resources and increases maintenance cost.",
+	},
+	WEAVc0: {
+		NAME: "Weaving Excellence",
+		DESC: "Decreases consumption when making fabric in the weaver.",
+	},
+},
+
