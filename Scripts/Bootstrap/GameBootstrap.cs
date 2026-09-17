@@ -1751,6 +1751,9 @@ public sealed partial class GameBootstrap : Node3D
                         new SavedFurnitureFootprint
                         {
                             Anchor = item.Anchor,
+                            Group = item.Group,
+                            Variant = item.Variant,
+                            Rotation = item.Rotation,
                             Cells = item.Cells.ToArray(),
                             Broken = item.Broken
                         }).ToArray(),
@@ -1834,7 +1837,7 @@ public sealed partial class GameBootstrap : Node3D
     {
         var save = SaveGameService.Load();
         if (save is null) return;
-        if (save.Version is < 1 or > 36 || save.MapWidth != GridWorld.Width || save.MapHeight != GridWorld.Height)
+        if (save.Version is < 1 or > 37 || save.MapWidth != GridWorld.Width || save.MapHeight != GridWorld.Height)
         {
             if (userRequested) GD.PushWarning("Формат сохранения или размер карты не совпадает.");
             return;
@@ -1947,6 +1950,9 @@ public sealed partial class GameBootstrap : Node3D
                 room.FurnitureFootprints.Select(item => new RoomFurnitureFootprint
                 {
                     Anchor = item.Anchor,
+                    Group = item.Group,
+                    Variant = item.Variant,
+                    Rotation = item.Rotation,
                     Cells = item.Cells.ToHashSet(),
                     Broken = item.Broken
                 }).ToArray(),

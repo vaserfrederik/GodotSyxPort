@@ -178,7 +178,8 @@ public sealed class RoomPlacementRuntime
         var workCells = layout.RotatedWorkCells(rotation).Select(offset => origin + offset).ToArray();
         var storageCells = layout.RotatedStorageCells(rotation).Select(offset => origin + offset).ToArray();
         var placement = new FurniturePlacement(
-            group, layout.CostMultiplier, layout.StatMultiplier,
+            group, variant, ((rotation % 4) + 4) % 4,
+            layout.CostMultiplier, layout.StatMultiplier,
             occupiedCells, blockerCells, reachableCells,
             workCells, storageCells);
         _placements[origin] = placement;
@@ -346,6 +347,8 @@ public sealed class RoomPlacementRuntime
 
 public sealed record FurniturePlacement(
     int Group,
+    int Variant,
+    int Rotation,
     double CostMultiplier,
     double StatMultiplier,
     IReadOnlyList<GridCoord> Cells,

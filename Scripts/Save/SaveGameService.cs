@@ -18,7 +18,7 @@ namespace GodotSyxPort.Save;
 
 public sealed class SaveSnapshot
 {
-    public int Version { get; set; } = 36;
+    public int Version { get; set; } = 37;
     public int WorldSeed { get; set; }
     public int SelectedRegionId { get; set; } = -1;
     public int WorldCapitalX { get; set; } = -1;
@@ -168,6 +168,9 @@ public sealed class SavedRoom
 public sealed class SavedFurnitureFootprint
 {
     public int Anchor { get; set; }
+    public int Group { get; set; }
+    public int Variant { get; set; }
+    public int Rotation { get; set; }
     public int[] Cells { get; set; } = Array.Empty<int>();
     public bool Broken { get; set; }
 }

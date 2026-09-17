@@ -2343,6 +2343,7 @@ public sealed partial class CitizenSystem : Node3D
                 foreach (var cell in agent.Job.FurnitureCells)
                     _world.BuildFurniture(cell, blockers.Contains(cell), reachable.Contains(cell),
                         work.Contains(cell), storage.Contains(cell));
+                _rooms.CompleteFurnitureVisual(agent.Job);
                 break;
             }
             case BuildKind.Production:

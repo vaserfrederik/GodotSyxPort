@@ -2,7 +2,9 @@ using Godot;
 using GodotSyxPort.Core;
 using GodotSyxPort.Rendering;
 using System.Collections.Generic;
+using System.Linq;
 using GodotSyxPort.Data;
+using GodotSyxPort.Rooms;
 
 namespace GodotSyxPort.Settlement;
 
@@ -22,6 +24,8 @@ public sealed partial class GridWorld : Node3D
     private ChunkTileRenderer _zones = null!;
     private ChunkTileRenderer _doors = null!;
     private ChunkWallRenderer _furniture = null!;
+    private OriginalFurnitureSpriteRenderer _furnitureSprites = null!;
+    private readonly Dictionary<GridCoord, GridCoord> _furnitureVisualByCell = new();
     private ChunkTileRenderer _draftArea = null!;
     private ChunkTileRenderer _draftPerimeter = null!;
     private ChunkTileRenderer _draftDoors = null!;
@@ -99,6 +103,9 @@ public sealed partial class GridWorld : Node3D
         _furniture = new ChunkWallRenderer { Name = "ChunkFurniture" };
         AddChild(_furniture);
         _furniture.Initialize(Width, Height, new Vector3(0.72f, 0.7f, 0.72f), new Color("725338"), 0.35f);
+        _furnitureSprites = new OriginalFurnitureSpriteRenderer { Name = "OriginalFurnitureSprites" };
+        AddChild(_furnitureSprites);
+        _furnitureSprites.Initialize(Width, Height);
         _draftArea = new ChunkTileRenderer { Name = "DraftArea" };
         AddChild(_draftArea);
         _draftArea.Initialize(Width, Height, new Color(0.18f, 0.55f, 1f, 0.44f), 0.08f);
@@ -334,6 +341,20 @@ public sealed partial class GridWorld : Node3D
         _furniture.AddWall(cell);
     }
 
+    public void AddFurnitureVisual(FurnitureVisualPlacement placement)
+    {
+        if (!OriginalFurnitureSpriteRenderer.Supports(placement.RoomKey)) return;
+        var variants = FurnisherLayoutCatalog.Variants(placement.RoomKey, placement.Group);
+        var layout = variants[System.Math.Clamp(placement.Variant, 0, variants.Count - 1)];
+        foreach (var offset in layout.RotatedCells(placement.Rotation))
+        {
+            var cell = placement.Origin + offset;
+            _furniture.RemoveWall(cell);
+            _furnitureVisualByCell[cell] = placement.Origin;
+        }
+        _furnitureSprites.Add(placement);
+    }
+
     public bool RemoveFurniture(GridCoord cell)
     {
         var existed = Data.Has(cell, TileFlags.Furniture);
@@ -343,6 +364,13 @@ public sealed partial class GridWorld : Node3D
         Data.Set(cell, TileFlags.Furniture, false);
         _furnitureCells.Remove(CellToIndex(cell));
         _furniture.RemoveWall(cell);
+        if (_furnitureVisualByCell.Remove(cell, out var origin))
+        {
+            _furnitureSprites.Remove(origin);
+            foreach (var mapped in _furnitureVisualByCell.Where(pair => pair.Value == origin)
+                         .Select(pair => pair.Key).ToArray())
+                _furnitureVisualByCell.Remove(mapped);
+        }
         return true;
     }
 

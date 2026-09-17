@@ -68,6 +68,9 @@ public sealed class RoomRecord
 public sealed class RoomFurnitureFootprint
 {
     public int Anchor { get; init; }
+    public int Group { get; init; }
+    public int Variant { get; init; }
+    public int Rotation { get; init; }
     public HashSet<int> Cells { get; init; } = new();
     public bool Broken { get; set; }
 }
@@ -253,6 +256,9 @@ public sealed class RoomSystem
                 room.FurnitureFootprints.Add(new RoomFurnitureFootprint
                 {
                     Anchor = _world.CellToIndex(placement.Key),
+                    Group = placement.Value.Group,
+                    Variant = placement.Value.Variant,
+                    Rotation = placement.Value.Rotation,
                     Cells = placement.Value.Cells.Select(_world.CellToIndex).ToHashSet()
                 });
         var plannedFurniture = furniturePlacements is { Count: > 0 }
@@ -297,6 +303,19 @@ public sealed class RoomSystem
         !(definitionKey.Equals("_THRONE", StringComparison.OrdinalIgnoreCase) &&
           _rooms.Any(room => room.DefinitionKey.Equals("_THRONE", StringComparison.OrdinalIgnoreCase))) &&
         Technologies.IsContentUnlocked("ROOM_" + definitionKey);
+
+    public void CompleteFurnitureVisual(BuildJob job)
+    {
+        var room = _rooms.FirstOrDefault(value => value.Id == job.RoomId);
+        if (room is null) return;
+        var footprint = room.FurnitureFootprints.FirstOrDefault(value =>
+            value.Anchor == _world.CellToIndex(job.Cell));
+        if (footprint is null || footprint.Cells.Any(index =>
+                !_world.Data.Has(_world.FromIndex(index), TileFlags.Furniture))) return;
+        _world.AddFurnitureVisual(new FurnitureVisualPlacement(room.DefinitionKey,
+            footprint.Group, footprint.Variant, footprint.Rotation,
+            _world.FromIndex(footprint.Anchor)));
+    }
 
     public bool CanSetUpgrade(RoomRecord room, int level) => level <= 0 ||
         CanSetDefinitionUpgrade(room.DefinitionKey, level);
@@ -1443,6 +1462,9 @@ public sealed class RoomSystem
                 : furnitureFootprints.Select(item => new RoomFurnitureFootprint
                 {
                     Anchor = item.Anchor,
+                    Group = item.Group,
+                    Variant = item.Variant,
+                    Rotation = item.Rotation,
                     Cells = item.Cells.ToHashSet(),
                     Broken = item.Broken
                 }).ToList(),
@@ -1453,6 +1475,11 @@ public sealed class RoomSystem
         foreach (var footprint in room.FurnitureFootprints.Where(item => item.Broken))
             foreach (var index in footprint.Cells)
                 _world.Data.SetFurnitureBroken(_world.FromIndex(index), true);
+        foreach (var footprint in room.FurnitureFootprints.Where(item =>
+                     item.Cells.All(index => _world.Data.Has(_world.FromIndex(index), TileFlags.Furniture))))
+            _world.AddFurnitureVisual(new FurnitureVisualPlacement(room.DefinitionKey,
+                footprint.Group, footprint.Variant, footprint.Rotation,
+                _world.FromIndex(footprint.Anchor)));
         RegisterInstance(room);
         return room;
     }
