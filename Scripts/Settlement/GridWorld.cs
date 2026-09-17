@@ -25,6 +25,7 @@ public sealed partial class GridWorld : Node3D
     private ChunkTileRenderer _doors = null!;
     private ChunkWallRenderer _furniture = null!;
     private OriginalFurnitureSpriteRenderer _furnitureSprites = null!;
+    private OriginalFurnitureSpriteRenderer _draftFurnitureSprites = null!;
     private readonly Dictionary<GridCoord, GridCoord> _furnitureVisualByCell = new();
     private ChunkTileRenderer _draftArea = null!;
     private ChunkTileRenderer _draftPerimeter = null!;
@@ -106,6 +107,9 @@ public sealed partial class GridWorld : Node3D
         _furnitureSprites = new OriginalFurnitureSpriteRenderer { Name = "OriginalFurnitureSprites" };
         AddChild(_furnitureSprites);
         _furnitureSprites.Initialize(Width, Height);
+        _draftFurnitureSprites = new OriginalFurnitureSpriteRenderer { Name = "OriginalFurniturePreview" };
+        AddChild(_draftFurnitureSprites);
+        _draftFurnitureSprites.Initialize(Width, Height);
         _draftArea = new ChunkTileRenderer { Name = "DraftArea" };
         AddChild(_draftArea);
         _draftArea.Initialize(Width, Height, new Color(0.18f, 0.55f, 1f, 0.44f), 0.08f);
@@ -292,13 +296,25 @@ public sealed partial class GridWorld : Node3D
         IEnumerable<GridCoord> perimeter,
         IEnumerable<GridCoord> doors,
         IEnumerable<GridCoord>? furniture = null,
-        IEnumerable<GridCoord>? invalidFurniture = null)
+        IEnumerable<GridCoord>? invalidFurniture = null,
+        IEnumerable<FurnitureVisualPlacement>? furniturePlacements = null)
     {
         _draftArea.SetCells(area);
         _draftPerimeter.SetCells(perimeter);
         _draftDoors.SetCells(doors);
-        _draftFurniture.SetCells(furniture ?? System.Array.Empty<GridCoord>());
-        _draftFurnitureInvalid.SetCells(invalidFurniture ?? System.Array.Empty<GridCoord>());
+        var placements = furniturePlacements?.ToArray() ?? System.Array.Empty<FurnitureVisualPlacement>();
+        var sourceCells = placements.Where(value => OriginalFurnitureSpriteRenderer.Supports(value.RoomKey))
+            .SelectMany(value =>
+            {
+                var variants = FurnisherLayoutCatalog.Variants(value.RoomKey, value.Group);
+                var layout = variants[System.Math.Clamp(value.Variant, 0, variants.Count - 1)];
+                return layout.RotatedCells(value.Rotation).Select(offset => value.Origin + offset);
+            }).ToHashSet();
+        var invalid = (invalidFurniture ?? System.Array.Empty<GridCoord>()).ToHashSet();
+        _draftFurniture.SetCells((furniture ?? System.Array.Empty<GridCoord>())
+            .Where(cell => !sourceCells.Contains(cell) && !invalid.Contains(cell)));
+        _draftFurnitureInvalid.SetCells(invalid.Where(cell => !sourceCells.Contains(cell)));
+        _draftFurnitureSprites.SetPreview(placements, invalid);
     }
 
     /// <summary>
@@ -315,6 +331,7 @@ public sealed partial class GridWorld : Node3D
         _draftDoors.Clear();
         _draftFurniture.Clear();
         _draftFurnitureInvalid.Clear();
+        _draftFurnitureSprites.Clear();
     }
 
     public bool CanPlanFurniture(GridCoord cell) =>

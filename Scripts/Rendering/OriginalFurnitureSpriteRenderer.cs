@@ -57,6 +57,19 @@ public sealed partial class OriginalFurnitureSpriteRenderer : Node3D
         _placements.Clear();
     }
 
+    public void SetPreview(IEnumerable<FurnitureVisualPlacement> placements,
+        IReadOnlySet<GridCoord> invalidCells)
+    {
+        Clear();
+        foreach (var placement in placements.Where(value => Supports(value.RoomKey)))
+        {
+            var root = new Node3D { Name = $"Preview_{placement.Origin.X}_{placement.Origin.Z}" };
+            AddChild(root);
+            _placements[placement.Origin] = root;
+            RenderHunterPlaceholder(root, placement, invalidCells);
+        }
+    }
+
     private void RenderHunter(Node3D root, FurnitureVisualPlacement placement)
     {
         var combo = new HashSet<GridCoord>();
@@ -113,12 +126,55 @@ public sealed partial class OriginalFurnitureSpriteRenderer : Node3D
         }
     }
 
+    private void RenderHunterPlaceholder(Node3D root, FurnitureVisualPlacement placement,
+        IReadOnlySet<GridCoord> invalidCells)
+    {
+        var combo = new HashSet<GridCoord>();
+        var singles = new HashSet<GridCoord>();
+        var variants = FurnisherLayoutCatalog.Variants(placement.RoomKey, placement.Group);
+        var layout = variants[Math.Clamp(placement.Variant, 0, variants.Count - 1)];
+        foreach (var source in layout.Cells)
+        {
+            var cell = placement.Origin + layout.RotateCell(source, placement.Rotation);
+            var storage = placement.Group == 1 && layout.Width > 1 &&
+                (source.X == 0 || layout.Width > 2 && source.X == layout.Width - 1);
+            if (storage) singles.Add(cell); else combo.Add(cell);
+        }
+        foreach (var cell in combo)
+        {
+            var mask = 0;
+            if (combo.Contains(cell + new GridCoord(0, -1))) mask |= 1;
+            if (combo.Contains(cell + new GridCoord(1, 0))) mask |= 2;
+            if (combo.Contains(cell + new GridCoord(0, 1))) mask |= 4;
+            if (combo.Contains(cell + new GridCoord(-1, 0))) mask |= 8;
+            AddConstructionMask(root, cell, mask, invalidCells.Contains(cell));
+        }
+        foreach (var cell in singles)
+            AddConstructionMask(root, cell, 0, invalidCells.Contains(cell));
+    }
+
+    private void AddConstructionMask(Node3D root, GridCoord cell, int mask, bool invalid)
+    {
+        // UIConses.Big.filled is source house variant 9. Big houses begin at y=40;
+        // ComposerSources.house adds the two-pixel body margin and mask offsets.
+        const int variant = 9;
+        var bodyX = variant % 7 * 72 + 2;
+        var bodyY = 40 + variant / 7 * 72 + 2;
+        AddTile(root, cell, "ui/Cons.png", bodyX + HouseX[mask],
+            bodyY + HouseY[mask], invalid ? 0.165f : 0.155f, 0,
+            invalid ? new Color(0.92f, 0.16f, 0.12f, 0.9f) :
+                new Color(0.12f, 0.48f, 1f, 0.86f));
+    }
+
     private void AddTile(Node3D root, GridCoord cell, string source, int x, int y,
-        float elevation, int quarterTurns = 0)
+        float elevation, int quarterTurns = 0, Color? tint = null)
     {
         if (!_textures.TryGetValue(source, out var texture))
         {
-            texture = GD.Load<Texture2D>($"{SpriteRoot}/{source}");
+            var path = source.StartsWith("ui/", StringComparison.OrdinalIgnoreCase)
+                ? $"res://Data/Original/assets/sprite/{source}"
+                : $"{SpriteRoot}/{source}";
+            texture = GD.Load<Texture2D>(path);
             if (texture is null) return;
             _textures[source] = texture;
         }
@@ -126,6 +182,7 @@ public sealed partial class OriginalFurnitureSpriteRenderer : Node3D
         var material = new StandardMaterial3D
         {
             AlbedoTexture = atlas,
+            AlbedoColor = tint ?? Colors.White,
             Transparency = BaseMaterial3D.TransparencyEnum.Alpha,
             ShadingMode = BaseMaterial3D.ShadingModeEnum.Unshaded,
             TextureFilter = BaseMaterial3D.TextureFilterEnum.Nearest

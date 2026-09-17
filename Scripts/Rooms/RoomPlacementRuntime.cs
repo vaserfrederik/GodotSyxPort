@@ -110,7 +110,10 @@ public sealed class RoomPlacementRuntime
         _world.ShowRoomPreview(previewArea,
             AutoWalls ? previewPerimeter : Array.Empty<GridCoord>(),
             _doors.Where(previewPerimeter.Contains),
-            _furniture.Keys.Where(previewArea.Contains));
+            _furniture.Keys.Where(previewArea.Contains), furniturePlacements:
+            _placements.Where(pair => pair.Value.Cells.All(previewArea.Contains))
+                .Select(pair => new FurnitureVisualPlacement(DefinitionKey,
+                    pair.Value.Group, pair.Value.Variant, pair.Value.Rotation, pair.Key)));
     }
 
     private bool CanAddArea(GridCoord cell) => _world.IsInside(cell) &&

@@ -205,7 +205,9 @@ public sealed class RoomPlanner
         var valid = ghost.Except(invalid);
         _world.ShowRoomPreview(Definitions.Area,
             AutoWalls ? Definitions.Perimeter : System.Array.Empty<GridCoord>(), Definitions.Doors,
-            Definitions.Furniture.Keys.Concat(valid), invalid);
+            Definitions.Furniture.Keys.Concat(valid), invalid,
+            DefinitionVisuals().Append(new FurnitureVisualPlacement(
+                Definitions.DefinitionKey, group, variant, rotation, origin)));
     }
 
     public int Commit(JobBoard jobs)
@@ -249,9 +251,14 @@ public sealed class RoomPlanner
         if (UsesDefinition)
             _world.ShowRoomPreview(Definitions.Area,
                 AutoWalls ? Definitions.Perimeter : System.Array.Empty<GridCoord>(), Definitions.Doors,
-                Definitions.Furniture.Keys);
+                Definitions.Furniture.Keys, furniturePlacements: DefinitionVisuals());
         else
             _world.ShowRoomPreview(_area,
                 AutoWalls ? _perimeter : System.Array.Empty<GridCoord>(), _doors);
     }
+
+    private IEnumerable<FurnitureVisualPlacement> DefinitionVisuals() =>
+        Definitions.Placements.Select(pair => new FurnitureVisualPlacement(
+            Definitions.DefinitionKey, pair.Value.Group, pair.Value.Variant,
+            pair.Value.Rotation, pair.Key));
 }
