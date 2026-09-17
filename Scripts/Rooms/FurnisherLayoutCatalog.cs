@@ -50,7 +50,7 @@ public sealed record FurnisherLayout(
 }
 
 public sealed record FurnitureVisualPlacement(
-    string RoomKey, int Group, int Variant, int Rotation, GridCoord Origin);
+    string RoomKey, int Group, int Variant, int Rotation, GridCoord Origin, int Upgrade = 0);
 
 public static class FurnisherLayoutCatalog
 {

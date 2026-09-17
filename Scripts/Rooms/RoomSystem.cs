@@ -314,7 +314,7 @@ public sealed class RoomSystem
                 !_world.Data.Has(_world.FromIndex(index), TileFlags.Furniture))) return;
         _world.AddFurnitureVisual(new FurnitureVisualPlacement(room.DefinitionKey,
             footprint.Group, footprint.Variant, footprint.Rotation,
-            _world.FromIndex(footprint.Anchor)));
+            _world.FromIndex(footprint.Anchor), room.UpgradeLevel));
     }
 
     public bool CanSetUpgrade(RoomRecord room, int level) => level <= 0 ||
@@ -330,6 +330,12 @@ public sealed class RoomSystem
         var clamped = Math.Clamp(level, 0, blueprint.MaximumUpgrade);
         if (!CanSetUpgrade(room, clamped)) return false;
         room.UpgradeLevel = clamped;
+        foreach (var footprint in room.FurnitureFootprints.Where(item =>
+                     item.Cells.All(index => _world.Data.Has(_world.FromIndex(index),
+                         TileFlags.Furniture))))
+            _world.AddFurnitureVisual(new FurnitureVisualPlacement(room.DefinitionKey,
+                footprint.Group, footprint.Variant, footprint.Rotation,
+                _world.FromIndex(footprint.Anchor), room.UpgradeLevel));
         return true;
     }
 
@@ -1479,7 +1485,7 @@ public sealed class RoomSystem
                      item.Cells.All(index => _world.Data.Has(_world.FromIndex(index), TileFlags.Furniture))))
             _world.AddFurnitureVisual(new FurnitureVisualPlacement(room.DefinitionKey,
                 footprint.Group, footprint.Variant, footprint.Rotation,
-                _world.FromIndex(footprint.Anchor)));
+                _world.FromIndex(footprint.Anchor), room.UpgradeLevel));
         RegisterInstance(room);
         return room;
     }

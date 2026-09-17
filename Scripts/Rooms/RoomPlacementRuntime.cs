@@ -113,7 +113,7 @@ public sealed class RoomPlacementRuntime
             _furniture.Keys.Where(previewArea.Contains), furniturePlacements:
             _placements.Where(pair => pair.Value.Cells.All(previewArea.Contains))
                 .Select(pair => new FurnitureVisualPlacement(DefinitionKey,
-                    pair.Value.Group, pair.Value.Variant, pair.Value.Rotation, pair.Key)));
+                    pair.Value.Group, pair.Value.Variant, pair.Value.Rotation, pair.Key, Upgrade)));
     }
 
     private bool CanAddArea(GridCoord cell) => _world.IsInside(cell) &&

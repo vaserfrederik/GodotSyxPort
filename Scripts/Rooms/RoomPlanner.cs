@@ -207,7 +207,7 @@ public sealed class RoomPlanner
             AutoWalls ? Definitions.Perimeter : System.Array.Empty<GridCoord>(), Definitions.Doors,
             Definitions.Furniture.Keys.Concat(valid), invalid,
             DefinitionVisuals().Append(new FurnitureVisualPlacement(
-                Definitions.DefinitionKey, group, variant, rotation, origin)));
+                Definitions.DefinitionKey, group, variant, rotation, origin, Definitions.Upgrade)));
     }
 
     public int Commit(JobBoard jobs)
@@ -260,5 +260,5 @@ public sealed class RoomPlanner
     private IEnumerable<FurnitureVisualPlacement> DefinitionVisuals() =>
         Definitions.Placements.Select(pair => new FurnitureVisualPlacement(
             Definitions.DefinitionKey, pair.Value.Group, pair.Value.Variant,
-            pair.Value.Rotation, pair.Key));
+            pair.Value.Rotation, pair.Key, Definitions.Upgrade));
 }
