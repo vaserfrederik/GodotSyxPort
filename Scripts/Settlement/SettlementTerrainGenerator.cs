@@ -236,7 +236,7 @@ public sealed record SettlementGenerationProfile(
             smallRiverSides = SettlementWaterSides.West | SettlementWaterSides.East;
         return new SettlementGenerationProfile(
             seed,
-            Math.Clamp(averageMoisture, 0.05, 0.95),
+            Math.Clamp(averageFertility, 0.05, 0.95),
             Math.Clamp(0.04 + mountain / (double)samples * 0.58, 0.04, 0.62),
             Math.Clamp(0.04 + water / (double)samples * 0.42, 0.04, 0.42),
             mountain / (double)samples > 0.32 || averageElevation > 0.62,
@@ -475,6 +475,24 @@ public sealed class SettlementTerrainGenerator
             return profile.WorldTiles![x + z * dimension].Water is
                 StrategicWaterKind.River or StrategicWaterKind.SmallRiver or StrategicWaterKind.Delta;
         }
+        bool Lake(int x, int z)
+        {
+            if ((uint)x >= dimension || (uint)z >= dimension) return false;
+            return profile.WorldTiles![x + z * dimension].Water is
+                StrategicWaterKind.Lake or StrategicWaterKind.DeepLake;
+        }
+
+        // GeneratorLake walks SettlementGrid.Tile.getDirs().  That direction set
+        // owns every centre/edge/corner exactly once, and stamps a lake only when
+        // the corresponding neighbouring world tile is also lake.  Painting one
+        // arbitrary disc at every quadrant centre loses the selected world shape.
+        var lakeRadius = Math.Max(12, (int)Math.Round(settings.LakeSize * 200));
+        var innerOffsetX = quadWidth * 3 / 8;
+        var innerOffsetZ = quadHeight * 3 / 8;
+        var ownedDirections = new (int X, int Z)[]
+        {
+            (1, 0), (1, 1), (0, 1), (0, 0)
+        };
         for (var z = 0; z < dimension; z++)
         for (var x = 0; x < dimension; x++)
         {
@@ -483,10 +501,17 @@ public sealed class SettlementTerrainGenerator
             var center = new GridCoord(x * quadWidth + quadWidth / 2, z * quadHeight + quadHeight / 2);
             if (kind is StrategicWaterKind.Lake or StrategicWaterKind.DeepLake)
             {
-                // GeneratorLake: LAKE_SIZE * 200. The previous 0.56*QUAD_SIZE
-                // made a lake almost fill a world quad and exposed its square border.
-                var radius = Math.Max(12, (int)Math.Round(settings.LakeSize * 200));
-                PaintWaterDisc(world, center, radius, profile.Seed ^ (x * 7919 + z * 104729));
+                var directions = new List<(int X, int Z)>(ownedDirections);
+                if (x == 0) { directions.Add((-1, 0)); directions.Add((-1, 1)); }
+                if (z == 0) { directions.Add((1, -1)); directions.Add((0, -1)); }
+                if (x == 0 && z == 0) directions.Add((-1, -1));
+                foreach (var direction in directions)
+                {
+                    if (!Lake(x + direction.X, z + direction.Z)) continue;
+                    var lakeCenter = new GridCoord(center.X + direction.X * innerOffsetX,
+                        center.Z + direction.Z * innerOffsetZ);
+                    PaintLakeDisc(world, lakeCenter, lakeRadius);
+                }
                 continue;
             }
             if (kind is not (StrategicWaterKind.River or StrategicWaterKind.SmallRiver or StrategicWaterKind.Delta))
@@ -520,6 +545,26 @@ public sealed class SettlementTerrainGenerator
             foreach (var endpoint in endpoints)
                 PaintWaterLine(world, endpoint, hub, width,
                     profile.Seed ^ (x * 7919 + z * 104729));
+        }
+    }
+
+    private static void PaintLakeDisc(WorldGridData world, GridCoord center, int radius)
+    {
+        // GeneratorLake.sink is a circle written through a four-tile Polymap.
+        // Quantising the test to that same four-tile lattice preserves its source
+        // outline without inventing per-pixel noise.
+        const int sample = 4;
+        var radiusSquared = radius * radius;
+        for (var z = center.Z - radius; z < center.Z + radius; z++)
+        for (var x = center.X - radius; x < center.X + radius; x++)
+        {
+            var qx = (x / sample) * sample + sample / 2;
+            var qz = (z / sample) * sample + sample / 2;
+            var dx = qx - center.X; var dz = qz - center.Z;
+            if (dx * dx + dz * dz >= radiusSquared) continue;
+            var cell = new GridCoord(x, z);
+            if (world.IsInside(cell) && world.Elevation(cell) / 255.0 < 0.8)
+                world.SetTerrain(cell, GroundKind.FreshWater, world.Elevation(cell), 0, 15);
         }
     }
 

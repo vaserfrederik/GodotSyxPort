@@ -26,6 +26,7 @@ public sealed partial class GridWorld : Node3D
     private ChunkTileRenderer _draftPerimeter = null!;
     private ChunkTileRenderer _draftDoors = null!;
     private ChunkTileRenderer _draftFurniture = null!;
+    private ChunkTileRenderer _draftFurnitureInvalid = null!;
     private readonly List<int> _wallCells = new();
     private readonly List<int> _roadCells = new();
     private readonly Dictionary<int, string> _roadKeys = new();
@@ -110,6 +111,9 @@ public sealed partial class GridWorld : Node3D
         _draftFurniture = new ChunkTileRenderer { Name = "DraftFurniture" };
         AddChild(_draftFurniture);
         _draftFurniture.Initialize(Width, Height, new Color(0.12f, 0.48f, 1f, 0.86f), 0.14f);
+        _draftFurnitureInvalid = new ChunkTileRenderer { Name = "DraftFurnitureInvalid" };
+        AddChild(_draftFurnitureInvalid);
+        _draftFurnitureInvalid.Initialize(Width, Height, new Color(0.92f, 0.16f, 0.12f, 0.9f), 0.145f);
     }
 
     public bool IsInside(GridCoord cell) => Data.IsInside(cell);
@@ -280,12 +284,14 @@ public sealed partial class GridWorld : Node3D
         IEnumerable<GridCoord> area,
         IEnumerable<GridCoord> perimeter,
         IEnumerable<GridCoord> doors,
-        IEnumerable<GridCoord>? furniture = null)
+        IEnumerable<GridCoord>? furniture = null,
+        IEnumerable<GridCoord>? invalidFurniture = null)
     {
         _draftArea.SetCells(area);
         _draftPerimeter.SetCells(perimeter);
         _draftDoors.SetCells(doors);
         _draftFurniture.SetCells(furniture ?? System.Array.Empty<GridCoord>());
+        _draftFurnitureInvalid.SetCells(invalidFurniture ?? System.Array.Empty<GridCoord>());
     }
 
     /// <summary>
@@ -301,6 +307,7 @@ public sealed partial class GridWorld : Node3D
         _draftPerimeter.Clear();
         _draftDoors.Clear();
         _draftFurniture.Clear();
+        _draftFurnitureInvalid.Clear();
     }
 
     public bool CanPlanFurniture(GridCoord cell) =>

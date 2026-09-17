@@ -38,6 +38,14 @@ public sealed record FurnisherLayout(
     public IReadOnlyList<GridCoord> RotatedReachableCells(int rotation) => Rotate(ReachableCells, rotation);
     public IReadOnlyList<GridCoord> RotatedWorkCells(int rotation) => Rotate(WorkCells, rotation);
     public IReadOnlyList<GridCoord> RotatedStorageCells(int rotation) => Rotate(StorageCells, rotation);
+    public int RotatedWidth(int rotation) => (rotation & 1) == 0 ? Width : Height;
+    public int RotatedHeight(int rotation) => (rotation & 1) == 0 ? Height : Width;
+
+    // PlacableFixedTool centres a fixed item on window.tile(), rather than using
+    // the cursor as its upper-left corner.
+    public GridCoord OriginAtCursor(GridCoord cursor, int rotation) => new(
+        cursor.X - RotatedWidth(rotation) / 2,
+        cursor.Z - RotatedHeight(rotation) / 2);
 }
 
 public static class FurnisherLayoutCatalog

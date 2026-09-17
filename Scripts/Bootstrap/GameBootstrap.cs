@@ -371,6 +371,15 @@ public sealed partial class GameBootstrap : Node3D
             case Key.Key1: SelectTool(BuildTool.Wall); break;
             case Key.Key2: SelectTool(BuildTool.Road); break;
             case Key.Key3: SelectTool(BuildTool.RoomArea); break;
+            case Key.E when _tool == BuildTool.Furniture:
+                ChangeFurnisherVariant(1);
+                break;
+            case Key.Q when _tool == BuildTool.Furniture:
+                ChangeFurnisherVariant(-1);
+                break;
+            case Key.R when _tool == BuildTool.Furniture:
+                RotateFurnisher();
+                break;
             case Key.R: SelectTool(BuildTool.Door); break;
             case Key.F: SelectTool(BuildTool.Furniture); break;
             case Key.I:
@@ -436,6 +445,7 @@ public sealed partial class GameBootstrap : Node3D
         // every rendered frame.  The heavier resource/sidebar refresh remains
         // on its 0.25 second cadence below.
         _rightSidebar.UpdateCameraView(_world.WorldToCell(_camera.Position), _camera.Size);
+        RefreshFurnitureCursorPreview();
         if (_landingPending) return;
         var ticks = _clock.ConsumeTicks(delta);
         _citizens.BeginFrame();
@@ -559,6 +569,33 @@ public sealed partial class GameBootstrap : Node3D
         if (distance < 0f) return null;
         var cell = _world.WorldToCell(from + direction * distance);
         return _world.IsInside(cell) ? cell : null;
+    }
+
+    private void RefreshFurnitureCursorPreview()
+    {
+        if (_tool != BuildTool.Furniture || !_roomPlanner.HasDraft ||
+            !_roomPlanner.UsesDefinition || _dragStart is not null) return;
+        if (ScreenToCell(GetViewport().GetMousePosition()) is { } cell)
+            _roomPlanner.PreviewFurniture(cell, _selectedFurnisherGroup,
+                _selectedFurnisherVariant, _selectedFurnisherRotation);
+    }
+
+    private void ChangeFurnisherVariant(int delta)
+    {
+        if (!_roomPlanner.UsesDefinition) return;
+        var variants = FurnisherLayoutCatalog.Variants(
+            _roomPlanner.SelectedDefinition, _selectedFurnisherGroup);
+        _selectedFurnisherVariant = Math.Clamp(
+            _selectedFurnisherVariant + delta, 0, Math.Max(0, variants.Count - 1));
+        RefreshFurnisherControls();
+        RefreshFurnitureCursorPreview();
+    }
+
+    private void RotateFurnisher()
+    {
+        _selectedFurnisherRotation = (_selectedFurnisherRotation + 1) % 4;
+        RefreshFurnisherControls();
+        RefreshFurnitureCursorPreview();
     }
 
     private void TryPlaceLandingParty(GridCoord throneCenter)
@@ -1447,9 +1484,9 @@ public sealed partial class GameBootstrap : Node3D
             Icon = OriginalUiIcons.Medium(44), TooltipText = "Повернуть объект",
             CustomMinimumSize = new Vector2(38, 34)
         };
-        smaller.Pressed += () => { _selectedFurnisherVariant = Math.Max(0, _selectedFurnisherVariant - 1); RefreshFurnisherControls(); };
-        larger.Pressed += () => { _selectedFurnisherVariant = Math.Min(variants.Count - 1, _selectedFurnisherVariant + 1); RefreshFurnisherControls(); };
-        rotate.Pressed += () => { _selectedFurnisherRotation = (_selectedFurnisherRotation + 1) % 4; RefreshFurnisherControls(); };
+        smaller.Pressed += () => ChangeFurnisherVariant(-1);
+        larger.Pressed += () => ChangeFurnisherVariant(1);
+        rotate.Pressed += RotateFurnisher;
         variationBar.AddChild(smaller);
         variationBar.AddChild(size);
         variationBar.AddChild(larger);
@@ -1487,13 +1524,56 @@ public sealed partial class GameBootstrap : Node3D
         var cost = _roomPlanner.DefinitionCost();
         var stats = FurnisherStatRuntime.Evaluate(
             _roomPlanner.SelectedDefinition, _roomPlanner.DefinitionItems);
-        _furnisherCost.Text = $"ПОКАЗАТЕЛИ\nВклад предметов: {items}\n" +
-            (stats.Length == 0 ? "" : $"Статы: {string.Join(" · ", stats.Select(value => value.ToString("0.##")))}\n") +
+        var blueprint = _rooms.Blueprints.Get(_roomPlanner.SelectedDefinition);
+        var statLines = stats.Select((value, index) =>
+        {
+            var sourceName = blueprint is not null && index < blueprint.Rule.FurnisherStats.Count
+                ? blueprint.Rule.FurnisherStats[index].Name : $"Показатель {index + 1}";
+            return $"{RussianStatName(sourceName)}: {FormatFurnisherStat(sourceName, value)}";
+        });
+        var variants = FurnisherLayoutCatalog.Variants(
+            _roomPlanner.SelectedDefinition, _selectedFurnisherGroup);
+        var selected = variants[Math.Clamp(_selectedFurnisherVariant, 0, variants.Count - 1)];
+        var itemStats = blueprint is null || (uint)_selectedFurnisherGroup >=
+            (uint)blueprint.Rule.FurnisherItems.Count
+            ? Array.Empty<double>()
+            : blueprint.Rule.FurnisherItems[_selectedFurnisherGroup].Stats
+                .Select(value => value * selected.StatMultiplier).ToArray();
+        var itemLines = itemStats.Select((value, index) => (value, index))
+            .Where(entry => Math.Abs(entry.value) > 0.000001)
+            .Select(entry =>
+        {
+            var sourceName = entry.index < blueprint!.Rule.FurnisherStats.Count
+                ? blueprint.Rule.FurnisherStats[entry.index].Name : $"Показатель {entry.index + 1}";
+            return $"{RussianStatName(sourceName)} +{FormatFurnisherStat(sourceName, entry.value)}";
+        }).ToArray();
+        _furnisherCost.Text = $"ПОКАЗАТЕЛИ\nРазмещено предметов: {items}\n" +
+            (stats.Length == 0 ? "" : string.Join("\n", statLines) + "\n") +
+            (itemLines.Length == 0 ? "" : "Выбранный предмет:\n" + string.Join("\n", itemLines) + "\n") +
             (cost.Count == 0 ? "Материалы не требуются" : "Материалы: " +
              string.Join(", ", cost.Select(pair => $"{pair.Key} ×{pair.Value}"))) +
             (string.IsNullOrWhiteSpace(_roomPlanner.PlacementStatus)
                 ? "" : $"\n{_roomPlanner.PlacementStatus}");
     }
+
+    private static string RussianStatName(string source) => source.Trim().ToUpperInvariant() switch
+    {
+        "EFFICIENCY" => "Эффективность",
+        "EMPLOYEES" or "WORKERS" or "HUNTERS" => "Рабочие места",
+        "OUTPUT" or "PRODUCTION" => "Производство",
+        "SERVICES" or "SERVICE" => "Обслуживание",
+        "STORAGE" => "Хранилище",
+        "CAPACITY" => "Вместимость",
+        "TABLES" => "Столы",
+        "COZINESS" => "Уют",
+        "MOISTURE" => "Влажность",
+        _ => source
+    };
+
+    private static string FormatFurnisherStat(string name, double value) =>
+        name.Contains("Efficiency", StringComparison.OrdinalIgnoreCase) ||
+        name.Contains("Эффектив", StringComparison.OrdinalIgnoreCase)
+            ? $"{value * 100:0.#}%" : value.ToString("0.##");
 
     private static IReadOnlyList<string> FurnisherItemNames(string roomKey, int count)
     {

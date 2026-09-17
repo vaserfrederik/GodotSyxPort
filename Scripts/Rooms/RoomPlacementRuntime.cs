@@ -157,7 +157,7 @@ public sealed class RoomPlacementRuntime
     public bool ToggleFurniture(GridCoord cell, int group, int variant = 0, int rotation = 0)
     {
         var count = _rooms.Blueprints.Get(DefinitionKey)?.Rule.FurnisherItems.Count ?? 0;
-        if (!_area.Contains(cell) || (uint)group >= (uint)count) return false;
+        if ((uint)group >= (uint)count) return false;
         if (_furniture.ContainsKey(cell))
         {
             PushHistory();
@@ -169,18 +169,19 @@ public sealed class RoomPlacementRuntime
         }
         var variants = FurnisherLayoutCatalog.Variants(DefinitionKey, group);
         var layout = variants[Math.Clamp(variant, 0, variants.Count - 1)];
-        var occupiedCells = layout.RotatedCells(rotation).Select(offset => cell + offset).ToArray();
+        var origin = layout.OriginAtCursor(cell, rotation);
+        var occupiedCells = layout.RotatedCells(rotation).Select(offset => origin + offset).ToArray();
         if (occupiedCells.Any(occupied => !_area.Contains(occupied) || _furniture.ContainsKey(occupied))) return false;
         PushHistory();
-        var blockerCells = layout.RotatedBlockerCells(rotation).Select(offset => cell + offset).ToArray();
-        var reachableCells = layout.RotatedReachableCells(rotation).Select(offset => cell + offset).ToArray();
-        var workCells = layout.RotatedWorkCells(rotation).Select(offset => cell + offset).ToArray();
-        var storageCells = layout.RotatedStorageCells(rotation).Select(offset => cell + offset).ToArray();
+        var blockerCells = layout.RotatedBlockerCells(rotation).Select(offset => origin + offset).ToArray();
+        var reachableCells = layout.RotatedReachableCells(rotation).Select(offset => origin + offset).ToArray();
+        var workCells = layout.RotatedWorkCells(rotation).Select(offset => origin + offset).ToArray();
+        var storageCells = layout.RotatedStorageCells(rotation).Select(offset => origin + offset).ToArray();
         var placement = new FurniturePlacement(
             group, layout.CostMultiplier, layout.StatMultiplier,
             occupiedCells, blockerCells, reachableCells,
             workCells, storageCells);
-        _placements[cell] = placement;
+        _placements[origin] = placement;
         foreach (var occupied in occupiedCells) _furniture[occupied] = group;
         RecountFurniture();
         return true;
@@ -204,29 +205,29 @@ public sealed class RoomPlacementRuntime
 
     public RoomPlacementValidation Validate()
     {
-        if (_area.Count == 0) return new(false, "Room area is empty");
-        if (_area.Count > RoomInstanceRuntime.MaximumArea) return new(false, "Maximum room area exceeded");
+        if (_area.Count == 0) return new(false, "Площадь комнаты не задана");
+        if (_area.Count > RoomInstanceRuntime.MaximumArea) return new(false, "Превышена максимальная площадь комнаты");
         var width = _area.Max(cell => cell.X) - _area.Min(cell => cell.X) + 1;
         var height = _area.Max(cell => cell.Z) - _area.Min(cell => cell.Z) + 1;
         if (width > RoomInstanceRuntime.MaximumDimension || height > RoomInstanceRuntime.MaximumDimension)
-            return new(false, "Maximum room dimension exceeded");
-        if (!Connected()) return new(false, "Room area must be connected");
+            return new(false, "Превышен максимальный размер комнаты");
+        if (!Connected()) return new(false, "Все клетки комнаты должны быть соединены");
         var blueprint = _rooms.Blueprints.Get(DefinitionKey);
-        if (blueprint is null) return new(false, "Unknown room definition");
+        if (blueprint is null) return new(false, "Неизвестный тип комнаты");
         if (!_rooms.CanSetDefinitionUpgrade(DefinitionKey, Upgrade))
-            return new(false, "Technology has not unlocked this room upgrade");
+            return new(false, "Улучшение комнаты ещё не открыто технологией");
         if (blueprint.Rule.HasWork && blueprint.Rule.FurnisherItems.Count > 0 &&
             _placements.Count == 0)
-            return new(false, "Working room requires at least one furnishing item");
+            return new(false, "Рабочему помещению требуется хотя бы один предмет обстановки");
         for (var group = 0; group < blueprint.Rule.FurnisherItems.Count; group++)
         {
             var constraint = FurnisherConstraintCatalog.Group(DefinitionKey, group);
             if (constraint is null) continue;
             var placed = _placements.Values.Count(item => item.Group == group);
             if (placed < constraint.Minimum)
-                return new(false, $"Furniture group {group + 1} requires at least {constraint.Minimum} item(s)");
+                return new(false, $"Для группы {group + 1} требуется минимум предметов: {constraint.Minimum}");
             if (placed > constraint.Maximum)
-                return new(false, $"Furniture group {group + 1} allows at most {constraint.Maximum} item(s)");
+                return new(false, $"Для группы {group + 1} разрешено максимум предметов: {constraint.Maximum}");
         }
         var stats = FurnisherStatRuntime.Evaluate(DefinitionKey, _itemGroups);
         var minimums = FurnisherConstraintCatalog.StatMinimums(DefinitionKey);
@@ -234,7 +235,7 @@ public sealed class RoomPlacementRuntime
             if (minimums[index] > 0 &&
                 ((uint)index >= (uint)stats.Length || stats[index] < minimums[index]))
                 return new(false,
-                    $"Furniture stat {index + 1} requires at least {minimums[index]:0.####}");
+                    $"Для показателя {index + 1} требуется минимум {minimums[index]:0.####}");
         var furnitureBlockers = _placements.Values.SelectMany(item => item.BlockerCells).ToHashSet();
         foreach (var reachable in _placements.Values.SelectMany(item => item.ReachableCells))
         {
@@ -244,12 +245,12 @@ public sealed class RoomPlacementRuntime
                 return _area.Contains(neighbor) && !furnitureBlockers.Contains(neighbor) &&
                        !_world.Data.IsBlocked(neighbor);
             });
-            if (!accessible) return new(false, "Furniture item requires a reachable side");
+            if (!accessible) return new(false, "К предмету должен оставаться доступный проход");
         }
         if (blueprint.Rule.Construction.Indoors && AutoWalls &&
             !_doors.Any(door => !_world.Data.IsBlocked(door)))
-            return new(false, "Indoor room requires a doorway");
-        if (!HasExternalAccess()) return new(false, "Room has no external access");
+            return new(false, "Закрытому помещению требуется дверной проём");
+        if (!HasExternalAccess()) return new(false, "У комнаты нет внешнего доступа");
         return RoomPlacementValidation.Success;
     }
 

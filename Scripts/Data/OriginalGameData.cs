@@ -136,6 +136,7 @@ public sealed record RoomUpgradeRule(
 public sealed record FurnisherItemGroupRule(
     IReadOnlyList<double> Costs,
     IReadOnlyList<double> Stats);
+public sealed record FurnisherStatTextRule(string Name, string Description);
 public sealed record WorkEquipmentRule(
     string Resource,
     double WearPerDay,
@@ -154,6 +155,7 @@ public sealed record RoomRule(
     RoomArchetype Archetype,
     RoomConstructionRule Construction,
     IReadOnlyList<FurnisherItemGroupRule> FurnisherItems,
+    IReadOnlyList<FurnisherStatTextRule> FurnisherStats,
     IReadOnlyList<RoomUpgradeRule> Upgrades,
     RoomServiceRule? Service,
     string Religion,
@@ -932,6 +934,7 @@ public sealed class OriginalGameData
                     data.Get("ITEMS")?.Items?.Count ?? 0,
                     data.Get("UPGRADES")?.Items?.Count ?? 0),
                 ReadFurnisherItems(data.Get("ITEMS")),
+                ReadFurnisherStats(text?.Get("STATS")),
                 ReadUpgrades(data.Get("UPGRADES")),
                 service is null ? null : new RoomServiceRule(
                     ServiceNeed(key, service),
@@ -1159,6 +1162,12 @@ public sealed class OriginalGameData
             ReadNumberArray(item.Get("COSTS")),
             ReadNumberArray(item.Get("STATS")))).ToArray() ??
         Array.Empty<FurnisherItemGroupRule>();
+
+    private static IReadOnlyList<FurnisherStatTextRule> ReadFurnisherStats(SyxDataNode? node) =>
+        node?.Items?.Select((item, index) => new FurnisherStatTextRule(
+            item.Get("NAME")?.Text($"Показатель {index + 1}") ?? $"Показатель {index + 1}",
+            item.Get("DESC")?.Text() ?? "")).ToArray() ??
+        Array.Empty<FurnisherStatTextRule>();
 
     private static RoomArchetype ClassifyRoom(string key, SyxDataNode data)
     {

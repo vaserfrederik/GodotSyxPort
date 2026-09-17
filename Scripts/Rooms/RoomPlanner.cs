@@ -81,7 +81,7 @@ public sealed class RoomPlanner
         if (!UsesDefinition) return;
         if (!_rooms.CanSetDefinitionUpgrade(Definitions.DefinitionKey, upgrade))
         {
-            PlacementStatus = "Technology has not unlocked this room upgrade";
+            PlacementStatus = "Улучшение комнаты ещё не открыто технологией";
             return;
         }
         Definitions.SetUpgrade(upgrade);
@@ -198,11 +198,14 @@ public sealed class RoomPlanner
         if (!UsesDefinition || !HasDraft) return;
         var variants = FurnisherLayoutCatalog.Variants(Definitions.DefinitionKey, group);
         var layout = variants[System.Math.Clamp(variant, 0, variants.Count - 1)];
-        var ghost = layout.RotatedCells(rotation).Select(offset => anchor + offset)
-            .Where(Definitions.Area.Contains);
+        var origin = layout.OriginAtCursor(anchor, rotation);
+        var ghost = layout.RotatedCells(rotation).Select(offset => origin + offset).ToArray();
+        var invalid = ghost.Where(cell => !Definitions.Area.Contains(cell) ||
+            Definitions.Furniture.ContainsKey(cell)).ToArray();
+        var valid = ghost.Except(invalid);
         _world.ShowRoomPreview(Definitions.Area,
             AutoWalls ? Definitions.Perimeter : System.Array.Empty<GridCoord>(), Definitions.Doors,
-            Definitions.Furniture.Keys.Concat(ghost));
+            Definitions.Furniture.Keys.Concat(valid), invalid);
     }
 
     public int Commit(JobBoard jobs)

@@ -43,6 +43,7 @@ public static class OriginalSettlementTerrainTextureBuilder
     {
         var ground = Load(MapRoot + "Ground.png");
         var mountain = Load(MapRoot + "Mountain.png");
+        var waterStencil = Load(MapRoot + "Water.png");
         var tree = Load(MapRoot + "Tree.png");
         var rock = Load(MapRoot + "Rock.png");
         var water = Load(TextureRoot + "Water.png");
@@ -56,10 +57,17 @@ public static class OriginalSettlementTerrainTextureBuilder
             var cell = new GridCoord(x, z);
             var variant = Hash(x, z, seed) & 63;
             var mountainMask = NeighborMask(data, cell, TileFlags.Mountain);
+            var waterMask = NeighborMask(data, cell, TileFlags.Water);
             for (var py = 0; py < PixelsPerTile; py++)
             for (var px = 0; px < PixelsPerTile; px++)
             {
-                var waterCoverage = SmoothFlag(data, x, z, px, py, TileFlags.Water);
+                // TWater.Sprites uses ComposerSources.house (four variants, sixteen
+                // orthogonal masks).  Sampling that stencil is essential: blending a
+                // boolean water field produces square shores and discards the source
+                // atlas' edge segments.
+                var waterCoverage = data.Has(cell, TileFlags.Water)
+                    ? WaterStencilCoverage(waterStencil, waterMask, variant, px, py)
+                    : 0f;
                 var mountainCoverage = SmoothFlag(data, x, z, px, py, TileFlags.Mountain);
                 Color color;
                 if (waterCoverage > 0.46f)
@@ -72,7 +80,6 @@ public static class OriginalSettlementTerrainTextureBuilder
                     var tint = salt ? new Color("326f8f") : new Color("377f9b");
                     if (deep) tint = tint.Darkened(0.30f);
                     color = TextureTint(sample, tint, 0.66f);
-                    color = color.Lerp(tint, 1f - Math.Clamp(waterCoverage, 0f, 1f));
                 }
                 else if (mountainCoverage > 0.44f)
                 {
@@ -88,8 +95,12 @@ public static class OriginalSettlementTerrainTextureBuilder
                 else
                 {
                     var kind = data.Ground(cell);
+                    // Water is a terrain layer over ground in Java. The compact C#
+                    // storage currently has no separate under-ground slot, so soil is
+                    // the correct neutral backing; forcing sand created the yellow
+                    // one-pixel halo visible around every fresh-water shore.
                     if (kind is GroundKind.FreshWater or GroundKind.SaltWater or GroundKind.Mountain)
-                        kind = GroundKind.Sand;
+                        kind = GroundKind.Soil;
                     var sample = GroundSample(ground, kind, variant, px, py);
                     color = TextureTint(sample, GroundTint(data, cell, kind), 0.72f);
                 }
@@ -212,6 +223,27 @@ public static class OriginalSettlementTerrainTextureBuilder
         return SafePixel(atlas,
             set * 96 + 4 + offsetsX[mask] + px * 4 + 2,
             4 + offsetsY[mask] + py * 4 + 2);
+    }
+
+    private static float WaterStencilCoverage(
+        Atlas atlas, int mask, int variant, int px, int py)
+    {
+        // ComposerSources.house with a 16px destination has a 72x72 body and a
+        // two-pixel source margin. These are the exact mask offsets from
+        // ComposerSources.House, used by TWater.Sprites.stencil.
+        ReadOnlySpan<int> offsetsX = stackalloc int[]
+        {
+            52, 52, 0, 0, 52, 52, 0, 0, 32, 32, 16, 16, 32, 32, 16, 16
+        };
+        ReadOnlySpan<int> offsetsY = stackalloc int[]
+        {
+            52, 32, 52, 32, 0, 16, 0, 16, 52, 32, 52, 32, 0, 16, 0, 16
+        };
+        mask &= 15;
+        var source = SafePixel(atlas,
+            (variant & 3) * 72 + 2 + offsetsX[mask] + px * 4 + 2,
+            2 + offsetsY[mask] + py * 4 + 2);
+        return Math.Clamp(source.R * 0.299f + source.G * 0.587f + source.B * 0.114f, 0f, 1f);
     }
 
     private static Color GroundTint(WorldGridData data, GridCoord cell, GroundKind kind)
