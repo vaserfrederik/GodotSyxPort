@@ -1,6 +1,9 @@
 using System;
+using System.Collections.Generic;
 using System.Linq;
+using GodotSyxPort.Core;
 using GodotSyxPort.Data;
+using GodotSyxPort.Settlement;
 
 namespace GodotSyxPort.Rooms;
 
@@ -14,7 +17,23 @@ public static class FurnisherStatRuntime
         => Evaluate(room.DefinitionKey, room.ItemGroupAmounts);
 
     public static double[] Evaluate(
-        string definitionKey, System.Collections.Generic.IReadOnlyDictionary<int, double> itemAmounts)
+        string definitionKey, IReadOnlyDictionary<int, double> itemAmounts)
+        => EvaluateSource(definitionKey, itemAmounts, null, null, 0);
+
+    public static double[] EvaluatePlacement(
+        string definitionKey,
+        IReadOnlyDictionary<int, double> itemAmounts,
+        IReadOnlyCollection<GridCoord> area,
+        WorldGridData world,
+        int existingEmployees = 0)
+        => EvaluateSource(definitionKey, itemAmounts, area, world, existingEmployees);
+
+    private static double[] EvaluateSource(
+        string definitionKey,
+        IReadOnlyDictionary<int, double> itemAmounts,
+        IReadOnlyCollection<GridCoord>? area,
+        WorldGridData? world,
+        int existingEmployees)
     {
         var source = OriginalGameData.Current.Room(definitionKey);
         if (source is null) return Array.Empty<double>();
@@ -41,7 +60,57 @@ public static class FurnisherStatRuntime
                 _ => values[rule.Index]
             };
         }
+        ApplyConstructorOverrides(source, values, area, world, existingEmployees);
         return values;
+    }
+
+    private static void ApplyConstructorOverrides(
+        RoomRule source,
+        double[] values,
+        IReadOnlyCollection<GridCoord>? area,
+        WorldGridData? world,
+        int existingEmployees)
+    {
+        if (source.Key.Equals("HUNTER_NORMAL", StringComparison.OrdinalIgnoreCase))
+        {
+            if (values.Length < 3) return;
+            var workers = values[0];
+            var rate = source.Recipes.FirstOrDefault()?.Outputs.FirstOrDefault()?.Rate ?? 0;
+            var maximum = source.SpecialProduction?.MaximumEmployed ?? 0;
+            var employees = existingEmployees + (int)Math.Ceiling(workers);
+            var employedBonus = maximum <= 0 || employees < maximum
+                ? 1.0
+                : 1.0 / (1.0 + (employees - maximum) / (maximum * 4.0));
+            // Constructor.output.get(): workers * first output rate * race bonus * eBonus.
+            // The player-race bonus is neutral until a race-specific bonus is selected.
+            values[2] = workers * rate * employedBonus;
+            return;
+        }
+
+        if (!source.Key.Equals("FISHERY_NORMAL", StringComparison.OrdinalIgnoreCase) ||
+            values.Length < 5) return;
+
+        var shallow = 0;
+        var fish = 0.0;
+        var deepAccess = 0.0;
+        if (area is not null && world is not null)
+            foreach (var cell in area)
+            {
+                var amount = world.FishAmount(cell);
+                deepAccess += amount / 15.0;
+                if (!world.Has(cell, TileFlags.Water) || world.Has(cell, TileFlags.DeepWater)) continue;
+                shallow++;
+                fish += amount / 15.0;
+            }
+
+        var workers = fish + shallow / 64.0;
+        var auxiliary = values[2];
+        var divisor = workers <= 0 ? 1.0 : workers;
+        values[0] = workers;
+        values[1] *= 31.0; // RoomResStorage(0b011111).max()
+        values[2] = Math.Clamp(0.5 + 0.5 * auxiliary / divisor, 0, 1);
+        values[3] = deepAccess;
+        values[4] = values[2] * (int)workers;
     }
 
     public static double Value(RoomRecord room, int index)
@@ -61,6 +130,7 @@ public static class FurnisherStatRuntime
         "UNIVERSITY_NORMAL" or "HUNTER_NORMAL" or "SCHOOL_NORMAL" or
             "_EMBASSY" or "_JANITOR" or "_POLICE" => 1,
         "LIBRARY_NORMAL" or "ADMIN_NORMAL" => 2,
+        "FISHERY_NORMAL" => 2,
         var value when value.StartsWith("PASTURE_") || value.StartsWith("MINE_") => 2,
         var value when value.StartsWith("WORKSHOP_") || value.StartsWith("REFINER_") => 1,
         _ => -1

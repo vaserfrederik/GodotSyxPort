@@ -94,6 +94,12 @@ public sealed class RoomPlanner
     public IReadOnlyDictionary<ResourceKind, int> DefinitionCost() =>
         UsesDefinition ? Definitions.Cost() : new Dictionary<ResourceKind, int>();
 
+    public double[] DefinitionStats() => UsesDefinition ? Definitions.Stats() : System.Array.Empty<double>();
+
+    public double[] DefinitionStatsWithAdditionalItem(int group, double statMultiplier) =>
+        UsesDefinition ? Definitions.StatsWithAdditionalItem(group, statMultiplier) :
+            System.Array.Empty<double>();
+
     public void SetArea(IEnumerable<GridCoord> cells)
     {
         if (UsesDefinition)

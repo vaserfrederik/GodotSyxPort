@@ -56,6 +56,8 @@ public sealed partial class RoomBuildPalette : ColorRect
 
     private static readonly Dictionary<string, string> RussianRoomNames = new(StringComparer.OrdinalIgnoreCase)
     {
+        ["HUNTER_NORMAL"] = "Охотничий лагерь",
+        ["FISHERY_NORMAL"] = "Рыболовня",
         ["_WOODCUTTER"] = "Лесосека",
         ["_CANNIBAL"] = "Каннибал",
         ["REFINER_BAKERY"] = "Пекарня",
@@ -242,10 +244,23 @@ public sealed partial class RoomBuildPalette : ColorRect
     {
         var construction = room.Rule.Construction.Resources.Count == 0 ? "Материалы не нужны" :
             "Стоимость: " + string.Join(", ", room.Rule.Construction.Resources.Select((resource, index) =>
-                $"{resource} ×{(index < room.Rule.Construction.AreaCosts.Count ? room.Rule.Construction.AreaCosts[index] : 0):0.##}/клетку"));
+                $"{RussianResourceName(resource)} ×{(index < room.Rule.Construction.AreaCosts.Count ? room.Rule.Construction.AreaCosts[index] : 0):0.##}/клетку"));
         var recipe = room.Rule.Recipes.Count == 0 ? "" : "\n" + string.Join("; ", room.Rule.Recipes.Take(3).Select(value =>
-            $"{string.Join(" + ", value.Inputs.Select(input => input.Resource))} → " +
-            string.Join(" + ", value.Outputs.Select(output => output.Resource))));
+            $"{string.Join(" + ", value.Inputs.Select(input => RussianResourceName(input.Resource)))} → " +
+            string.Join(" + ", value.Outputs.Select(output => RussianResourceName(output.Resource)))));
         return $"{RoomName(room)}\n{room.Key}\n{construction}{recipe}";
     }
+
+    private static string RussianResourceName(string resource) => resource.ToUpperInvariant() switch
+    {
+        "WOOD" => "Дерево",
+        "STONE" => "Камень",
+        "FURNITURE" => "Мебель",
+        "FABRIC" => "Ткань",
+        "TOOLS" or "TOOL" => "Инструменты",
+        "FISH" => "Рыба",
+        "MEAT" => "Мясо",
+        "LEATHER" => "Кожа",
+        _ => resource
+    };
 }

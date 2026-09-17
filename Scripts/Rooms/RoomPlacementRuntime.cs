@@ -40,6 +40,19 @@ public sealed class RoomPlacementRuntime
     public IReadOnlyDictionary<int, double> ItemCosts => _itemCosts;
     public bool HasHistory => _history.Count > 0;
 
+    public double[] Stats() => FurnisherStatRuntime.EvaluatePlacement(
+        DefinitionKey, _itemGroups, _area, _world.Data, ExistingEmployees());
+
+    public double[] StatsWithAdditionalItem(int group, double statMultiplier)
+    {
+        var amounts = new Dictionary<int, double>(_itemGroups)
+        {
+            [group] = _itemGroups.GetValueOrDefault(group) + statMultiplier
+        };
+        return FurnisherStatRuntime.EvaluatePlacement(
+            DefinitionKey, amounts, _area, _world.Data, ExistingEmployees());
+    }
+
     public RoomPlacementRuntime(GridWorld world, RoomSystem rooms, string definitionKey = "_STOCKPILE")
     {
         _world = world;
@@ -233,7 +246,7 @@ public sealed class RoomPlacementRuntime
             if (placed > constraint.Maximum)
                 return new(false, $"Для группы {group + 1} разрешено максимум предметов: {constraint.Maximum}");
         }
-        var stats = FurnisherStatRuntime.Evaluate(DefinitionKey, _itemGroups);
+        var stats = Stats();
         var minimums = FurnisherConstraintCatalog.StatMinimums(DefinitionKey);
         for (var index = 0; index < minimums.Count; index++)
             if (minimums[index] > 0 &&
@@ -322,6 +335,10 @@ public sealed class RoomPlacementRuntime
                                           placement.CostMultiplier;
         }
     }
+
+    private int ExistingEmployees() => _rooms.All
+        .Where(room => room.DefinitionKey.Equals(DefinitionKey, StringComparison.OrdinalIgnoreCase))
+        .Sum(room => room.Employment.Employed);
 
     private bool Connected()
     {

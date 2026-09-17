@@ -1453,7 +1453,7 @@ public sealed partial class GameBootstrap : Node3D
         }
         var blueprint = _rooms.Blueprints.Get(_roomPlanner.SelectedDefinition);
         if (blueprint is null) return;
-        _constructionTitle.Text = $"{blueprint.Rule.Name.ToUpperInvariant()} — СТРОИТЕЛЬСТВО";
+        _constructionTitle.Text = $"{RussianRoomName(blueprint.Key, blueprint.Rule.Name).ToUpperInvariant()} — СТРОИТЕЛЬСТВО";
         _autoWallsButton.Disabled = !blueprint.Rule.Construction.Indoors;
         _autoWallsButton.ButtonPressed = _roomPlanner.AutoWalls;
         _furnisherControls.AddChild(ConstructionSectionTitle("ОБЪЕКТЫ"));
@@ -1522,58 +1522,100 @@ public sealed partial class GameBootstrap : Node3D
         if (_furnisherCost is null || !_roomPlanner.UsesDefinition) return;
         var items = _roomPlanner.DefinitionItemCount;
         var cost = _roomPlanner.DefinitionCost();
-        var stats = FurnisherStatRuntime.Evaluate(
-            _roomPlanner.SelectedDefinition, _roomPlanner.DefinitionItems);
+        var stats = _roomPlanner.DefinitionStats();
         var blueprint = _rooms.Blueprints.Get(_roomPlanner.SelectedDefinition);
         var statLines = stats.Select((value, index) =>
         {
             var sourceName = blueprint is not null && index < blueprint.Rule.FurnisherStats.Count
                 ? blueprint.Rule.FurnisherStats[index].Name : $"Показатель {index + 1}";
-            return $"{RussianStatName(sourceName)}: {FormatFurnisherStat(sourceName, value)}";
+            return $"{RussianStatName(_roomPlanner.SelectedDefinition, index, sourceName)}: " +
+                   FormatFurnisherStat(sourceName, value);
         });
         var variants = FurnisherLayoutCatalog.Variants(
             _roomPlanner.SelectedDefinition, _selectedFurnisherGroup);
         var selected = variants[Math.Clamp(_selectedFurnisherVariant, 0, variants.Count - 1)];
-        var itemStats = blueprint is null || (uint)_selectedFurnisherGroup >=
-            (uint)blueprint.Rule.FurnisherItems.Count
-            ? Array.Empty<double>()
-            : blueprint.Rule.FurnisherItems[_selectedFurnisherGroup].Stats
-                .Select(value => value * selected.StatMultiplier).ToArray();
-        var itemLines = itemStats.Select((value, index) => (value, index))
-            .Where(entry => Math.Abs(entry.value) > 0.000001)
+        var projectedStats = blueprint is null || (uint)_selectedFurnisherGroup >=
+            (uint)blueprint.Rule.FurnisherItems.Count ? stats :
+            _roomPlanner.DefinitionStatsWithAdditionalItem(
+                _selectedFurnisherGroup, selected.StatMultiplier);
+        var itemLines = Enumerable.Range(0, Math.Max(stats.Length, projectedStats.Length))
+            .Select(index => (index,
+                before: index < stats.Length ? stats[index] : 0,
+                after: index < projectedStats.Length ? projectedStats[index] : 0))
+            .Where(entry => Math.Abs(entry.after - entry.before) > 0.000001)
             .Select(entry =>
         {
             var sourceName = entry.index < blueprint!.Rule.FurnisherStats.Count
                 ? blueprint.Rule.FurnisherStats[entry.index].Name : $"Показатель {entry.index + 1}";
-            return $"{RussianStatName(sourceName)} +{FormatFurnisherStat(sourceName, entry.value)}";
+            return $"{RussianStatName(_roomPlanner.SelectedDefinition, entry.index, sourceName)}: " +
+                   $"{FormatFurnisherDelta(sourceName, entry.after - entry.before)} → " +
+                   FormatFurnisherStat(sourceName, entry.after);
         }).ToArray();
         _furnisherCost.Text = $"ПОКАЗАТЕЛИ\nРазмещено предметов: {items}\n" +
             (stats.Length == 0 ? "" : string.Join("\n", statLines) + "\n") +
-            (itemLines.Length == 0 ? "" : "Выбранный предмет:\n" + string.Join("\n", itemLines) + "\n") +
+            (itemLines.Length == 0 ? "" : "Если разместить выбранный объект:\n" +
+             string.Join("\n", itemLines) + "\n") +
             (cost.Count == 0 ? "Материалы не требуются" : "Материалы: " +
-             string.Join(", ", cost.Select(pair => $"{pair.Key} ×{pair.Value}"))) +
+             string.Join(", ", cost.Select(pair => $"{RussianResourceName(pair.Key)} ×{pair.Value}"))) +
             (string.IsNullOrWhiteSpace(_roomPlanner.PlacementStatus)
                 ? "" : $"\n{_roomPlanner.PlacementStatus}");
     }
 
-    private static string RussianStatName(string source) => source.Trim().ToUpperInvariant() switch
+    private static string RussianStatName(string roomKey, int index, string source)
     {
-        "EFFICIENCY" => "Эффективность",
-        "EMPLOYEES" or "WORKERS" or "HUNTERS" => "Рабочие места",
-        "OUTPUT" or "PRODUCTION" => "Производство",
-        "SERVICES" or "SERVICE" => "Обслуживание",
-        "STORAGE" => "Хранилище",
-        "CAPACITY" => "Вместимость",
-        "TABLES" => "Столы",
-        "COZINESS" => "Уют",
-        "MOISTURE" => "Влажность",
-        _ => source
+        if (string.IsNullOrWhiteSpace(source))
+            return roomKey.Equals("FISHERY_NORMAL", StringComparison.OrdinalIgnoreCase) && index == 3
+                ? "Глубоководный доступ" : $"Показатель {index + 1}";
+        return source.Trim().ToUpperInvariant() switch
+        {
+            "EFFICIENCY" => "Эффективность",
+            "EMPLOYEES" or "WORKERS" or "HUNTERS" or "FISHERMEN" => "Рабочие места",
+            "OUTPUT" or "PRODUCTION" => "Производство",
+            "SERVICES" or "SERVICE" => "Обслуживание",
+            "STORAGE" => "Хранилище",
+            "CAPACITY" => "Вместимость",
+            "TABLES" => "Столы",
+            "COZINESS" => "Уют",
+            "MOISTURE" => "Влажность",
+            "DEEP SEA" or "DEEP SEA ACCESS" => "Глубоководный доступ",
+            _ => source
+        };
+    }
+
+    private static string RussianRoomName(string key, string fallback) => key.ToUpperInvariant() switch
+    {
+        "HUNTER_NORMAL" => "Охотничий лагерь",
+        "FISHERY_NORMAL" => "Рыболовня",
+        _ => fallback
     };
 
     private static string FormatFurnisherStat(string name, double value) =>
         name.Contains("Efficiency", StringComparison.OrdinalIgnoreCase) ||
         name.Contains("Эффектив", StringComparison.OrdinalIgnoreCase)
             ? $"{value * 100:0.#}%" : value.ToString("0.##");
+
+    private static string FormatFurnisherDelta(string name, double value)
+    {
+        var sign = value >= 0 ? "+" : "";
+        return name.Contains("Efficiency", StringComparison.OrdinalIgnoreCase) ||
+               name.Contains("Эффектив", StringComparison.OrdinalIgnoreCase)
+            ? $"{sign}{value * 100:0.#} п.п."
+            : $"{sign}{value:0.##}";
+    }
+
+    private static string RussianResourceName(ResourceKind resource) => resource switch
+    {
+        ResourceKind.Wood => "Дерево",
+        ResourceKind.Stone => "Камень",
+        ResourceKind.Furniture => "Мебель",
+        ResourceKind.Fabric => "Ткань",
+        ResourceKind.Tools => "Инструменты",
+        ResourceKind.Food => "Еда",
+        ResourceKind.Fish => "Рыба",
+        ResourceKind.Meat => "Мясо",
+        ResourceKind.Leather => "Кожа",
+        _ => resource.ToString()
+    };
 
     private static IReadOnlyList<string> FurnisherItemNames(string roomKey, int count)
     {
@@ -1582,9 +1624,10 @@ public sealed partial class GameBootstrap : Node3D
             var source = FileAccess.GetFileAsString($"res://Data/Original/text/room/{roomKey}.txt");
             var items = SyxDataParser.Parse(source).Get("ITEMS")?.Items;
             if (items is not null)
-                return Enumerable.Range(0, count).Select(index => index < items.Count
-                    ? items[index].Get("NAME")?.Text($"Предмет {index + 1}") ?? $"Предмет {index + 1}"
-                    : $"Предмет {index + 1}").ToArray();
+                return Enumerable.Range(0, count).Select(index => RussianItemName(roomKey, index,
+                    index < items.Count
+                        ? items[index].Get("NAME")?.Text($"Предмет {index + 1}") ?? $"Предмет {index + 1}"
+                        : $"Предмет {index + 1}")).ToArray();
         }
         catch (Exception)
         {
@@ -1592,6 +1635,16 @@ public sealed partial class GameBootstrap : Node3D
         }
         return Enumerable.Range(1, count).Select(index => $"Предмет {index}").ToArray();
     }
+
+    private static string RussianItemName(string roomKey, int index, string fallback) =>
+        (roomKey.ToUpperInvariant(), index) switch
+        {
+            ("HUNTER_NORMAL", 0) => "Разделочный стол",
+            ("HUNTER_NORMAL", 1) => "Оснащение",
+            ("FISHERY_NORMAL", 0) => "Хранилище",
+            ("FISHERY_NORMAL", 1) => "Вспомогательное оборудование",
+            _ => fallback
+        };
 
     private void RefreshInspector()
     {
