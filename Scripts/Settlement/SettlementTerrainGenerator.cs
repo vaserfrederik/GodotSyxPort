@@ -17,6 +17,7 @@ public enum SettlementWaterSides : byte { None = 0, North = 1, East = 2, South =
 public sealed record SettlementWorldTileSample(
     double Height, double Moisture, double Fertility, double Forest,
     bool Mountain, StrategicWaterKind Water, string Climate, bool Road = false,
+    int MountainHeight = 0,
     SettlementWaterSides RiverConnections = SettlementWaterSides.None,
     SettlementOceanSides OceanConnections = SettlementOceanSides.None,
     SettlementWaterSides MountainConnections = SettlementWaterSides.None,
@@ -216,7 +217,8 @@ public sealed record SettlementGenerationProfile(
             worldTiles.Add(new SettlementWorldTileSample(
                 world.Terrain.Height(x, y), world.Terrain.Moisture(x, y),
                 world.Terrain.Fertility(x, y), world.Terrain.Forest(x, y),
-                world.Terrain.Mountain(x, y), kind, climate, world.HasRoad(x, y)));
+                world.Terrain.Mountain(x, y), kind, climate, world.HasRoad(x, y),
+                world.Terrain.MountainHeight(x, y)));
             worldTiles[^1] = worldTiles[^1] with
             {
                 RiverConnections = WaterConnections(x, y),
@@ -297,10 +299,11 @@ public sealed class SettlementTerrainGenerator
     {
         // Original order: fertility init, mountain/cave, rivers/lakes/water, minerals,
         // ground, fertility final, growth/edibles. Growth and edibles remain separate systems.
+        var polymap = new SettlementPolymap(world.Width, world.Height, profile.Seed ^ 0x504f4c59);
         GenerateBaseAndFertility(world, profile);
-        GenerateMountains(world, profile, settings);
+        GenerateMountains(world, profile, settings, polymap);
         GenerateCaves(world, profile, settings);
-        GenerateWater(world, profile, settings);
+        GenerateWater(world, profile, settings, polymap);
         FinishWater(world);
         GenerateOcean(world, profile);
         GenerateLakeExtra(world, profile);
@@ -341,8 +344,14 @@ public sealed class SettlementTerrainGenerator
     }
 
     private static void GenerateMountains(
-        WorldGridData world, SettlementGenerationProfile profile, SettlementGeneratorSettings settings)
+        WorldGridData world, SettlementGenerationProfile profile, SettlementGeneratorSettings settings,
+        SettlementPolymap polymap)
     {
+        if (profile.WorldTiles is not null)
+        {
+            GenerateMappedMountains(world, profile, settings, polymap);
+            return;
+        }
         var anyMappedMountain = profile.WorldTiles?.Any(sample => sample.Mountain) == true;
         var threshold = profile.WorldTiles is null
             ? 1.0 - Math.Clamp(profile.MountainAmount * (0.8 + settings.MountainSize), 0.02, 0.75)
@@ -369,6 +378,157 @@ public sealed class SettlementTerrainGenerator
             if (ridge < threshold) continue;
             world.SetTerrain(cell, GroundKind.Mountain, world.Elevation(cell), 0, world.Moisture(cell));
             world.Set(cell, TileFlags.ClearableTerrain, true);
+        }
+    }
+
+    /// <summary>
+    /// Direct port of GeneratorMountain's 3x3 SettlementGrid pass: mountain area
+    /// points stamp the shared Polymap checker on an eight-tile lattice, the filled
+    /// polygons are then cleared for the arrival tile and connected water paths.
+    /// </summary>
+    private static void GenerateMappedMountains(WorldGridData world,
+        SettlementGenerationProfile profile, SettlementGeneratorSettings settings,
+        SettlementPolymap polymap)
+    {
+        const int coarseScale = 8;
+        var dimension = profile.WorldTileDimension;
+        var quadWidth = world.Width / dimension;
+        var quadHeight = world.Height / dimension;
+        var coarseWidth = (world.Width + coarseScale - 1) / coarseScale;
+        var coarseHeight = (world.Height + coarseScale - 1) / coarseScale;
+        var coarse = new bool[coarseWidth * coarseHeight];
+        var random = new Random(profile.Seed ^ 0x4d4f554e);
+
+        bool Mountain(int qx, int qz) => (uint)qx < dimension && (uint)qz < dimension &&
+            profile.WorldTiles![qx + qz * dimension].Mountain;
+        int MountainHeight(int qx, int qz) => (uint)qx < dimension && (uint)qz < dimension
+            ? profile.WorldTiles![qx + qz * dimension].MountainHeight : 0;
+        bool AreaPoint(int qx, int qz, int dx, int dz)
+        {
+            // WorldMountain.AreaTileMountain always accepts the complete interior of
+            // a massif. At a height-one edge it accepts only points shared with another
+            // mountain tile; this is the information retained by our strategic map.
+            if (MountainHeight(qx, qz) > 1) return true;
+            if (dx == 0 && dz == 0) return Mountain(qx, qz);
+            var ax = dx < 0 ? qx - 1 : qx;
+            var az = dz < 0 ? qz - 1 : qz;
+            if (dx == 0) return Mountain(qx, az) || Mountain(qx - 1, az);
+            if (dz == 0) return Mountain(ax, qz) || Mountain(ax, qz - 1);
+            return Mountain(ax, az);
+        }
+        void Stamp(int centerX, int centerZ)
+        {
+            var radius = settings.MountainSize * 100.0 * (0.9 + random.NextDouble() * 0.2);
+            centerX += random.Next(-20, 21);
+            centerZ += random.Next(-20, 21);
+            var radiusSquared = radius * radius;
+            var x1 = Math.Max(0, (int)Math.Floor((centerX - radius) / coarseScale));
+            var x2 = Math.Min(coarseWidth - 1, (int)Math.Ceiling((centerX + radius) / coarseScale));
+            var z1 = Math.Max(0, (int)Math.Floor((centerZ - radius) / coarseScale));
+            var z2 = Math.Min(coarseHeight - 1, (int)Math.Ceiling((centerZ + radius) / coarseScale));
+            for (var cz = z1; cz <= z2; cz++)
+            for (var cx = x1; cx <= x2; cx++)
+            {
+                var dx = cx * coarseScale - centerX;
+                var dz = cz * coarseScale - centerZ;
+                if (dx * dx + dz * dz <= radiusSquared) coarse[cx + cz * coarseWidth] = true;
+            }
+        }
+
+        for (var qz = 0; qz < dimension; qz++)
+        for (var qx = 0; qx < dimension; qx++)
+        {
+            var directions = new List<(int X, int Z)> { (1, 0), (1, 1), (0, 1), (0, 0) };
+            if (qx == 0) { directions.Add((-1, 0)); directions.Add((-1, 1)); }
+            if (qz == 0) { directions.Add((1, -1)); directions.Add((0, -1)); }
+            if (qx == 0 && qz == 0) directions.Add((-1, -1));
+            foreach (var direction in directions)
+            {
+                if (!AreaPoint(qx, qz, direction.X, direction.Z)) continue;
+                Stamp(qx * quadWidth + (direction.X + 1) * quadWidth / 2,
+                    qz * quadHeight + (direction.Z + 1) * quadHeight / 2);
+            }
+        }
+
+        // GeneratorMountain refines the coarse checker by filling every selected
+        // Polymap region, rather than applying another threshold noise layer.
+        var coarsePolygons = new HashSet<int>();
+        for (var cz = 0; cz < coarseHeight; cz++)
+        for (var cx = 0; cx < coarseWidth; cx++)
+            if (coarse[cx + cz * coarseWidth])
+                coarsePolygons.Add(polymap.IdAt(cx, cz));
+        var selectedPolygons = new HashSet<int>();
+        for (var z = 0; z < world.Height; z++)
+        for (var x = 0; x < world.Width; x++)
+            if (coarsePolygons.Contains(polymap.IdAt(x / coarseScale, z / coarseScale)))
+                selectedPolygons.Add(polymap.IdAt(x, z));
+        var mountain = new bool[world.Width * world.Height];
+        for (var z = 0; z < world.Height; z++)
+        for (var x = 0; x < world.Width; x++)
+            mountain[x + z * world.Width] = selectedPolygons.Contains(polymap.IdAt(x, z));
+
+        // Source arrivalTile is the first usable footprint tile. Clear four half-quad
+        // corridors exactly before committing mountain terrain.
+        var arrival = 0;
+        for (var i = 0; i < profile.WorldTiles!.Count; i++)
+        {
+            var sample = profile.WorldTiles[i];
+            if (sample.Mountain || sample.Water is StrategicWaterKind.Ocean or
+                StrategicWaterKind.DeepOcean or StrategicWaterKind.Lake or StrategicWaterKind.DeepLake) continue;
+            arrival = i; break;
+        }
+        var arrivalX = arrival % dimension * quadWidth + quadWidth / 2;
+        var arrivalZ = arrival / dimension * quadHeight + quadHeight / 2;
+        foreach (var direction in GridCoord.Cardinal)
+            ClearMountainCorridor(mountain, world.Width, world.Height,
+                new GridCoord(arrivalX, arrivalZ), direction, Math.Min(quadWidth, quadHeight) / 2);
+
+        for (var qz = 0; qz < dimension; qz++)
+        for (var qx = 0; qx < dimension; qx++)
+        {
+            var sample = profile.WorldTiles[qx + qz * dimension];
+            var center = new GridCoord(qx * quadWidth + quadWidth / 2,
+                qz * quadHeight + quadHeight / 2);
+            foreach (var (side, direction) in WaterDirections)
+            {
+                if (!sample.RiverConnections.HasFlag(side)) continue;
+                var edge = new GridCoord(center.X + direction.X * quadWidth / 2,
+                    center.Z + direction.Z * quadHeight / 2);
+                var perpendicular = new GridCoord(-direction.Z, direction.X);
+                ClearMountainCorridor(mountain, world.Width, world.Height, edge,
+                    perpendicular, Math.Min(quadWidth, quadHeight) / 2);
+            }
+        }
+
+        for (var z = 0; z < world.Height; z++)
+        for (var x = 0; x < world.Width; x++)
+        {
+            if (!mountain[x + z * world.Width]) continue;
+            var cell = new GridCoord(x, z);
+            world.SetTerrain(cell, GroundKind.Mountain, world.Elevation(cell), 0, world.Moisture(cell));
+            world.Set(cell, TileFlags.ClearableTerrain, true);
+        }
+    }
+
+    private static readonly (SettlementWaterSides Side, GridCoord Direction)[] WaterDirections =
+    {
+        (SettlementWaterSides.North, new GridCoord(0, -1)),
+        (SettlementWaterSides.East, new GridCoord(1, 0)),
+        (SettlementWaterSides.South, new GridCoord(0, 1)),
+        (SettlementWaterSides.West, new GridCoord(-1, 0))
+    };
+
+    private static void ClearMountainCorridor(bool[] mountain, int width, int height,
+        GridCoord start, GridCoord direction, int length)
+    {
+        for (var step = 0; step < length; step++)
+        {
+            for (var side = -1; side <= 0; side++)
+            {
+                var x = start.X + direction.X * step - direction.Z * side;
+                var z = start.Z + direction.Z * step + direction.X * side;
+                if ((uint)x < width && (uint)z < height) mountain[x + z * width] = false;
+            }
         }
     }
 
@@ -433,11 +593,12 @@ public sealed class SettlementTerrainGenerator
     }
 
     private static void GenerateWater(
-        WorldGridData world, SettlementGenerationProfile profile, SettlementGeneratorSettings settings)
+        WorldGridData world, SettlementGenerationProfile profile, SettlementGeneratorSettings settings,
+        SettlementPolymap polymap)
     {
         if (profile.WorldTiles is not null)
         {
-            GenerateMappedFreshWater(world, profile, settings);
+            GenerateMappedFreshWater(world, profile, settings, polymap);
             return;
         }
         GenerateRiver(world, profile.RiverSides,
@@ -464,7 +625,8 @@ public sealed class SettlementTerrainGenerator
     }
 
     private static void GenerateMappedFreshWater(
-        WorldGridData world, SettlementGenerationProfile profile, SettlementGeneratorSettings settings)
+        WorldGridData world, SettlementGenerationProfile profile, SettlementGeneratorSettings settings,
+        SettlementPolymap polymap)
     {
         var dimension = profile.WorldTileDimension;
         var quadWidth = world.Width / dimension;
@@ -493,6 +655,7 @@ public sealed class SettlementTerrainGenerator
         {
             (1, 0), (1, 1), (0, 1), (0, 0)
         };
+        var riverPaths = new bool[world.Width * world.Height];
         for (var z = 0; z < dimension; z++)
         for (var x = 0; x < dimension; x++)
         {
@@ -500,51 +663,177 @@ public sealed class SettlementTerrainGenerator
             var sample = profile.WorldTiles[x + z * dimension];
             var center = new GridCoord(x * quadWidth + quadWidth / 2, z * quadHeight + quadHeight / 2);
             if (kind is StrategicWaterKind.Lake or StrategicWaterKind.DeepLake)
-            {
-                var directions = new List<(int X, int Z)>(ownedDirections);
-                if (x == 0) { directions.Add((-1, 0)); directions.Add((-1, 1)); }
-                if (z == 0) { directions.Add((1, -1)); directions.Add((0, -1)); }
-                if (x == 0 && z == 0) directions.Add((-1, -1));
-                foreach (var direction in directions)
-                {
-                    if (!Lake(x + direction.X, z + direction.Z)) continue;
-                    var lakeCenter = new GridCoord(center.X + direction.X * innerOffsetX,
-                        center.Z + direction.Z * innerOffsetZ);
-                    PaintLakeDisc(world, lakeCenter, lakeRadius);
-                }
                 continue;
-            }
             if (kind is not (StrategicWaterKind.River or StrategicWaterKind.SmallRiver or StrategicWaterKind.Delta))
                 continue;
             var width = kind == StrategicWaterKind.SmallRiver ? 1 : Math.Max(1, settings.RiverWidth);
-            var endpoints = new List<GridCoord>();
-            foreach (var offset in new[]
-                     {
-                         (X: 0, Z: -1), (X: 1, Z: 0), (X: 0, Z: 1), (X: -1, Z: 0)
-                     })
+            var connections = new List<(SettlementWaterSides Side, GridCoord Direction)>();
+            foreach (var (side, direction) in WaterDirections)
             {
-                var side = offset switch
-                {
-                    (0, -1) => SettlementWaterSides.North,
-                    (1, 0) => SettlementWaterSides.East,
-                    (0, 1) => SettlementWaterSides.South,
-                    _ => SettlementWaterSides.West
-                };
                 // The Java generator queries WORLD.WATER outside the selected
                 // 3x3 CapitolArea too.  Persisted directional connectivity keeps
                 // rivers entering/leaving the settlement at the same world edge.
-                if (!sample.RiverConnections.HasFlag(side) && !Rivery(x + offset.X, z + offset.Z))
+                if (!sample.RiverConnections.HasFlag(side) && !Rivery(x + direction.X, z + direction.Z))
                     continue;
-                endpoints.Add(new GridCoord(center.X + offset.X * quadWidth / 2,
-                    center.Z + offset.Z * quadHeight / 2));
+                connections.Add((side, direction));
             }
-            if (endpoints.Count == 0)
-                endpoints.Add(center);
-            var hub = endpoints.Count == 1 ? center : new GridCoord(
-                (int)endpoints.Average(point => point.X), (int)endpoints.Average(point => point.Z));
-            foreach (var endpoint in endpoints)
-                PaintWaterLine(world, endpoint, hub, width,
-                    profile.Seed ^ (x * 7919 + z * 104729));
+            if (connections.Count == 0) continue;
+            var bounds = (X1: x * quadWidth, Z1: z * quadHeight,
+                X2: Math.Min(world.Width, (x + 1) * quadWidth),
+                Z2: Math.Min(world.Height, (z + 1) * quadHeight));
+            if (connections.Count == 1)
+            {
+                var connection = connections[0];
+                var endpoint = new GridCoord(center.X + connection.Direction.X * quadWidth / 2,
+                    center.Z + connection.Direction.Z * quadHeight / 2);
+                PaveRiver(world, polymap, riverPaths,
+                    RiverPositions(polymap, world, endpoint, connection.Direction, width,
+                        Math.Max(quadWidth, quadHeight) * 2),
+                    new[] { center }, bounds);
+            }
+            else
+            {
+                // GeneratorRiver connects every ordered direction pair i<j. It does
+                // not invent a centre hub, which was the cause of straight cross rivers.
+                for (var i = 0; i < connections.Count; i++)
+                for (var j = i + 1; j < connections.Count; j++)
+                {
+                    var first = connections[i]; var second = connections[j];
+                    var start = new GridCoord(center.X + first.Direction.X * quadWidth / 2,
+                        center.Z + first.Direction.Z * quadHeight / 2);
+                    var end = new GridCoord(center.X + second.Direction.X * quadWidth / 2,
+                        center.Z + second.Direction.Z * quadHeight / 2);
+                    PaveRiver(world, polymap, riverPaths,
+                        RiverPositions(polymap, world, start, first.Direction, width,
+                            Math.Max(quadWidth, quadHeight) * 2),
+                        RiverPositions(polymap, world, end, second.Direction, width,
+                            Math.Max(quadWidth, quadHeight) * 2), bounds);
+                }
+            }
+        }
+        ExpandRiverPaths(world, riverPaths);
+
+        // Generator.java runs GeneratorLake only after both river generators.
+        for (var z = 0; z < dimension; z++)
+        for (var x = 0; x < dimension; x++)
+        {
+            if (!Lake(x, z)) continue;
+            var center = new GridCoord(x * quadWidth + quadWidth / 2,
+                z * quadHeight + quadHeight / 2);
+            var directions = new List<(int X, int Z)>(ownedDirections);
+            if (x == 0) { directions.Add((-1, 0)); directions.Add((-1, 1)); }
+            if (z == 0) { directions.Add((1, -1)); directions.Add((0, -1)); }
+            if (x == 0 && z == 0) directions.Add((-1, -1));
+            foreach (var direction in directions)
+            {
+                if (!Lake(x + direction.X, z + direction.Z)) continue;
+                PaintLakeDisc(world, new GridCoord(center.X + direction.X * innerOffsetX,
+                    center.Z + direction.Z * innerOffsetZ), lakeRadius);
+            }
+        }
+    }
+
+    private static IReadOnlyList<GridCoord> RiverPositions(SettlementPolymap polymap,
+        WorldGridData world, GridCoord endpoint, GridCoord direction, int width, int scanDistance)
+    {
+        var result = new List<GridCoord>(width);
+        for (var offset = 0; offset < scanDistance && result.Count < width; offset++)
+        {
+            foreach (var sign in offset == 0 ? new[] { 1 } : new[] { 1, -1 })
+            {
+                var cell = direction.X != 0
+                    ? new GridCoord(endpoint.X, endpoint.Z + offset * sign)
+                    : new GridCoord(endpoint.X + offset * sign, endpoint.Z);
+                if (world.IsInside(cell) && polymap.IsEdge(cell.X, cell.Z)) result.Add(cell);
+                if (result.Count >= width) break;
+            }
+        }
+        if (result.Count == 0)
+            result.Add(new GridCoord(Math.Clamp(endpoint.X, 0, world.Width - 1),
+                Math.Clamp(endpoint.Z, 0, world.Height - 1)));
+        return result;
+    }
+
+    private static void PaveRiver(WorldGridData world, SettlementPolymap polymap,
+        bool[] riverPaths, IReadOnlyList<GridCoord> starts, IReadOnlyList<GridCoord> ends,
+        (int X1, int Z1, int X2, int Z2) bounds)
+    {
+        for (var line = 0; line < starts.Count; line++)
+        {
+            var start = starts[line]; var end = ends[line % ends.Count];
+            var distance = new double[world.Width * world.Height];
+            var previous = new int[distance.Length];
+            Array.Fill(distance, double.PositiveInfinity);
+            Array.Fill(previous, -1);
+            var queue = new PriorityQueue<GridCoord, double>();
+            var startIndex = start.X + start.Z * world.Width;
+            distance[startIndex] = 0; queue.Enqueue(start, 0);
+            while (queue.TryDequeue(out var cell, out var cost))
+            {
+                var index = cell.X + cell.Z * world.Width;
+                if (cost > distance[index]) continue;
+                if (cell == end) break;
+                foreach (var direction in GridCoord.AllDirections)
+                {
+                    var next = cell + direction;
+                    if (!world.IsInside(next)) continue;
+                    var inside = next.X >= bounds.X1 && next.X < bounds.X2 &&
+                                 next.Z >= bounds.Z1 && next.Z < bounds.Z2;
+                    var step = !inside ? 50.0 : world.Has(next, TileFlags.Mountain) ? 20.0 :
+                        !polymap.IsEdge(next.X, next.Z) ? 2.0 :
+                        world.Has(next, TileFlags.Water) ? 0.5 : 1.0;
+                    if (direction.X != 0 && direction.Z != 0) step *= Math.Sqrt(2);
+                    var nextIndex = next.X + next.Z * world.Width;
+                    var nextCost = cost + step;
+                    if (nextCost >= distance[nextIndex]) continue;
+                    distance[nextIndex] = nextCost; previous[nextIndex] = index;
+                    queue.Enqueue(next, nextCost);
+                }
+            }
+            var current = end.X + end.Z * world.Width;
+            if (current != startIndex && previous[current] < 0) continue;
+            while (current >= 0)
+            {
+                riverPaths[current] = true;
+                if (current == startIndex) break;
+                current = previous[current];
+            }
+        }
+    }
+
+    private static void ExpandRiverPaths(WorldGridData world, bool[] riverPaths)
+    {
+        var distance = new double[riverPaths.Length];
+        var radius = new double[riverPaths.Length];
+        Array.Fill(distance, double.PositiveInfinity);
+        var queue = new PriorityQueue<GridCoord, double>();
+        for (var z = 0; z < world.Height; z++)
+        for (var x = 0; x < world.Width; x++)
+        {
+            var index = x + z * world.Width;
+            if (!riverPaths[index]) continue;
+            distance[index] = 0;
+            radius[index] = Math.Sqrt((1 + world.Fertility(new GridCoord(x, z)) / 15.0) / 4.0) * 20.0;
+            queue.Enqueue(new GridCoord(x, z), 0);
+        }
+        while (queue.TryDequeue(out var cell, out var value))
+        {
+            var index = cell.X + cell.Z * world.Width;
+            if (value > distance[index] || value >= radius[index]) continue;
+            world.SetTerrain(cell, GroundKind.FreshWater, world.Elevation(cell), 0, 15);
+            foreach (var direction in GridCoord.AllDirections)
+            {
+                var next = cell + direction;
+                if (!world.IsInside(next)) continue;
+                var elevation = world.Elevation(next) / 255.0;
+                var step = (direction.X == 0 || direction.Z == 0 ? 1.0 : Math.Sqrt(2)) *
+                           (1 + Math.Pow(elevation, 4) * 1.5);
+                var nextValue = value + step;
+                var nextIndex = next.X + next.Z * world.Width;
+                if (nextValue >= distance[nextIndex] || nextValue >= radius[index]) continue;
+                distance[nextIndex] = nextValue; radius[nextIndex] = radius[index];
+                queue.Enqueue(next, nextValue);
+            }
         }
     }
 
@@ -565,35 +854,6 @@ public sealed class SettlementTerrainGenerator
             var cell = new GridCoord(x, z);
             if (world.IsInside(cell) && world.Elevation(cell) / 255.0 < 0.8)
                 world.SetTerrain(cell, GroundKind.FreshWater, world.Elevation(cell), 0, 15);
-        }
-    }
-
-    private static void PaintWaterLine(
-        WorldGridData world, GridCoord start, GridCoord end, int width, int seed = 0)
-    {
-        var steps = Math.Max(Math.Abs(end.X - start.X), Math.Abs(end.Z - start.Z));
-        for (var step = 0; step <= steps; step++)
-        {
-            var t = step / (double)Math.Max(1, steps);
-            var bend = (ValueNoise(step, seed & 255, seed ^ 0x5123, 19) - 0.5) * 9 *
-                       Math.Sin(t * Math.PI);
-            var dx = end.X - start.X; var dz = end.Z - start.Z;
-            var length = Math.Max(1.0, Math.Sqrt(dx * dx + dz * dz));
-            PaintWaterDisc(world, new GridCoord(
-                (int)Math.Round(start.X + dx * t - dz / length * bend),
-                (int)Math.Round(start.Z + dz * t + dx / length * bend)), width, seed ^ step);
-        }
-    }
-
-    private static void PaintWaterDisc(WorldGridData world, GridCoord center, int radius, int seed)
-    {
-        for (var dz = -radius; dz <= radius; dz++)
-        for (var dx = -radius; dx <= radius; dx++)
-        {
-            var cell = new GridCoord(center.X + dx, center.Z + dz);
-            if (!world.IsInside(cell) || dx * dx + dz * dz > radius * radius *
-                (0.82 + Noise(cell.X, cell.Z, seed) * 0.28)) continue;
-            world.SetTerrain(cell, GroundKind.FreshWater, world.Elevation(cell), 0, 15);
         }
     }
 
@@ -1316,4 +1576,55 @@ public sealed class SettlementTerrainGenerator
     private static int FloorDiv(int value, int divisor) => value >= 0 ? value / divisor : -((-value + divisor - 1) / divisor);
     private static double Smooth(double value) => value * value * (3 - 2 * value);
     private static double Lerp(double a, double b, double value) => a + (b - a) * value;
+}
+
+/// <summary>
+/// snake2d.util.rnd.Polymap(width,height) translated for settlement generation.
+/// The Java generator shares this same Voronoi-like map between mountains, rivers,
+/// lakes and minerals; IdAt/IsEdge deliberately retain its east/south edge test.
+/// </summary>
+internal sealed class SettlementPolymap
+{
+    private readonly int _width;
+    private readonly int _height;
+    private readonly int[] _ids;
+
+    public SettlementPolymap(int width, int height, int seed)
+    {
+        _width = width; _height = height;
+        _ids = new int[width * height];
+        var strengths = new float[width * height];
+        var random = new Random(seed);
+        var count = Math.Max(1, (int)Math.Ceiling(width * height / 163.0));
+        const double radius = 64.0;
+        for (var id = 1; id <= count; id++)
+        {
+            var centerX = random.Next(width); var centerZ = random.Next(height);
+            var x1 = Math.Max(0, centerX - (int)radius);
+            var x2 = Math.Min(width - 1, centerX + (int)radius - 1);
+            var z1 = Math.Max(0, centerZ - (int)radius);
+            var z2 = Math.Min(height - 1, centerZ + (int)radius - 1);
+            for (var z = z1; z <= z2; z++)
+            for (var x = x1; x <= x2; x++)
+            {
+                var dx = x - centerX; var dz = z - centerZ;
+                var distance = Math.Sqrt(dx * dx + dz * dz);
+                if (distance > radius) continue;
+                var strength = (float)(1.0 - distance / radius);
+                var index = x + z * width;
+                if (strength <= strengths[index]) continue;
+                strengths[index] = strength; _ids[index] = id;
+            }
+        }
+    }
+
+    public int IdAt(int x, int z) => _ids[x + z * _width];
+
+    public bool IsEdge(int x, int z)
+    {
+        if ((uint)x >= _width || (uint)z >= _height) return false;
+        var id = IdAt(x, z);
+        return x + 1 < _width && IdAt(x + 1, z) != id ||
+               z + 1 < _height && IdAt(x, z + 1) != id;
+    }
 }
