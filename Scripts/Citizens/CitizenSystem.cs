@@ -856,9 +856,12 @@ public sealed partial class CitizenSystem : Node3D
             }
             if (!agent.Alive) continue;
             UpdateServiceDay(agent, delta);
-            if (agent.Health.RequiresHospital(OriginalGameData.Current) &&
-                agent.ServicePlan == 0 && agent.Job is null &&
-                TryStartHospital(agent)) continue;
+            // AIModules updates every module and lets a higher priority plan
+            // interrupt ordinary work. Health (7) therefore cannot wait for a
+            // worker's current job to finish.
+            if ((agent.Health.ActiveDisease || agent.Health.InDanger) &&
+                agent.ServicePlan == 0 && agent.Job is not null)
+                ReleaseJobForHigherPriority(agent, jobs, resources);
             if (agent.FoodPlan != 0 && TickFoodPlan(agent, (float)delta, jobs, resources)) continue;
             if (agent.ServicePlan != 0 && TickServicePlan(agent, (float)delta, resources)) continue;
             if (agent.MourningPlan != 0 && TickMourningPlan(agent, (float)delta)) continue;
@@ -868,38 +871,111 @@ public sealed partial class CitizenSystem : Node3D
                 continue;
             }
             if (agent.HomeActivity != HomeActivity.None && TickHomeBehavior(agent, (float)delta)) continue;
-            if (EventWorkSuspended?.Invoke(new EventCitizenSnapshot(agent.Id, agent.Identity.Race,
-                    agent.Identity.Class, agent.Identity.Type, agent.Profession)) == true)
-                continue;
-            if (HumanoidTypeRules.Works(agent.Identity.Type) && agent.Job is null &&
-                _assignmentsRemainingThisFrame > 0)
-            {
-                BuildJob? job = null;
-                if (agent.Profession != WorkProfession.Laborer)
-                    job = jobs.TryClaim(
-                        agent.Cell,
-                        resources,
-                        candidate => candidate.RequiredProfession == agent.Profession);
-                job ??= jobs.TryClaim(
-                    agent.Cell,
-                    resources,
-                    candidate => candidate.RequiredProfession == WorkProfession.Laborer);
-                if (job is not null)
-                {
-                    _assignmentsRemainingThisFrame--;
-                    if (!Assign(agent, job, jobs, resources)) jobs.Release(job, resources);
-                }
-                else if (TryStartService(agent)) _assignmentsRemainingThisFrame--;
-                else if (TryStartMourning(agent)) _assignmentsRemainingThisFrame--;
-                else if (TryStartSocialInteraction(agent)) _assignmentsRemainingThisFrame--;
-            }
-            if (agent.Job is null && agent.ServicePlan == 0 && agent.MourningPlan == 0 &&
-                TickHomeBehavior(agent, (float)delta)) continue;
+            var workSuspended = EventWorkSuspended?.Invoke(new EventCitizenSnapshot(
+                agent.Id, agent.Identity.Race, agent.Identity.Class,
+                agent.Identity.Type, agent.Profession)) == true;
+            if (agent.Job is null && TryStartHighestPriorityPlan(
+                    agent, (float)delta, jobs, resources, workSuspended)) continue;
             if (TickSocialInteraction(agent, (float)delta)) continue;
             if (TickFoodPlan(agent, (float)delta, jobs, resources)) continue;
             TickAgent(agent, (float)delta, resources, jobs);
         }
         StarvingCount = _agents.Count(agent => agent.Alive && agent.Hunger >= StarvationThreshold);
+    }
+
+    private bool TryStartHighestPriorityPlan(
+        Agent agent,
+        float delta,
+        JobBoard jobs,
+        ResourceLedger resources,
+        bool workSuspended)
+    {
+        if (agent.Carrying) return false;
+        var day = (int)(_populationElapsed / OriginalGameData.Current.SecondsPerDay);
+        var order = CitizenAiModuleRuntime.Order(
+            agent.Id,
+            day,
+            CitizenAiModuleRuntime.FoodPriority((int)agent.Hunger, NeedChunk),
+            agent.Health.ActiveDisease || agent.Health.InDanger,
+            HomeModulePriority(agent, day),
+            !workSuspended && HumanoidTypeRules.Works(agent.Identity.Type) &&
+                _assignmentsRemainingThisFrame > 0,
+            agent.ServiceRemaining > 0,
+            agent.SubjectActivityPending);
+        foreach (var module in order)
+        {
+            switch (module)
+            {
+                case CitizenAiModule.Food:
+                    if (TickFoodPlan(agent, delta, jobs, resources)) return true;
+                    break;
+                case CitizenAiModule.Health:
+                    if (TryStartRecovery(agent)) return true;
+                    break;
+                case CitizenAiModule.Home:
+                    if (TryStartHomePlan(agent, false)) return true;
+                    break;
+                case CitizenAiModule.Work:
+                    if (TryStartWorkPlan(agent, jobs, resources)) return true;
+                    break;
+                case CitizenAiModule.Service:
+                    if (TryStartService(agent)) return true;
+                    break;
+                case CitizenAiModule.Subject:
+                    if (TryStartMourning(agent) || TryStartSocialInteraction(agent)) return true;
+                    break;
+                case CitizenAiModule.Idle:
+                    return TryStartSocialInteraction(agent);
+            }
+        }
+        return false;
+    }
+
+    private int HomeModulePriority(Agent agent, int day)
+    {
+        var home = _rooms.Housing.Home(agent.Id);
+        var race = OriginalGameData.Current.Races[agent.Identity.Race];
+        var dayPart = (_populationElapsed / OriginalGameData.Current.SecondsPerDay) % 1.0;
+        if (!HomeBehaviorRuntime.ShouldVisitHome(race.Sleeps, home is not null,
+                agent.HasSleptToday, agent.AgeDays, agent.Id, day, dayPart)) return 0;
+        // AIModule_Home returns 7 after a failed/no-home search and 1 for the
+        // ordinary staggered visit. An owned home uses the normal priority.
+        return home is null && !agent.HasSleptToday
+            ? CitizenAiModuleRuntime.HealthPriority
+            : CitizenAiModuleRuntime.HomePriority;
+    }
+
+    private bool TryStartRecovery(Agent agent)
+    {
+        if (agent.Health.RequiresHospital(OriginalGameData.Current) && TryStartHospital(agent))
+            return true;
+        return TryStartHomePlan(agent, true);
+    }
+
+    private bool TryStartWorkPlan(Agent agent, JobBoard jobs, ResourceLedger resources)
+    {
+        BuildJob? job = null;
+        if (agent.Profession != WorkProfession.Laborer)
+            job = jobs.TryClaim(agent.Cell, resources,
+                candidate => candidate.RequiredProfession == agent.Profession);
+        job ??= jobs.TryClaim(agent.Cell, resources,
+            candidate => candidate.RequiredProfession == WorkProfession.Laborer);
+        if (job is null) return false;
+        _assignmentsRemainingThisFrame--;
+        if (Assign(agent, job, jobs, resources)) return true;
+        jobs.Release(job, resources);
+        return false;
+    }
+
+    private void ReleaseJobForHigherPriority(
+        Agent agent, JobBoard jobs, ResourceLedger resources)
+    {
+        if (agent.Job is null) return;
+        if (agent.Carrying) DropCarried(agent, jobs);
+        jobs.Release(agent.Job, resources);
+        ReleaseConstructionBatch(agent, jobs, resources, agent.Job);
+        agent.Job = null;
+        ClearPath(agent);
     }
 
     private void AdvancePopulationDay(ResourceLedger resources, JobBoard jobs)
@@ -1200,10 +1276,16 @@ public sealed partial class CitizenSystem : Node3D
             agent.HomeActivity = HomeActivity.None;
             return false;
         }
+        return TryStartHomePlan(agent, false);
+    }
+
+    private bool TryStartHomePlan(Agent agent, bool forceRecovery)
+    {
+        var day = (int)(_populationElapsed / OriginalGameData.Current.SecondsPerDay);
         var race = OriginalGameData.Current.Races[agent.Identity.Race];
         var home = _rooms.Housing.Home(agent.Id);
         var dayPart = (_populationElapsed / OriginalGameData.Current.SecondsPerDay) % 1.0;
-        if (!HomeBehaviorRuntime.ShouldVisitHome(race.Sleeps, home is not null,
+        if (!forceRecovery && !HomeBehaviorRuntime.ShouldVisitHome(race.Sleeps, home is not null,
                 agent.HasSleptToday, agent.AgeDays, agent.Id, day, dayPart)) return false;
         agent.HomePlanTimeLeft = HomeBehaviorRuntime.StaySeconds(
             agent.Id, day, agent.Identity.Class == SocialClass.Noble);
@@ -1666,13 +1748,7 @@ public sealed partial class CitizenSystem : Node3D
         if (foodCell is null)
         {
             if (agent.Hunger < StarvationThreshold) return false;
-            if (agent.Job is not null)
-            {
-                jobs.Release(agent.Job, resources);
-                ReleaseConstructionBatch(agent, jobs, resources, agent.Job);
-                agent.Job = null;
-                ClearPath(agent);
-            }
+            ReleaseJobForHigherPriority(agent, jobs, resources);
             // F_PlanStarve enters a desperate state when no reservable food exists.
             // State 3 keeps food search active and suppresses ordinary work.
             agent.FoodPlan = 3;
@@ -1691,12 +1767,7 @@ public sealed partial class CitizenSystem : Node3D
             if (fromLoose) _hauling.ReleaseLooseReservation(foodCell.Value, foodResource!.Value);
             return false;
         }
-        if (agent.Job is not null)
-        {
-            jobs.Release(agent.Job, resources);
-            ReleaseConstructionBatch(agent, jobs, resources, agent.Job);
-            agent.Job = null;
-        }
+        ReleaseJobForHigherPriority(agent, jobs, resources);
         ClearService(agent, true);
         ClearMourning(agent);
         SetPath(agent, path);

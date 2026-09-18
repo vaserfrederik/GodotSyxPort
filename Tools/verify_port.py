@@ -220,6 +220,19 @@ def main() -> None:
     assert "PerformTerrainJob" in text("Scripts/Citizens/CitizenSystem.cs")
     for terrain_job in ("Forage", "ClearWood", "ClearStone", "ClearWater", "DigTunnel"):
         assert f"BuildKind.{terrain_job}" in bootstrap
+    citizen_ai = text("Scripts/Citizens/CitizenAiModuleRuntime.cs")
+    assert "Non-rendering port of AIModules.Sorter2" in citizen_ai
+    assert "CriticalPriority = 10" in citizen_ai
+    assert "HealthPriority = 7" in citizen_ai
+    assert "HighNeedPriority = 6" in citizen_ai
+    assert "WorkPriority = 5" in citizen_ai
+    assert "LowNeedPriority = 4" in citizen_ai
+    assert "ServicePriority = 3" in citizen_ai
+    assert "SubjectActivityPriority = 2" in citizen_ai
+    citizen_system = text("Scripts/Citizens/CitizenSystem.cs")
+    assert "TryStartHighestPriorityPlan" in citizen_system
+    assert "ReleaseJobForHigherPriority" in citizen_system
+    assert "TryStartWorkPlan" in citizen_system
     assert "new SettlementWorldRuntime(" in bootstrap and "_settlementWorld.Tick(" in bootstrap
     assert "new WorldTradeRuntime(" in bootstrap and "_worldTrade.Tick(" in bootstrap
     strategic_map = text("Scripts/UI/StrategicWorldMap.cs")
