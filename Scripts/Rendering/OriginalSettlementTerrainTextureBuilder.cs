@@ -39,7 +39,8 @@ public static class OriginalSettlementTerrainTextureBuilder
     private const string MapRoot = "res://Data/Original/assets/sprite/settlement/map/";
     private const string TextureRoot = "res://Data/Original/assets/sprite/textures/";
 
-    public static Image Build(WorldGridData data, int seed)
+    public static Image Build(WorldGridData data, int seed, ClimateRule? climate = null,
+        double ice = 0, double weatherMoisture = 0.75)
     {
         var ground = Load(MapRoot + "Ground.png");
         var mountain = Load(MapRoot + "Mountain.png");
@@ -75,16 +76,22 @@ public static class OriginalSettlementTerrainTextureBuilder
                     var sample = water.Pixel(
                         6 + PositiveMod(x * PixelsPerTile + px, 128),
                         6 + PositiveMod(z * PixelsPerTile + py, 128));
-                    var salt = data.Has(cell, TileFlags.SaltWater);
                     var deep = data.Has(cell, TileFlags.DeepWater);
-                    var tint = salt ? new Color("326f8f") : new Color("377f9b");
-                    if (deep) tint = tint.Darkened(0.30f);
-                    color = TextureTint(sample, tint, 0.66f);
+                    var tint = new Color(60 / 255f, 150 / 255f, 200 / 255f).Lerp(
+                        new Color(60 / 255f, 140 / 255f, 160 / 255f),
+                        (float)Math.Clamp(ice, 0, 1));
+                    if (deep) tint = tint.Darkened(0.25f);
+                    color = TextureTint(sample, tint, 1f);
+                    var iceLimit = Math.Min(0xffff,
+                        (int)(Math.Clamp(ice, 0, 1) * 0x1ffff));
+                    if ((Hash(x, z, seed ^ 0x1ce5) & 0xffff) < iceLimit)
+                        color = AlphaOver(color,
+                            IcePixel(waterStencil, waterMask, variant, px, py));
                 }
                 else if (mountainCoverage > 0.44f)
                 {
                     var baseSample = GroundSample(ground, GroundKind.Mountain, variant, px, py);
-                    color = TextureTint(baseSample, new Color("716756"), 0.72f);
+                    color = TextureTint(baseSample, Colors.White, 1f);
                     // ComposerSources.house2 does not store the 16 masks in a row.  It
                     // uses a 5x3 house layout with 2/4-pixel gutters.  Reading it as a
                     // linear strip sampled the magenta/cyan authoring guides (and, for
@@ -102,7 +109,8 @@ public static class OriginalSettlementTerrainTextureBuilder
                     if (kind is GroundKind.FreshWater or GroundKind.SaltWater or GroundKind.Mountain)
                         kind = GroundKind.Soil;
                     var sample = GroundSample(ground, kind, variant, px, py);
-                    color = TextureTint(sample, GroundTint(data, cell, kind), 0.72f);
+                    color = TextureTint(sample,
+                        GroundTint(data, cell, kind, climate, weatherMoisture), 1f);
                 }
                 Write(pixels, width, x * PixelsPerTile + px, z * PixelsPerTile + py, color);
             }
@@ -246,18 +254,34 @@ public static class OriginalSettlementTerrainTextureBuilder
         return Math.Clamp(source.R * 0.299f + source.G * 0.587f + source.B * 0.114f, 0f, 1f);
     }
 
-    private static Color GroundTint(WorldGridData data, GridCoord cell, GroundKind kind)
+    private static Color IcePixel(Atlas atlas, int mask, int variant, int px, int py)
     {
-        var tint = kind switch
+        ReadOnlySpan<int> offsetsX = stackalloc int[]
         {
-            GroundKind.Forest => new Color("426044"),
-            GroundKind.Wet => new Color("516b50"),
-            GroundKind.Sand => new Color("b6a16d"),
-            GroundKind.Infertile => new Color("766b59"),
-            GroundKind.Pasture => new Color("788b58"),
-            _ => new Color("687b50")
+            52, 52, 0, 0, 52, 52, 0, 0, 32, 32, 16, 16, 32, 32, 16, 16
         };
-        return tint.Lerp(new Color("8fa866"), data.Fertility(cell) / 15f * 0.28f);
+        ReadOnlySpan<int> offsetsY = stackalloc int[]
+        {
+            52, 32, 52, 32, 0, 16, 0, 16, 52, 32, 52, 32, 0, 16, 0, 16
+        };
+        mask &= 15;
+        // TWater.Sprites composes four ice houses after the animation/full rows.
+        return SafePixel(atlas,
+            (variant & 3) * 72 + 2 + offsetsX[mask] + px * 4 + 2,
+            258 + offsetsY[mask] + py * 4 + 2);
+    }
+
+    private static Color GroundTint(WorldGridData data, GridCoord cell, GroundKind kind,
+        ClimateRule? climate, double weatherMoisture)
+    {
+        var moisture = Math.Clamp(data.Moisture(cell) / 15.0 + weatherMoisture * 0.4, 0, 1);
+        if (kind == GroundKind.Sand)
+            return new Color(208 / 255f, 194 / 255f, 142 / 255f).Lerp(
+                new Color(150 / 255f, 126 / 255f, 102 / 255f), (float)moisture);
+        if (kind == GroundKind.Mountain) return Colors.White;
+        var dry = climate?.GroundDry ?? new Color(193 / 255f, 181 / 255f, 135 / 255f);
+        var wet = climate?.GroundWet ?? new Color(85 / 255f, 52 / 255f, 52 / 255f);
+        return dry.Lerp(wet, (float)moisture);
     }
 
     private static float SmoothFlag(

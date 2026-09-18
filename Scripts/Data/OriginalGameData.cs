@@ -25,7 +25,8 @@ public sealed record GrowableRule(
     IReadOnlyDictionary<string, double> ClimateBonus);
 public sealed record LandingResourceRule(ResourceKind Resource, int Amount);
 public sealed record ClimateRule(
-    string Key, double SeasonalChange, double TempCold, double TempWarm, double Fertility);
+    string Key, double SeasonalChange, double TempCold, double TempWarm, double Fertility,
+    Color GroundDry, Color GroundWet);
 public sealed record AnimalRule(
     string Key, double Mass, IReadOnlyList<string> Resources, IReadOnlyList<double> ResourceAmounts);
 public sealed record SpecialProductionRule(
@@ -641,8 +642,19 @@ public sealed class OriginalGameData
                 climate.Get("SEASONAL_CHANGE")?.Number() ?? 0,
                 climate.Get("TEMP_COLD")?.Number() ?? 0,
                 climate.Get("TEMP_WARM")?.Number() ?? 0,
-                climate.Get("FERTILITY")?.Number() ?? 0);
+                climate.Get("FERTILITY")?.Number() ?? 0,
+                ReadRgb(climate.Get("GROUND")?.Get("DRY"), new Color(193 / 255f, 181 / 255f, 135 / 255f)),
+                ReadRgb(climate.Get("GROUND")?.Get("WET"), new Color(85 / 255f, 52 / 255f, 52 / 255f)));
         }
+    }
+
+    private static Color ReadRgb(SyxDataNode? node, Color fallback)
+    {
+        var value = node?.Text() ?? "";
+        var parts = value.Split('_', StringSplitOptions.RemoveEmptyEntries);
+        if (parts is not { Length: >= 3 } || !byte.TryParse(parts[0], out var r) ||
+            !byte.TryParse(parts[1], out var g) || !byte.TryParse(parts[2], out var b)) return fallback;
+        return new Color(r / 255f, g / 255f, b / 255f);
     }
 
     private void LoadRaces(string initRoot, string textRoot)

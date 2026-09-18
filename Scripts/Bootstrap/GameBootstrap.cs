@@ -151,7 +151,9 @@ public sealed partial class GameBootstrap : Node3D
         _world.InitializeRendering();
         GD.Print("[LAUNCH] settlement_renderers_ready");
         var climate = OriginalGameData.Current.Climates.GetValueOrDefault(generationProfile.Climate) ??
-            new ClimateRule("TEMPERATE", 0.5, -0.15, 0.5, 0.45);
+            new ClimateRule("TEMPERATE", 0.5, -0.15, 0.5, 0.45,
+                new Color(193 / 255f, 181 / 255f, 135 / 255f),
+                new Color(85 / 255f, 52 / 255f, 52 / 255f));
         _weather = new SettlementWeatherRuntime(
             climate, OriginalGameData.Current.SecondsPerHour, OriginalGameData.Current.SecondsPerDay);
         _rooms = new RoomSystem(_world, _weather);
@@ -503,6 +505,8 @@ public sealed partial class GameBootstrap : Node3D
                 SimulationClock.FixedStep, _jobs, cell => _rooms.Contains(cell));
             _maintenanceConsumption.Tick(SimulationClock.FixedStep);
         }
+        _world.UpdateWeatherVisuals(_weather.Ice, _weather.Moisture);
+        _rightSidebar.UpdateWeather(_weather.Ice);
         _citizens.SyncRenderTransforms();
 
         if (ticks > 0)

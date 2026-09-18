@@ -225,8 +225,19 @@ def main() -> None:
     assert "kind == StrategicWaterKind.SmallRiver" in settlement_generator
     settlement_terrain = text("Scripts/Rendering/OriginalSettlementTerrainTextureBuilder.cs")
     assert "6 + PositiveMod(x * PixelsPerTile + px, 128)" in settlement_terrain
-    assert "_submenuVisible ? mainX - ColumnWidth : mainX" in build_palette
-    assert "_roomScroll.Position = new Vector2(5, 4)" in build_palette
+    assert "Position = new Vector2(mainX," in build_palette
+    assert "_categoryScroll.Position = new Vector2(5, 4)" in build_palette
+    assert "_roomScroll.Position = new Vector2(ColumnWidth + 6, 4)" in build_palette
+    assert "_submenuVisible" not in build_palette
+    assert "Color GroundDry, Color GroundWet" in text("Scripts/Data/OriginalGameData.cs")
+    assert "world.Moisture(cell) >= 11" not in settlement_generator
+    assert "GroundTint(data, cell, kind, climate, weatherMoisture)" in settlement_terrain
+    assert "IcePixel(waterStencil" in settlement_terrain
+    assert "UpdateWeatherVisuals(double ice, double moisture)" in text("Scripts/Settlement/GridWorld.cs")
+    assert "public void SetWeather(double ice)" in text("Scripts/UI/SettlementRightSidebar.cs")
+    sidebar = text("Scripts/UI/SettlementRightSidebar.cs")
+    assert "_data.VegetationAmount(cell) > 0" in sidebar
+    assert "_data.MineralAmount(cell) > 0" in sidebar
     for terrain_job in ("Forage", "ClearWood", "ClearStone", "ClearWater", "DigTunnel"):
         assert f"BuildKind.{terrain_job}" in bootstrap
     citizen_ai = text("Scripts/Citizens/CitizenAiModuleRuntime.cs")

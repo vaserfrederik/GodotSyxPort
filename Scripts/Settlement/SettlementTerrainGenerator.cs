@@ -1302,9 +1302,9 @@ public sealed class SettlementTerrainGenerator
             if (world.Ground(cell) != GroundKind.Soil) continue;
             var mappedForest = SampleWorld(profile, x, z, world.Width, world.Height,
                 sample => sample.Forest, 0.67);
-            if (world.Moisture(cell) >= 11)
-                world.SetTerrain(cell, GroundKind.Wet, world.Elevation(cell), world.Fertility(cell), world.Moisture(cell));
-            else if (world.Fertility(cell) >= 8 &&
+            // Ground.java stores moisture separately and tints the selected GroundType.
+            // GroundTypes.java has no separate Wet terrain.
+            if (world.Fertility(cell) >= 8 &&
                      Fractal(x + 101, z - 73, profile.Seed ^ 0x57c9, 4) >
                      1 - Math.Clamp(settings.ForestAmount *
                          (profile.WorldTiles is null ? 0.67 : 0.25 + mappedForest * 1.25), 0.05, 0.95))

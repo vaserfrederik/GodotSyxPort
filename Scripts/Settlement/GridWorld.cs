@@ -42,6 +42,8 @@ public sealed partial class GridWorld : Node3D
     private readonly List<int> _furnitureCells = new();
     private readonly List<MeshInstance3D> _landingMarkers = new();
     private ImageTexture _groundTexture = null!;
+    private double _visualIce;
+    private double _visualMoisture = 0.75;
     private bool _renderingInitialized;
 
     public IReadOnlyList<int> WallCells => _wallCells;
@@ -399,7 +401,8 @@ public sealed partial class GridWorld : Node3D
         if (colorizer is null)
         {
             _groundTexture.Update(OriginalSettlementTerrainTextureBuilder.Build(
-                Data, GenerationProfile?.Seed ?? 1));
+                Data, GenerationProfile?.Seed ?? 1, CurrentClimate(),
+                _visualIce, _visualMoisture));
             return;
         }
         var scale = OriginalSettlementTerrainTextureBuilder.PixelsPerTile;
@@ -428,7 +431,8 @@ public sealed partial class GridWorld : Node3D
     private void CreateGround()
     {
         var image = OriginalSettlementTerrainTextureBuilder.Build(
-            Data, GenerationProfile?.Seed ?? 1);
+            Data, GenerationProfile?.Seed ?? 1, CurrentClimate(),
+            _visualIce, _visualMoisture);
         _groundTexture = ImageTexture.CreateFromImage(image);
         var material = new StandardMaterial3D
         {
@@ -454,6 +458,22 @@ public sealed partial class GridWorld : Node3D
         });
         AddChild(body);
     }
+
+    public void UpdateWeatherVisuals(double ice, double moisture)
+    {
+        var nextIce = System.Math.Round(System.Math.Clamp(ice, 0, 1) * 4) / 4.0;
+        var nextMoisture = System.Math.Round(System.Math.Clamp(moisture, 0, 1) * 10) / 10.0;
+        if (nextIce == _visualIce && nextMoisture == _visualMoisture) return;
+        _visualIce = nextIce;
+        _visualMoisture = nextMoisture;
+        if (_renderingInitialized)
+            _groundTexture.Update(OriginalSettlementTerrainTextureBuilder.Build(
+                Data, GenerationProfile?.Seed ?? 1, CurrentClimate(),
+                _visualIce, _visualMoisture));
+    }
+
+    private ClimateRule? CurrentClimate() => GenerationProfile is null ? null :
+        OriginalGameData.Current.Climates.GetValueOrDefault(GenerationProfile.Climate);
 
     private Color TerrainPlaceholderColor(GridCoord cell)
     {
