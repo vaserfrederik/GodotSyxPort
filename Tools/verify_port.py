@@ -144,6 +144,16 @@ def main() -> None:
     assert "FileAccess.FileExists(path)" in original_icons
     room_planner = text("Scripts/Rooms/RoomPlanner.cs")
     assert "ShowDoorPreview" in room_planner
+    build_palette = text("Scripts/UI/RoomBuildPalette.cs")
+    assert "public void OpenConstruction()" in build_palette
+    assert "public void OpenJobs()" in build_palette
+    assert build_palette.index('"MOVE_THRONE"') < build_palette.index('"FENCES"') < \
+        build_palette.index('"ROADS"') < build_palette.index('"STRUCTURES"') < \
+        build_palette.index('"FORTIFICATION"')
+    assert build_palette.index('"JOB_FORAGE"') < build_palette.index('"JOB_HUNT"') < \
+        build_palette.index('"JOB_CLEAR_WOOD"') < build_palette.index('"JOB_CLEAR_STONE"') < \
+        build_palette.index('"JOB_CLEAR_ALL"') < build_palette.index('"JOB_CLEAR_WATER"') < \
+        build_palette.index('"JOB_CLEAR_MOUNTAIN"')
     assert "GeneratorMapsPath" in world_setup and "LoadTerrainTemplates" in world_setup
     assert "GenerateConfiguredWorld" in world_setup and "ShowTerrainStage" in world_setup
     assert "MinValue = 0, MaxValue = 100" in world_setup
@@ -203,6 +213,13 @@ def main() -> None:
     settlement_world = text("Scripts/Settlement/SettlementWorldRuntime.cs")
     assert "SettlementWorldSnapshot" in settlement_world and "Diagnose" in settlement_world
     bootstrap = text("Scripts/Bootstrap/GameBootstrap.cs")
+    assert "OpenConstructionMenu" in bootstrap and "OpenJobsMenu" in bootstrap
+    assert '"Строительство", ref x,\n            OpenConstructionMenu' in bootstrap
+    assert '"Задания", ref x,\n            OpenJobsMenu' in bootstrap
+    assert "ToggleWindow(_constructionPalette)" not in bootstrap
+    assert "PerformTerrainJob" in text("Scripts/Citizens/CitizenSystem.cs")
+    for terrain_job in ("Forage", "ClearWood", "ClearStone", "ClearWater", "DigTunnel"):
+        assert f"BuildKind.{terrain_job}" in bootstrap
     assert "new SettlementWorldRuntime(" in bootstrap and "_settlementWorld.Tick(" in bootstrap
     assert "new WorldTradeRuntime(" in bootstrap and "_worldTrade.Tick(" in bootstrap
     strategic_map = text("Scripts/UI/StrategicWorldMap.cs")

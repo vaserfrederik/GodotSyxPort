@@ -25,7 +25,11 @@ namespace GodotSyxPort.Bootstrap;
 public sealed partial class GameBootstrap : Node3D
 {
     private const int LandingBaseCredits = 5000;
-    private enum BuildTool { Wall, Road, RoomArea, RoomShrink, Door, Furniture, RoomInspect, Cancel }
+    private enum BuildTool
+    {
+        Wall, Road, RoomArea, RoomShrink, Door, Furniture, RoomInspect, Cancel,
+        Forage, ClearWood, ClearStone, ClearAll, ClearWater, DigTunnel
+    }
 
     private readonly JobBoard _jobs = new();
     private readonly SimulationClock _clock = new();
@@ -792,9 +796,37 @@ public sealed partial class GameBootstrap : Node3D
                     _world.ReserveFurniture(cell);
                     _jobs.Add(new BuildJob(cell, BuildKind.Furniture));
                     break;
+                case BuildTool.Forage when _world.Data.GrowableType(cell) >= 0:
+                    _jobs.Add(new BuildJob(cell, BuildKind.Forage));
+                    break;
+                case BuildTool.ClearWood when _world.Data.VegetationAmount(cell) > 0 &&
+                                              _world.Data.GrowableType(cell) < 0:
+                    _jobs.Add(new BuildJob(cell, BuildKind.ClearWood));
+                    break;
+                case BuildTool.ClearStone when _world.Data.Has(cell, TileFlags.ClearableTerrain) &&
+                                               !_world.Data.Has(cell, TileFlags.Mountain):
+                    _jobs.Add(new BuildJob(cell, BuildKind.ClearStone));
+                    break;
+                case BuildTool.ClearAll when _world.Data.VegetationAmount(cell) > 0 &&
+                                             _world.Data.GrowableType(cell) < 0:
+                    _jobs.Add(new BuildJob(cell, BuildKind.ClearWood));
+                    break;
+                case BuildTool.ClearAll when _world.Data.Has(cell, TileFlags.ClearableTerrain) &&
+                                             !_world.Data.Has(cell, TileFlags.Mountain):
+                    _jobs.Add(new BuildJob(cell, BuildKind.ClearStone));
+                    break;
+                case BuildTool.ClearWater when _world.Data.Has(cell, TileFlags.Water):
+                    _jobs.Add(new BuildJob(cell, BuildKind.ClearWater));
+                    break;
+                case BuildTool.DigTunnel when _world.Data.Has(cell, TileFlags.Mountain) &&
+                                              !_world.Data.Has(cell, TileFlags.Cave):
+                    _jobs.Add(new BuildJob(cell, BuildKind.DigTunnel));
+                    break;
             }
         }
-        if (_tool == BuildTool.Road || (_tool == BuildTool.Wall && !_roomPlanner.HasDraft))
+        if (_tool == BuildTool.Road || (_tool == BuildTool.Wall && !_roomPlanner.HasDraft) ||
+            _tool is BuildTool.Forage or BuildTool.ClearWood or BuildTool.ClearStone or
+                BuildTool.ClearAll or BuildTool.ClearWater or BuildTool.DigTunnel)
             _world.ClearRoomPreview();
         if (_tool == BuildTool.Furniture) RefreshFurnisherControls();
     }
@@ -818,7 +850,9 @@ public sealed partial class GameBootstrap : Node3D
                 _selectedFurnisherVariant, _selectedFurnisherRotation);
             return;
         }
-        if (_tool == BuildTool.Road || (_tool == BuildTool.Wall && !_roomPlanner.HasDraft))
+        if (_tool == BuildTool.Road || (_tool == BuildTool.Wall && !_roomPlanner.HasDraft) ||
+            _tool is BuildTool.Forage or BuildTool.ClearWood or BuildTool.ClearStone or
+                BuildTool.ClearAll or BuildTool.ClearWater or BuildTool.DigTunnel)
             _world.ShowRoomPreview(Line(start, end), Array.Empty<GridCoord>(), Array.Empty<GridCoord>());
     }
 
@@ -990,6 +1024,7 @@ public sealed partial class GameBootstrap : Node3D
         layer.AddChild(_roomPalette);
         _roomPalette.Initialize(_rooms.Blueprints, _roomPlanner, _rooms.CanCreateRoom);
         _roomPalette.RoomSelected += SelectRoomDefinition;
+        _roomPalette.BuildActionSelected += SelectBuildAction;
         _roomPalette.Visible = false;
 
         _constructionPalette = CreateConstructionPalette(layer);
@@ -1104,13 +1139,10 @@ public sealed partial class GameBootstrap : Node3D
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(4), "Управление", ref x,
             () => OpenRoomCategory("Управление"));
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(19), "Строительство", ref x,
-            () => ToggleWindow(_constructionPalette));
-        AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(3), "Работы на местности", ref x,
-            () => SelectTool(BuildTool.Road));
-        AddIconHudButton(_bottomToolbar, OriginalUiIcons.Category(6), "Инструменты комнаты", ref x,
-            () => SelectTool(BuildTool.RoomArea));
-        AddIconHudButton(_bottomToolbar, OriginalUiIcons.Category(28), "Удаление / отмена", ref x,
-            () => SelectTool(BuildTool.Cancel));
+            OpenConstructionMenu);
+        AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(3), "Задания", ref x,
+            OpenJobsMenu);
+        _bottomToolbar.Size = new Vector2(x + 4f, 56f);
 
         ApplyResponsiveLayout();
         GetViewport().SizeChanged += ApplyResponsiveLayout;
@@ -1350,6 +1382,46 @@ public sealed partial class GameBootstrap : Node3D
         _roomPalette.OpenCategory(main);
     }
 
+    private void OpenConstructionMenu()
+    {
+        CloseWindows();
+        _roomPalette.OpenConstruction();
+    }
+
+    private void OpenJobsMenu()
+    {
+        CloseWindows();
+        _roomPalette.OpenJobs();
+    }
+
+    private void SelectBuildAction(string action)
+    {
+        _roomPalette.Visible = false;
+        switch (action)
+        {
+            case "ROADS": SelectTool(BuildTool.Road); return;
+            case "STRUCTURES": SelectTool(BuildTool.Wall); return;
+            case "JOB_FORAGE": SelectTool(BuildTool.Forage); return;
+            case "JOB_CLEAR_WOOD": SelectTool(BuildTool.ClearWood); return;
+            case "JOB_CLEAR_STONE": SelectTool(BuildTool.ClearStone); return;
+            case "JOB_CLEAR_ALL": SelectTool(BuildTool.ClearAll); return;
+            case "JOB_CLEAR_WATER": SelectTool(BuildTool.ClearWater); return;
+            case "JOB_CLEAR_MOUNTAIN": SelectTool(BuildTool.DigTunnel); return;
+            case "MOVE_THRONE":
+                _status.Text = "Перенос существующего трона ещё не подключён: обычное строительство трона не подставляется";
+                return;
+            case "FENCES":
+                _status.Text = "Заборы требуют отдельного JobBuildFence; инструмент стены не подставляется";
+                return;
+            case "FORTIFICATION":
+                _status.Text = "Укрепления требуют JobBuildFort и лестницы; инструмент стены не подставляется";
+                return;
+            case "JOB_HUNT":
+                _status.Text = "Ручная охота ожидает перенос диких животных и huntMark; охотничий лагерь не подставляется";
+                return;
+        }
+    }
+
     private void OpenSettlementMap()
     {
         CloseWindows();
@@ -1429,6 +1501,12 @@ public sealed partial class GameBootstrap : Node3D
         BuildTool.RoomShrink => "Уменьшение формы комнаты",
         BuildTool.RoomInspect => "Выбор",
         BuildTool.Cancel => "Отмена",
+        BuildTool.Forage => "Сбор съедобных растений",
+        BuildTool.ClearWood => "Рубка деревьев",
+        BuildTool.ClearStone => "Уборка камней",
+        BuildTool.ClearAll => "Уборка деревьев и камней",
+        BuildTool.ClearWater => "Осушение воды",
+        BuildTool.DigTunnel => "Прокладка тоннеля",
         _ => tool.ToString()
     };
 
