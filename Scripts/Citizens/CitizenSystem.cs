@@ -123,7 +123,11 @@ public sealed partial class CitizenSystem : Node3D
         public int NurseryDays;
         public int SchoolDays;
         public int MissedSchoolDays;
+        public int NurseryTimeoutDays;
+        public int SchoolTimeoutDays;
         public ChildActivity ChildActivity;
+        public int ChildRoomId;
+        public int ChildPlanSteps;
         public int FriendId;
         public byte SocialPlan;
         public int SocialTargetId;
@@ -867,7 +871,7 @@ public sealed partial class CitizenSystem : Node3D
             if (agent.MourningPlan != 0 && TickMourningPlan(agent, (float)delta)) continue;
             if (ChildBehaviorRuntime.IsChild(agent.Identity.Type))
             {
-                TickChildBehavior(agent, (float)delta);
+                TickChildBehavior(agent, (float)delta, resources);
                 continue;
             }
             if (agent.HomeActivity != HomeActivity.None && TickHomeBehavior(agent, (float)delta)) continue;
@@ -1042,19 +1046,13 @@ public sealed partial class CitizenSystem : Node3D
                 continue;
             }
             agent.AgeDays++;
+            if (agent.NurseryTimeoutDays > 0) agent.NurseryTimeoutDays--;
+            if (agent.SchoolTimeoutDays > 0) agent.SchoolTimeoutDays--;
             if (agent.Identity.Type is HumanoidType.Child or HumanoidType.ChildSlave &&
                 agent.AgeDays >= Reproduction.AdultAgeDays(agent.Identity.Race) &&
                 _rooms.Schools.CanEducate(PersonalStats, agent.Id,
                     agent.Identity.Race, agent.Identity.Class))
             {
-                if (_rooms.Schools.TryAttend(PersonalStats, agent.Id,
-                        agent.Identity.Race, agent.Identity.Class, resources))
-                {
-                    agent.SchoolDays++;
-                    agent.MissedSchoolDays = 0;
-                    continue;
-                }
-                agent.MissedSchoolDays++;
                 if (_rooms.Schools.HasService &&
                     agent.MissedSchoolDays <= SchoolRuntime.MissingSchoolDaysBeforeGrowth) continue;
             }
@@ -1066,8 +1064,6 @@ public sealed partial class CitizenSystem : Node3D
                 Identities.ChangeType(agent.Id, agent.Identity.Class, expected);
                 agent.Identity = Identities.Get(agent.Id)!;
             }
-            if (Reproduction.Stage(agent.Identity.Race, agent.AgeDays) == CitizenLifeStage.Child &&
-                _rooms.Childcare.TryUseNursery()) agent.NurseryDays++;
         }
         foreach (var birth in births)
             SpawnCitizen(birth.Cell, birth.Race, birth.Class,
@@ -1118,26 +1114,59 @@ public sealed partial class CitizenSystem : Node3D
         }
     }
 
-    private void TickChildBehavior(Agent agent, float delta)
+    private void TickChildBehavior(Agent agent, float delta, ResourceLedger resources)
     {
         var dayPart = (_populationElapsed / OriginalGameData.Current.SecondsPerDay) % 1.0;
         var race = OriginalGameData.Current.Races[agent.Identity.Race];
+
+        // A reserved child plan owns its service until its own resumer completes or cancels it.
+        // Do not replace it merely because the selection predicate changes at the work-day edge.
+        if (agent.ChildActivity == ChildActivity.School && agent.ChildRoomId != 0)
+        {
+            TickChildSchool(agent, delta, dayPart, resources);
+            return;
+        }
+        if (agent.ChildActivity == ChildActivity.Nursery && agent.ChildRoomId != 0)
+        {
+            TickChildNursery(agent, delta, dayPart);
+            return;
+        }
         var activity = ChildBehaviorRuntime.Select(
             race, agent.AgeDays, dayPart,
             agent.Hunger >= FoodSeekThreshold, agent.Exposure > 0,
             agent.EmigrationPlan != 0,
-            _rooms.Schools.HasService && _rooms.Schools.CanEducate(
+            agent.SchoolTimeoutDays == 0 && _rooms.Schools.HasService && _rooms.Schools.CanEducate(
                 PersonalStats, agent.Id, agent.Identity.Race, agent.Identity.Class),
-            _rooms.Childcare.NurseryCapacity > 0);
+            agent.NurseryTimeoutDays == 0 && _rooms.Childcare.NurseryCapacity > 0);
         if (activity != agent.ChildActivity)
         {
-            ClearPath(agent);
+            CancelChildReservation(agent);
             agent.ChildActivity = activity;
             agent.ChildPlanTimeLeft = 0;
+            agent.ChildPlanSteps = 0;
         }
-        if (activity is ChildActivity.Nursery or ChildActivity.School or ChildActivity.Sleeping)
+        if (activity == ChildActivity.School)
         {
-            if (activity == ChildActivity.Sleeping && agent.PathHandle == 0)
+            if (!TryStartChildSchool(agent))
+            {
+                agent.SchoolTimeoutDays = 2;
+                agent.MissedSchoolDays++;
+                agent.ChildActivity = ChildActivity.Playing;
+            }
+            return;
+        }
+        if (activity == ChildActivity.Nursery)
+        {
+            if (!TryStartChildNursery(agent))
+            {
+                agent.NurseryTimeoutDays = 2;
+                agent.ChildActivity = ChildActivity.Playing;
+            }
+            return;
+        }
+        if (activity == ChildActivity.Sleeping)
+        {
+            if (agent.PathHandle == 0)
             {
                 var parentHome = _rooms.Housing.Home(agent.Identity.ParentId);
                 if (parentHome is not null && agent.Cell != parentHome.ServiceCell)
@@ -1153,6 +1182,97 @@ public sealed partial class CitizenSystem : Node3D
         agent.ChildPlanTimeLeft = 5.0 + GD.Randf() * 35.0;
         var target = SelectChildPlaymate(agent);
         if (target is not null && target.Cell != agent.Cell) SetPathTo(agent, target.Cell);
+    }
+
+    private bool TryStartChildSchool(Agent agent)
+    {
+        if (!_rooms.Schools.TryReserveLesson(PersonalStats, agent.Id, agent.Identity.Race,
+                agent.Identity.Class, out var roomId)) return false;
+        var destination = ChildRoomDestination(roomId, agent.Cell);
+        if (destination is null || !SetPathTo(agent, destination.Value))
+        {
+            _rooms.Schools.CancelReservedLesson(roomId);
+            return false;
+        }
+        agent.ChildRoomId = roomId;
+        agent.ChildPlanTimeLeft = 5.0;
+        return true;
+    }
+
+    private bool TryStartChildNursery(Agent agent)
+    {
+        if (!_rooms.Childcare.TryReserveNursery(out var roomId)) return false;
+        var destination = ChildRoomDestination(roomId, agent.Cell);
+        if (destination is null || !SetPathTo(agent, destination.Value))
+        {
+            _rooms.Childcare.ReleaseNursery(roomId);
+            return false;
+        }
+        agent.ChildRoomId = roomId;
+        agent.ChildPlanTimeLeft = 5.0;
+        return true;
+    }
+
+    private void TickChildSchool(Agent agent, float delta, double dayPart, ResourceLedger resources)
+    {
+        if (MoveAlongPath(agent, delta)) return;
+        agent.ChildPlanTimeLeft -= delta;
+        if (agent.ChildPlanTimeLeft > 0) return;
+        agent.ChildPlanTimeLeft += 5.0;
+        agent.ChildPlanSteps++;
+        if (agent.ChildPlanSteps <= 5 || ChildBehaviorRuntime.IsChildWorkTime(dayPart)) return;
+        if (_rooms.Schools.CompleteReservedLesson(agent.ChildRoomId, PersonalStats, agent.Id,
+                agent.Identity.Race, agent.Identity.Class, resources))
+        {
+            agent.SchoolDays++;
+            agent.MissedSchoolDays = 0;
+        }
+        // CompleteReservedLesson consumes the reserved lesson on success and restores it on
+        // resource failure, so clearing the fields must not cancel it a second time.
+        agent.ChildRoomId = 0;
+        agent.ChildActivity = ChildActivity.None;
+        agent.ChildPlanSteps = 0;
+    }
+
+    private void TickChildNursery(Agent agent, float delta, double dayPart)
+    {
+        if (MoveAlongPath(agent, delta)) return;
+        if (!ChildBehaviorRuntime.IsChildWorkTime(dayPart))
+        {
+            _rooms.Childcare.ReleaseNursery(agent.ChildRoomId);
+            agent.ChildRoomId = 0;
+            agent.ChildActivity = ChildActivity.None;
+            agent.NurseryDays++;
+            return;
+        }
+        agent.ChildPlanTimeLeft -= delta;
+        if (agent.ChildPlanTimeLeft > 0) return;
+        agent.ChildPlanTimeLeft += 5.0;
+        agent.ChildPlanSteps++;
+        if (agent.ChildPlanSteps * 5 >= ChildcareRuntime.NurseryPlaySeconds)
+            agent.ChildPlanSteps = 0;
+    }
+
+    private GridCoord? ChildRoomDestination(int roomId, GridCoord origin)
+    {
+        var room = _rooms.All.FirstOrDefault(candidate => candidate.Id == roomId);
+        if (room is null) return null;
+        return room.Cells.Select(_world.FromIndex)
+            .SelectMany(cell => GridCoord.Cardinal.Select(offset => cell + offset))
+            .Where(cell => _world.IsInside(cell) && !_world.Data.IsBlocked(cell))
+            .OrderBy(cell => Math.Abs(cell.X - origin.X) + Math.Abs(cell.Z - origin.Z))
+            .Select(cell => (GridCoord?)cell).FirstOrDefault();
+    }
+
+    private void CancelChildReservation(Agent agent)
+    {
+        ClearPath(agent);
+        if (agent.ChildRoomId == 0) return;
+        if (agent.ChildActivity == ChildActivity.School)
+            _rooms.Schools.CancelReservedLesson(agent.ChildRoomId);
+        else if (agent.ChildActivity == ChildActivity.Nursery)
+            _rooms.Childcare.ReleaseNursery(agent.ChildRoomId);
+        agent.ChildRoomId = 0;
     }
 
     private Agent? SelectChildPlaymate(Agent child)

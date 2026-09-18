@@ -23,7 +23,8 @@ public sealed class SchoolRuntime
     public const int StationPreparationSteps = 3;
     public const int WorkCyclesPerDay = 40;
     public const double PaperPerLesson = 0.1;
-    public const int MissingSchoolDaysBeforeGrowth = 3;
+    // AIModule_Child.shouldGrowUp uses schoolTimeoutDay > 2.
+    public const int MissingSchoolDaysBeforeGrowth = 2;
     private readonly Dictionary<int, SchoolRuntimeInstance> _schools = new();
     private readonly Dictionary<(string Race, SocialClass Class), EducationTrack> _policy = new();
     private readonly Dictionary<(string Race, SocialClass Class), int> _childLimits = new();
@@ -74,15 +75,44 @@ public sealed class SchoolRuntime
     public bool TryAttend(CitizenPersonalStatsRuntime stats, int citizenId,
         string race, SocialClass socialClass, ResourceLedger resources)
     {
-        var school = _schools.Values.FirstOrDefault(candidate => candidate.AvailableLessons > 0);
+        if (!TryReserveLesson(stats, citizenId, race, socialClass, out var roomId)) return false;
+        return CompleteReservedLesson(roomId, stats, citizenId, race, socialClass, resources);
+    }
+
+    /// <summary>Reserves the school service before the child starts walking, as AIModule_Child does.</summary>
+    public bool TryReserveLesson(CitizenPersonalStatsRuntime stats, int citizenId,
+        string race, SocialClass socialClass, out int roomId)
+    {
+        var school = _schools.Values.Where(candidate => candidate.AvailableLessons > 0)
+            .OrderByDescending(candidate => candidate.Quality).FirstOrDefault();
+        roomId = school?.RoomId ?? 0;
         if (school is null || !CanEducate(stats, citizenId, race, socialClass)) return false;
+        school.AvailableLessons--;
+        return true;
+    }
+
+    public void CancelReservedLesson(int roomId)
+    {
+        if (_schools.TryGetValue(roomId, out var school))
+            school.AvailableLessons = Math.Min(school.Seats, school.AvailableLessons + 1);
+    }
+
+    public bool CompleteReservedLesson(int roomId, CitizenPersonalStatsRuntime stats, int citizenId,
+        string race, SocialClass socialClass, ResourceLedger resources)
+    {
+        if (!_schools.TryGetValue(roomId, out var school) ||
+            !CanEducate(stats, citizenId, race, socialClass)) return false;
         school.PaperProgress += PaperPerLesson;
         if (school.PaperProgress >= 1.0)
         {
-            if (!resources.TryTake(ResourceKind.Paper, 1)) return false;
+            if (!resources.TryTake(ResourceKind.Paper, 1))
+            {
+                school.PaperProgress -= PaperPerLesson;
+                CancelReservedLesson(roomId);
+                return false;
+            }
             school.PaperProgress -= 1.0;
         }
-        school.AvailableLessons--;
         stats.Educate(citizenId, Policy(race, socialClass), EducationAge.Childhood,
             Math.Max(0.01, school.Quality));
         return true;

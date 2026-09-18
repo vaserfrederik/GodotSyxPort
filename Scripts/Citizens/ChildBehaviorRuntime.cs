@@ -24,7 +24,9 @@ public static class ChildBehaviorRuntime
         bool emigrating, bool canAttendSchool, bool nurseryAvailable)
     {
         if (emigrating) return ChildActivity.Leaving;
-        if (race.Sleeps && (IsNight(dayPart) || hungry || exposed)) return ChildActivity.Sleeping;
+        // AIModule_Child.isSleep is unconditional for children; the adult race sleep flag
+        // is not consulted here.
+        if (IsNight(dayPart) || hungry || exposed) return ChildActivity.Sleeping;
         if (!IsChildWorkTime(dayPart)) return ChildActivity.Playing;
         if (ageDays >= race.BabyDays + race.ChildDays && canAttendSchool)
             return ChildActivity.School;

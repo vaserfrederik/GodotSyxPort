@@ -458,8 +458,11 @@ def main() -> None:
     school = text("Scripts/Rooms/SchoolRuntime.cs")
     assert "DefaultChildLimit = EducationMaximum / 6" in school
     assert "StationPreparationSteps = 3" in school and "WorkCyclesPerDay = 40" in school
-    assert "PaperPerLesson = 0.1" in school and "MissingSchoolDaysBeforeGrowth = 3" in school
-    assert "Schools.BeginDay" in citizens and "Schools.TryAttend" in citizens
+    assert "PaperPerLesson = 0.1" in school and "MissingSchoolDaysBeforeGrowth = 2" in school
+    assert "TryReserveLesson" in school and "CompleteReservedLesson" in school
+    assert "Schools.BeginDay" in citizens and "TryStartChildSchool" in citizens
+    assert "TickChildNursery" in citizens and "CancelChildReservation" in citizens
+    assert "Schools.TryAttend" not in citizens and "Childcare.TryUseNursery" not in citizens
     assert 'RoomKey(room) == "SCHOOL_NORMAL"' in rooms
     assert "candidate.Identity.ParentId == citizenId" in citizens
     assert "Childcare.Synchronize" in rooms and "Childcare.Tick" in citizens

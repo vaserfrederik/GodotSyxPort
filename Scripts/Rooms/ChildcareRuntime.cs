@@ -69,10 +69,22 @@ public sealed class ChildcareRuntime
 
     public bool TryUseNursery()
     {
+        return TryReserveNursery(out _);
+    }
+
+    public bool TryReserveNursery(out int roomId)
+    {
         var nursery = _nurseries.Values.FirstOrDefault(room => room.AvailableUses > 0);
+        roomId = nursery?.RoomId ?? 0;
         if (nursery is null) return false;
         nursery.AvailableUses--;
         return true;
+    }
+
+    public void ReleaseNursery(int roomId)
+    {
+        if (_nurseries.TryGetValue(roomId, out var nursery))
+            nursery.AvailableUses = Math.Min(nursery.DailyCapacity, nursery.AvailableUses + 1);
     }
 
     public void Tick(double delta, double secondsPerDay, ResourceLedger resources,
