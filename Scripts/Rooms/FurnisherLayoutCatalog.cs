@@ -117,6 +117,7 @@ public static class FurnisherLayoutCatalog
         "_ASYLUM" => "health/asylum",
         "_HOSPITAL" => "health/hospital",
         var value when value.StartsWith("PHYSICIAN_") => "health/physician",
+        "_HOME" => "home/house",
         "_HOME_CHAMBER" => "home/chamber",
         "_BENCH" => "infra/bench",
         "_BUILDER" => "infra/builder",

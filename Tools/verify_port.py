@@ -466,7 +466,8 @@ def main() -> None:
     assert "ReadFurnisherItems" in original_data
     room_instance = text("Scripts/Rooms/RoomInstanceRuntime.cs")
     assert "MaximumArea = 2048" in room_instance
-    assert "MaximumDimension = 55" in room_instance
+    assert "MaximumAreaPlacementDimension = 55" in room_instance
+    assert "MaximumDimension = 150" in room_instance
     assert "Exists && Enabled && Reachable" in room_instance
     assert "RoomRuntimeState" in room_instance
     assert "Blueprint.Furnisher.ConstructionCost" in room_instance
@@ -516,8 +517,8 @@ def main() -> None:
     placement = text("Scripts/Rooms/RoomPlacementRuntime.cs")
     assert "RoomInstanceRuntime.MaximumArea" in placement
     assert "RoomInstanceRuntime.MaximumDimension" in placement
-    assert "Room area must be connected" in placement
-    assert "Indoor room requires a doorway" in placement
+    assert "Все клетки комнаты должны быть соединены" in placement
+    assert "Закрытому помещению требуется дверной проём" in placement
     assert "CreateFromDefinition" in placement
     assert "blueprint.Furnisher.ConstructionCost" in placement
     assert "ExpandArea" in placement and "ShrinkArea" in placement
@@ -708,6 +709,9 @@ def main() -> None:
     planner = text("Scripts/Rooms/RoomPlanner.cs")
     assert "RoomBlueprintCatalog" in palette and "_categoryColumn" in palette
     assert "_roomColumn" in palette and '"Переработка"' in palette
+    assert 'private string _currentSub = "";' in palette
+    assert "_roomScroll.Visible = false" in palette
+    assert "button.MouseEntered += () => SelectSubcategory" in palette
     assert 'new[] { "REFINER_" }' in palette
     assert "OriginalUiIcons.Room(room.Key)" in palette
     assert "ScrollContainer" in palette and "VerticalScrollMode" in palette
@@ -745,10 +749,14 @@ def main() -> None:
     assert 'StartsWith("WORKSHOP_") => "industry/workshop"' in layout_catalog
     assert 'StartsWith("MINE_") => "industry/mine"' in layout_catalog
     layouts = text("Data/Original/furnisher_layouts.tsv").splitlines()
-    assert len(layouts) == 660
+    assert len(layouts) == 714
     assert any(line.startswith("industry/refiner\t") for line in layouts)
     assert any(line.startswith("industry/workshop\t") for line in layouts)
     assert sum(line.startswith("industry/workshop\t0\t") for line in layouts) == 18
+    assert sum(line.startswith("home/house\t") for line in layouts) == 54
+    assert '"_HOME" => "home/house"' in layout_catalog
+    assert "UsesFixedItemPlacement" in planner and "PlaceFixedFurniture" in planner
+    assert "SetFixedItem" in text("Scripts/Rooms/RoomPlacementRuntime.cs")
     ground = text("Scripts/Settlement/GridWorld.cs")
     terrain_texture = text("Scripts/Rendering/OriginalSettlementTerrainTextureBuilder.cs")
     assert "OriginalSettlementTerrainTextureBuilder.Build" in ground and "Image.CreateFromData" in ground
@@ -907,7 +915,7 @@ def main() -> None:
     assert "new WorkAccidentRuntime(_rooms, _citizens)" in bootstrap
     assert "_workAccidents.Tick(" in bootstrap
     assert "BuildJob.Road(cell, SelectedRoad())" in bootstrap
-    assert "save.Version is < 1 or > 36" in bootstrap
+    assert "save.Version is < 1 or > 37" in bootstrap
     world_armies = text("Scripts/World/WorldArmyRuntime.cs")
     assert "MenPerDivision = 200" in world_armies
     assert "DivisionsPerArmy = 120" in world_armies
@@ -1216,7 +1224,7 @@ def main() -> None:
     assert "GenerateRoads(world, profile)" in settlement_terrain
     assert "sample.Road" in settlement_terrain and "PaintGeneratedRoadLine" in settlement_terrain
     assert settlement_terrain.count("GenerateMinerals(world, profile, settings);") == 1
-    assert "GenerateMountains(world, profile, settings)" in settlement_terrain
+    assert "GenerateMountains(world, profile, settings, polymap)" in settlement_terrain
     assert "GenerateCaves(world, profile, settings)" in settlement_terrain
     assert "settings.CaveAmount * 300" in settlement_terrain
     assert "settings.CaveSize * 30" in settlement_terrain
@@ -1358,7 +1366,8 @@ def main() -> None:
     assert "case Key.F2: ToggleWindow(_administration)" in bootstrap
     assert "private void CloseWindows()" in bootstrap
     assert 'OriginalUiIcons.MainCategory(1), "Работы"' in bootstrap
-    assert 'OpenRoomCategory("Работы", "Переработка")' in bootstrap
+    assert 'OpenRoomCategory("Работы")' in bootstrap
+    assert 'OpenRoomCategory("Работы", "Переработка")' not in bootstrap
     assert "_roomPalette.Visible = false;" in bootstrap
     assert "_notifications.Refresh(_events.Notices" in bootstrap
     original_icons = text("Scripts/UI/OriginalUiIcons.cs")
@@ -1384,7 +1393,7 @@ def main() -> None:
     layout_rows = text("Data/Original/furnisher_layouts.tsv").splitlines()
     assert layout_rows[0] == ("family\tgroup\twidth\theight\tcost_multiplier\t"
                               "stat_multiplier\tmask\troles\tfunctions")
-    assert len(layout_rows) == 660
+    assert len(layout_rows) == 714
     for row in layout_rows[1:]:
         family, group, width, height, cost_multiplier, stat_multiplier, mask, roles, functions = row.split("\t")
         width_i, height_i = int(width), int(height)
@@ -1439,7 +1448,7 @@ def main() -> None:
     placement = text("Scripts/Rooms/RoomPlacementRuntime.cs")
     assert "FurnitureRoles" in world_data and "FurnitureBlocks" in world_data
     assert "FurnitureMustBeReachable" in world_data
-    assert "Furniture item requires a reachable side" in placement
+    assert "К предмету должен оставаться доступный проход" in placement
     assert "FurnitureBlockerCells" in build_job and "FurnitureReachableCells" in build_job
     assert "save.Version >= 29" in bootstrap
 
@@ -1522,7 +1531,7 @@ def main() -> None:
     assert "Schools.Synchronize(_rooms, FurnisherStatRuntime.Value)" in rooms
     assert "Hospitality.Synchronize(_rooms, FurnisherStatRuntime.Value)" in rooms
     assert "Law.Synchronize(_rooms, _world.FromIndex, FurnisherStatRuntime.Value)" in rooms
-    assert "FurnisherStatRuntime.Evaluate(" in bootstrap
+    assert "_roomPlanner.DefinitionStats()" in bootstrap
 
     # A80: placement enforces Java flush group bounds before transformed
     # FurnisherStat minima, exactly matching UtilPlacability's order.
@@ -1540,7 +1549,7 @@ def main() -> None:
     assert "FamilyForRoom" in constraint_catalog
     assert "placed < constraint.Minimum" in placement
     assert "placed > constraint.Maximum" in placement
-    assert "FurnisherStatRuntime.Evaluate(DefinitionKey, _itemGroups)" in placement
+    assert "FurnisherStatRuntime.EvaluatePlacement(" in placement
     assert "minimums[index] > 0" in placement
     constraint_extractor = text("Tools/extract_furnisher_constraints.py")
     assert "flush_pattern" in constraint_extractor and "stat_pattern" in constraint_extractor

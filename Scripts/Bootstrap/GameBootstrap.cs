@@ -48,6 +48,9 @@ public sealed partial class GameBootstrap : Node3D
     private ColorRect _constructionPalette = null!;
     private Label _constructionTitle = null!;
     private Button _autoWallsButton = null!;
+    private VBoxContainer _constructionShapeControls = null!;
+    private ColorRect _constructionShapeSeparator = null!;
+    private HBoxContainer _constructionFrameActions = null!;
     private ColorRect _bottomToolbar = null!;
     private VBoxContainer _furnisherControls = null!;
     private Label _furnisherCost = null!;
@@ -573,11 +576,18 @@ public sealed partial class GameBootstrap : Node3D
 
     private void RefreshFurnitureCursorPreview()
     {
-        if (_tool != BuildTool.Furniture || !_roomPlanner.HasDraft ||
-            !_roomPlanner.UsesDefinition || _dragStart is not null) return;
+        if (_tool != BuildTool.Furniture || !_roomPlanner.UsesDefinition ||
+            (!_roomPlanner.HasDraft && !_roomPlanner.UsesFixedItemPlacement) ||
+            _dragStart is not null) return;
         if (ScreenToCell(GetViewport().GetMousePosition()) is { } cell)
-            _roomPlanner.PreviewFurniture(cell, _selectedFurnisherGroup,
-                _selectedFurnisherVariant, _selectedFurnisherRotation);
+        {
+            if (_roomPlanner.UsesFixedItemPlacement)
+                _roomPlanner.PreviewFixedFurniture(cell, _selectedFurnisherGroup,
+                    _selectedFurnisherVariant, _selectedFurnisherRotation);
+            else
+                _roomPlanner.PreviewFurniture(cell, _selectedFurnisherGroup,
+                    _selectedFurnisherVariant, _selectedFurnisherRotation);
+        }
     }
 
     private void ChangeFurnisherVariant(int delta)
@@ -714,6 +724,16 @@ public sealed partial class GameBootstrap : Node3D
             _constructionPalette.Visible = true;
             return;
         }
+        if (_tool == BuildTool.Furniture && _roomPlanner.UsesFixedItemPlacement)
+        {
+            if (_roomPlanner.PlaceFixedFurniture(end, _selectedFurnisherGroup,
+                    _selectedFurnisherVariant, _selectedFurnisherRotation, _jobs))
+                _status.Text = "Дом запланирован: жители доставят материалы и построят его";
+            else
+                _status.Text = _roomPlanner.PlacementStatus;
+            RefreshFurnisherControls();
+            return;
+        }
         if (_tool == BuildTool.Furniture && _roomPlanner.HasDraft && _roomPlanner.UsesDefinition)
         {
             // Mouse release commits the currently previewed furnisher.  The old
@@ -784,6 +804,12 @@ public sealed partial class GameBootstrap : Node3D
         if (_tool is BuildTool.RoomArea or BuildTool.RoomShrink)
         {
             _roomPlanner.PreviewArea(Rectangle(start, end), _tool == BuildTool.RoomShrink);
+            return;
+        }
+        if (_tool == BuildTool.Furniture && _roomPlanner.UsesFixedItemPlacement)
+        {
+            _roomPlanner.PreviewFixedFurniture(end, _selectedFurnisherGroup,
+                _selectedFurnisherVariant, _selectedFurnisherRotation);
             return;
         }
         if (_tool == BuildTool.Furniture && _roomPlanner.HasDraft && _roomPlanner.UsesDefinition)
@@ -1072,7 +1098,7 @@ public sealed partial class GameBootstrap : Node3D
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(0), "Сельское хозяйство", ref x,
             () => OpenRoomCategory("Сельское хозяйство"));
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(1), "Работы", ref x,
-            () => OpenRoomCategory("Работы", "Переработка"));
+            () => OpenRoomCategory("Работы"));
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(2), "Службы", ref x,
             () => OpenRoomCategory("Службы"));
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(4), "Управление", ref x,
@@ -1149,11 +1175,12 @@ public sealed partial class GameBootstrap : Node3D
         _constructionTitle.AddThemeFontSizeOverride("font_size", 18);
         _constructionTitle.AddThemeColorOverride("font_color", new Color("f2dfaa"));
         menu.AddChild(_constructionTitle);
-        var column = new VBoxContainer
+        _constructionShapeControls = new VBoxContainer
         {
             Position = new Vector2(8, 36),
             Size = new Vector2(176, 168)
         };
+        var column = _constructionShapeControls;
         menu.AddChild(column);
         column.AddChild(ConstructionSectionTitle("ФОРМА"));
         var shapeRow = new HBoxContainer();
@@ -1195,12 +1222,12 @@ public sealed partial class GameBootstrap : Node3D
             SelectTool(BuildTool.RoomInspect);
             ToggleWindow(_inspector);
         });
-        var separatorOne = new ColorRect
+        _constructionShapeSeparator = new ColorRect
         {
             Position = new Vector2(190, 36), Size = new Vector2(2, 168),
             Color = new Color("575950"), MouseFilter = Control.MouseFilterEnum.Ignore
         };
-        menu.AddChild(separatorOne);
+        menu.AddChild(_constructionShapeSeparator);
         _furnisherControls = new VBoxContainer
         {
             Position = new Vector2(202, 36), Size = new Vector2(248, 168)
@@ -1221,11 +1248,12 @@ public sealed partial class GameBootstrap : Node3D
         _furnisherCost.AddThemeColorOverride("font_color", new Color("d5c79d"));
         menu.AddChild(_furnisherCost);
 
-        var frameActions = new HBoxContainer
+        _constructionFrameActions = new HBoxContainer
         {
             Position = new Vector2(580, 206), Size = new Vector2(148, 40),
             Alignment = BoxContainer.AlignmentMode.End
         };
+        var frameActions = _constructionFrameActions;
         frameActions.AddThemeConstantOverride("separation", 8);
         menu.AddChild(frameActions);
         AddConstructionIconAction(frameActions, OriginalUiIcons.Medium(78), "Удалить весь чертёж", () =>
@@ -1316,10 +1344,10 @@ public sealed partial class GameBootstrap : Node3D
         _constructionPalette.Visible = true;
     }
 
-    private void OpenRoomCategory(string main, string? preferredSub = null)
+    private void OpenRoomCategory(string main)
     {
         CloseWindows();
-        _roomPalette.OpenCategory(main, preferredSub);
+        _roomPalette.OpenCategory(main);
     }
 
     private void OpenSettlementMap()
@@ -1424,10 +1452,14 @@ public sealed partial class GameBootstrap : Node3D
     {
         _roomPlanner.SelectDefinition(definitionKey);
         _selectedFurnisherGroup = 0;
+        _selectedFurnisherVariant = 0;
+        _selectedFurnisherRotation = 0;
         RefreshFurnisherControls();
-        SelectTool(BuildTool.RoomArea);
+        SelectTool(_roomPlanner.UsesFixedItemPlacement ? BuildTool.Furniture : BuildTool.RoomArea);
         _roomPalette.Visible = false;
         _constructionPalette.Visible = true;
+        if (_roomPlanner.UsesFixedItemPlacement)
+            _status.Text = "Выберите тип и размер дома; ЛКМ размещает готовый чертёж, E/Q меняют размер, R поворачивает";
     }
 
     private void CommitRoomDraft()
@@ -1453,7 +1485,15 @@ public sealed partial class GameBootstrap : Node3D
         }
         var blueprint = _rooms.Blueprints.Get(_roomPlanner.SelectedDefinition);
         if (blueprint is null) return;
-        _constructionTitle.Text = $"{RussianRoomName(blueprint.Key, blueprint.Rule.Name).ToUpperInvariant()} — СТРОИТЕЛЬСТВО";
+        var fixedPlacement = _roomPlanner.UsesFixedItemPlacement;
+        _constructionShapeControls.Visible = !fixedPlacement;
+        _constructionShapeSeparator.Visible = !fixedPlacement;
+        _constructionFrameActions.Visible = !fixedPlacement;
+        _furnisherControls.Position = new Vector2(fixedPlacement ? 8 : 202, 36);
+        _furnisherControls.Size = new Vector2(fixedPlacement ? 442 : 248, 168);
+        _constructionTitle.Text = fixedPlacement
+            ? $"{RussianRoomName(blueprint.Key, blueprint.Rule.Name).ToUpperInvariant()} — РАЗМЕЩЕНИЕ"
+            : $"{RussianRoomName(blueprint.Key, blueprint.Rule.Name).ToUpperInvariant()} — СТРОИТЕЛЬСТВО";
         _autoWallsButton.Disabled = !blueprint.Rule.Construction.Indoors;
         _autoWallsButton.ButtonPressed = _roomPlanner.AutoWalls;
         _furnisherControls.AddChild(ConstructionSectionTitle("ОБЪЕКТЫ"));
@@ -1497,7 +1537,8 @@ public sealed partial class GameBootstrap : Node3D
             var groupIndex = group;
             var select = new Button
             {
-                Text = $"{names[group]} ×{_roomPlanner.DefinitionItems.GetValueOrDefault(group):0.##}",
+                Text = fixedPlacement ? names[group] :
+                    $"{names[group]} ×{_roomPlanner.DefinitionItems.GetValueOrDefault(group):0.##}",
                 CustomMinimumSize = new Vector2(250, 34),
                 Alignment = HorizontalAlignment.Left,
                 ButtonPressed = group == _selectedFurnisherGroup,
@@ -1584,6 +1625,8 @@ public sealed partial class GameBootstrap : Node3D
 
     private static string RussianRoomName(string key, string fallback) => key.ToUpperInvariant() switch
     {
+        "_HOME" => "Дом",
+        "_HOME_CHAMBER" => "Покои знати",
         "HUNTER_NORMAL" => "Охотничий лагерь",
         "FISHERY_NORMAL" => "Рыболовня",
         _ => fallback
@@ -1639,6 +1682,9 @@ public sealed partial class GameBootstrap : Node3D
     private static string RussianItemName(string roomKey, int index, string fallback) =>
         (roomKey.ToUpperInvariant(), index) switch
         {
+            ("_HOME", 0) => "Квартира",
+            ("_HOME", 1) => "Дом",
+            ("_HOME", 2) => "Длинный дом",
             ("HUNTER_NORMAL", 0) => "Разделочный стол",
             ("HUNTER_NORMAL", 1) => "Оснащение",
             ("FISHERY_NORMAL", 0) => "Хранилище",

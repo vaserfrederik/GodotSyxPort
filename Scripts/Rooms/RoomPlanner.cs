@@ -42,6 +42,9 @@ public sealed class RoomPlanner
     public IReadOnlyDictionary<int, double> DefinitionItems => Definitions.ItemGroups;
     public int DefinitionItemCount => Definitions.Placements.Count;
     public IReadOnlyDictionary<GridCoord, int> DefinitionFurniture => Definitions.Furniture;
+    public bool UsesFixedItemPlacement => UsesDefinition &&
+        (Definitions.DefinitionKey.Equals("_HOME", System.StringComparison.OrdinalIgnoreCase) ||
+         Definitions.DefinitionKey.Equals("_HOME_CHAMBER", System.StringComparison.OrdinalIgnoreCase));
 
     public RoomPlanner(GridWorld world, RoomSystem rooms)
     {
@@ -214,6 +217,40 @@ public sealed class RoomPlanner
             Definitions.Furniture.Keys.Concat(valid), invalid,
             DefinitionVisuals().Append(new FurnitureVisualPlacement(
                 Definitions.DefinitionKey, group, variant, rotation, origin, Definitions.Upgrade)));
+    }
+
+    public void PreviewFixedFurniture(GridCoord anchor, int group, int variant, int rotation)
+    {
+        if (!UsesFixedItemPlacement) return;
+        var variants = FurnisherLayoutCatalog.Variants(Definitions.DefinitionKey, group);
+        var selectedVariant = System.Math.Clamp(variant, 0, variants.Count - 1);
+        var layout = variants[selectedVariant];
+        var origin = layout.OriginAtCursor(anchor, rotation);
+        var ghost = layout.RotatedCells(rotation).Select(offset => origin + offset).ToArray();
+        var invalid = ghost.Where(cell => !_world.IsInside(cell) ||
+            _world.Data.Has(cell, TileFlags.Wall) || _rooms.Contains(cell)).ToArray();
+        _world.ShowRoomPreview(ghost.Except(invalid), System.Array.Empty<GridCoord>(),
+            System.Array.Empty<GridCoord>(), ghost.Except(invalid), invalid,
+            new[] { new FurnitureVisualPlacement(Definitions.DefinitionKey, group,
+                selectedVariant, rotation, origin, Definitions.Upgrade) });
+    }
+
+    public bool PlaceFixedFurniture(
+        GridCoord anchor, int group, int variant, int rotation, JobBoard jobs)
+    {
+        if (!UsesFixedItemPlacement ||
+            !Definitions.SetFixedItem(anchor, group, variant, rotation))
+        {
+            PlacementStatus = "Здесь нельзя разместить выбранный дом";
+            return false;
+        }
+        var validation = Definitions.Validate();
+        PlacementStatus = validation.Error;
+        if (!validation.Valid) return false;
+        Definitions.Commit(jobs);
+        _world.ClearRoomPreview();
+        PlacementStatus = "Дом запланирован";
+        return true;
     }
 
     public int Commit(JobBoard jobs)

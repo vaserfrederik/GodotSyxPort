@@ -17,8 +17,9 @@ with zipfile.ZipFile(args.source_jar) as archive:
         for name in archive.namelist()
         if name.startswith("settlement/room/") and name.endswith(".java") and
         "/main/furnisher/" not in name and
-        re.search(r"new\s+FurnisherItem\s*\(\s*new\s+FurnisherItemTile\s*\[\]\s*\[\]",
-                  archive.read(name).decode("utf-8-sig"))
+        (name == "settlement/room/home/house/HomeContructor.java" or
+         re.search(r"new\s+FurnisherItem\s*\(\s*new\s+FurnisherItemTile\s*\[\]\s*\[\]",
+                   archive.read(name).decode("utf-8-sig")))
     }
 directory_counts = {
     str(Path(name).parent): sum(Path(other).parent == Path(name).parent for other in sources)
@@ -145,6 +146,29 @@ for name, text in sorted(sources.items()):
                 f"{family}\t{group}\t{width}\t{height}\t{cost_multiplier:g}\t"
                 f"{stat_multiplier:g}\t{mask}\t{roles}\t{functions}")
         cursor = closing + 1
+
+# HomeContructor creates three fixed, repeating house footprints procedurally.
+# Each FurnisherItem is the complete room: apartment 3x3 (1..9 modules), house
+# 3x5 (1..15), and longhouse 5x6 (1..30).  The entrance tile is reachable and
+# the internal floor tiles are passable; the remaining item tiles are walls.
+home = sources.get("settlement/room/home/house/HomeContructor.java", "")
+if "final int[][] maxOccupants" in home and "create(new FurnisherItemTile[][]" in home:
+    home_groups = [
+        (3, ["bbb", "bpb", "brb"], 9),
+        (3, ["bbb", "bpb", "bpb", "bpb", "brb"], 15),
+        (5, ["bbbbb", "bpppb", "bpppb", "bpppb", "bpppb", "bbrbb"], 30),
+    ]
+    for group, (module_width, module_roles, maximum) in enumerate(home_groups):
+        for modules in range(1, maximum + 1):
+            width = module_width * modules
+            height = len(module_roles)
+            mask = "/".join("1" * width for _ in range(height))
+            roles = "/".join(row * modules for row in module_roles)
+            functions = "/".join("p" * width for _ in range(height))
+            rows.append(
+                f"home/house\t{group}\t{width}\t{height}\t{modules}\t{modules}\t"
+                f"{mask}\t{roles}\t{functions}")
+
 # industry/workshop/Constructor.java builds its storage group procedurally:
 # height 1..2, width 2..10, every tile occupied, multiplier width*height.
 workshop = sources.get("settlement/room/industry/workshop/Constructor.java", "")
