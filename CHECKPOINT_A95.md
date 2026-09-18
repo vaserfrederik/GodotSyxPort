@@ -15,7 +15,7 @@ branches and ordering from `view.sett.ui.bottom.BuildMain`.
   roads, structures, decor and fortifications.
 - Jobs order is: forage, hunt, fell trees, clear rock, clear all, remove water
   and dig tunnel. Return-water and cave-fill are excluded as in Java.
-- Roads and structure walls select their existing real placers.
+- Roads select the existing real road placer.
 - Forage, tree clearing, rock clearing, water removal and tunnel digging are
   distinct jobs performed by citizens. `JobClear` work times and repeated
   forage/tree steps follow the Java control flow.
@@ -29,6 +29,7 @@ the missing dependency instead of silently invoking an unrelated tool:
 
 - move throne — needs relocation of the existing throne room;
 - fences — needs a separate `JobBuildFence` representation;
+- structures — needs the `JobBuildStructure` material/wall/roof/convert selector;
 - fortifications — needs `JobBuildFort`, fortification terrain and stairs;
 - manual hunt — needs wild-animal entities and `huntMark` state.
 

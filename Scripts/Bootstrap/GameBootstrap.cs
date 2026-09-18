@@ -1400,7 +1400,6 @@ public sealed partial class GameBootstrap : Node3D
         switch (action)
         {
             case "ROADS": SelectTool(BuildTool.Road); return;
-            case "STRUCTURES": SelectTool(BuildTool.Wall); return;
             case "JOB_FORAGE": SelectTool(BuildTool.Forage); return;
             case "JOB_CLEAR_WOOD": SelectTool(BuildTool.ClearWood); return;
             case "JOB_CLEAR_STONE": SelectTool(BuildTool.ClearStone); return;
@@ -1412,6 +1411,9 @@ public sealed partial class GameBootstrap : Node3D
                 return;
             case "FENCES":
                 _status.Text = "Заборы требуют отдельного JobBuildFence; инструмент стены не подставляется";
+                return;
+            case "STRUCTURES":
+                _status.Text = "Конструкции требуют JobBuildStructure с выбором материала, стен и крыш; каменная стена не подставляется";
                 return;
             case "FORTIFICATION":
                 _status.Text = "Укрепления требуют JobBuildFort и лестницы; инструмент стены не подставляется";
