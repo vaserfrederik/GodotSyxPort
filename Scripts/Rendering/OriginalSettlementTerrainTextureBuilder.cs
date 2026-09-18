@@ -73,8 +73,8 @@ public static class OriginalSettlementTerrainTextureBuilder
                 if (waterCoverage > 0.46f)
                 {
                     var sample = water.Pixel(
-                        4 + PositiveMod(x * PixelsPerTile + px, 132),
-                        4 + PositiveMod(z * PixelsPerTile + py, 132));
+                        6 + PositiveMod(x * PixelsPerTile + px, 128),
+                        6 + PositiveMod(z * PixelsPerTile + py, 128));
                     var salt = data.Has(cell, TileFlags.SaltWater);
                     var deep = data.Has(cell, TileFlags.DeepWater);
                     var tint = salt ? new Color("326f8f") : new Color("377f9b");

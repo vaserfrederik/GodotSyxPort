@@ -218,6 +218,15 @@ def main() -> None:
     assert '"Задания", ref x,\n            OpenJobsMenu' in bootstrap
     assert "ToggleWindow(_constructionPalette)" not in bootstrap
     assert "PerformTerrainJob" in text("Scripts/Citizens/CitizenSystem.cs")
+    settlement_generator = text("Scripts/Settlement/SettlementTerrainGenerator.cs")
+    assert "double WaterTable = 0.1" in settlement_generator
+    assert "var radialDistance = new double[distance.Length]" in settlement_generator
+    assert "0.8 * radius + margin * height * height * height" in settlement_generator
+    assert "kind == StrategicWaterKind.SmallRiver" in settlement_generator
+    settlement_terrain = text("Scripts/Rendering/OriginalSettlementTerrainTextureBuilder.cs")
+    assert "6 + PositiveMod(x * PixelsPerTile + px, 128)" in settlement_terrain
+    assert "_submenuVisible ? mainX - ColumnWidth : mainX" in build_palette
+    assert "_roomScroll.Position = new Vector2(5, 4)" in build_palette
     for terrain_job in ("Forage", "ClearWood", "ClearStone", "ClearWater", "DigTunnel"):
         assert f"BuildKind.{terrain_job}" in bootstrap
     citizen_ai = text("Scripts/Citizens/CitizenAiModuleRuntime.cs")

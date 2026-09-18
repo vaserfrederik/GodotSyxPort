@@ -27,6 +27,7 @@ public sealed partial class RoomBuildPalette : ColorRect
     private Label _status = null!;
     private string _currentMain = "Работы";
     private string _currentSub = "";
+    private bool _submenuVisible;
     private PaletteMode _mode = PaletteMode.Rooms;
     private static readonly Color Gold = new("d5c79d");
     private static readonly Color MutedGold = new("9e987d");
@@ -100,7 +101,10 @@ public sealed partial class RoomBuildPalette : ColorRect
     private void ApplyResponsiveLayout()
     {
         var viewport = GetViewportRect().Size;
-        Position = new Vector2(Mathf.Max(8f, (viewport.X - Size.X) * 0.5f),
+        // Keep the main column over the same toolbar position. Source Inter.exp
+        // positions only the expansion panel; opening it never moves its parent.
+        var mainX = Mathf.Max(ColumnWidth + 8f, (viewport.X - ColumnWidth) * 0.5f);
+        Position = new Vector2(_submenuVisible ? mainX - ColumnWidth : mainX,
             Mathf.Max(84f, viewport.Y - MenuHeight - 68f));
     }
 
@@ -199,6 +203,8 @@ public sealed partial class RoomBuildPalette : ColorRect
         Clear(_roomColumn);
         if (string.IsNullOrWhiteSpace(_currentSub))
         {
+            _submenuVisible = false;
+            _categoryScroll.Position = new Vector2(5, 4);
             _roomScroll.Visible = false;
             Size = new Vector2(ColumnWidth + 8f, MenuHeight + 8f);
             ApplyResponsiveLayout();
@@ -209,6 +215,11 @@ public sealed partial class RoomBuildPalette : ColorRect
             : RoomsFor(_currentMain, _currentSub);
         foreach (var room in rooms)
             _roomColumn.AddChild(RoomButton(room));
+        _submenuVisible = true;
+        // The requested source-style cascade grows to the left while the category
+        // column remains fixed in screen space.
+        _roomScroll.Position = new Vector2(5, 4);
+        _categoryScroll.Position = new Vector2(ColumnWidth + 6, 4);
         _roomScroll.Visible = true;
         Size = new Vector2(ColumnWidth * 2f + 8f, MenuHeight + 8f);
         ApplyResponsiveLayout();
@@ -218,7 +229,6 @@ public sealed partial class RoomBuildPalette : ColorRect
     {
         if (_currentSub == sub) return;
         _currentSub = sub;
-        BuildCategoryColumn();
         BuildRoomColumn();
     }
 

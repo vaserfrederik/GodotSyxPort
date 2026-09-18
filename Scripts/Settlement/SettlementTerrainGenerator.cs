@@ -64,6 +64,7 @@ public sealed record SettlementGenerationProfile(
     SettlementWaterSides RiverSides,
     SettlementWaterSides SmallRiverSides,
     double LakeAmount,
+    double WaterTable = 0.1,
     IReadOnlyList<SettlementWorldTileSample>? WorldTiles = null,
     int WorldTileDimension = StrategicWorldRuntime.CapitalFootprintDimension,
     IReadOnlyList<SettlementWorldTileSample>? WorldHalo = null,
@@ -102,7 +103,7 @@ public sealed record SettlementGenerationProfile(
     public static SettlementGenerationProfile Neutral(
         int seed, IReadOnlyList<MinableRule> minables, IReadOnlyList<GrowableRule> growables) =>
         new(seed, 0.55, 0.18, 0.12, false, minables, growables, "TEMPERATE", 0.5,
-            SettlementOceanSides.None, SettlementWaterSides.None, SettlementWaterSides.None, 0);
+            SettlementOceanSides.None, SettlementWaterSides.None, SettlementWaterSides.None, 0, 0.1);
 
     public static SettlementGenerationProfile FromRegion(
         int worldSeed,
@@ -132,7 +133,8 @@ public sealed record SettlementGenerationProfile(
             oceanSides,
             region.River > 0.02 ? SettlementWaterSides.North | SettlementWaterSides.South : SettlementWaterSides.None,
             SettlementWaterSides.None,
-            Math.Clamp(region.Water - region.River - region.Ocean, 0, 1));
+            Math.Clamp(region.Water - region.River - region.Ocean, 0, 1),
+            0.05 + Math.Clamp(region.Moisture, 0, 1) * 0.1);
     }
 
     /// <summary>
@@ -279,6 +281,7 @@ public sealed record SettlementGenerationProfile(
             world.Terrain.Climate(centerX, centerY),
             Math.Clamp(0.15 + averageFertility * 0.65 + averageForest * 0.2, 0.1, 1.0),
             oceanSides, riverSides, smallRiverSides, lakes / (double)samples,
+            0.05 + Math.Clamp(averageMoisture, 0, 1) * 0.1,
             worldTiles, dimension, worldHalo, haloDimension);
     }
 
@@ -683,6 +686,7 @@ public sealed class SettlementTerrainGenerator
             (1, 0), (1, 1), (0, 1), (0, 0)
         };
         var riverPaths = new bool[world.Width * world.Height];
+        var riverRadii = new double[riverPaths.Length];
         for (var z = 0; z < dimension; z++)
         for (var x = 0; x < dimension; x++)
         {
@@ -713,7 +717,7 @@ public sealed class SettlementTerrainGenerator
                 var connection = connections[0];
                 var endpoint = new GridCoord(center.X + connection.Direction.X * quadWidth / 2,
                     center.Z + connection.Direction.Z * quadHeight / 2);
-                PaveRiver(world, polymap, riverPaths,
+                PaveRiver(world, polymap, riverPaths, riverRadii, kind == StrategicWaterKind.SmallRiver,
                     RiverPositions(polymap, world, endpoint, connection.Direction, width,
                         Math.Max(quadWidth, quadHeight) * 2),
                     new[] { center }, bounds);
@@ -730,7 +734,7 @@ public sealed class SettlementTerrainGenerator
                         center.Z + first.Direction.Z * quadHeight / 2);
                     var end = new GridCoord(center.X + second.Direction.X * quadWidth / 2,
                         center.Z + second.Direction.Z * quadHeight / 2);
-                    PaveRiver(world, polymap, riverPaths,
+                    PaveRiver(world, polymap, riverPaths, riverRadii, kind == StrategicWaterKind.SmallRiver,
                         RiverPositions(polymap, world, start, first.Direction, width,
                             Math.Max(quadWidth, quadHeight) * 2),
                         RiverPositions(polymap, world, end, second.Direction, width,
@@ -738,7 +742,7 @@ public sealed class SettlementTerrainGenerator
                 }
             }
         }
-        ExpandRiverPaths(world, riverPaths);
+        ExpandRiverPaths(world, riverPaths, riverRadii);
 
         // Generator.java runs GeneratorLake only after both river generators.
         for (var z = 0; z < dimension; z++)
@@ -782,7 +786,8 @@ public sealed class SettlementTerrainGenerator
     }
 
     private static void PaveRiver(WorldGridData world, SettlementPolymap polymap,
-        bool[] riverPaths, IReadOnlyList<GridCoord> starts, IReadOnlyList<GridCoord> ends,
+        bool[] riverPaths, double[] riverRadii, bool smallRiver,
+        IReadOnlyList<GridCoord> starts, IReadOnlyList<GridCoord> ends,
         (int X1, int Z1, int X2, int Z2) bounds)
     {
         for (var line = 0; line < starts.Count; line++)
@@ -822,13 +827,19 @@ public sealed class SettlementTerrainGenerator
             while (current >= 0)
             {
                 riverPaths[current] = true;
+                var cell = new GridCoord(current % world.Width, current / world.Width);
+                var fertility = Math.Max(0, 1 + world.Fertility(cell) / 15.0);
+                var sourceRadius = smallRiver
+                    ? Math.Sqrt(fertility) * 4.0
+                    : Math.Sqrt(fertility / 4.0) * 20.0;
+                riverRadii[current] = Math.Max(riverRadii[current], sourceRadius);
                 if (current == startIndex) break;
                 current = previous[current];
             }
         }
     }
 
-    private static void ExpandRiverPaths(WorldGridData world, bool[] riverPaths)
+    private static void ExpandRiverPaths(WorldGridData world, bool[] riverPaths, double[] riverRadii)
     {
         var distance = new double[riverPaths.Length];
         var radius = new double[riverPaths.Length];
@@ -840,7 +851,7 @@ public sealed class SettlementTerrainGenerator
             var index = x + z * world.Width;
             if (!riverPaths[index]) continue;
             distance[index] = 0;
-            radius[index] = Math.Sqrt((1 + world.Fertility(new GridCoord(x, z)) / 15.0) / 4.0) * 20.0;
+            radius[index] = riverRadii[index];
             queue.Enqueue(new GridCoord(x, z), 0);
         }
         while (queue.TryDequeue(out var cell, out var value))
@@ -1105,7 +1116,9 @@ public sealed class SettlementTerrainGenerator
         var quadHeight = world.Height / dimension;
         var margin = Math.Max(12, Math.Min(quadWidth, quadHeight) / 2.2);
         var distance = new double[world.Width * world.Height];
+        var radialDistance = new double[distance.Length];
         Array.Fill(distance, double.PositiveInfinity);
+        Array.Fill(radialDistance, double.PositiveInfinity);
         var queue = new PriorityQueue<GridCoord, double>();
 
         bool Ocean(int qx, int qz) => profile.WorldSample(qx, qz)?.Water is
@@ -1116,6 +1129,7 @@ public sealed class SettlementTerrainGenerator
             var index = z * world.Width + x;
             if (distance[index] <= 0) return;
             distance[index] = 0;
+            radialDistance[index] = 0;
             queue.Enqueue(new GridCoord(x, z), 0);
         }
 
@@ -1154,11 +1168,18 @@ public sealed class SettlementTerrainGenerator
                 var next = cell + direction;
                 if (!world.IsInside(next)) continue;
                 var radiusStep = direction.X == 0 || direction.Z == 0 ? 1.0 : Math.Sqrt(2);
+                var radius = radialDistance[index] + radiusStep;
                 var height = world.Elevation(next) / 255.0;
-                var nextValue = value + 0.8 * radiusStep + margin * height * height * height * 0.08;
+                // GeneratorOcean.generateWater calculates the queue value from the
+                // absolute radius, not from the previous queue value. Accumulating
+                // it here allowed oceans to cross the entire settlement.
+                var nextValue = 0.8 * radius + margin * height * height * height;
+                if (height < profile.WaterTable) nextValue = 0;
+                if (nextValue > margin) nextValue = margin;
                 var nextIndex = next.Z * world.Width + next.X;
                 if (nextValue >= distance[nextIndex]) continue;
                 distance[nextIndex] = nextValue;
+                radialDistance[nextIndex] = radius;
                 queue.Enqueue(next, nextValue);
             }
         }
