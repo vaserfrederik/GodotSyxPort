@@ -74,16 +74,16 @@ public static class FurnisherStatRuntime
         if (source.Key.Equals("HUNTER_NORMAL", StringComparison.OrdinalIgnoreCase))
         {
             if (values.Length < 3) return;
-            var workers = values[0];
+            var hunterWorkers = values[0];
             var rate = source.Recipes.FirstOrDefault()?.Outputs.FirstOrDefault()?.Rate ?? 0;
             var maximum = source.SpecialProduction?.MaximumEmployed ?? 0;
-            var employees = existingEmployees + (int)Math.Ceiling(workers);
+            var employees = existingEmployees + (int)Math.Ceiling(hunterWorkers);
             var employedBonus = maximum <= 0 || employees < maximum
                 ? 1.0
                 : 1.0 / (1.0 + (employees - maximum) / (maximum * 4.0));
             // Constructor.output.get(): workers * first output rate * race bonus * eBonus.
             // The player-race bonus is neutral until a race-specific bonus is selected.
-            values[2] = workers * rate * employedBonus;
+            values[2] = hunterWorkers * rate * employedBonus;
             return;
         }
 
