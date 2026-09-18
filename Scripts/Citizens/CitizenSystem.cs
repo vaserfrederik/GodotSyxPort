@@ -2401,6 +2401,21 @@ public sealed partial class CitizenSystem : Node3D
                 _rooms.CompleteArtilleryLoad(agent.Job, resources,
                     profile.BasicTraining / (double)CitizenPersonalStatsRuntime.TrainingMaximum);
                 break;
+            case BuildKind.Forage:
+            case BuildKind.ClearWood:
+            case BuildKind.ClearStone:
+            case BuildKind.ClearWater:
+            case BuildKind.DigTunnel:
+                // JobClear performs one terrain/resource step, then becomes reservable
+                // again while anything remains on the tile.
+                if (PerformTerrainJob(agent.Job, resources))
+                {
+                    agent.Job.WorkLeft = TerrainJobSeconds(agent.Job.Kind);
+                    jobs.Release(agent.Job, resources);
+                    agent.Job = null;
+                    return;
+                }
+                break;
         }
         var completed = agent.Job;
         completed.State = JobState.Completed;
@@ -2413,6 +2428,60 @@ public sealed partial class CitizenSystem : Node3D
                 jobs.Release(adjacent, resources);
         }
     }
+
+    private bool PerformTerrainJob(BuildJob job, ResourceLedger resources)
+    {
+        var data = _world.Data;
+        var cell = job.Cell;
+        switch (job.Kind)
+        {
+            case BuildKind.Forage:
+            {
+                var type = data.GrowableType(cell);
+                var amount = data.GrowableAmount(cell);
+                if (type < 0 || amount <= 0) return false;
+                if (type < OriginalGameData.Current.Growables.Count &&
+                    OriginalGameData.TryMapResource(
+                        OriginalGameData.Current.Growables[type].Resource, out var resource))
+                    resources.Add(resource, 1);
+                data.SetGrowable(cell, type, amount - 1);
+                return data.GrowableAmount(cell) > 0;
+            }
+            case BuildKind.ClearWood:
+                if (data.VegetationAmount(cell) <= 0 || data.GrowableType(cell) >= 0) return false;
+                data.ClearVegetationStep(cell);
+                resources.Add(ResourceKind.Wood, 1);
+                return data.VegetationAmount(cell) > 0;
+            case BuildKind.ClearStone:
+                if (!data.Has(cell, TileFlags.ClearableTerrain) ||
+                    data.Has(cell, TileFlags.Mountain)) return false;
+                data.ClearTerrain(cell);
+                resources.Add(ResourceKind.Stone, 1);
+                return false;
+            case BuildKind.ClearWater:
+                if (!data.Has(cell, TileFlags.Water)) return false;
+                data.SetDeepWater(cell, false);
+                data.Set(cell, TileFlags.SaltWater, false);
+                data.SetTerrain(cell, GroundKind.Soil, data.Elevation(cell),
+                    data.Fertility(cell), data.Moisture(cell));
+                return false;
+            case BuildKind.DigTunnel:
+                if (!data.Has(cell, TileFlags.Mountain) || data.Has(cell, TileFlags.Cave)) return false;
+                data.SetCave(cell, true);
+                data.ClearTerrain(cell);
+                resources.Add(ResourceKind.Stone, 1);
+                return false;
+            default:
+                return false;
+        }
+    }
+
+    private static float TerrainJobSeconds(BuildKind kind) => kind switch
+    {
+        BuildKind.ClearStone => 5f,
+        BuildKind.DigTunnel => 60f,
+        _ => 30f
+    };
 
     private void ConsumeLandingSource(BuildJob job, int amount)
     {

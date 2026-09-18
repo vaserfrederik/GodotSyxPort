@@ -65,8 +65,31 @@ public sealed record SettlementGenerationProfile(
     SettlementWaterSides SmallRiverSides,
     double LakeAmount,
     IReadOnlyList<SettlementWorldTileSample>? WorldTiles = null,
-    int WorldTileDimension = StrategicWorldRuntime.CapitalFootprintDimension)
+    int WorldTileDimension = StrategicWorldRuntime.CapitalFootprintDimension,
+    IReadOnlyList<SettlementWorldTileSample>? WorldHalo = null,
+    int WorldHaloDimension = StrategicWorldRuntime.CapitalFootprintDimension + 2)
 {
+    /// <summary>
+    /// Returns a source world tile in CapitolArea coordinates.  The Java generators
+    /// query one tile beyond the selected 3x3 area, so -1 and dimension are valid
+    /// when the five-by-five source halo is available.
+    /// </summary>
+    public SettlementWorldTileSample? WorldSample(int tileX, int tileZ)
+    {
+        if (WorldHalo is not null && WorldHalo.Count == WorldHaloDimension * WorldHaloDimension)
+        {
+            var offset = (WorldHaloDimension - WorldTileDimension) / 2;
+            var haloX = tileX + offset;
+            var haloZ = tileZ + offset;
+            if ((uint)haloX < WorldHaloDimension && (uint)haloZ < WorldHaloDimension)
+                return WorldHalo[haloX + haloZ * WorldHaloDimension];
+        }
+        if (WorldTiles is not null && WorldTiles.Count == WorldTileDimension * WorldTileDimension &&
+            (uint)tileX < WorldTileDimension && (uint)tileZ < WorldTileDimension)
+            return WorldTiles[tileX + tileZ * WorldTileDimension];
+        return null;
+    }
+
     public SettlementWorldTileSample? WorldTileAtSettlement(int x, int z, int width, int height)
     {
         if (WorldTiles is null || WorldTiles.Count != WorldTileDimension * WorldTileDimension)
@@ -130,16 +153,18 @@ public sealed record SettlementGenerationProfile(
             return FromRegion(worldSeed, world, region, minables, growables);
         var fertility = 0.0; var moisture = 0.0; var forest = 0.0; var elevation = 0.0;
         var mountain = 0; var water = 0; var samples = 0;
-        var climates = new Dictionary<string, int>(StringComparer.OrdinalIgnoreCase);
         var oceanSides = SettlementOceanSides.None;
         var riverSides = SettlementWaterSides.None;
         var smallRiverSides = SettlementWaterSides.None;
         var hasRiver = false;
         var hasSmallRiver = false;
         var lakes = 0;
-        var worldTiles = new List<SettlementWorldTileSample>(
-            StrategicWorldRuntime.CapitalFootprintDimension * StrategicWorldRuntime.CapitalFootprintDimension);
-        var half = StrategicWorldRuntime.CapitalFootprintDimension / 2;
+        var dimension = StrategicWorldRuntime.CapitalFootprintDimension;
+        var haloDimension = dimension + 2;
+        var worldTiles = new List<SettlementWorldTileSample>(dimension * dimension);
+        var worldHalo = new List<SettlementWorldTileSample>(haloDimension * haloDimension);
+        var half = dimension / 2;
+        var haloHalf = haloDimension / 2;
         static bool Rivery(StrategicWaterKind kind) => kind is
             StrategicWaterKind.River or StrategicWaterKind.SmallRiver or StrategicWaterKind.Delta;
         static bool Ocean(StrategicWaterKind kind) => kind is
@@ -180,17 +205,38 @@ public sealed record SettlementGenerationProfile(
             if (world.HasRoad(x - 1, y)) sides |= SettlementWaterSides.West;
             return sides;
         }
-        for (var dz = -half; dz < StrategicWorldRuntime.CapitalFootprintDimension - half; dz++)
-        for (var dx = -half; dx < StrategicWorldRuntime.CapitalFootprintDimension - half; dx++)
+        SettlementWorldTileSample SampleAt(int x, int y)
         {
-            var x = centerX + dx; var y = centerY + dz;
+            var sample = new SettlementWorldTileSample(
+                world.Terrain.Height(x, y), world.Terrain.Moisture(x, y),
+                world.Terrain.Fertility(x, y), world.Terrain.Forest(x, y),
+                world.Terrain.Mountain(x, y), world.Terrain.Water(x, y),
+                world.Terrain.Climate(x, y), world.HasRoad(x, y),
+                world.Terrain.MountainHeight(x, y));
+            return sample with
+            {
+                RiverConnections = WaterConnections(x, y),
+                OceanConnections = OceanConnections(x, y),
+                MountainConnections = MountainConnections(x, y),
+                RoadConnections = RoadConnections(x, y)
+            };
+        }
+        for (var dz = -haloHalf; dz <= haloHalf; dz++)
+        for (var dx = -haloHalf; dx <= haloHalf; dx++)
+            worldHalo.Add(SampleAt(centerX + dx, centerY + dz));
+
+        for (var dz = -half; dz < dimension - half; dz++)
+        for (var dx = -half; dx < dimension - half; dx++)
+        {
+            var sample = worldHalo[dx + haloHalf + (dz + haloHalf) * haloDimension];
+            worldTiles.Add(sample);
             samples++;
-            fertility += world.Terrain.Fertility(x, y);
-            moisture += world.Terrain.Moisture(x, y);
-            forest += world.Terrain.Forest(x, y);
-            elevation += world.Terrain.Height(x, y);
-            if (world.Terrain.Mountain(x, y)) mountain++;
-            var kind = world.Terrain.Water(x, y);
+            fertility += sample.Fertility;
+            moisture += sample.Moisture;
+            forest += sample.Forest;
+            elevation += sample.Height;
+            if (sample.Mountain) mountain++;
+            var kind = sample.Water;
             if (kind != StrategicWaterKind.None) water++;
             if (kind is StrategicWaterKind.Lake or StrategicWaterKind.DeepLake) lakes++;
             if (kind is StrategicWaterKind.River or StrategicWaterKind.Delta)
@@ -206,26 +252,12 @@ public sealed record SettlementGenerationProfile(
             if (kind is StrategicWaterKind.Ocean or StrategicWaterKind.DeepOcean)
             {
                 if (dz == -half) oceanSides |= SettlementOceanSides.North;
-                if (dx == StrategicWorldRuntime.CapitalFootprintDimension - half - 1)
+                if (dx == dimension - half - 1)
                     oceanSides |= SettlementOceanSides.East;
-                if (dz == StrategicWorldRuntime.CapitalFootprintDimension - half - 1)
+                if (dz == dimension - half - 1)
                     oceanSides |= SettlementOceanSides.South;
                 if (dx == -half) oceanSides |= SettlementOceanSides.West;
             }
-            var climate = world.Terrain.Climate(x, y);
-            climates[climate] = climates.GetValueOrDefault(climate) + 1;
-            worldTiles.Add(new SettlementWorldTileSample(
-                world.Terrain.Height(x, y), world.Terrain.Moisture(x, y),
-                world.Terrain.Fertility(x, y), world.Terrain.Forest(x, y),
-                world.Terrain.Mountain(x, y), kind, climate, world.HasRoad(x, y),
-                world.Terrain.MountainHeight(x, y)));
-            worldTiles[^1] = worldTiles[^1] with
-            {
-                RiverConnections = WaterConnections(x, y),
-                OceanConnections = OceanConnections(x, y),
-                MountainConnections = MountainConnections(x, y),
-                RoadConnections = RoadConnections(x, y)
-            };
         }
         var seed = unchecked(worldSeed * 486187739 ^ centerX * 73856093 ^ centerY * 19349663);
         var averageFertility = fertility / samples;
@@ -244,10 +276,10 @@ public sealed record SettlementGenerationProfile(
             mountain / (double)samples > 0.32 || averageElevation > 0.62,
             minables,
             growables,
-            climates.OrderByDescending(value => value.Value).First().Key,
+            world.Terrain.Climate(centerX, centerY),
             Math.Clamp(0.15 + averageFertility * 0.65 + averageForest * 0.2, 0.1, 1.0),
             oceanSides, riverSides, smallRiverSides, lakes / (double)samples,
-            worldTiles, StrategicWorldRuntime.CapitalFootprintDimension);
+            worldTiles, dimension, worldHalo, haloDimension);
     }
 
     private static SettlementWaterSides SideFor(int dx, int dz, int edge)
@@ -323,10 +355,9 @@ public sealed class SettlementTerrainGenerator
         {
             var cell = new GridCoord(x, z);
             var noiseHeight = Fractal(x, z, profile.Seed, 5);
-            var mappedHeight = SampleWorld(profile, x, z, world.Width, world.Height,
-                sample => sample.Height, noiseHeight);
-            var height = profile.WorldTiles is null ? noiseHeight :
-                Math.Clamp(mappedHeight * 0.72 + noiseHeight * 0.28, 0, 1);
+            // GeneratorUtil.height is the settlement-local HeightMap.  Strategic
+            // elevation selects mountain/ocean topology but is not blended into it.
+            var height = noiseHeight;
             var noiseMoisture = Fractal(x + 1703, z - 927, profile.Seed ^ 0x41a7, 4);
             var mappedMoisture = SampleWorld(profile, x, z, world.Width, world.Height,
                 sample => sample.Moisture, profile.BaseFertility);
@@ -399,10 +430,8 @@ public sealed class SettlementTerrainGenerator
         var coarse = new bool[coarseWidth * coarseHeight];
         var random = new Random(profile.Seed ^ 0x4d4f554e);
 
-        bool Mountain(int qx, int qz) => (uint)qx < dimension && (uint)qz < dimension &&
-            profile.WorldTiles![qx + qz * dimension].Mountain;
-        int MountainHeight(int qx, int qz) => (uint)qx < dimension && (uint)qz < dimension
-            ? profile.WorldTiles![qx + qz * dimension].MountainHeight : 0;
+        bool Mountain(int qx, int qz) => profile.WorldSample(qx, qz)?.Mountain == true;
+        int MountainHeight(int qx, int qz) => profile.WorldSample(qx, qz)?.MountainHeight ?? 0;
         bool AreaPoint(int qx, int qz, int dx, int dz)
         {
             // WorldMountain.AreaTileMountain always accepts the complete interior of
@@ -633,14 +662,12 @@ public sealed class SettlementTerrainGenerator
         var quadHeight = world.Height / dimension;
         bool Rivery(int x, int z)
         {
-            if ((uint)x >= dimension || (uint)z >= dimension) return false;
-            return profile.WorldTiles![x + z * dimension].Water is
+            return profile.WorldSample(x, z)?.Water is
                 StrategicWaterKind.River or StrategicWaterKind.SmallRiver or StrategicWaterKind.Delta;
         }
         bool Lake(int x, int z)
         {
-            if ((uint)x >= dimension || (uint)z >= dimension) return false;
-            return profile.WorldTiles![x + z * dimension].Water is
+            return profile.WorldSample(x, z)?.Water is
                 StrategicWaterKind.Lake or StrategicWaterKind.DeepLake;
         }
 
@@ -1081,8 +1108,7 @@ public sealed class SettlementTerrainGenerator
         Array.Fill(distance, double.PositiveInfinity);
         var queue = new PriorityQueue<GridCoord, double>();
 
-        bool Ocean(int qx, int qz) => (uint)qx < dimension && (uint)qz < dimension &&
-            profile.WorldTiles![qx + qz * dimension].Water is
+        bool Ocean(int qx, int qz) => profile.WorldSample(qx, qz)?.Water is
                 StrategicWaterKind.Ocean or StrategicWaterKind.DeepOcean;
         void Seed(int x, int z)
         {
@@ -1407,8 +1433,7 @@ public sealed class SettlementTerrainGenerator
         var quadHeight = world.Height / dimension;
         var network = new List<GridCoord>();
         var boundary = new List<GridCoord>();
-        bool Road(int qx, int qz) => (uint)qx < dimension && (uint)qz < dimension &&
-                                     profile.WorldTiles![qx + qz * dimension].Road;
+        bool Road(int qx, int qz) => profile.WorldSample(qx, qz)?.Road == true;
 
         for (var qz = 0; qz < dimension; qz++)
         for (var qx = 0; qx < dimension; qx++)
@@ -1526,11 +1551,12 @@ public sealed class SettlementTerrainGenerator
         var qz = Math.Clamp(z / quadHeight, 0, dimension - 1);
         var dx = x % quadWidth - quadWidth / 2;
         var dz = z % quadHeight - quadHeight / 2;
-        var nx = Math.Clamp(qx + Math.Sign(dx), 0, dimension - 1);
-        var nz = Math.Clamp(qz + Math.Sign(dz), 0, dimension - 1);
+        var nx = qx + Math.Sign(dx);
+        var nz = qz + Math.Sign(dz);
         var tx = Math.Abs(dx) / (double)quadWidth;
         var tz = Math.Abs(dz) / (double)quadHeight;
-        double At(int sx, int sz) => selector(profile.WorldTiles[sx + sz * dimension]);
+        double At(int sx, int sz) => profile.WorldSample(sx, sz) is { } sample
+            ? selector(sample) : fallback;
         return Lerp(Lerp(At(qx, qz), At(nx, qz), tx),
             Lerp(At(qx, nz), At(nx, nz), tx), tz);
     }

@@ -14,7 +14,9 @@ public sealed record RoomRuntimeState(int WorkerTarget, int RecipeIndex, int Upg
 public sealed class RoomInstanceRuntime
 {
     public const int MaximumArea = 2048;
-    public const int MaximumDimension = 55;
+    public const int MaximumAreaPlacementDimension = 55;
+    // HomeContructor's source longhouse grows to 30 five-tile modules.
+    public const int MaximumDimension = 150;
 
     private readonly GridWorld _world;
     public RoomRecord Record { get; }

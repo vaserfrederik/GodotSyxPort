@@ -13,17 +13,21 @@ namespace GodotSyxPort.UI;
 /// </summary>
 public sealed partial class RoomBuildPalette : ColorRect
 {
+    private enum PaletteMode { Rooms, Construction, Jobs }
     private const float ColumnWidth = 350f;
     private const float RowHeight = 44f;
     private const float MenuHeight = RowHeight * 8f;
     private RoomBlueprintCatalog _catalog = null!;
     private RoomPlanner _planner = null!;
     private Func<string, bool> _available = null!;
+    private ScrollContainer _categoryScroll = null!;
+    private ScrollContainer _roomScroll = null!;
     private VBoxContainer _categoryColumn = null!;
     private VBoxContainer _roomColumn = null!;
     private Label _status = null!;
     private string _currentMain = "Работы";
-    private string _currentSub = "Переработка";
+    private string _currentSub = "";
+    private PaletteMode _mode = PaletteMode.Rooms;
     private static readonly Color Gold = new("d5c79d");
     private static readonly Color MutedGold = new("9e987d");
     private static readonly Color Panel = new("202120");
@@ -45,17 +49,17 @@ public sealed partial class RoomBuildPalette : ColorRect
         ("Службы", "Загробный мир", new[] { "_DUMP_CORPSE", "GRAVEYARD_", "TOMB_" }, 26),
         ("Службы", "Жильё", new[] { "_HOME", "RESTHOME_" }, 27),
         ("Управление", "Администрация", new[] { "_EMBASSY", "_INN", "LABORATORY_", "LIBRARY_", "UNIVERSITY_", "ADMIN_" }, 17),
-        ("Управление", "Закон", new[] { "_COURT", "_GUARD", "_POLICE", "_PRISON", "_STOCKADE", "_STOCKS", "_EXECUTION" }, 15),
+        ("Управление", "Закон", new[] { "_STOCKADE", "_GUARD", "_PRISON", "_EXECUTION", "_POLICE", "_STOCKS", "_COURT" }, 15),
         ("Управление", "Военное дело", new[] { "_MILITARY_SUPPLY", "BARRACKS_", "ARCHERY_", "GATEHOUSE_", "ARTILLERY_" }, 16),
         ("Управление", "Размножение", new[] { "SCHOOL_", "NURSERY_", "BREEDER_" }, 18),
-        ("Управление", "Логистика", new[] { "_STOCKPILE", "_HAULER", "_TRANSPORT", "_IMPORT", "_EXPORT", "_STATION" }, 20),
-        ("Управление", "Вода", new[] { "_WATER", "POOL_" }, 21),
-        ("Управление", "Украшения", new[] { "MONUMENT_", "_BENCH" }, 19),
-        ("Управление", "Прочее", new[] { "_JANITOR", "_THRONE", "_BUILDER" }, 0)
+        ("Управление", "Логистика", new[] { "_STOCKPILE", "_EXPORT", "_IMPORT", "_HAULER", "_TRANSPORT", "_STATION" }, 20),
+        ("Управление", "Вода", new[] { "_WATER", "POOL_" }, 21)
     };
 
     private static readonly Dictionary<string, string> RussianRoomNames = new(StringComparer.OrdinalIgnoreCase)
     {
+        ["_HOME"] = "Дом",
+        ["_HOME_CHAMBER"] = "Покои знати",
         ["HUNTER_NORMAL"] = "Охотничий лагерь",
         ["FISHERY_NORMAL"] = "Рыболовня",
         ["_WOODCUTTER"] = "Лесосека",
@@ -68,6 +72,7 @@ public sealed partial class RoomBuildPalette : ColorRect
     };
 
     public event Action<string>? RoomSelected;
+    public event Action<string>? BuildActionSelected;
 
     public void Initialize(RoomBlueprintCatalog catalog, RoomPlanner planner, Func<string, bool> available)
     {
@@ -75,17 +80,19 @@ public sealed partial class RoomBuildPalette : ColorRect
         _planner = planner;
         _available = available;
         Color = new Color(0.055f, 0.058f, 0.055f, 0.98f);
-        Size = new Vector2(ColumnWidth * 2f + 8f, MenuHeight + 8f);
+        Size = new Vector2(ColumnWidth + 8f, MenuHeight + 8f);
+        ClipContents = true;
         MouseFilter = MouseFilterEnum.Stop;
 
         AddChild(VerticalRule(2, 2, 2, MenuHeight + 4));
         AddChild(VerticalRule(ColumnWidth + 3, 2, 2, MenuHeight + 4));
         AddChild(VerticalRule(ColumnWidth * 2f + 4, 2, 2, MenuHeight + 4));
-        _categoryColumn = CreateColumn(5);
-        _roomColumn = CreateColumn(ColumnWidth + 6);
+        (_categoryScroll, _categoryColumn) = CreateColumn(5);
+        (_roomScroll, _roomColumn) = CreateColumn(ColumnWidth + 6);
+        _roomScroll.Visible = false;
         _status = new Label { Visible = false };
         AddChild(_status);
-        OpenCategory("Работы", "Переработка");
+        OpenCategory("Работы");
         ApplyResponsiveLayout();
         GetViewport().SizeChanged += ApplyResponsiveLayout;
     }
@@ -97,12 +104,41 @@ public sealed partial class RoomBuildPalette : ColorRect
             Mathf.Max(84f, viewport.Y - MenuHeight - 68f));
     }
 
-    public void OpenCategory(string main, string? preferredSub = null)
+    public void OpenCategory(string main)
     {
+        _mode = PaletteMode.Rooms;
         _currentMain = main;
-        var subs = Categories.Where(value => value.Main == main && value.Sub != "Прочее").ToArray();
-        _currentSub = preferredSub is not null && subs.Any(value => value.Sub == preferredSub)
-            ? preferredSub : subs.FirstOrDefault().Sub ?? "Прочее";
+        // BuildMain.BMain opens only its first panel. BExp opens the room panel
+        // later, when the pointer actually enters a subcategory row.
+        _currentSub = "";
+        BuildCategoryColumn();
+        BuildRoomColumn();
+        Visible = true;
+    }
+
+    /// <summary>
+    /// Exact BuildMain construction order: throne placer, MAIN_INFRA.misc,
+    /// fences, roads, structures, DECOR and fortifications.
+    /// </summary>
+    public void OpenConstruction()
+    {
+        _mode = PaletteMode.Construction;
+        _currentMain = "Строительство";
+        _currentSub = "";
+        BuildCategoryColumn();
+        BuildRoomColumn();
+        Visible = true;
+    }
+
+    /// <summary>
+    /// Exact JobClears order after forage and hunt. Return-water and cave-fill
+    /// are deliberately absent here, as they are in BuildMain.java.
+    /// </summary>
+    public void OpenJobs()
+    {
+        _mode = PaletteMode.Jobs;
+        _currentMain = "Задания";
+        _currentSub = "";
         BuildCategoryColumn();
         BuildRoomColumn();
         Visible = true;
@@ -119,7 +155,34 @@ public sealed partial class RoomBuildPalette : ColorRect
     private void BuildCategoryColumn()
     {
         Clear(_categoryColumn);
-        foreach (var room in RoomsFor(_currentMain, "Прочее").OrderBy(RoomName))
+        if (_mode == PaletteMode.Construction)
+        {
+            _categoryColumn.AddChild(ActionButton("Переместить трон", "MOVE_THRONE", OriginalUiIcons.Room("_THRONE")));
+            foreach (var room in RoomsMatchingPrefixes("_JANITOR", "_THRONE", "_BUILDER"))
+                _categoryColumn.AddChild(RoomButton(room));
+            _categoryColumn.AddChild(ActionButton("Заборы", "FENCES", OriginalUiIcons.Medium(11)));
+            _categoryColumn.AddChild(ActionButton("Дороги", "ROADS", OriginalUiIcons.MainCategory(3)));
+            _categoryColumn.AddChild(ActionButton("Конструкции", "STRUCTURES", OriginalUiIcons.Medium(96)));
+            var decor = MenuButton("Украшения", OriginalUiIcons.Category(19), true,
+                _currentSub == "Украшения");
+            decor.MouseEntered += () => SelectSubcategory("Украшения");
+            decor.Pressed += () => SelectSubcategory("Украшения");
+            _categoryColumn.AddChild(decor);
+            _categoryColumn.AddChild(ActionButton("Укрепления", "FORTIFICATION", OriginalUiIcons.Category(16)));
+            return;
+        }
+        if (_mode == PaletteMode.Jobs)
+        {
+            _categoryColumn.AddChild(ActionButton("Собирать съедобные растения", "JOB_FORAGE", OriginalUiIcons.Category(11)));
+            _categoryColumn.AddChild(ActionButton("Охота", "JOB_HUNT", OriginalUiIcons.Room("HUNTER_NORMAL")));
+            _categoryColumn.AddChild(ActionButton("Рубить деревья", "JOB_CLEAR_WOOD", OriginalUiIcons.Category(0)));
+            _categoryColumn.AddChild(ActionButton("Убирать камни", "JOB_CLEAR_STONE", OriginalUiIcons.Category(28)));
+            _categoryColumn.AddChild(ActionButton("Убирать деревья и камни", "JOB_CLEAR_ALL", OriginalUiIcons.Category(28)));
+            _categoryColumn.AddChild(ActionButton("Осушать воду", "JOB_CLEAR_WATER", OriginalUiIcons.Category(21)));
+            _categoryColumn.AddChild(ActionButton("Прокладывать тоннель", "JOB_CLEAR_MOUNTAIN", OriginalUiIcons.Category(9)));
+            return;
+        }
+        foreach (var room in RoomsFor(_currentMain, "Прочее"))
             _categoryColumn.AddChild(RoomButton(room));
         foreach (var category in Categories.Where(value => value.Main == _currentMain && value.Sub != "Прочее"))
         {
@@ -134,8 +197,21 @@ public sealed partial class RoomBuildPalette : ColorRect
     private void BuildRoomColumn()
     {
         Clear(_roomColumn);
-        foreach (var room in RoomsFor(_currentMain, _currentSub).OrderBy(RoomName))
+        if (string.IsNullOrWhiteSpace(_currentSub))
+        {
+            _roomScroll.Visible = false;
+            Size = new Vector2(ColumnWidth + 8f, MenuHeight + 8f);
+            ApplyResponsiveLayout();
+            return;
+        }
+        var rooms = _mode == PaletteMode.Construction && _currentSub == "Украшения"
+            ? RoomsMatchingPrefixes("MONUMENT_", "_BENCH")
+            : RoomsFor(_currentMain, _currentSub);
+        foreach (var room in rooms)
             _roomColumn.AddChild(RoomButton(room));
+        _roomScroll.Visible = true;
+        Size = new Vector2(ColumnWidth * 2f + 8f, MenuHeight + 8f);
+        ApplyResponsiveLayout();
     }
 
     private void SelectSubcategory(string sub)
@@ -146,8 +222,24 @@ public sealed partial class RoomBuildPalette : ColorRect
         BuildRoomColumn();
     }
 
-    private IEnumerable<RoomBlueprintRuntime> RoomsFor(string main, string sub) =>
-        _catalog.All.Where(room => MatchesCategory(room, main, sub));
+    private IEnumerable<RoomBlueprintRuntime> RoomsFor(string main, string sub)
+    {
+        var category = Categories.First(value => value.Main == main && value.Sub == sub);
+        return _catalog.All.Where(room => MatchesCategory(room, main, sub))
+            // ROOMS.java registers fixed blueprints and RoomsCreator families in
+            // category prefix order.  Alphabetically sorting translated names changed
+            // the source menu on every locale.
+            .OrderBy(room => Array.FindIndex(category.Prefixes, prefix =>
+                room.Key.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)))
+            .ThenBy(room => room.Key, StringComparer.OrdinalIgnoreCase);
+    }
+
+    private IEnumerable<RoomBlueprintRuntime> RoomsMatchingPrefixes(params string[] prefixes) =>
+        _catalog.All.Where(room => prefixes.Any(prefix =>
+                room.Key.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)))
+            .OrderBy(room => Array.FindIndex(prefixes, prefix =>
+                room.Key.StartsWith(prefix, StringComparison.OrdinalIgnoreCase)))
+            .ThenBy(room => room.Key, StringComparer.OrdinalIgnoreCase);
 
     private static bool MatchesCategory(RoomBlueprintRuntime room, string main, string sub)
     {
@@ -166,6 +258,13 @@ public sealed partial class RoomBuildPalette : ColorRect
         {
             if (unlocked) RoomSelected?.Invoke(room.Key);
         };
+        return button;
+    }
+
+    private Button ActionButton(string text, string key, Texture2D? icon)
+    {
+        var button = MenuButton(text, icon, false, false);
+        button.Pressed += () => BuildActionSelected?.Invoke(key);
         return button;
     }
 
@@ -205,7 +304,7 @@ public sealed partial class RoomBuildPalette : ColorRect
         ContentMarginRight = 4
     };
 
-    private VBoxContainer CreateColumn(float x)
+    private (ScrollContainer Scroll, VBoxContainer Column) CreateColumn(float x)
     {
         var scroll = new ScrollContainer
         {
@@ -221,7 +320,7 @@ public sealed partial class RoomBuildPalette : ColorRect
         };
         column.AddThemeConstantOverride("separation", 0);
         scroll.AddChild(column);
-        return column;
+        return (scroll, column);
     }
 
     private static ColorRect VerticalRule(float x, float y, float width, float height) => new()

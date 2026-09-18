@@ -25,7 +25,11 @@ namespace GodotSyxPort.Bootstrap;
 public sealed partial class GameBootstrap : Node3D
 {
     private const int LandingBaseCredits = 5000;
-    private enum BuildTool { Wall, Road, RoomArea, RoomShrink, Door, Furniture, RoomInspect, Cancel }
+    private enum BuildTool
+    {
+        Wall, Road, RoomArea, RoomShrink, Door, Furniture, RoomInspect, Cancel,
+        Forage, ClearWood, ClearStone, ClearAll, ClearWater, DigTunnel
+    }
 
     private readonly JobBoard _jobs = new();
     private readonly SimulationClock _clock = new();
@@ -48,6 +52,9 @@ public sealed partial class GameBootstrap : Node3D
     private ColorRect _constructionPalette = null!;
     private Label _constructionTitle = null!;
     private Button _autoWallsButton = null!;
+    private VBoxContainer _constructionShapeControls = null!;
+    private ColorRect _constructionShapeSeparator = null!;
+    private HBoxContainer _constructionFrameActions = null!;
     private ColorRect _bottomToolbar = null!;
     private VBoxContainer _furnisherControls = null!;
     private Label _furnisherCost = null!;
@@ -573,11 +580,18 @@ public sealed partial class GameBootstrap : Node3D
 
     private void RefreshFurnitureCursorPreview()
     {
-        if (_tool != BuildTool.Furniture || !_roomPlanner.HasDraft ||
-            !_roomPlanner.UsesDefinition || _dragStart is not null) return;
+        if (_tool != BuildTool.Furniture || !_roomPlanner.UsesDefinition ||
+            (!_roomPlanner.HasDraft && !_roomPlanner.UsesFixedItemPlacement) ||
+            _dragStart is not null) return;
         if (ScreenToCell(GetViewport().GetMousePosition()) is { } cell)
-            _roomPlanner.PreviewFurniture(cell, _selectedFurnisherGroup,
-                _selectedFurnisherVariant, _selectedFurnisherRotation);
+        {
+            if (_roomPlanner.UsesFixedItemPlacement)
+                _roomPlanner.PreviewFixedFurniture(cell, _selectedFurnisherGroup,
+                    _selectedFurnisherVariant, _selectedFurnisherRotation);
+            else
+                _roomPlanner.PreviewFurniture(cell, _selectedFurnisherGroup,
+                    _selectedFurnisherVariant, _selectedFurnisherRotation);
+        }
     }
 
     private void ChangeFurnisherVariant(int delta)
@@ -714,6 +728,16 @@ public sealed partial class GameBootstrap : Node3D
             _constructionPalette.Visible = true;
             return;
         }
+        if (_tool == BuildTool.Furniture && _roomPlanner.UsesFixedItemPlacement)
+        {
+            if (_roomPlanner.PlaceFixedFurniture(end, _selectedFurnisherGroup,
+                    _selectedFurnisherVariant, _selectedFurnisherRotation, _jobs))
+                _status.Text = "Дом запланирован: жители доставят материалы и построят его";
+            else
+                _status.Text = _roomPlanner.PlacementStatus;
+            RefreshFurnisherControls();
+            return;
+        }
         if (_tool == BuildTool.Furniture && _roomPlanner.HasDraft && _roomPlanner.UsesDefinition)
         {
             // Mouse release commits the currently previewed furnisher.  The old
@@ -772,9 +796,37 @@ public sealed partial class GameBootstrap : Node3D
                     _world.ReserveFurniture(cell);
                     _jobs.Add(new BuildJob(cell, BuildKind.Furniture));
                     break;
+                case BuildTool.Forage when _world.Data.GrowableType(cell) >= 0:
+                    _jobs.Add(new BuildJob(cell, BuildKind.Forage));
+                    break;
+                case BuildTool.ClearWood when _world.Data.VegetationAmount(cell) > 0 &&
+                                              _world.Data.GrowableType(cell) < 0:
+                    _jobs.Add(new BuildJob(cell, BuildKind.ClearWood));
+                    break;
+                case BuildTool.ClearStone when _world.Data.Has(cell, TileFlags.ClearableTerrain) &&
+                                               !_world.Data.Has(cell, TileFlags.Mountain):
+                    _jobs.Add(new BuildJob(cell, BuildKind.ClearStone));
+                    break;
+                case BuildTool.ClearAll when _world.Data.VegetationAmount(cell) > 0 &&
+                                             _world.Data.GrowableType(cell) < 0:
+                    _jobs.Add(new BuildJob(cell, BuildKind.ClearWood));
+                    break;
+                case BuildTool.ClearAll when _world.Data.Has(cell, TileFlags.ClearableTerrain) &&
+                                             !_world.Data.Has(cell, TileFlags.Mountain):
+                    _jobs.Add(new BuildJob(cell, BuildKind.ClearStone));
+                    break;
+                case BuildTool.ClearWater when _world.Data.Has(cell, TileFlags.Water):
+                    _jobs.Add(new BuildJob(cell, BuildKind.ClearWater));
+                    break;
+                case BuildTool.DigTunnel when _world.Data.Has(cell, TileFlags.Mountain) &&
+                                              !_world.Data.Has(cell, TileFlags.Cave):
+                    _jobs.Add(new BuildJob(cell, BuildKind.DigTunnel));
+                    break;
             }
         }
-        if (_tool == BuildTool.Road || (_tool == BuildTool.Wall && !_roomPlanner.HasDraft))
+        if (_tool == BuildTool.Road || (_tool == BuildTool.Wall && !_roomPlanner.HasDraft) ||
+            _tool is BuildTool.Forage or BuildTool.ClearWood or BuildTool.ClearStone or
+                BuildTool.ClearAll or BuildTool.ClearWater or BuildTool.DigTunnel)
             _world.ClearRoomPreview();
         if (_tool == BuildTool.Furniture) RefreshFurnisherControls();
     }
@@ -786,13 +838,21 @@ public sealed partial class GameBootstrap : Node3D
             _roomPlanner.PreviewArea(Rectangle(start, end), _tool == BuildTool.RoomShrink);
             return;
         }
+        if (_tool == BuildTool.Furniture && _roomPlanner.UsesFixedItemPlacement)
+        {
+            _roomPlanner.PreviewFixedFurniture(end, _selectedFurnisherGroup,
+                _selectedFurnisherVariant, _selectedFurnisherRotation);
+            return;
+        }
         if (_tool == BuildTool.Furniture && _roomPlanner.HasDraft && _roomPlanner.UsesDefinition)
         {
             _roomPlanner.PreviewFurniture(end, _selectedFurnisherGroup,
                 _selectedFurnisherVariant, _selectedFurnisherRotation);
             return;
         }
-        if (_tool == BuildTool.Road || (_tool == BuildTool.Wall && !_roomPlanner.HasDraft))
+        if (_tool == BuildTool.Road || (_tool == BuildTool.Wall && !_roomPlanner.HasDraft) ||
+            _tool is BuildTool.Forage or BuildTool.ClearWood or BuildTool.ClearStone or
+                BuildTool.ClearAll or BuildTool.ClearWater or BuildTool.DigTunnel)
             _world.ShowRoomPreview(Line(start, end), Array.Empty<GridCoord>(), Array.Empty<GridCoord>());
     }
 
@@ -964,6 +1024,7 @@ public sealed partial class GameBootstrap : Node3D
         layer.AddChild(_roomPalette);
         _roomPalette.Initialize(_rooms.Blueprints, _roomPlanner, _rooms.CanCreateRoom);
         _roomPalette.RoomSelected += SelectRoomDefinition;
+        _roomPalette.BuildActionSelected += SelectBuildAction;
         _roomPalette.Visible = false;
 
         _constructionPalette = CreateConstructionPalette(layer);
@@ -1072,19 +1133,16 @@ public sealed partial class GameBootstrap : Node3D
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(0), "Сельское хозяйство", ref x,
             () => OpenRoomCategory("Сельское хозяйство"));
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(1), "Работы", ref x,
-            () => OpenRoomCategory("Работы", "Переработка"));
+            () => OpenRoomCategory("Работы"));
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(2), "Службы", ref x,
             () => OpenRoomCategory("Службы"));
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(4), "Управление", ref x,
             () => OpenRoomCategory("Управление"));
         AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(19), "Строительство", ref x,
-            () => ToggleWindow(_constructionPalette));
-        AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(3), "Работы на местности", ref x,
-            () => SelectTool(BuildTool.Road));
-        AddIconHudButton(_bottomToolbar, OriginalUiIcons.Category(6), "Инструменты комнаты", ref x,
-            () => SelectTool(BuildTool.RoomArea));
-        AddIconHudButton(_bottomToolbar, OriginalUiIcons.Category(28), "Удаление / отмена", ref x,
-            () => SelectTool(BuildTool.Cancel));
+            OpenConstructionMenu);
+        AddIconHudButton(_bottomToolbar, OriginalUiIcons.MainCategory(3), "Задания", ref x,
+            OpenJobsMenu);
+        _bottomToolbar.Size = new Vector2(x + 4f, 56f);
 
         ApplyResponsiveLayout();
         GetViewport().SizeChanged += ApplyResponsiveLayout;
@@ -1149,11 +1207,12 @@ public sealed partial class GameBootstrap : Node3D
         _constructionTitle.AddThemeFontSizeOverride("font_size", 18);
         _constructionTitle.AddThemeColorOverride("font_color", new Color("f2dfaa"));
         menu.AddChild(_constructionTitle);
-        var column = new VBoxContainer
+        _constructionShapeControls = new VBoxContainer
         {
             Position = new Vector2(8, 36),
             Size = new Vector2(176, 168)
         };
+        var column = _constructionShapeControls;
         menu.AddChild(column);
         column.AddChild(ConstructionSectionTitle("ФОРМА"));
         var shapeRow = new HBoxContainer();
@@ -1195,12 +1254,12 @@ public sealed partial class GameBootstrap : Node3D
             SelectTool(BuildTool.RoomInspect);
             ToggleWindow(_inspector);
         });
-        var separatorOne = new ColorRect
+        _constructionShapeSeparator = new ColorRect
         {
             Position = new Vector2(190, 36), Size = new Vector2(2, 168),
             Color = new Color("575950"), MouseFilter = Control.MouseFilterEnum.Ignore
         };
-        menu.AddChild(separatorOne);
+        menu.AddChild(_constructionShapeSeparator);
         _furnisherControls = new VBoxContainer
         {
             Position = new Vector2(202, 36), Size = new Vector2(248, 168)
@@ -1221,11 +1280,12 @@ public sealed partial class GameBootstrap : Node3D
         _furnisherCost.AddThemeColorOverride("font_color", new Color("d5c79d"));
         menu.AddChild(_furnisherCost);
 
-        var frameActions = new HBoxContainer
+        _constructionFrameActions = new HBoxContainer
         {
             Position = new Vector2(580, 206), Size = new Vector2(148, 40),
             Alignment = BoxContainer.AlignmentMode.End
         };
+        var frameActions = _constructionFrameActions;
         frameActions.AddThemeConstantOverride("separation", 8);
         menu.AddChild(frameActions);
         AddConstructionIconAction(frameActions, OriginalUiIcons.Medium(78), "Удалить весь чертёж", () =>
@@ -1316,10 +1376,52 @@ public sealed partial class GameBootstrap : Node3D
         _constructionPalette.Visible = true;
     }
 
-    private void OpenRoomCategory(string main, string? preferredSub = null)
+    private void OpenRoomCategory(string main)
     {
         CloseWindows();
-        _roomPalette.OpenCategory(main, preferredSub);
+        _roomPalette.OpenCategory(main);
+    }
+
+    private void OpenConstructionMenu()
+    {
+        CloseWindows();
+        _roomPalette.OpenConstruction();
+    }
+
+    private void OpenJobsMenu()
+    {
+        CloseWindows();
+        _roomPalette.OpenJobs();
+    }
+
+    private void SelectBuildAction(string action)
+    {
+        _roomPalette.Visible = false;
+        switch (action)
+        {
+            case "ROADS": SelectTool(BuildTool.Road); return;
+            case "JOB_FORAGE": SelectTool(BuildTool.Forage); return;
+            case "JOB_CLEAR_WOOD": SelectTool(BuildTool.ClearWood); return;
+            case "JOB_CLEAR_STONE": SelectTool(BuildTool.ClearStone); return;
+            case "JOB_CLEAR_ALL": SelectTool(BuildTool.ClearAll); return;
+            case "JOB_CLEAR_WATER": SelectTool(BuildTool.ClearWater); return;
+            case "JOB_CLEAR_MOUNTAIN": SelectTool(BuildTool.DigTunnel); return;
+            case "MOVE_THRONE":
+                _status.Text = "Перенос существующего трона ещё не подключён: обычное строительство трона не подставляется";
+                return;
+            case "FENCES":
+                _status.Text = "Заборы требуют отдельного JobBuildFence; инструмент стены не подставляется";
+                return;
+            case "STRUCTURES":
+                _status.Text = "Конструкции требуют JobBuildStructure с выбором материала, стен и крыш; каменная стена не подставляется";
+                return;
+            case "FORTIFICATION":
+                _status.Text = "Укрепления требуют JobBuildFort и лестницы; инструмент стены не подставляется";
+                return;
+            case "JOB_HUNT":
+                _status.Text = "Ручная охота ожидает перенос диких животных и huntMark; охотничий лагерь не подставляется";
+                return;
+        }
     }
 
     private void OpenSettlementMap()
@@ -1401,6 +1503,12 @@ public sealed partial class GameBootstrap : Node3D
         BuildTool.RoomShrink => "Уменьшение формы комнаты",
         BuildTool.RoomInspect => "Выбор",
         BuildTool.Cancel => "Отмена",
+        BuildTool.Forage => "Сбор съедобных растений",
+        BuildTool.ClearWood => "Рубка деревьев",
+        BuildTool.ClearStone => "Уборка камней",
+        BuildTool.ClearAll => "Уборка деревьев и камней",
+        BuildTool.ClearWater => "Осушение воды",
+        BuildTool.DigTunnel => "Прокладка тоннеля",
         _ => tool.ToString()
     };
 
@@ -1424,10 +1532,14 @@ public sealed partial class GameBootstrap : Node3D
     {
         _roomPlanner.SelectDefinition(definitionKey);
         _selectedFurnisherGroup = 0;
+        _selectedFurnisherVariant = 0;
+        _selectedFurnisherRotation = 0;
         RefreshFurnisherControls();
-        SelectTool(BuildTool.RoomArea);
+        SelectTool(_roomPlanner.UsesFixedItemPlacement ? BuildTool.Furniture : BuildTool.RoomArea);
         _roomPalette.Visible = false;
         _constructionPalette.Visible = true;
+        if (_roomPlanner.UsesFixedItemPlacement)
+            _status.Text = "Выберите тип и размер дома; ЛКМ размещает готовый чертёж, E/Q меняют размер, R поворачивает";
     }
 
     private void CommitRoomDraft()
@@ -1453,7 +1565,15 @@ public sealed partial class GameBootstrap : Node3D
         }
         var blueprint = _rooms.Blueprints.Get(_roomPlanner.SelectedDefinition);
         if (blueprint is null) return;
-        _constructionTitle.Text = $"{RussianRoomName(blueprint.Key, blueprint.Rule.Name).ToUpperInvariant()} — СТРОИТЕЛЬСТВО";
+        var fixedPlacement = _roomPlanner.UsesFixedItemPlacement;
+        _constructionShapeControls.Visible = !fixedPlacement;
+        _constructionShapeSeparator.Visible = !fixedPlacement;
+        _constructionFrameActions.Visible = !fixedPlacement;
+        _furnisherControls.Position = new Vector2(fixedPlacement ? 8 : 202, 36);
+        _furnisherControls.Size = new Vector2(fixedPlacement ? 442 : 248, 168);
+        _constructionTitle.Text = fixedPlacement
+            ? $"{RussianRoomName(blueprint.Key, blueprint.Rule.Name).ToUpperInvariant()} — РАЗМЕЩЕНИЕ"
+            : $"{RussianRoomName(blueprint.Key, blueprint.Rule.Name).ToUpperInvariant()} — СТРОИТЕЛЬСТВО";
         _autoWallsButton.Disabled = !blueprint.Rule.Construction.Indoors;
         _autoWallsButton.ButtonPressed = _roomPlanner.AutoWalls;
         _furnisherControls.AddChild(ConstructionSectionTitle("ОБЪЕКТЫ"));
@@ -1497,7 +1617,8 @@ public sealed partial class GameBootstrap : Node3D
             var groupIndex = group;
             var select = new Button
             {
-                Text = $"{names[group]} ×{_roomPlanner.DefinitionItems.GetValueOrDefault(group):0.##}",
+                Text = fixedPlacement ? names[group] :
+                    $"{names[group]} ×{_roomPlanner.DefinitionItems.GetValueOrDefault(group):0.##}",
                 CustomMinimumSize = new Vector2(250, 34),
                 Alignment = HorizontalAlignment.Left,
                 ButtonPressed = group == _selectedFurnisherGroup,
@@ -1584,6 +1705,8 @@ public sealed partial class GameBootstrap : Node3D
 
     private static string RussianRoomName(string key, string fallback) => key.ToUpperInvariant() switch
     {
+        "_HOME" => "Дом",
+        "_HOME_CHAMBER" => "Покои знати",
         "HUNTER_NORMAL" => "Охотничий лагерь",
         "FISHERY_NORMAL" => "Рыболовня",
         _ => fallback
@@ -1639,6 +1762,9 @@ public sealed partial class GameBootstrap : Node3D
     private static string RussianItemName(string roomKey, int index, string fallback) =>
         (roomKey.ToUpperInvariant(), index) switch
         {
+            ("_HOME", 0) => "Квартира",
+            ("_HOME", 1) => "Дом",
+            ("_HOME", 2) => "Длинный дом",
             ("HUNTER_NORMAL", 0) => "Разделочный стол",
             ("HUNTER_NORMAL", 1) => "Оснащение",
             ("FISHERY_NORMAL", 0) => "Хранилище",

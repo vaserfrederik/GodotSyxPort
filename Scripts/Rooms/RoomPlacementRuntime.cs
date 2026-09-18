@@ -91,6 +91,46 @@ public sealed class RoomPlacementRuntime
         RebuildPerimeter();
     }
 
+    /// <summary>
+    /// Source UIRoomPlacer branch for Furnisher.usesArea() == false.  The selected
+    /// FurnisherItem is the room footprint itself (houses/chambers), not furniture
+    /// placed later inside a hand-drawn area.
+    /// </summary>
+    public bool SetFixedItem(GridCoord cursor, int group, int variant, int rotation)
+    {
+        var groupCount = _rooms.Blueprints.Get(DefinitionKey)?.Rule.FurnisherItems.Count ?? 0;
+        if ((uint)group >= (uint)groupCount) return false;
+        var variants = FurnisherLayoutCatalog.Variants(DefinitionKey, group);
+        var selectedVariant = Math.Clamp(variant, 0, variants.Count - 1);
+        var layout = variants[selectedVariant];
+        var origin = layout.OriginAtCursor(cursor, rotation);
+        var occupied = layout.RotatedCells(rotation).Select(offset => origin + offset).ToArray();
+        if (occupied.Length == 0 || occupied.Any(cell => !CanAddArea(cell))) return false;
+
+        _area.Clear();
+        _perimeter.Clear();
+        _doors.Clear();
+        _furniture.Clear();
+        _placements.Clear();
+        _itemGroups.Clear();
+        _itemCosts.Clear();
+        _history.Clear();
+        _area.UnionWith(occupied);
+        AutoWalls = false;
+        var placement = new FurniturePlacement(
+            group, selectedVariant, ((rotation % 4) + 4) % 4,
+            layout.CostMultiplier, layout.StatMultiplier, occupied,
+            layout.RotatedBlockerCells(rotation).Select(offset => origin + offset).ToArray(),
+            layout.RotatedReachableCells(rotation).Select(offset => origin + offset).ToArray(),
+            layout.RotatedWorkCells(rotation).Select(offset => origin + offset).ToArray(),
+            layout.RotatedStorageCells(rotation).Select(offset => origin + offset).ToArray());
+        _placements[origin] = placement;
+        foreach (var cell in occupied) _furniture[cell] = group;
+        RecountFurniture();
+        RebuildPerimeter();
+        return true;
+    }
+
     public void ExpandArea(IEnumerable<GridCoord> cells)
     {
         PushHistory();
@@ -226,7 +266,11 @@ public sealed class RoomPlacementRuntime
         if (_area.Count > RoomInstanceRuntime.MaximumArea) return new(false, "Превышена максимальная площадь комнаты");
         var width = _area.Max(cell => cell.X) - _area.Min(cell => cell.X) + 1;
         var height = _area.Max(cell => cell.Z) - _area.Min(cell => cell.Z) + 1;
-        if (width > RoomInstanceRuntime.MaximumDimension || height > RoomInstanceRuntime.MaximumDimension)
+        var fixedItem = DefinitionKey.Equals("_HOME", StringComparison.OrdinalIgnoreCase) ||
+                        DefinitionKey.Equals("_HOME_CHAMBER", StringComparison.OrdinalIgnoreCase);
+        var maximumDimension = fixedItem ? RoomInstanceRuntime.MaximumDimension :
+            RoomInstanceRuntime.MaximumAreaPlacementDimension;
+        if (width > maximumDimension || height > maximumDimension)
             return new(false, "Превышен максимальный размер комнаты");
         if (!Connected()) return new(false, "Все клетки комнаты должны быть соединены");
         var blueprint = _rooms.Blueprints.Get(DefinitionKey);

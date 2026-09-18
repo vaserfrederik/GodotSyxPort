@@ -44,7 +44,13 @@ public enum BuildKind : byte
     RoomFloor,
     RoomRoof,
     RoomClear,
-    RoomDoor
+    RoomDoor,
+    // Appended to preserve byte values used by existing saves.
+    Forage,
+    ClearWood,
+    ClearStone,
+    ClearWater,
+    DigTunnel
 }
 
 public enum JobState : byte
@@ -169,6 +175,8 @@ public sealed class BuildJob
             BuildKind.Haul or BuildKind.RoomOutputHaul or BuildKind.LogisticsTransfer => JobPriority.Hauling,
             BuildKind.CorpseHaul => JobPriority.Hauling,
             BuildKind.RoomFloor or BuildKind.RoomRoof or BuildKind.RoomClear => JobPriority.Construction,
+            BuildKind.Forage or BuildKind.ClearWood or BuildKind.ClearStone or
+                BuildKind.ClearWater or BuildKind.DigTunnel => JobPriority.Construction,
             BuildKind.Sanitation => JobPriority.Production,
             BuildKind.BathPump => JobPriority.Production,
             BuildKind.ActivityWork => JobPriority.Production,
@@ -194,6 +202,11 @@ public sealed class BuildJob
             BuildKind.RoomDoor => (float)OriginalGameData.Current.Structure("STONE").BuildTime,
             BuildKind.Furniture or BuildKind.RoomFloor or BuildKind.RoomRoof => 10f,
             BuildKind.RoomClear => 0f,
+            // JobClear.jobPerformTime() is 30. Rock overrides it with 5;
+            // mountain tunnelling is race-dependent in Java and starts at 60.
+            BuildKind.Forage or BuildKind.ClearWood or BuildKind.ClearWater => 30f,
+            BuildKind.ClearStone => 5f,
+            BuildKind.DigTunnel => 60f,
             BuildKind.Production => 3f,
             BuildKind.ProductionSupply => 0.1f,
             BuildKind.Haul or BuildKind.RoomOutputHaul or BuildKind.LogisticsTransfer => 0.1f,
@@ -236,7 +249,9 @@ public sealed class BuildJob
             Resource = roadResource;
         if (kind is BuildKind.Haul or BuildKind.RoomOutputHaul or BuildKind.LogisticsTransfer)
             ResourceAmount = 0;
-        if (kind == BuildKind.Maintenance) ResourceAmount = 0;
+        if (kind is BuildKind.Maintenance or BuildKind.Forage or BuildKind.ClearWood or
+            BuildKind.ClearStone or BuildKind.ClearWater or BuildKind.DigTunnel)
+            ResourceAmount = 0;
         Phase = IsConstruction && ResourceAmount > 0
             ? BuildPhase.FetchingMaterials
             : BuildPhase.Constructing;
