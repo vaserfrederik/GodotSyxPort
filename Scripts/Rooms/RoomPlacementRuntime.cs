@@ -41,8 +41,13 @@ public sealed class RoomPlacementRuntime
     public IReadOnlyDictionary<int, double> ItemCosts => _itemCosts;
     public bool HasHistory => _history.Count > 0;
 
-    public double[] Stats() => FurnisherStatRuntime.EvaluatePlacement(
-        DefinitionKey, _itemGroups, _area, _world.Data, ExistingEmployees());
+    public double[] Stats()
+    {
+        if (DefinitionKey.StartsWith("FARM_", StringComparison.OrdinalIgnoreCase))
+            return FarmStats();
+        return FurnisherStatRuntime.EvaluatePlacement(
+            DefinitionKey, _itemGroups, _area, _world.Data, ExistingEmployees());
+    }
 
     public double[] StatsWithAdditionalItem(int group, double statMultiplier)
     {
@@ -473,6 +478,25 @@ public sealed class RoomPlacementRuntime
     private int ExistingEmployees() => _rooms.All
         .Where(room => room.DefinitionKey.Equals(DefinitionKey, StringComparison.OrdinalIgnoreCase))
         .Sum(room => room.Employment.Employed);
+
+    private double[] FarmStats()
+    {
+        if (_area.Count == 0) return new double[4];
+        var rule = OriginalGameData.Current.Room(DefinitionKey);
+        var indoors = rule?.Construction.Indoors == true;
+        var fertility = _area.Average(cell => indoors
+            ? _world.Data.Has(cell, TileFlags.Mountain) ? 1.0 : 0.9
+            : _world.Data.FertilityD(cell));
+        // ROOM_FARM.WORKERPERTILEI = (Tile.WORK_TIME 4 + walk-next 3) /
+        // the 12-hour source work day.
+        var workers = _area.Count * 7.0 /
+                      (OriginalGameData.Current.SecondsPerDay * 0.5);
+        var outputRate = rule?.Recipes.FirstOrDefault()?.Outputs.FirstOrDefault()?.Rate ?? 0;
+        var output = workers * fertility * outputRate;
+        var irrigation = _area.Average(cell => Math.Max(
+            _world.Data.Moisture(cell) / 15.0, _rooms.Water.Irrigation(cell)));
+        return new[] { fertility, workers, output, irrigation };
+    }
 
     private bool Connected()
     {

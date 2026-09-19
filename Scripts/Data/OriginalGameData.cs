@@ -25,8 +25,7 @@ public sealed record GrowableRule(
     IReadOnlyDictionary<string, double> ClimateBonus);
 public sealed record LandingResourceRule(ResourceKind Resource, int Amount);
 public sealed record ClimateRule(
-    string Key, double SeasonalChange, double TempCold, double TempWarm, double Fertility,
-    Color GroundDry, Color GroundWet);
+    string Key, double SeasonalChange, double TempCold, double TempWarm, double Fertility);
 public sealed record AnimalRule(
     string Key, double Mass, IReadOnlyList<string> Resources, IReadOnlyList<double> ResourceAmounts);
 public sealed record SpecialProductionRule(
@@ -137,7 +136,6 @@ public sealed record RoomUpgradeRule(
 public sealed record FurnisherItemGroupRule(
     IReadOnlyList<double> Costs,
     IReadOnlyList<double> Stats);
-public sealed record FurnisherStatTextRule(string Name, string Description);
 public sealed record WorkEquipmentRule(
     string Resource,
     double WearPerDay,
@@ -156,7 +154,6 @@ public sealed record RoomRule(
     RoomArchetype Archetype,
     RoomConstructionRule Construction,
     IReadOnlyList<FurnisherItemGroupRule> FurnisherItems,
-    IReadOnlyList<FurnisherStatTextRule> FurnisherStats,
     IReadOnlyList<RoomUpgradeRule> Upgrades,
     RoomServiceRule? Service,
     string Religion,
@@ -392,6 +389,7 @@ public sealed class OriginalGameData
             "PASTURE" => 20.0,
             "FISHERY" => 60.0,
             "WOODCUTTER" => 60.0,
+            _ when room.Key.StartsWith("FARM_", StringComparison.OrdinalIgnoreCase) => 4.0,
             _ => 45.0
         };
         return new RuntimeRecipe(
@@ -642,19 +640,8 @@ public sealed class OriginalGameData
                 climate.Get("SEASONAL_CHANGE")?.Number() ?? 0,
                 climate.Get("TEMP_COLD")?.Number() ?? 0,
                 climate.Get("TEMP_WARM")?.Number() ?? 0,
-                climate.Get("FERTILITY")?.Number() ?? 0,
-                ReadRgb(climate.Get("GROUND")?.Get("DRY"), new Color(193 / 255f, 181 / 255f, 135 / 255f)),
-                ReadRgb(climate.Get("GROUND")?.Get("WET"), new Color(85 / 255f, 52 / 255f, 52 / 255f)));
+                climate.Get("FERTILITY")?.Number() ?? 0);
         }
-    }
-
-    private static Color ReadRgb(SyxDataNode? node, Color fallback)
-    {
-        var value = node?.Text() ?? "";
-        var parts = value.Split('_', StringSplitOptions.RemoveEmptyEntries);
-        if (parts is not { Length: >= 3 } || !byte.TryParse(parts[0], out var r) ||
-            !byte.TryParse(parts[1], out var g) || !byte.TryParse(parts[2], out var b)) return fallback;
-        return new Color(r / 255f, g / 255f, b / 255f);
     }
 
     private void LoadRaces(string initRoot, string textRoot)
@@ -946,7 +933,6 @@ public sealed class OriginalGameData
                     data.Get("ITEMS")?.Items?.Count ?? 0,
                     data.Get("UPGRADES")?.Items?.Count ?? 0),
                 ReadFurnisherItems(data.Get("ITEMS")),
-                ReadFurnisherStats(text?.Get("STATS")),
                 ReadUpgrades(data.Get("UPGRADES")),
                 service is null ? null : new RoomServiceRule(
                     ServiceNeed(key, service),
@@ -1174,12 +1160,6 @@ public sealed class OriginalGameData
             ReadNumberArray(item.Get("COSTS")),
             ReadNumberArray(item.Get("STATS")))).ToArray() ??
         Array.Empty<FurnisherItemGroupRule>();
-
-    private static IReadOnlyList<FurnisherStatTextRule> ReadFurnisherStats(SyxDataNode? node) =>
-        node?.Items?.Select((item, index) => new FurnisherStatTextRule(
-            item.Get("NAME")?.Text($"Показатель {index + 1}") ?? $"Показатель {index + 1}",
-            item.Get("DESC")?.Text() ?? "")).ToArray() ??
-        Array.Empty<FurnisherStatTextRule>();
 
     private static RoomArchetype ClassifyRoom(string key, SyxDataNode data)
     {

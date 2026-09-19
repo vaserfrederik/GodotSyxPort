@@ -15,7 +15,9 @@ public enum SpecialProductionKind : byte
     Orchard,
     Fishery,
     Hunter,
-    Woodcutter
+    Woodcutter,
+    // Appended to preserve values already written to saves.
+    Farm
 }
 
 public sealed class SpecialProductionInstanceRuntime
@@ -149,8 +151,16 @@ public sealed class SpecialProductionRuntime
         var active = new HashSet<int>();
         foreach (var room in rooms)
         {
-            var rule = OriginalGameData.Current.Room(room.DefinitionKey)?.SpecialProduction;
-            if (rule is null || !TryKind(rule.Kind, out var kind)) continue;
+            var roomRule = OriginalGameData.Current.Room(room.DefinitionKey);
+            var rule = roomRule?.SpecialProduction;
+            SpecialProductionKind kind;
+            if (rule is not null)
+            {
+                if (!TryKind(rule.Kind, out kind)) continue;
+            }
+            else if (room.DefinitionKey.StartsWith("FARM_", StringComparison.OrdinalIgnoreCase))
+                kind = SpecialProductionKind.Farm;
+            else continue;
             active.Add(room.Id);
             _rooms[room.Id] = room;
             if (!_instances.TryGetValue(room.Id, out var instance))
@@ -159,8 +169,8 @@ public sealed class SpecialProductionRuntime
                 {
                     RoomId = room.Id,
                     Kind = kind,
-                    Animal = rule.Animal,
-                    GrowthDays = kind == SpecialProductionKind.Orchard ? 0 : rule.DaysTillGrowth,
+                    Animal = rule?.Animal ?? "",
+                    GrowthDays = kind == SpecialProductionKind.Orchard ? 0 : rule?.DaysTillGrowth ?? 0,
                     HunterLuck = HunterLuck(room.Id, 0),
                     HunterYear = 0
                 };
@@ -198,6 +208,8 @@ public sealed class SpecialProductionRuntime
             SpecialProductionKind.Orchard => !instance.WorkedCellsToday.Contains(cellIndex) &&
                 _world.Data.Has(cell, TileFlags.Furniture) &&
                 !_world.Data.Has(cell, TileFlags.Wall | TileFlags.DeepWater | TileFlags.Mountain),
+            SpecialProductionKind.Farm => !instance.WorkedCellsToday.Contains(cellIndex) &&
+                !_world.Data.Has(cell, TileFlags.Wall | TileFlags.DeepWater | TileFlags.Mountain),
             SpecialProductionKind.Pasture =>
                 !_world.Data.Has(cell, TileFlags.Wall | TileFlags.DeepWater | TileFlags.Mountain),
             _ => _world.Data.Has(cell, TileFlags.Furniture)
@@ -215,6 +227,7 @@ public sealed class SpecialProductionRuntime
             SpecialProductionKind.Hunter => HunterMultiplier(room, instance),
             SpecialProductionKind.Woodcutter => Math.Clamp(
                 _world.Data.VegetationAmount(cell) / 15.0, 0.0, 1.0),
+            SpecialProductionKind.Farm => FarmMultiplier(room, instance, cell),
             _ => 1.0
         };
     }
@@ -227,6 +240,14 @@ public sealed class SpecialProductionRuntime
         instance.WorkedCellsToday.Add(cellIndex);
         if (instance.Kind == SpecialProductionKind.Orchard && OrchardIsRipe(room, instance))
             instance.HarvestedCellsThisYear.Add(cellIndex);
+        if (instance.Kind == SpecialProductionKind.Farm)
+        {
+            if (FarmIsHarvest(room))
+                instance.HarvestedCellsThisYear.Add(cellIndex);
+            else
+                instance.WoodWorkByCell[cellIndex] =
+                    instance.WoodWorkByCell.GetValueOrDefault(cellIndex) + 1;
+        }
         if (instance.Kind == SpecialProductionKind.Woodcutter)
         {
             var work = instance.WoodWorkByCell.GetValueOrDefault(cellIndex) + 1;
@@ -337,6 +358,16 @@ public sealed class SpecialProductionRuntime
                         instance.HarvestedCellsThisYear.Clear();
                 }
             }
+            else if (instance.Kind == SpecialProductionKind.Farm)
+            {
+                var harvestDay = FarmHarvestDay(room);
+                var deathDay = (harvestDay + 2) % DaysPerYear;
+                if (_elapsedDays % DaysPerYear == deathDay)
+                {
+                    instance.WoodWorkByCell.Clear();
+                    instance.HarvestedCellsThisYear.Clear();
+                }
+            }
             if (instance.Kind == SpecialProductionKind.Hunter)
             {
                 var year = _elapsedDays / DaysPerYear;
@@ -351,7 +382,7 @@ public sealed class SpecialProductionRuntime
         }
     }
 
-    private void Refresh(RoomRecord room, SpecialProductionInstanceRuntime instance, SpecialProductionRule rule)
+    private void Refresh(RoomRecord room, SpecialProductionInstanceRuntime instance, SpecialProductionRule? rule)
     {
         var workSeconds = instance.Kind == SpecialProductionKind.Pasture ? 20.0 :
             instance.Kind is SpecialProductionKind.Fishery or SpecialProductionKind.Woodcutter
@@ -359,7 +390,7 @@ public sealed class SpecialProductionRuntime
         var workers = Math.Max(1, room.Employment.Needed);
         instance.RequiredCyclesPerDay = Math.Max(1,
             (int)Math.Ceiling(workers * OriginalGameData.Current.SecondsPerDay * 0.5 / workSeconds));
-        if (instance.Kind == SpecialProductionKind.Pasture)
+        if (instance.Kind == SpecialProductionKind.Pasture && rule is not null)
         {
             var animalsPerTile = Math.Clamp(2.5 / (rule.AnimalMass + 10.0), 0.0, 1.0 / 9.0);
             instance.AnimalMaximum = Math.Max(1, (int)Math.Floor(room.Cells.Count * animalsPerTile));
@@ -400,6 +431,34 @@ public sealed class SpecialProductionRuntime
         var amountPerTile = DaysPerYear / tilesPerWorker;
         var cycleFactor = 2.0 * 45.0 / OriginalGameData.Current.SecondsPerDay;
         return cycleFactor <= 0 ? 0 : amountPerTile / cycleFactor;
+    }
+
+    private double FarmMultiplier(
+        RoomRecord room, SpecialProductionInstanceRuntime instance, GridCoord cell)
+    {
+        var index = _world.CellToIndex(cell);
+        if (!FarmIsHarvest(room) || instance.HarvestedCellsThisYear.Contains(index)) return 0;
+        // Tile.CHarvest output relative to the generic industry cycle:
+        // worked/(days-2) * days * ((WORK_TIME + walk-next)/work-day-seconds).
+        // With source constants (16, 4, 3) and the runtime recipe's 4-second
+        // WorkFactor this reduces exactly to two times the accumulated tile work.
+        return instance.WoodWorkByCell.GetValueOrDefault(index) * 2.0;
+    }
+
+    private bool FarmIsHarvest(RoomRecord room)
+    {
+        var harvest = FarmHarvestDay(room);
+        var day = _elapsedDays % DaysPerYear;
+        return day == harvest || day == (harvest + 1) % DaysPerYear;
+    }
+
+    private static int FarmHarvestDay(RoomRecord room)
+    {
+        var roomRule = OriginalGameData.Current.Room(room.DefinitionKey);
+        var growable = OriginalGameData.Current.Growables.FirstOrDefault(value =>
+            value.Key.Equals(roomRule?.Growable, StringComparison.OrdinalIgnoreCase));
+        return Math.Clamp((int)Math.Round((growable?.SeasonalOffset ?? 0) * DaysPerYear),
+            0, DaysPerYear - 1);
     }
 
     private bool OrchardIsRipe(RoomRecord room, SpecialProductionInstanceRuntime instance)

@@ -1757,17 +1757,16 @@ public sealed partial class GameBootstrap : Node3D
         var items = _roomPlanner.DefinitionItemCount;
         var cost = _roomPlanner.DefinitionCost();
         var stats = _roomPlanner.DefinitionStats();
-        var blueprint = _rooms.Blueprints.Get(_roomPlanner.SelectedDefinition);
         var statLines = stats.Select((value, index) =>
         {
-            var sourceName = blueprint is not null && index < blueprint.Rule.FurnisherStats.Count
-                ? blueprint.Rule.FurnisherStats[index].Name : $"Показатель {index + 1}";
+            var sourceName = SourceFurnisherStatName(_roomPlanner.SelectedDefinition, index);
             return $"{RussianStatName(_roomPlanner.SelectedDefinition, index, sourceName)}: " +
                    FormatFurnisherStat(sourceName, value);
         });
         var variants = FurnisherLayoutCatalog.Variants(
             _roomPlanner.SelectedDefinition, _selectedFurnisherGroup);
         var selected = variants[Math.Clamp(_selectedFurnisherVariant, 0, variants.Count - 1)];
+        var blueprint = _rooms.Blueprints.Get(_roomPlanner.SelectedDefinition);
         var projectedStats = blueprint is null || (uint)_selectedFurnisherGroup >=
             (uint)blueprint.Rule.FurnisherItems.Count ? stats :
             _roomPlanner.DefinitionStatsWithAdditionalItem(
@@ -1779,8 +1778,8 @@ public sealed partial class GameBootstrap : Node3D
             .Where(entry => Math.Abs(entry.after - entry.before) > 0.000001)
             .Select(entry =>
         {
-            var sourceName = entry.index < blueprint!.Rule.FurnisherStats.Count
-                ? blueprint.Rule.FurnisherStats[entry.index].Name : $"Показатель {entry.index + 1}";
+            var sourceName = SourceFurnisherStatName(
+                _roomPlanner.SelectedDefinition, entry.index);
             return $"{RussianStatName(_roomPlanner.SelectedDefinition, entry.index, sourceName)}: " +
                    $"{FormatFurnisherDelta(sourceName, entry.after - entry.before)} → " +
                    FormatFurnisherStat(sourceName, entry.after);
@@ -1811,9 +1810,25 @@ public sealed partial class GameBootstrap : Node3D
             "TABLES" => "Столы",
             "COZINESS" => "Уют",
             "MOISTURE" => "Влажность",
+            "FERTILITY" => "Плодородие",
+            "IRRIGATION" => "Орошение",
             "DEEP SEA" or "DEEP SEA ACCESS" => "Глубоководный доступ",
             _ => source
         };
+    }
+
+    private static string SourceFurnisherStatName(string roomKey, int index)
+    {
+        if (roomKey.StartsWith("FARM_", StringComparison.OrdinalIgnoreCase))
+            return index switch
+            {
+                0 => "FERTILITY",
+                1 => "WORKERS",
+                2 => "OUTPUT",
+                3 => "IRRIGATION",
+                _ => $"Показатель {index + 1}"
+            };
+        return $"Показатель {index + 1}";
     }
 
     private static string RussianRoomName(string key, string fallback) => key.ToUpperInvariant() switch
