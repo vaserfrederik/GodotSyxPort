@@ -146,6 +146,7 @@ public sealed class RoomPlacementRuntime
         if (!_rooms.CanCreateRoom(DefinitionKey)) return Array.Empty<RoomRecord>();
 
         var rooms = new List<RoomRecord>(geometry.Units.Count);
+        var chamber = DefinitionKey.Equals("_HOME_CHAMBER", StringComparison.OrdinalIgnoreCase);
         for (var unitIndex = 0; unitIndex < geometry.Units.Count; unitIndex++)
         {
             var unit = geometry.Units[unitIndex];
@@ -157,12 +158,27 @@ public sealed class RoomPlacementRuntime
             var unitDoors = AutoWalls
                 ? geometry.Doors.Where(unitPerimeter.Contains).ToHashSet()
                 : new HashSet<GridCoord>();
+            IReadOnlyDictionary<GridCoord, int>? furnitureCells = null;
+            IReadOnlyDictionary<GridCoord, FurniturePlacement>? furniturePlacements = null;
+            if (chamber)
+            {
+                furnitureCells = unit.Cells.ToDictionary(cell => cell, _ => group);
+                furniturePlacements = new Dictionary<GridCoord, FurniturePlacement>
+                {
+                    [geometry.Origin] = new FurniturePlacement(
+                        group, geometry.Variant, ((rotation % 4) + 4) % 4,
+                        unit.CostMultiplier, unit.StatMultiplier, unit.Cells,
+                        unit.BlockerCells, unit.ReachableCells,
+                        Array.Empty<GridCoord>(), Array.Empty<GridCoord>())
+                };
+            }
             foreach (var cell in unit.Cells) _world.SetZone(cell);
             var room = _rooms.CreateFromDefinition(
                 DefinitionKey, unit.Cells, unitPerimeter, unitDoors, AutoWalls,
                 new Dictionary<int, double> { [group] = unit.StatMultiplier },
                 new Dictionary<int, double> { [group] = unit.CostMultiplier },
-                Upgrade, jobs, structureKey: StructureKey, fixedItem: true);
+                Upgrade, jobs, furnitureCells, furniturePlacements,
+                structureKey: StructureKey, fixedItem: !chamber);
             _world.SetPlannedRoomPartitions(room.Id, unit.BlockerCells);
             rooms.Add(room);
         }

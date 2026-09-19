@@ -46,7 +46,8 @@ public sealed partial class OriginalFurnitureSpriteRenderer : Node3D
     {
         var family = FurnisherLayoutCatalog.FamilyForRoom(roomKey);
         return string.Equals(family, "food/hunter", StringComparison.OrdinalIgnoreCase) ||
-            string.Equals(family, "food/fish", StringComparison.OrdinalIgnoreCase);
+            string.Equals(family, "food/fish", StringComparison.OrdinalIgnoreCase) ||
+            string.Equals(family, "home/chamber", StringComparison.OrdinalIgnoreCase);
     }
 
     public void Add(FurnitureVisualPlacement placement)
@@ -56,7 +57,10 @@ public sealed partial class OriginalFurnitureSpriteRenderer : Node3D
         var root = new Node3D { Name = $"Furniture_{placement.Origin.X}_{placement.Origin.Z}" };
         AddChild(root);
         _placements[placement.Origin] = root;
-        if (string.Equals(FurnisherLayoutCatalog.FamilyForRoom(placement.RoomKey), "food/fish",
+        var family = FurnisherLayoutCatalog.FamilyForRoom(placement.RoomKey);
+        if (string.Equals(family, "home/chamber", StringComparison.OrdinalIgnoreCase))
+            RenderChamber(root, placement);
+        else if (string.Equals(family, "food/fish",
                 StringComparison.OrdinalIgnoreCase))
             RenderFish(root, placement);
         else
@@ -84,11 +88,74 @@ public sealed partial class OriginalFurnitureSpriteRenderer : Node3D
             var root = new Node3D { Name = $"Preview_{placement.Origin.X}_{placement.Origin.Z}" };
             AddChild(root);
             _placements[placement.Origin] = root;
-            if (string.Equals(FurnisherLayoutCatalog.FamilyForRoom(placement.RoomKey), "food/fish",
+            var family = FurnisherLayoutCatalog.FamilyForRoom(placement.RoomKey);
+            if (string.Equals(family, "home/chamber", StringComparison.OrdinalIgnoreCase))
+                RenderChamberPlaceholder(root, placement, invalidCells);
+            else if (string.Equals(family, "food/fish",
                     StringComparison.OrdinalIgnoreCase))
                 RenderFishPlaceholder(root, placement, invalidCells);
             else
                 RenderHunterPlaceholder(root, placement, invalidCells);
+        }
+    }
+
+    private void RenderChamber(Node3D root, FurnitureVisualPlacement placement)
+    {
+        var layout = FurnisherLayoutCatalog.Variants(placement.RoomKey, placement.Group)[0];
+        GridCoord Cell(int x, int z) => placement.Origin +
+            layout.RotateCell(new GridCoord(x, z), placement.Rotation);
+        var carpetSources = new HashSet<GridCoord>();
+        for (var z = 0; z <= 4; z++)
+        {
+            carpetSources.Add(new GridCoord(1, z));
+            carpetSources.Add(new GridCoord(4, z));
+        }
+        foreach (var source in carpetSources)
+        {
+            var mask = 0;
+            if (carpetSources.Contains(source + new GridCoord(0, -1))) mask |= 1;
+            if (carpetSources.Contains(source + new GridCoord(1, 0))) mask |= 2;
+            if (carpetSources.Contains(source + new GridCoord(0, 1))) mask |= 4;
+            if (carpetSources.Contains(source + new GridCoord(-1, 0))) mask |= 8;
+            AddTile(root, Cell(source.X, source.Z), "combo/COMBO_CARPETS.png",
+                2 + HouseX[mask], 4 * 72 + 2 + HouseY[mask], 0.12f);
+        }
+
+        foreach (var (x, z, row) in new[]
+        {
+            (0, 0, 3), (5, 0, 3), (0, 3, 3), (5, 3, 3),
+            (0, 1, 4), (0, 2, 4), (5, 1, 5), (5, 2, 6),
+            (2, 0, 7), (3, 0, 8)
+        })
+            AddOneByOne(root, Cell(x, z), "SPECIAL.png", row,
+                StableHash(x, z, row), 0.14f, placement.Rotation);
+
+        foreach (var source in new[]
+                 {
+                     new GridCoord(2, 1), new GridCoord(3, 1),
+                     new GridCoord(2, 2), new GridCoord(3, 2)
+                 })
+            AddTwoByTwo(root, Cell(source.X, source.Z), "BEDS.png", 0,
+                source.X - 2, source.Z - 1, 0.13f, placement.Rotation);
+
+        foreach (var origin in new[] { new GridCoord(0, 5), new GridCoord(4, 5) })
+        for (var dz = 0; dz < 2; dz++)
+        for (var dx = 0; dx < 2; dx++)
+            AddTwoByTwo(root, Cell(origin.X + dx, origin.Z + dz), "MONUMENT.png", 1,
+                dx, dz, 0.135f, placement.Rotation);
+    }
+
+    private void RenderChamberPlaceholder(Node3D root, FurnitureVisualPlacement placement,
+        IReadOnlySet<GridCoord> invalidCells)
+    {
+        var layout = FurnisherLayoutCatalog.Variants(placement.RoomKey, placement.Group)[0];
+        foreach (var source in layout.Cells)
+        {
+            var cell = placement.Origin + layout.RotateCell(source, placement.Rotation);
+            var mask = 0;
+            foreach (var (offset, bit) in CardinalMasks())
+                if (layout.Cells.Contains(source + offset)) mask |= bit;
+            AddConstructionMask(root, cell, mask, invalidCells.Contains(cell));
         }
     }
 

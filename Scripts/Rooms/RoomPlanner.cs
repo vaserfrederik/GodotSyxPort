@@ -233,10 +233,16 @@ public sealed class RoomPlanner
         var invalid = ghost.Where(cell => !_world.IsInside(cell) ||
             _world.Data.Has(cell, TileFlags.Wall) || _rooms.Contains(cell)).ToArray();
         var valid = ghost.Except(invalid).ToArray();
+        var chamber = Definitions.DefinitionKey.Equals(
+            "_HOME_CHAMBER", System.StringComparison.OrdinalIgnoreCase);
+        var placements = chamber
+            ? new[] { new FurnitureVisualPlacement(Definitions.DefinitionKey, group,
+                geometry.Variant, rotation, geometry.Origin, Definitions.Upgrade) }
+            : System.Array.Empty<FurnitureVisualPlacement>();
         // PlacableFixed renders the item itself as the dark movable placeholder;
         // its generated structure and openings are drawn over that placeholder.
         _world.ShowRoomPreview(System.Array.Empty<GridCoord>(), geometry.Perimeter,
-            geometry.Doors, valid, invalid);
+            geometry.Doors, valid, invalid, placements);
     }
 
     public bool PlaceFixedFurniture(
