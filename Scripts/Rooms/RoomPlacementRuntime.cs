@@ -28,6 +28,7 @@ public sealed class RoomPlacementRuntime
     private readonly Stack<RoomPlacementSnapshot> _history = new();
 
     public string DefinitionKey { get; private set; }
+    public string StructureKey { get; set; } = "STONE";
     public int Upgrade { get; private set; }
     public bool AutoWalls { get; set; } = true;
     public bool BuildOnExistingStructures { get; set; }
@@ -129,6 +130,79 @@ public sealed class RoomPlacementRuntime
         RecountFurniture();
         RebuildPerimeter();
         return true;
+    }
+
+    /// <summary>
+    /// Port of PlacerItemSingle.place() for constructors with usesArea() == false.
+    /// The complete selected item receives one outer structure, after which Java's
+    /// secretReplacementItem() creates one room instance for every base item.
+    /// </summary>
+    public IReadOnlyList<RoomRecord> CommitFixedItem(
+        GridCoord cursor, int group, int variant, int rotation, JobBoard jobs)
+    {
+        var geometry = FixedItemGeometry(cursor, group, variant, rotation);
+        if (geometry is null || geometry.Occupied.Any(cell => !CanAddArea(cell)))
+            return Array.Empty<RoomRecord>();
+        if (!_rooms.CanCreateRoom(DefinitionKey)) return Array.Empty<RoomRecord>();
+
+        var rooms = new List<RoomRecord>(geometry.Units.Count);
+        for (var unitIndex = 0; unitIndex < geometry.Units.Count; unitIndex++)
+        {
+            var unit = geometry.Units[unitIndex];
+            var unitSet = unit.Cells.ToHashSet();
+            var unitPerimeter = AutoWalls
+                ? geometry.Perimeter.Where(wall =>
+                    GridCoord.AllDirections.Any(offset => unitSet.Contains(wall + offset))).ToHashSet()
+                : new HashSet<GridCoord>();
+            var unitDoors = AutoWalls
+                ? geometry.Doors.Where(unitPerimeter.Contains).ToHashSet()
+                : new HashSet<GridCoord>();
+            foreach (var cell in unit.Cells) _world.SetZone(cell);
+            var room = _rooms.CreateFromDefinition(
+                DefinitionKey, unit.Cells, unitPerimeter, unitDoors, AutoWalls,
+                new Dictionary<int, double> { [group] = unit.StatMultiplier },
+                new Dictionary<int, double> { [group] = unit.CostMultiplier },
+                Upgrade, jobs, structureKey: StructureKey, fixedItem: true);
+            _world.SetPlannedRoomPartitions(room.Id, unit.BlockerCells);
+            rooms.Add(room);
+        }
+        Clear();
+        return rooms;
+    }
+
+    public FixedItemPlacementGeometry? FixedItemGeometry(
+        GridCoord cursor, int group, int variant, int rotation)
+    {
+        var groupCount = _rooms.Blueprints.Get(DefinitionKey)?.Rule.FurnisherItems.Count ?? 0;
+        if ((uint)group >= (uint)groupCount) return null;
+        var variants = FurnisherLayoutCatalog.Variants(DefinitionKey, group);
+        if (variants.Count == 0) return null;
+        var selectedVariant = Math.Clamp(variant, 0, variants.Count - 1);
+        var selected = variants[selectedVariant];
+        var baseItem = variants[0];
+        var origin = selected.OriginAtCursor(cursor, rotation);
+        var occupied = selected.RotatedCells(rotation).Select(offset => origin + offset).ToHashSet();
+        if (occupied.Count == 0) return null;
+
+        var repetitionCount = Math.Max(1, selected.Width / Math.Max(1, baseItem.Width));
+        var units = new List<FixedItemUnit>(repetitionCount);
+        for (var repeat = 0; repeat < repetitionCount; repeat++)
+        {
+            GridCoord Place(GridCoord source) => origin + selected.RotateCell(
+                new GridCoord(source.X + repeat * baseItem.Width, source.Z), rotation);
+            units.Add(new FixedItemUnit(
+                baseItem.Cells.Select(Place).ToArray(),
+                baseItem.BlockerCells.Select(Place).ToArray(),
+                baseItem.ReachableCells.Select(Place).ToArray(),
+                baseItem.CostMultiplier, baseItem.StatMultiplier));
+        }
+
+        var perimeter = CalculatePerimeter(occupied);
+        var doors = units.SelectMany(unit => unit.ReachableCells)
+            .SelectMany(reachable => GridCoord.Cardinal.Select(offset => reachable + offset))
+            .Where(perimeter.Contains).ToHashSet();
+        return new FixedItemPlacementGeometry(
+            selectedVariant, origin, occupied.ToArray(), perimeter.ToArray(), doors.ToArray(), units);
     }
 
     public void ExpandArea(IEnumerable<GridCoord> cells)
@@ -420,6 +494,19 @@ public sealed record FurniturePlacement(
     IReadOnlyList<GridCoord> ReachableCells,
     IReadOnlyList<GridCoord> WorkCells,
     IReadOnlyList<GridCoord> StorageCells);
+public sealed record FixedItemUnit(
+    IReadOnlyList<GridCoord> Cells,
+    IReadOnlyList<GridCoord> BlockerCells,
+    IReadOnlyList<GridCoord> ReachableCells,
+    double CostMultiplier,
+    double StatMultiplier);
+public sealed record FixedItemPlacementGeometry(
+    int Variant,
+    GridCoord Origin,
+    IReadOnlyList<GridCoord> Occupied,
+    IReadOnlyList<GridCoord> Perimeter,
+    IReadOnlyList<GridCoord> Doors,
+    IReadOnlyList<FixedItemUnit> Units);
 public sealed record RoomPlacementSnapshot(
     IReadOnlyList<GridCoord> Area,
     IReadOnlyList<GridCoord> Doors,

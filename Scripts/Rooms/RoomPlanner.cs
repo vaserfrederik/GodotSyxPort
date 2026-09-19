@@ -39,6 +39,11 @@ public sealed class RoomPlanner
     public bool UsesDefinition { get; private set; }
     public string SelectedDefinition => UsesDefinition ? Definitions.DefinitionKey : Type.ToString();
     public string PlacementStatus { get; private set; } = "";
+    public string StructureKey
+    {
+        get => Definitions.StructureKey;
+        set => Definitions.StructureKey = value;
+    }
     public IReadOnlyDictionary<int, double> DefinitionItems => Definitions.ItemGroups;
     public int DefinitionItemCount => Definitions.Placements.Count;
     public IReadOnlyDictionary<GridCoord, int> DefinitionFurniture => Definitions.Furniture;
@@ -222,34 +227,36 @@ public sealed class RoomPlanner
     public void PreviewFixedFurniture(GridCoord anchor, int group, int variant, int rotation)
     {
         if (!UsesFixedItemPlacement) return;
-        var variants = FurnisherLayoutCatalog.Variants(Definitions.DefinitionKey, group);
-        var selectedVariant = System.Math.Clamp(variant, 0, variants.Count - 1);
-        var layout = variants[selectedVariant];
-        var origin = layout.OriginAtCursor(anchor, rotation);
-        var ghost = layout.RotatedCells(rotation).Select(offset => origin + offset).ToArray();
+        var geometry = Definitions.FixedItemGeometry(anchor, group, variant, rotation);
+        if (geometry is null) return;
+        var ghost = geometry.Occupied;
         var invalid = ghost.Where(cell => !_world.IsInside(cell) ||
             _world.Data.Has(cell, TileFlags.Wall) || _rooms.Contains(cell)).ToArray();
-        _world.ShowRoomPreview(ghost.Except(invalid), System.Array.Empty<GridCoord>(),
-            System.Array.Empty<GridCoord>(), ghost.Except(invalid), invalid,
-            new[] { new FurnitureVisualPlacement(Definitions.DefinitionKey, group,
-                selectedVariant, rotation, origin, Definitions.Upgrade) });
+        var valid = ghost.Except(invalid).ToArray();
+        // PlacableFixed renders the item itself as the dark movable placeholder;
+        // its generated structure and openings are drawn over that placeholder.
+        _world.ShowRoomPreview(System.Array.Empty<GridCoord>(), geometry.Perimeter,
+            geometry.Doors, valid, invalid);
     }
 
     public bool PlaceFixedFurniture(
         GridCoord anchor, int group, int variant, int rotation, JobBoard jobs)
     {
-        if (!UsesFixedItemPlacement ||
-            !Definitions.SetFixedItem(anchor, group, variant, rotation))
+        if (!UsesFixedItemPlacement)
         {
             PlacementStatus = "Здесь нельзя разместить выбранный дом";
             return false;
         }
-        var validation = Definitions.Validate();
-        PlacementStatus = validation.Error;
-        if (!validation.Valid) return false;
-        Definitions.Commit(jobs);
+        var created = Definitions.CommitFixedItem(anchor, group, variant, rotation, jobs);
+        if (created.Count == 0)
+        {
+            PlacementStatus = "Здесь нельзя разместить выбранный дом";
+            return false;
+        }
         _world.ClearRoomPreview();
-        PlacementStatus = "Дом запланирован";
+        PlacementStatus = created.Count == 1
+            ? "Дом запланирован"
+            : $"Запланировано жилых секций: {created.Count}";
         return true;
     }
 

@@ -169,7 +169,8 @@ public sealed class RoomSystem
         IEnumerable<GridCoord> perimeter,
         ISet<GridCoord> doors,
         bool autoWalls,
-        JobBoard jobs)
+        JobBoard jobs,
+        string structureKey = "STONE")
     {
         var room = new RoomRecord
         {
@@ -193,10 +194,14 @@ public sealed class RoomSystem
             var cell = _world.FromIndex(index);
             if (!_world.CanPlanWall(cell)) continue;
             _world.ReserveWall(cell);
-            jobs.Add(BuildJob.RoomWall(cell, room.Id));
+            jobs.Add(BuildJob.RoomWall(cell, room.Id, structureKey));
         }
         foreach (var index in room.RequiredDoors)
-            jobs.Add(BuildJob.RoomDoor(_world.FromIndex(index), room.Id));
+        {
+            var cell = _world.FromIndex(index);
+            _world.ReserveDoor(cell);
+            jobs.Add(BuildJob.RoomDoor(cell, room.Id, structureKey));
+        }
         foreach (var cell in room.Cells.Concat(room.RequiredWalls).Concat(room.RequiredDoors)
                      .Distinct().Select(_world.FromIndex))
             jobs.Add(BuildJob.RoomClear(cell, room.Id));
@@ -215,7 +220,9 @@ public sealed class RoomSystem
         int upgradeLevel,
         JobBoard jobs,
         IReadOnlyDictionary<GridCoord, int>? furnitureCells = null,
-        IReadOnlyDictionary<GridCoord, FurniturePlacement>? furniturePlacements = null)
+        IReadOnlyDictionary<GridCoord, FurniturePlacement>? furniturePlacements = null,
+        string structureKey = "STONE",
+        bool fixedItem = false)
     {
         if (!CanCreateRoom(definitionKey))
             throw new InvalidOperationException($"Technology has not unlocked room: {definitionKey}");
@@ -226,14 +233,14 @@ public sealed class RoomSystem
             : definitionKey.Equals("_STOCKPILE", StringComparison.OrdinalIgnoreCase)
                 ? RoomType.Storage
                 : RoomType.Workshop;
-        var room = Create(compatibilityType, area, perimeter, doors, autoWalls, jobs);
+        var room = Create(compatibilityType, area, perimeter, doors, autoWalls, jobs, structureKey);
         _instances.Remove(room.Id);
         room.DefinitionKey = blueprint.Key;
         room.ToolTargetPerWorker = DefaultToolTarget(room.DefinitionKey);
         room.UpgradeLevel = Math.Clamp(upgradeLevel, 0, blueprint.MaximumUpgrade);
         if (!CanSetDefinitionUpgrade(room.DefinitionKey, room.UpgradeLevel))
             throw new InvalidOperationException($"Technology has not unlocked room upgrade: {definitionKey}/{room.UpgradeLevel}");
-        room.RequiredFurniture = furnitureCells is { Count: > 0 }
+        room.RequiredFurniture = fixedItem ? 0 : furnitureCells is { Count: > 0 }
             ? furnitureCells.Count
             : (int)Math.Ceiling(itemGroupAmounts.Values.Sum());
         foreach (var pair in itemGroupAmounts) room.ItemGroupAmounts[pair.Key] = pair.Value;
@@ -275,15 +282,16 @@ public sealed class RoomSystem
                     Reachable: (IReadOnlyList<GridCoord>)Array.Empty<GridCoord>(),
                     Work: (IReadOnlyList<GridCoord>)Array.Empty<GridCoord>(),
                     Storage: (IReadOnlyList<GridCoord>)Array.Empty<GridCoord>()));
-        foreach (var placement in plannedFurniture)
-        {
-            var cells = placement.Cells.Distinct().ToArray();
-            if (cells.Length == 0 || cells.Any(cell => !_world.CanPlanFurniture(cell))) continue;
-            foreach (var cell in cells) _world.ReserveFurniture(cell);
-            jobs.Add(BuildJob.RoomFurniture(
-                placement.Anchor, room.Id, cells, placement.Blockers, placement.Reachable,
-                placement.Work, placement.Storage));
-        }
+        if (!fixedItem)
+            foreach (var placement in plannedFurniture)
+            {
+                var cells = placement.Cells.Distinct().ToArray();
+                if (cells.Length == 0 || cells.Any(cell => !_world.CanPlanFurniture(cell))) continue;
+                foreach (var cell in cells) _world.ReserveFurniture(cell);
+                jobs.Add(BuildJob.RoomFurniture(
+                    placement.Anchor, room.Id, cells, placement.Blockers, placement.Reachable,
+                    placement.Work, placement.Storage));
+            }
         var floorKey = blueprint.Furnisher.Floor(room.UpgradeLevel);
         if (floorKey is not null)
             foreach (var cell in room.Cells.Select(_world.FromIndex))
@@ -343,6 +351,7 @@ public sealed class RoomSystem
     {
         foreach (var room in _rooms)
         {
+            var previousState = room.State;
             var wallsReady = room.RequiredWalls.All(index =>
                 _world.Data.Has(_world.FromIndex(index), TileFlags.Wall));
             var doorsReady = room.RequiredDoors.All(index =>
@@ -363,6 +372,8 @@ public sealed class RoomSystem
                          furniture >= room.RequiredFurniture && materialsReady
                 ? RoomState.Operational
                 : RoomState.Building;
+            if (previousState != RoomState.Operational && room.State == RoomState.Operational)
+                _world.ClearPlannedRoomPartitions(room.Id);
             var rule = OriginalGameData.Current.Room(RoomKey(room) ?? "");
             var militaryRule = OriginalGameData.Current.MilitaryRooms.GetValueOrDefault(RoomKey(room) ?? "");
             var maximum = room.State != RoomState.Operational
@@ -1356,6 +1367,7 @@ public sealed class RoomSystem
         foreach (var item in Logistics.ClearRoom(roomId))
             spill?.Invoke(item.Resource, item.Amount, item.Cell);
         Housing.RemoveRoom(roomId);
+        _world.ClearPlannedRoomPartitions(roomId);
         Hospitality.RemoveRoom(roomId);
         Construction.Remove(roomId);
         foreach (var index in room.Cells)

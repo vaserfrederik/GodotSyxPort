@@ -23,6 +23,9 @@ public sealed partial class GridWorld : Node3D
     private ChunkTileRenderer _roomFloors = null!;
     private ChunkTileRenderer _zones = null!;
     private ChunkTileRenderer _doors = null!;
+    private ChunkTileRenderer _plannedWalls = null!;
+    private ChunkTileRenderer _plannedDoors = null!;
+    private ChunkTileRenderer _plannedRoomPartitions = null!;
     private ChunkWallRenderer _furniture = null!;
     private OriginalFurnitureSpriteRenderer _furnitureSprites = null!;
     private OriginalFurnitureSpriteRenderer _draftFurnitureSprites = null!;
@@ -40,6 +43,7 @@ public sealed partial class GridWorld : Node3D
     private readonly List<int> _zoneCells = new();
     private readonly List<int> _doorCells = new();
     private readonly List<int> _furnitureCells = new();
+    private readonly Dictionary<int, HashSet<GridCoord>> _plannedPartitionsByRoom = new();
     private readonly List<MeshInstance3D> _landingMarkers = new();
     private ImageTexture _groundTexture = null!;
     private double _visualIce;
@@ -103,6 +107,15 @@ public sealed partial class GridWorld : Node3D
         _doors = new ChunkTileRenderer { Name = "ChunkDoors" };
         AddChild(_doors);
         _doors.Initialize(Width, Height, new Color("d7ad49"), 0.06f);
+        _plannedWalls = new ChunkTileRenderer { Name = "PlannedRoomWalls" };
+        AddChild(_plannedWalls);
+        _plannedWalls.Initialize(Width, Height, new Color(0.36f, 0.7f, 1f, 0.72f), 0.055f);
+        _plannedDoors = new ChunkTileRenderer { Name = "PlannedRoomDoors" };
+        AddChild(_plannedDoors);
+        _plannedDoors.Initialize(Width, Height, new Color(0.22f, 0.5f, 0.95f, 0.84f), 0.065f);
+        _plannedRoomPartitions = new ChunkTileRenderer { Name = "PlannedRoomPartitions" };
+        AddChild(_plannedRoomPartitions);
+        _plannedRoomPartitions.Initialize(Width, Height, new Color(0.28f, 0.63f, 1f, 0.78f), 0.07f);
         _furniture = new ChunkWallRenderer { Name = "ChunkFurniture" };
         AddChild(_furniture);
         _furniture.Initialize(Width, Height, new Vector3(0.72f, 0.7f, 0.72f), new Color("725338"), 0.35f);
@@ -184,17 +197,52 @@ public sealed partial class GridWorld : Node3D
         new(Mathf.FloorToInt(position.X + Width / 2f), Mathf.FloorToInt(position.Z + Height / 2f));
     public bool CanPlanWall(GridCoord cell) =>
         IsInside(cell) && !Data.Has(cell, TileFlags.Wall | TileFlags.Reserved);
-    public void ReserveWall(GridCoord cell) => Data.Set(cell, TileFlags.Reserved, true);
+    public void ReserveWall(GridCoord cell)
+    {
+        Data.Set(cell, TileFlags.Reserved, true);
+        if (_renderingInitialized) _plannedWalls.AddCell(cell);
+    }
+
+    public void ReserveDoor(GridCoord cell)
+    {
+        Data.Set(cell, TileFlags.Reserved, true);
+        if (_renderingInitialized) _plannedDoors.AddCell(cell);
+    }
+
+    public void SetPlannedRoomPartitions(int roomId, IEnumerable<GridCoord> cells)
+    {
+        _plannedPartitionsByRoom[roomId] = cells.ToHashSet();
+        RefreshPlannedRoomPartitions();
+    }
+
+    public void ClearPlannedRoomPartitions(int roomId)
+    {
+        if (!_plannedPartitionsByRoom.Remove(roomId)) return;
+        RefreshPlannedRoomPartitions();
+    }
+
+    private void RefreshPlannedRoomPartitions()
+    {
+        if (_renderingInitialized)
+            _plannedRoomPartitions.SetCells(_plannedPartitionsByRoom.Values.SelectMany(value => value));
+    }
 
     public bool CanPlanRoad(GridCoord cell) =>
         IsInside(cell) && !Data.Has(cell, TileFlags.Wall | TileFlags.Road | TileFlags.Reserved);
 
     public void ReserveRoad(GridCoord cell) => Data.Set(cell, TileFlags.Reserved, true);
-    public void CancelReservation(GridCoord cell) => Data.Set(cell, TileFlags.Reserved, false);
+    public void CancelReservation(GridCoord cell)
+    {
+        Data.Set(cell, TileFlags.Reserved, false);
+        if (!_renderingInitialized) return;
+        _plannedWalls.RemoveCell(cell);
+        _plannedDoors.RemoveCell(cell);
+    }
 
     public void BuildWall(GridCoord cell)
     {
         Data.Set(cell, TileFlags.Reserved, false);
+        if (_renderingInitialized) _plannedWalls.RemoveCell(cell);
         if (Data.Has(cell, TileFlags.Wall)) return;
         Data.Set(cell, TileFlags.Wall, true);
         _wallCells.Add(CellToIndex(cell));
@@ -278,7 +326,10 @@ public sealed partial class GridWorld : Node3D
 
     public void SetDoor(GridCoord cell)
     {
-        if (!IsInside(cell) || Data.Has(cell, TileFlags.Door)) return;
+        if (!IsInside(cell)) return;
+        Data.Set(cell, TileFlags.Reserved, false);
+        if (_renderingInitialized) _plannedDoors.RemoveCell(cell);
+        if (Data.Has(cell, TileFlags.Door)) return;
         Data.Set(cell, TileFlags.Door, true);
         _doorCells.Add(CellToIndex(cell));
         _doors.AddCell(cell);

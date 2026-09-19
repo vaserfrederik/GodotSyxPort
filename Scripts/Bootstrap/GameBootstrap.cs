@@ -52,7 +52,11 @@ public sealed partial class GameBootstrap : Node3D
     private ColorRect _constructionPalette = null!;
     private Label _constructionTitle = null!;
     private Button _autoWallsButton = null!;
+    private Button _fixedAutoWallsButton = null!;
+    private Button _fixedStructureButton = null!;
+    private PopupPanel _fixedStructurePopup = null!;
     private VBoxContainer _constructionShapeControls = null!;
+    private VBoxContainer _fixedStructureControls = null!;
     private ColorRect _constructionShapeSeparator = null!;
     private ColorRect _constructionStatsSeparator = null!;
     private HBoxContainer _constructionFrameActions = null!;
@@ -1283,6 +1287,53 @@ public sealed partial class GameBootstrap : Node3D
             Color = new Color("575950"), MouseFilter = Control.MouseFilterEnum.Ignore
         };
         menu.AddChild(_constructionShapeSeparator);
+        _fixedStructureControls = new VBoxContainer
+        {
+            Position = new Vector2(8, 36),
+            Size = new Vector2(176, 168),
+            Visible = false
+        };
+        _fixedStructureControls.AddThemeConstantOverride("separation", 4);
+        menu.AddChild(_fixedStructureControls);
+        _fixedStructureControls.AddChild(ConstructionSectionTitle("ИЗОЛЯЦИЯ 100%"));
+        _fixedStructureControls.AddChild(ConstructionSectionTitle("МАТЕРИАЛ"));
+        var fixedMaterialRow = new HBoxContainer();
+        fixedMaterialRow.AddThemeConstantOverride("separation", 2);
+        _fixedStructureControls.AddChild(fixedMaterialRow);
+        _fixedAutoWallsButton = AddConstructionIconAction(
+            fixedMaterialRow, OriginalUiIcons.Medium(11),
+            "Автоматически построить внешние стены дома", () =>
+            {
+                _roomPlanner.AutoWalls = !_roomPlanner.AutoWalls;
+                _fixedAutoWallsButton.ButtonPressed = _roomPlanner.AutoWalls;
+            }, true);
+        _fixedStructureButton = AddConstructionIconAction(
+            fixedMaterialRow, OriginalUiIcons.Medium(96),
+            "Выбрать материал конструкции", OpenFixedStructureMenu);
+        _fixedStructurePopup = new PopupPanel();
+        menu.AddChild(_fixedStructurePopup);
+        var structureList = new VBoxContainer { CustomMinimumSize = new Vector2(250, 0) };
+        _fixedStructurePopup.AddChild(structureList);
+        foreach (var structure in OriginalGameData.Current.Structures.Values
+                     .Where(value => !value.Key.StartsWith('_'))
+                     .OrderBy(value => value.Key))
+        {
+            var structureKey = structure.Key;
+            var selectStructure = new Button
+            {
+                Text = $"{RussianStructureName(structure.Key)}  ·  {structure.Resource} ×{structure.ResourceAmount}",
+                Alignment = HorizontalAlignment.Left,
+                CustomMinimumSize = new Vector2(250, 34)
+            };
+            selectStructure.Pressed += () =>
+            {
+                _roomPlanner.StructureKey = structureKey;
+                _fixedStructurePopup.Hide();
+                RefreshFurnisherControls();
+                _status.Text = $"Материал стен: {RussianStructureName(structureKey)}";
+            };
+            structureList.AddChild(selectStructure);
+        }
         _furnisherControls = new VBoxContainer
         {
             Position = new Vector2(202, 36), Size = new Vector2(248, 168)
@@ -1603,20 +1654,26 @@ public sealed partial class GameBootstrap : Node3D
         if (blueprint is null) return;
         var fixedPlacement = _roomPlanner.UsesFixedItemPlacement;
         _constructionShapeControls.Visible = !fixedPlacement;
-        _constructionShapeSeparator.Visible = !fixedPlacement;
+        _fixedStructureControls.Visible = fixedPlacement;
+        _constructionShapeSeparator.Visible = true;
         _constructionStatsSeparator.Visible = !fixedPlacement;
         _constructionFrameActions.Visible = !fixedPlacement;
         _furnisherCost.Visible = !fixedPlacement;
         _constructionPalette.Size = new Vector2(fixedPlacement ? 458 : 736, 250);
         _constructionTitle.Size = new Vector2(fixedPlacement ? 442 : 720, 28);
         if (_bottomToolbar is not null) ApplyResponsiveLayout();
-        _furnisherControls.Position = new Vector2(fixedPlacement ? 8 : 202, 36);
-        _furnisherControls.Size = new Vector2(fixedPlacement ? 442 : 248, 168);
+        _furnisherControls.Position = new Vector2(202, 36);
+        _furnisherControls.Size = new Vector2(248, 168);
         _constructionTitle.Text = fixedPlacement
-            ? $"{RussianRoomName(blueprint.Key, blueprint.Rule.Name).ToUpperInvariant()} — РАЗМЕЩЕНИЕ"
+            ? $"СТРОИТЕЛЬСТВО {RussianRoomName(blueprint.Key, blueprint.Rule.Name)}"
             : $"{RussianRoomName(blueprint.Key, blueprint.Rule.Name).ToUpperInvariant()} — СТРОИТЕЛЬСТВО";
         _autoWallsButton.Disabled = !blueprint.Rule.Construction.Indoors;
         _autoWallsButton.ButtonPressed = _roomPlanner.AutoWalls;
+        _fixedAutoWallsButton.ButtonPressed = _roomPlanner.AutoWalls;
+        var structure = OriginalGameData.Current.Structure(_roomPlanner.StructureKey);
+        _fixedStructureButton.TooltipText =
+            $"Материал: {RussianStructureName(structure.Key)}; {structure.Resource} ×{structure.ResourceAmount}";
+        _fixedStructureButton.Text = RussianStructureName(structure.Key);
         _furnisherControls.AddChild(ConstructionSectionTitle("ОБЪЕКТЫ"));
         var names = FurnisherItemNames(blueprint.Key, blueprint.Rule.FurnisherItems.Count);
         if (blueprint.Rule.FurnisherItems.Count > 0)
@@ -1679,6 +1736,20 @@ public sealed partial class GameBootstrap : Node3D
             _furnisherControls.AddChild(new Label { Text = "Обстановка для этого помещения не требуется." });
         RefreshFurnisherSummary();
     }
+
+    private void OpenFixedStructureMenu()
+    {
+        _fixedStructurePopup.PopupCentered(new Vector2I(270, 260));
+    }
+
+    private static string RussianStructureName(string key) => key.ToUpperInvariant() switch
+    {
+        "WOOD" => "Дерево",
+        "STONE" => "Камень",
+        "GRAND" => "Монументальный камень",
+        "MUD" => "Глина",
+        _ => key
+    };
 
     private void RefreshFurnisherSummary()
     {
@@ -2269,6 +2340,7 @@ public sealed partial class GameBootstrap : Node3D
             switch (kind)
             {
                 case BuildKind.Wall: _world.ReserveWall(cell); break;
+                case BuildKind.RoomDoor: _world.ReserveDoor(cell); break;
                 case BuildKind.Road: _world.ReserveRoad(cell); break;
                 case BuildKind.Furniture: _world.ReserveFurniture(cell); break;
             }

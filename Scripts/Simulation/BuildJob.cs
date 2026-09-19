@@ -391,19 +391,31 @@ public sealed class BuildJob
             .Where(footprint.Contains).Distinct());
     }
 
-    public static BuildJob RoomWall(GridCoord cell, int roomId) =>
-        new(cell, BuildKind.Wall)
+    public static BuildJob RoomWall(GridCoord cell, int roomId, string structureKey = "STONE") =>
+        ConfigureStructure(new BuildJob(cell, BuildKind.Wall)
         {
             RoomId = roomId,
             State = JobState.Dormant
-        };
+        }, structureKey);
 
-    public static BuildJob RoomDoor(GridCoord cell, int roomId) =>
-        new(cell, BuildKind.RoomDoor)
+    public static BuildJob RoomDoor(GridCoord cell, int roomId, string structureKey = "STONE") =>
+        ConfigureStructure(new BuildJob(cell, BuildKind.RoomDoor)
         {
             RoomId = roomId,
             State = JobState.Dormant
-        };
+        }, structureKey);
+
+    private static BuildJob ConfigureStructure(BuildJob job, string structureKey)
+    {
+        var structure = OriginalGameData.Current.Structure(structureKey);
+        job.ResourceAmount = structure.ResourceAmount;
+        if (OriginalGameData.TryMapResource(structure.Resource, out var resource))
+            job.Resource = resource;
+        job.WorkLeft = (float)structure.BuildTime;
+        job._constructionWorkTime = job.WorkLeft;
+        job.Phase = job.ResourceAmount > 0 ? BuildPhase.FetchingMaterials : BuildPhase.Constructing;
+        return job;
+    }
 
     public static BuildJob RoomFloor(GridCoord cell, int roomId, string floorKey) =>
         new(cell, BuildKind.RoomFloor)
