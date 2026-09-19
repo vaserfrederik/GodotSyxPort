@@ -8,7 +8,7 @@ source sprites have all been compared with the Java implementation.
 |---:|---|---|---|---|
 | 1 | `_HOME` | `settlement.room.home.house.HomeContructor`, `PlacerItemSingle` | Ported in A102 | Three house groups, source dimensions, size variants, rotation, outer structure, repeated entrances, `secretReplacementItem` section splitting, movable/applied blueprint states, compact fixed-item construction menu. |
 | 2 | `_HOME_CHAMBER` | `settlement.room.home.chamber.Constructor`, `ChamberInstance`, `Work` | Ported in A103 | Single 6×7 fixed item, no house-section splitting, source furniture footprint, four required servants, one noble occupant, chamber preview and source sprite sheets. |
-| 3 | Farms | `settlement.room.food.farm.Constructor`, `FarmInstance`, `Tile`, `Time` | Ported in A104 | Free area placement, source fertility/workers/output/irrigation figures, four-second tile work, annual till/plant/harvest state and one harvest per tile. |
+| 3 | Farms | `settlement.room.food.farm.Constructor`, `FarmInstance`, `Tile`, `Time` | Mechanics in A104; rendering pending | Free area placement, source fertility/workers/output/irrigation figures, four-second tile work, annual till/plant/harvest state and one harvest per tile. The `_FARM_DIRT` and crop-growth renderer is the remaining farm item. |
 | 4 | Orchards | `settlement.room.food.orchard` | Next | Tree item layout, multi-year growth, tending and harvest sprites. |
 | 5 | Pastures | `settlement.room.food.pasture` | Pending | Indoor/outdoor variants, livestock, fence/opening rules, workers. |
 | 6 | Hunter and fishery | `settlement.room.food.hunter`, `settlement.room.food.fish` | Pending | Source item matrices, jobs, output, preview and built sprites. |
