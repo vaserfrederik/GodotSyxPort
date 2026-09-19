@@ -54,6 +54,7 @@ public sealed partial class GameBootstrap : Node3D
     private Button _autoWallsButton = null!;
     private VBoxContainer _constructionShapeControls = null!;
     private ColorRect _constructionShapeSeparator = null!;
+    private ColorRect _constructionStatsSeparator = null!;
     private HBoxContainer _constructionFrameActions = null!;
     private ColorRect _bottomToolbar = null!;
     private VBoxContainer _furnisherControls = null!;
@@ -99,6 +100,11 @@ public sealed partial class GameBootstrap : Node3D
     private int _selectedFurnisherGroup;
     private int _selectedFurnisherVariant;
     private int _selectedFurnisherRotation;
+    private GridCoord? _lastFurniturePreviewCell;
+    private string _lastFurniturePreviewDefinition = "";
+    private int _lastFurniturePreviewGroup = -1;
+    private int _lastFurniturePreviewVariant = -1;
+    private int _lastFurniturePreviewRotation = -1;
     private double _autoSaveAccumulator;
     private double _uiRefreshAccumulator;
     private double _worldTickAccumulator;
@@ -582,13 +588,24 @@ public sealed partial class GameBootstrap : Node3D
         return _world.IsInside(cell) ? cell : null;
     }
 
-    private void RefreshFurnitureCursorPreview()
+    private void RefreshFurnitureCursorPreview(bool force = false)
     {
         if (_tool != BuildTool.Furniture || !_roomPlanner.UsesDefinition ||
             (!_roomPlanner.HasDraft && !_roomPlanner.UsesFixedItemPlacement) ||
             _dragStart is not null) return;
         if (ScreenToCell(GetViewport().GetMousePosition()) is { } cell)
         {
+            if (!force && _lastFurniturePreviewCell == cell &&
+                _lastFurniturePreviewDefinition == _roomPlanner.SelectedDefinition &&
+                _lastFurniturePreviewGroup == _selectedFurnisherGroup &&
+                _lastFurniturePreviewVariant == _selectedFurnisherVariant &&
+                _lastFurniturePreviewRotation == _selectedFurnisherRotation)
+                return;
+            _lastFurniturePreviewCell = cell;
+            _lastFurniturePreviewDefinition = _roomPlanner.SelectedDefinition;
+            _lastFurniturePreviewGroup = _selectedFurnisherGroup;
+            _lastFurniturePreviewVariant = _selectedFurnisherVariant;
+            _lastFurniturePreviewRotation = _selectedFurnisherRotation;
             if (_roomPlanner.UsesFixedItemPlacement)
                 _roomPlanner.PreviewFixedFurniture(cell, _selectedFurnisherGroup,
                     _selectedFurnisherVariant, _selectedFurnisherRotation);
@@ -606,14 +623,14 @@ public sealed partial class GameBootstrap : Node3D
         _selectedFurnisherVariant = Math.Clamp(
             _selectedFurnisherVariant + delta, 0, Math.Max(0, variants.Count - 1));
         RefreshFurnisherControls();
-        RefreshFurnitureCursorPreview();
+        RefreshFurnitureCursorPreview(true);
     }
 
     private void RotateFurnisher()
     {
         _selectedFurnisherRotation = (_selectedFurnisherRotation + 1) % 4;
         RefreshFurnisherControls();
-        RefreshFurnitureCursorPreview();
+        RefreshFurnitureCursorPreview(true);
     }
 
     private void TryPlaceLandingParty(GridCoord throneCenter)
@@ -739,6 +756,7 @@ public sealed partial class GameBootstrap : Node3D
                 _status.Text = "Дом запланирован: жители доставят материалы и построят его";
             else
                 _status.Text = _roomPlanner.PlacementStatus;
+            _lastFurniturePreviewCell = null;
             RefreshFurnisherControls();
             return;
         }
@@ -750,6 +768,7 @@ public sealed partial class GameBootstrap : Node3D
             if (!_roomPlanner.ToggleFurniture(end, _selectedFurnisherGroup,
                     _selectedFurnisherVariant, _selectedFurnisherRotation))
                 _status.Text = _roomPlanner.PlacementStatus;
+            _lastFurniturePreviewCell = null;
             RefreshFurnisherControls();
             return;
         }
@@ -1270,12 +1289,12 @@ public sealed partial class GameBootstrap : Node3D
         };
         _furnisherControls.AddThemeConstantOverride("separation", 4);
         menu.AddChild(_furnisherControls);
-        var separatorTwo = new ColorRect
+        _constructionStatsSeparator = new ColorRect
         {
             Position = new Vector2(458, 36), Size = new Vector2(2, 168),
             Color = new Color("575950"), MouseFilter = Control.MouseFilterEnum.Ignore
         };
-        menu.AddChild(separatorTwo);
+        menu.AddChild(_constructionStatsSeparator);
         _furnisherCost = new Label
         {
             Position = new Vector2(470, 36), Size = new Vector2(258, 168),
@@ -1382,6 +1401,12 @@ public sealed partial class GameBootstrap : Node3D
 
     private void OpenRoomCategory(string main)
     {
+        // Switching BuildMain branches deactivates the current Java placement tool.
+        // Keeping the previous room draft active made a click on Housing reopen the
+        // Woodcutter editor and kept its hundreds of preview cells alive.
+        if (_roomPlanner.HasDraft) _roomPlanner.CancelDraft();
+        _lastFurniturePreviewCell = null;
+        _world.ClearRoomPreview();
         CloseWindows();
         _roomPalette.OpenCategory(main);
     }
@@ -1534,10 +1559,13 @@ public sealed partial class GameBootstrap : Node3D
 
     private void SelectRoomDefinition(string definitionKey)
     {
+        if (_roomPlanner.HasDraft) _roomPlanner.CancelDraft();
         _roomPlanner.SelectDefinition(definitionKey);
         _selectedFurnisherGroup = 0;
         _selectedFurnisherVariant = 0;
         _selectedFurnisherRotation = 0;
+        _lastFurniturePreviewCell = null;
+        _lastFurniturePreviewDefinition = "";
         RefreshFurnisherControls();
         SelectTool(_roomPlanner.UsesFixedItemPlacement ? BuildTool.Furniture : BuildTool.RoomArea);
         _roomPalette.Visible = false;
@@ -1560,7 +1588,11 @@ public sealed partial class GameBootstrap : Node3D
     private void RefreshFurnisherControls()
     {
         if (_furnisherControls is null) return;
-        foreach (var child in _furnisherControls.GetChildren()) child.QueueFree();
+        foreach (var child in _furnisherControls.GetChildren())
+        {
+            _furnisherControls.RemoveChild(child);
+            child.QueueFree();
+        }
         if (!_roomPlanner.UsesDefinition)
         {
             _furnisherControls.AddChild(new Label { Text = "Выберите помещение в меню строительства." });
@@ -1572,7 +1604,12 @@ public sealed partial class GameBootstrap : Node3D
         var fixedPlacement = _roomPlanner.UsesFixedItemPlacement;
         _constructionShapeControls.Visible = !fixedPlacement;
         _constructionShapeSeparator.Visible = !fixedPlacement;
+        _constructionStatsSeparator.Visible = !fixedPlacement;
         _constructionFrameActions.Visible = !fixedPlacement;
+        _furnisherCost.Visible = !fixedPlacement;
+        _constructionPalette.Size = new Vector2(fixedPlacement ? 458 : 736, 250);
+        _constructionTitle.Size = new Vector2(fixedPlacement ? 442 : 720, 28);
+        if (_bottomToolbar is not null) ApplyResponsiveLayout();
         _furnisherControls.Position = new Vector2(fixedPlacement ? 8 : 202, 36);
         _furnisherControls.Size = new Vector2(fixedPlacement ? 442 : 248, 168);
         _constructionTitle.Text = fixedPlacement
@@ -1632,6 +1669,7 @@ public sealed partial class GameBootstrap : Node3D
             {
                 _selectedFurnisherGroup = groupIndex;
                 _selectedFurnisherVariant = 0;
+                _lastFurniturePreviewCell = null;
                 SelectTool(BuildTool.Furniture);
                 RefreshFurnisherControls();
             };

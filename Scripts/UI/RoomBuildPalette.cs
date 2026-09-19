@@ -349,7 +349,14 @@ public sealed partial class RoomBuildPalette : ColorRect
 
     private static void Clear(Node parent)
     {
-        foreach (var child in parent.GetChildren()) child.QueueFree();
+        // QueueFree leaves the old Controls alive until the end of the frame.  A
+        // freshly opened submenu could therefore be covered by the previous buttons
+        // and clicks selected the old room (commonly Woodcutter) instead of Housing.
+        foreach (var child in parent.GetChildren())
+        {
+            parent.RemoveChild(child);
+            child.QueueFree();
+        }
     }
 
     private static string RoomName(RoomBlueprintRuntime room) =>

@@ -686,6 +686,7 @@ public sealed class SettlementTerrainGenerator
         {
             (1, 0), (1, 1), (0, 1), (0, 0)
         };
+        var lakeCoarsePolygons = new HashSet<int>();
         var riverPaths = new bool[world.Width * world.Height];
         var riverRadii = new double[riverPaths.Length];
         for (var z = 0; z < dimension; z++)
@@ -759,10 +760,14 @@ public sealed class SettlementTerrainGenerator
             foreach (var direction in directions)
             {
                 if (!Lake(x + direction.X, z + direction.Z)) continue;
-                PaintLakeDisc(world, new GridCoord(center.X + direction.X * innerOffsetX,
-                    center.Z + direction.Z * innerOffsetZ), lakeRadius);
+                SelectLakeDisc(polymap, world,
+                    new GridCoord(center.X + direction.X * innerOffsetX,
+                        center.Z + direction.Z * innerOffsetZ),
+                    lakeRadius, lakeCoarsePolygons);
             }
         }
+        RefineAndPaintLakes(world, polymap, lakeCoarsePolygons,
+            settings.LakeIslands, profile.Seed ^ 0x4c414b45);
     }
 
     private static IReadOnlyList<GridCoord> RiverPositions(SettlementPolymap polymap,
@@ -876,22 +881,73 @@ public sealed class SettlementTerrainGenerator
         }
     }
 
-    private static void PaintLakeDisc(WorldGridData world, GridCoord center, int radius)
+    private static void SelectLakeDisc(SettlementPolymap polymap, WorldGridData world,
+        GridCoord center, int radius, ISet<int> coarsePolygons)
     {
-        // GeneratorLake.sink is a circle written through a four-tile Polymap.
-        // Quantising the test to that same four-tile lattice preserves its source
-        // outline without inventing per-pixel noise.
+        // GeneratorLake.sink does not paint a circle directly. checker.set(tx/4,ty/4)
+        // selects the complete shared Polymap polygon containing that coarse point.
         const int sample = 4;
         var radiusSquared = radius * radius;
         for (var z = center.Z - radius; z < center.Z + radius; z++)
         for (var x = center.X - radius; x < center.X + radius; x++)
         {
-            var qx = (x / sample) * sample + sample / 2;
-            var qz = (z / sample) * sample + sample / 2;
-            var dx = qx - center.X; var dz = qz - center.Z;
+            if ((uint)x >= world.Width || (uint)z >= world.Height) continue;
+            var dx = x - center.X; var dz = z - center.Z;
             if (dx * dx + dz * dz >= radiusSquared) continue;
+            coarsePolygons.Add(polymap.IdAt(x / sample, z / sample));
+        }
+    }
+
+    private static void RefineAndPaintLakes(WorldGridData world, SettlementPolymap polymap,
+        IReadOnlySet<int> coarsePolygons, double islandAmount, int seed)
+    {
+        if (coarsePolygons.Count == 0) return;
+        const int sample = 4;
+        var fullPolygons = new HashSet<int>();
+        var random = new Random(seed);
+        for (var z = 0; z < world.Height; z++)
+        for (var x = 0; x < world.Width; x++)
+        {
+            if (!coarsePolygons.Contains(polymap.IdAt(x / sample, z / sample))) continue;
+            fullPolygons.Add(polymap.IdAt(x, z));
+
+            // GeneratorLake adds a sparse exponential-offset polygon while refining.
+            if (random.Next(500) != 0) continue;
+            static int ExponentialOffset(Random value)
+            {
+                var magnitude = (int)(-Math.Log(Math.Max(0.000001, 1.0 - value.NextDouble())) * 20.0);
+                return value.Next(2) == 0 ? magnitude : -magnitude;
+            }
+            var sx = x + ExponentialOffset(random);
+            var sz = z + ExponentialOffset(random);
+            if ((uint)sx < world.Width && (uint)sz < world.Height)
+                fullPolygons.Add(polymap.IdAt(sx, sz));
+        }
+
+        // LAKE_ISLANDS clears complete Polymap regions, just like checker.set(false).
+        var islandRange = Math.Max(0, (int)(islandAmount * 100));
+        var removed = new HashSet<int>();
+        var islandCount = islandRange == 0 ? 0 : random.Next(islandRange);
+        for (var island = 0; island < islandCount; island++)
+        {
+            var x = random.Next(world.Width); var z = random.Next(world.Height);
+            removed.Add(polymap.IdAt(x, z));
+            var fragments = random.Next(20);
+            for (var fragment = 0; fragment < fragments; fragment++)
+            {
+                var sx = x + random.Next(-29, 30); var sz = z + random.Next(-29, 30);
+                if ((uint)sx < world.Width && (uint)sz < world.Height)
+                    removed.Add(polymap.IdAt(sx, sz));
+            }
+        }
+
+        for (var z = 0; z < world.Height; z++)
+        for (var x = 0; x < world.Width; x++)
+        {
+            var polygon = polymap.IdAt(x, z);
+            if (!fullPolygons.Contains(polygon) || removed.Contains(polygon)) continue;
             var cell = new GridCoord(x, z);
-            if (world.IsInside(cell) && world.Elevation(cell) / 255.0 < 0.8)
+            if (world.Elevation(cell) / 255.0 < 0.8)
                 world.SetTerrain(cell, GroundKind.FreshWater, world.Elevation(cell), 0, 15);
         }
     }
