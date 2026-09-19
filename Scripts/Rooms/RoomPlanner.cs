@@ -22,7 +22,7 @@ public sealed class RoomPlanner
         set
         {
             _autoWalls = value;
-            Definitions.AutoWalls = value;
+            ApplyDefinitionAutoWalls();
             RefreshPreview();
         }
     }
@@ -61,7 +61,7 @@ public sealed class RoomPlanner
     public void SelectDefinition(string definitionKey)
     {
         Definitions.Select(definitionKey);
-        Definitions.AutoWalls = AutoWalls;
+        ApplyDefinitionAutoWalls();
         UsesDefinition = true;
         PlacementStatus = "";
         _area.Clear(); _perimeter.Clear(); _doors.Clear();
@@ -218,7 +218,8 @@ public sealed class RoomPlanner
             Definitions.Furniture.ContainsKey(cell)).ToArray();
         var valid = ghost.Except(invalid);
         _world.ShowRoomPreview(Definitions.Area,
-            AutoWalls ? Definitions.Perimeter : System.Array.Empty<GridCoord>(), Definitions.Doors,
+            Definitions.AutoWalls ? Definitions.Perimeter : System.Array.Empty<GridCoord>(),
+            Definitions.AutoWalls ? Definitions.Doors : System.Array.Empty<GridCoord>(),
             Definitions.Furniture.Keys.Concat(valid), invalid,
             DefinitionVisuals().Append(new FurnitureVisualPlacement(
                 Definitions.DefinitionKey, group, variant, rotation, origin, Definitions.Upgrade)));
@@ -241,8 +242,10 @@ public sealed class RoomPlanner
             : System.Array.Empty<FurnitureVisualPlacement>();
         // PlacableFixed renders the item itself as the dark movable placeholder;
         // its generated structure and openings are drawn over that placeholder.
-        _world.ShowRoomPreview(System.Array.Empty<GridCoord>(), geometry.Perimeter,
-            geometry.Doors, valid, invalid, placements);
+        _world.ShowRoomPreview(System.Array.Empty<GridCoord>(),
+            Definitions.AutoWalls ? geometry.Perimeter : System.Array.Empty<GridCoord>(),
+            Definitions.AutoWalls ? geometry.Doors : System.Array.Empty<GridCoord>(),
+            valid, invalid, placements);
     }
 
     public bool PlaceFixedFurniture(
@@ -306,7 +309,8 @@ public sealed class RoomPlanner
     {
         if (UsesDefinition)
             _world.ShowRoomPreview(Definitions.Area,
-                AutoWalls ? Definitions.Perimeter : System.Array.Empty<GridCoord>(), Definitions.Doors,
+                Definitions.AutoWalls ? Definitions.Perimeter : System.Array.Empty<GridCoord>(),
+                Definitions.AutoWalls ? Definitions.Doors : System.Array.Empty<GridCoord>(),
                 Definitions.Furniture.Keys, furniturePlacements: DefinitionVisuals());
         else
             _world.ShowRoomPreview(_area,
@@ -317,4 +321,11 @@ public sealed class RoomPlanner
         Definitions.Placements.Select(pair => new FurnitureVisualPlacement(
             Definitions.DefinitionKey, pair.Value.Group, pair.Value.Variant,
             pair.Value.Rotation, pair.Key, Definitions.Upgrade));
+
+    private void ApplyDefinitionAutoWalls()
+    {
+        var indoors = _rooms.Blueprints.Get(Definitions.DefinitionKey)?
+            .Rule.Construction.Indoors == true;
+        Definitions.AutoWalls = _autoWalls && indoors;
+    }
 }

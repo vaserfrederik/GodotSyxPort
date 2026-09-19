@@ -123,11 +123,7 @@ public sealed partial class CitizenSystem : Node3D
         public int NurseryDays;
         public int SchoolDays;
         public int MissedSchoolDays;
-        public int NurseryTimeoutDays;
-        public int SchoolTimeoutDays;
         public ChildActivity ChildActivity;
-        public int ChildRoomId;
-        public int ChildPlanSteps;
         public int FriendId;
         public byte SocialPlan;
         public int SocialTargetId;
@@ -860,126 +856,50 @@ public sealed partial class CitizenSystem : Node3D
             }
             if (!agent.Alive) continue;
             UpdateServiceDay(agent, delta);
-            // AIModules updates every module and lets a higher priority plan
-            // interrupt ordinary work. Health (7) therefore cannot wait for a
-            // worker's current job to finish.
-            if ((agent.Health.ActiveDisease || agent.Health.InDanger) &&
-                agent.ServicePlan == 0 && agent.Job is not null)
-                ReleaseJobForHigherPriority(agent, jobs, resources);
+            if (agent.Health.RequiresHospital(OriginalGameData.Current) &&
+                agent.ServicePlan == 0 && agent.Job is null &&
+                TryStartHospital(agent)) continue;
             if (agent.FoodPlan != 0 && TickFoodPlan(agent, (float)delta, jobs, resources)) continue;
             if (agent.ServicePlan != 0 && TickServicePlan(agent, (float)delta, resources)) continue;
             if (agent.MourningPlan != 0 && TickMourningPlan(agent, (float)delta)) continue;
             if (ChildBehaviorRuntime.IsChild(agent.Identity.Type))
             {
-                TickChildBehavior(agent, (float)delta, resources);
+                TickChildBehavior(agent, (float)delta);
                 continue;
             }
             if (agent.HomeActivity != HomeActivity.None && TickHomeBehavior(agent, (float)delta)) continue;
-            var workSuspended = EventWorkSuspended?.Invoke(new EventCitizenSnapshot(
-                agent.Id, agent.Identity.Race, agent.Identity.Class,
-                agent.Identity.Type, agent.Profession)) == true;
-            if (agent.Job is null && TryStartHighestPriorityPlan(
-                    agent, (float)delta, jobs, resources, workSuspended)) continue;
+            if (EventWorkSuspended?.Invoke(new EventCitizenSnapshot(agent.Id, agent.Identity.Race,
+                    agent.Identity.Class, agent.Identity.Type, agent.Profession)) == true)
+                continue;
+            if (HumanoidTypeRules.Works(agent.Identity.Type) && agent.Job is null &&
+                _assignmentsRemainingThisFrame > 0)
+            {
+                BuildJob? job = null;
+                if (agent.Profession != WorkProfession.Laborer)
+                    job = jobs.TryClaim(
+                        agent.Cell,
+                        resources,
+                        candidate => candidate.RequiredProfession == agent.Profession);
+                job ??= jobs.TryClaim(
+                    agent.Cell,
+                    resources,
+                    candidate => candidate.RequiredProfession == WorkProfession.Laborer);
+                if (job is not null)
+                {
+                    _assignmentsRemainingThisFrame--;
+                    if (!Assign(agent, job, jobs, resources)) jobs.Release(job, resources);
+                }
+                else if (TryStartService(agent)) _assignmentsRemainingThisFrame--;
+                else if (TryStartMourning(agent)) _assignmentsRemainingThisFrame--;
+                else if (TryStartSocialInteraction(agent)) _assignmentsRemainingThisFrame--;
+            }
+            if (agent.Job is null && agent.ServicePlan == 0 && agent.MourningPlan == 0 &&
+                TickHomeBehavior(agent, (float)delta)) continue;
             if (TickSocialInteraction(agent, (float)delta)) continue;
             if (TickFoodPlan(agent, (float)delta, jobs, resources)) continue;
             TickAgent(agent, (float)delta, resources, jobs);
         }
         StarvingCount = _agents.Count(agent => agent.Alive && agent.Hunger >= StarvationThreshold);
-    }
-
-    private bool TryStartHighestPriorityPlan(
-        Agent agent,
-        float delta,
-        JobBoard jobs,
-        ResourceLedger resources,
-        bool workSuspended)
-    {
-        if (agent.Carrying) return false;
-        var day = (int)(_populationElapsed / OriginalGameData.Current.SecondsPerDay);
-        var order = CitizenAiModuleRuntime.Order(
-            agent.Id,
-            day,
-            CitizenAiModuleRuntime.FoodPriority((int)agent.Hunger, NeedChunk),
-            agent.Health.ActiveDisease || agent.Health.InDanger,
-            HomeModulePriority(agent, day),
-            !workSuspended && HumanoidTypeRules.Works(agent.Identity.Type) &&
-                _assignmentsRemainingThisFrame > 0,
-            agent.ServiceRemaining > 0,
-            agent.SubjectActivityPending);
-        foreach (var module in order)
-        {
-            switch (module)
-            {
-                case CitizenAiModule.Food:
-                    if (TickFoodPlan(agent, delta, jobs, resources)) return true;
-                    break;
-                case CitizenAiModule.Health:
-                    if (TryStartRecovery(agent)) return true;
-                    break;
-                case CitizenAiModule.Home:
-                    if (TryStartHomePlan(agent, false)) return true;
-                    break;
-                case CitizenAiModule.Work:
-                    if (TryStartWorkPlan(agent, jobs, resources)) return true;
-                    break;
-                case CitizenAiModule.Service:
-                    if (TryStartService(agent)) return true;
-                    break;
-                case CitizenAiModule.Subject:
-                    if (TryStartMourning(agent) || TryStartSocialInteraction(agent)) return true;
-                    break;
-                case CitizenAiModule.Idle:
-                    return TryStartSocialInteraction(agent);
-            }
-        }
-        return false;
-    }
-
-    private int HomeModulePriority(Agent agent, int day)
-    {
-        var home = _rooms.Housing.Home(agent.Id);
-        var race = OriginalGameData.Current.Races[agent.Identity.Race];
-        var dayPart = (_populationElapsed / OriginalGameData.Current.SecondsPerDay) % 1.0;
-        if (!HomeBehaviorRuntime.ShouldVisitHome(race.Sleeps, home is not null,
-                agent.HasSleptToday, agent.AgeDays, agent.Id, day, dayPart)) return 0;
-        // AIModule_Home returns 7 after a failed/no-home search and 1 for the
-        // ordinary staggered visit. An owned home uses the normal priority.
-        return home is null && !agent.HasSleptToday
-            ? CitizenAiModuleRuntime.HealthPriority
-            : CitizenAiModuleRuntime.HomePriority;
-    }
-
-    private bool TryStartRecovery(Agent agent)
-    {
-        if (agent.Health.RequiresHospital(OriginalGameData.Current) && TryStartHospital(agent))
-            return true;
-        return TryStartHomePlan(agent, true);
-    }
-
-    private bool TryStartWorkPlan(Agent agent, JobBoard jobs, ResourceLedger resources)
-    {
-        BuildJob? job = null;
-        if (agent.Profession != WorkProfession.Laborer)
-            job = jobs.TryClaim(agent.Cell, resources,
-                candidate => candidate.RequiredProfession == agent.Profession);
-        job ??= jobs.TryClaim(agent.Cell, resources,
-            candidate => candidate.RequiredProfession == WorkProfession.Laborer);
-        if (job is null) return false;
-        _assignmentsRemainingThisFrame--;
-        if (Assign(agent, job, jobs, resources)) return true;
-        jobs.Release(job, resources);
-        return false;
-    }
-
-    private void ReleaseJobForHigherPriority(
-        Agent agent, JobBoard jobs, ResourceLedger resources)
-    {
-        if (agent.Job is null) return;
-        if (agent.Carrying) DropCarried(agent, jobs);
-        jobs.Release(agent.Job, resources);
-        ReleaseConstructionBatch(agent, jobs, resources, agent.Job);
-        agent.Job = null;
-        ClearPath(agent);
     }
 
     private void AdvancePopulationDay(ResourceLedger resources, JobBoard jobs)
@@ -1046,13 +966,19 @@ public sealed partial class CitizenSystem : Node3D
                 continue;
             }
             agent.AgeDays++;
-            if (agent.NurseryTimeoutDays > 0) agent.NurseryTimeoutDays--;
-            if (agent.SchoolTimeoutDays > 0) agent.SchoolTimeoutDays--;
             if (agent.Identity.Type is HumanoidType.Child or HumanoidType.ChildSlave &&
                 agent.AgeDays >= Reproduction.AdultAgeDays(agent.Identity.Race) &&
                 _rooms.Schools.CanEducate(PersonalStats, agent.Id,
                     agent.Identity.Race, agent.Identity.Class))
             {
+                if (_rooms.Schools.TryAttend(PersonalStats, agent.Id,
+                        agent.Identity.Race, agent.Identity.Class, resources))
+                {
+                    agent.SchoolDays++;
+                    agent.MissedSchoolDays = 0;
+                    continue;
+                }
+                agent.MissedSchoolDays++;
                 if (_rooms.Schools.HasService &&
                     agent.MissedSchoolDays <= SchoolRuntime.MissingSchoolDaysBeforeGrowth) continue;
             }
@@ -1064,6 +990,8 @@ public sealed partial class CitizenSystem : Node3D
                 Identities.ChangeType(agent.Id, agent.Identity.Class, expected);
                 agent.Identity = Identities.Get(agent.Id)!;
             }
+            if (Reproduction.Stage(agent.Identity.Race, agent.AgeDays) == CitizenLifeStage.Child &&
+                _rooms.Childcare.TryUseNursery()) agent.NurseryDays++;
         }
         foreach (var birth in births)
             SpawnCitizen(birth.Cell, birth.Race, birth.Class,
@@ -1114,59 +1042,26 @@ public sealed partial class CitizenSystem : Node3D
         }
     }
 
-    private void TickChildBehavior(Agent agent, float delta, ResourceLedger resources)
+    private void TickChildBehavior(Agent agent, float delta)
     {
         var dayPart = (_populationElapsed / OriginalGameData.Current.SecondsPerDay) % 1.0;
         var race = OriginalGameData.Current.Races[agent.Identity.Race];
-
-        // A reserved child plan owns its service until its own resumer completes or cancels it.
-        // Do not replace it merely because the selection predicate changes at the work-day edge.
-        if (agent.ChildActivity == ChildActivity.School && agent.ChildRoomId != 0)
-        {
-            TickChildSchool(agent, delta, dayPart, resources);
-            return;
-        }
-        if (agent.ChildActivity == ChildActivity.Nursery && agent.ChildRoomId != 0)
-        {
-            TickChildNursery(agent, delta, dayPart);
-            return;
-        }
         var activity = ChildBehaviorRuntime.Select(
             race, agent.AgeDays, dayPart,
             agent.Hunger >= FoodSeekThreshold, agent.Exposure > 0,
             agent.EmigrationPlan != 0,
-            agent.SchoolTimeoutDays == 0 && _rooms.Schools.HasService && _rooms.Schools.CanEducate(
+            _rooms.Schools.HasService && _rooms.Schools.CanEducate(
                 PersonalStats, agent.Id, agent.Identity.Race, agent.Identity.Class),
-            agent.NurseryTimeoutDays == 0 && _rooms.Childcare.NurseryCapacity > 0);
+            _rooms.Childcare.NurseryCapacity > 0);
         if (activity != agent.ChildActivity)
         {
-            CancelChildReservation(agent);
+            ClearPath(agent);
             agent.ChildActivity = activity;
             agent.ChildPlanTimeLeft = 0;
-            agent.ChildPlanSteps = 0;
         }
-        if (activity == ChildActivity.School)
+        if (activity is ChildActivity.Nursery or ChildActivity.School or ChildActivity.Sleeping)
         {
-            if (!TryStartChildSchool(agent))
-            {
-                agent.SchoolTimeoutDays = 2;
-                agent.MissedSchoolDays++;
-                agent.ChildActivity = ChildActivity.Playing;
-            }
-            return;
-        }
-        if (activity == ChildActivity.Nursery)
-        {
-            if (!TryStartChildNursery(agent))
-            {
-                agent.NurseryTimeoutDays = 2;
-                agent.ChildActivity = ChildActivity.Playing;
-            }
-            return;
-        }
-        if (activity == ChildActivity.Sleeping)
-        {
-            if (agent.PathHandle == 0)
+            if (activity == ChildActivity.Sleeping && agent.PathHandle == 0)
             {
                 var parentHome = _rooms.Housing.Home(agent.Identity.ParentId);
                 if (parentHome is not null && agent.Cell != parentHome.ServiceCell)
@@ -1182,97 +1077,6 @@ public sealed partial class CitizenSystem : Node3D
         agent.ChildPlanTimeLeft = 5.0 + GD.Randf() * 35.0;
         var target = SelectChildPlaymate(agent);
         if (target is not null && target.Cell != agent.Cell) SetPathTo(agent, target.Cell);
-    }
-
-    private bool TryStartChildSchool(Agent agent)
-    {
-        if (!_rooms.Schools.TryReserveLesson(PersonalStats, agent.Id, agent.Identity.Race,
-                agent.Identity.Class, out var roomId)) return false;
-        var destination = ChildRoomDestination(roomId, agent.Cell);
-        if (destination is null || !SetPathTo(agent, destination.Value))
-        {
-            _rooms.Schools.CancelReservedLesson(roomId);
-            return false;
-        }
-        agent.ChildRoomId = roomId;
-        agent.ChildPlanTimeLeft = 5.0;
-        return true;
-    }
-
-    private bool TryStartChildNursery(Agent agent)
-    {
-        if (!_rooms.Childcare.TryReserveNursery(out var roomId)) return false;
-        var destination = ChildRoomDestination(roomId, agent.Cell);
-        if (destination is null || !SetPathTo(agent, destination.Value))
-        {
-            _rooms.Childcare.ReleaseNursery(roomId);
-            return false;
-        }
-        agent.ChildRoomId = roomId;
-        agent.ChildPlanTimeLeft = 5.0;
-        return true;
-    }
-
-    private void TickChildSchool(Agent agent, float delta, double dayPart, ResourceLedger resources)
-    {
-        if (MoveAlongPath(agent, delta)) return;
-        agent.ChildPlanTimeLeft -= delta;
-        if (agent.ChildPlanTimeLeft > 0) return;
-        agent.ChildPlanTimeLeft += 5.0;
-        agent.ChildPlanSteps++;
-        if (agent.ChildPlanSteps <= 5 || ChildBehaviorRuntime.IsChildWorkTime(dayPart)) return;
-        if (_rooms.Schools.CompleteReservedLesson(agent.ChildRoomId, PersonalStats, agent.Id,
-                agent.Identity.Race, agent.Identity.Class, resources))
-        {
-            agent.SchoolDays++;
-            agent.MissedSchoolDays = 0;
-        }
-        // CompleteReservedLesson consumes the reserved lesson on success and restores it on
-        // resource failure, so clearing the fields must not cancel it a second time.
-        agent.ChildRoomId = 0;
-        agent.ChildActivity = ChildActivity.None;
-        agent.ChildPlanSteps = 0;
-    }
-
-    private void TickChildNursery(Agent agent, float delta, double dayPart)
-    {
-        if (MoveAlongPath(agent, delta)) return;
-        if (!ChildBehaviorRuntime.IsChildWorkTime(dayPart))
-        {
-            _rooms.Childcare.ReleaseNursery(agent.ChildRoomId);
-            agent.ChildRoomId = 0;
-            agent.ChildActivity = ChildActivity.None;
-            agent.NurseryDays++;
-            return;
-        }
-        agent.ChildPlanTimeLeft -= delta;
-        if (agent.ChildPlanTimeLeft > 0) return;
-        agent.ChildPlanTimeLeft += 5.0;
-        agent.ChildPlanSteps++;
-        if (agent.ChildPlanSteps * 5 >= ChildcareRuntime.NurseryPlaySeconds)
-            agent.ChildPlanSteps = 0;
-    }
-
-    private GridCoord? ChildRoomDestination(int roomId, GridCoord origin)
-    {
-        var room = _rooms.All.FirstOrDefault(candidate => candidate.Id == roomId);
-        if (room is null) return null;
-        return room.Cells.Select(_world.FromIndex)
-            .SelectMany(cell => GridCoord.Cardinal.Select(offset => cell + offset))
-            .Where(cell => _world.IsInside(cell) && !_world.Data.IsBlocked(cell))
-            .OrderBy(cell => Math.Abs(cell.X - origin.X) + Math.Abs(cell.Z - origin.Z))
-            .Select(cell => (GridCoord?)cell).FirstOrDefault();
-    }
-
-    private void CancelChildReservation(Agent agent)
-    {
-        ClearPath(agent);
-        if (agent.ChildRoomId == 0) return;
-        if (agent.ChildActivity == ChildActivity.School)
-            _rooms.Schools.CancelReservedLesson(agent.ChildRoomId);
-        else if (agent.ChildActivity == ChildActivity.Nursery)
-            _rooms.Childcare.ReleaseNursery(agent.ChildRoomId);
-        agent.ChildRoomId = 0;
     }
 
     private Agent? SelectChildPlaymate(Agent child)
@@ -1396,16 +1200,10 @@ public sealed partial class CitizenSystem : Node3D
             agent.HomeActivity = HomeActivity.None;
             return false;
         }
-        return TryStartHomePlan(agent, false);
-    }
-
-    private bool TryStartHomePlan(Agent agent, bool forceRecovery)
-    {
-        var day = (int)(_populationElapsed / OriginalGameData.Current.SecondsPerDay);
         var race = OriginalGameData.Current.Races[agent.Identity.Race];
         var home = _rooms.Housing.Home(agent.Id);
         var dayPart = (_populationElapsed / OriginalGameData.Current.SecondsPerDay) % 1.0;
-        if (!forceRecovery && !HomeBehaviorRuntime.ShouldVisitHome(race.Sleeps, home is not null,
+        if (!HomeBehaviorRuntime.ShouldVisitHome(race.Sleeps, home is not null,
                 agent.HasSleptToday, agent.AgeDays, agent.Id, day, dayPart)) return false;
         agent.HomePlanTimeLeft = HomeBehaviorRuntime.StaySeconds(
             agent.Id, day, agent.Identity.Class == SocialClass.Noble);
@@ -1868,7 +1666,13 @@ public sealed partial class CitizenSystem : Node3D
         if (foodCell is null)
         {
             if (agent.Hunger < StarvationThreshold) return false;
-            ReleaseJobForHigherPriority(agent, jobs, resources);
+            if (agent.Job is not null)
+            {
+                jobs.Release(agent.Job, resources);
+                ReleaseConstructionBatch(agent, jobs, resources, agent.Job);
+                agent.Job = null;
+                ClearPath(agent);
+            }
             // F_PlanStarve enters a desperate state when no reservable food exists.
             // State 3 keeps food search active and suppresses ordinary work.
             agent.FoodPlan = 3;
@@ -1887,7 +1691,12 @@ public sealed partial class CitizenSystem : Node3D
             if (fromLoose) _hauling.ReleaseLooseReservation(foodCell.Value, foodResource!.Value);
             return false;
         }
-        ReleaseJobForHigherPriority(agent, jobs, resources);
+        if (agent.Job is not null)
+        {
+            jobs.Release(agent.Job, resources);
+            ReleaseConstructionBatch(agent, jobs, resources, agent.Job);
+            agent.Job = null;
+        }
         ClearService(agent, true);
         ClearMourning(agent);
         SetPath(agent, path);
@@ -2592,21 +2401,6 @@ public sealed partial class CitizenSystem : Node3D
                 _rooms.CompleteArtilleryLoad(agent.Job, resources,
                     profile.BasicTraining / (double)CitizenPersonalStatsRuntime.TrainingMaximum);
                 break;
-            case BuildKind.Forage:
-            case BuildKind.ClearWood:
-            case BuildKind.ClearStone:
-            case BuildKind.ClearWater:
-            case BuildKind.DigTunnel:
-                // JobClear performs one terrain/resource step, then becomes reservable
-                // again while anything remains on the tile.
-                if (PerformTerrainJob(agent.Job, resources))
-                {
-                    agent.Job.WorkLeft = TerrainJobSeconds(agent.Job.Kind);
-                    jobs.Release(agent.Job, resources);
-                    agent.Job = null;
-                    return;
-                }
-                break;
         }
         var completed = agent.Job;
         completed.State = JobState.Completed;
@@ -2619,60 +2413,6 @@ public sealed partial class CitizenSystem : Node3D
                 jobs.Release(adjacent, resources);
         }
     }
-
-    private bool PerformTerrainJob(BuildJob job, ResourceLedger resources)
-    {
-        var data = _world.Data;
-        var cell = job.Cell;
-        switch (job.Kind)
-        {
-            case BuildKind.Forage:
-            {
-                var type = data.GrowableType(cell);
-                var amount = data.GrowableAmount(cell);
-                if (type < 0 || amount <= 0) return false;
-                if (type < OriginalGameData.Current.Growables.Count &&
-                    OriginalGameData.TryMapResource(
-                        OriginalGameData.Current.Growables[type].Resource, out var resource))
-                    resources.Add(resource, 1);
-                data.SetGrowable(cell, type, amount - 1);
-                return data.GrowableAmount(cell) > 0;
-            }
-            case BuildKind.ClearWood:
-                if (data.VegetationAmount(cell) <= 0 || data.GrowableType(cell) >= 0) return false;
-                data.ClearVegetationStep(cell);
-                resources.Add(ResourceKind.Wood, 1);
-                return data.VegetationAmount(cell) > 0;
-            case BuildKind.ClearStone:
-                if (!data.Has(cell, TileFlags.ClearableTerrain) ||
-                    data.Has(cell, TileFlags.Mountain)) return false;
-                data.ClearTerrain(cell);
-                resources.Add(ResourceKind.Stone, 1);
-                return false;
-            case BuildKind.ClearWater:
-                if (!data.Has(cell, TileFlags.Water)) return false;
-                data.SetDeepWater(cell, false);
-                data.Set(cell, TileFlags.SaltWater, false);
-                data.SetTerrain(cell, GroundKind.Soil, data.Elevation(cell),
-                    data.Fertility(cell), data.Moisture(cell));
-                return false;
-            case BuildKind.DigTunnel:
-                if (!data.Has(cell, TileFlags.Mountain) || data.Has(cell, TileFlags.Cave)) return false;
-                data.SetCave(cell, true);
-                data.ClearTerrain(cell);
-                resources.Add(ResourceKind.Stone, 1);
-                return false;
-            default:
-                return false;
-        }
-    }
-
-    private static float TerrainJobSeconds(BuildKind kind) => kind switch
-    {
-        BuildKind.ClearStone => 5f,
-        BuildKind.DigTunnel => 60f,
-        _ => 30f
-    };
 
     private void ConsumeLandingSource(BuildJob job, int amount)
     {

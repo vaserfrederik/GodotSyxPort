@@ -122,7 +122,6 @@ public sealed class RoomPlacementRuntime
         _itemCosts.Clear();
         _history.Clear();
         _area.UnionWith(occupied);
-        AutoWalls = false;
         var placement = new FurniturePlacement(
             group, selectedVariant, ((rotation % 4) + 4) % 4,
             layout.CostMultiplier, layout.StatMultiplier, occupied,
@@ -422,8 +421,11 @@ public sealed class RoomPlacementRuntime
         var validation = Validate();
         if (!validation.Valid) throw new InvalidOperationException(validation.Error);
         foreach (var cell in _area) _world.SetZone(cell);
+        ISet<GridCoord> effectiveDoors = AutoWalls
+            ? _doors
+            : new HashSet<GridCoord>();
         var room = _rooms.CreateFromDefinition(
-            DefinitionKey, _area, _perimeter, _doors, AutoWalls, _itemGroups, _itemCosts,
+            DefinitionKey, _area, _perimeter, effectiveDoors, AutoWalls, _itemGroups, _itemCosts,
             Upgrade, jobs,
             _furniture, _placements);
         Clear();

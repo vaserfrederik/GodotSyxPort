@@ -112,6 +112,7 @@ public sealed partial class GameBootstrap : Node3D
     private double _autoSaveAccumulator;
     private double _uiRefreshAccumulator;
     private double _worldTickAccumulator;
+    private double _roomUpdateAccumulator;
     private bool _initialized;
     private bool _firstCityFrameReported;
     private bool _landingPending;
@@ -158,14 +159,18 @@ public sealed partial class GameBootstrap : Node3D
         var terrainSettings = SettlementGeneratorSettings.Load();
         await Task.Run(() => _world.GenerateTerrainData(terrainSettings));
         GD.Print("[LAUNCH] settlement_terrain_data_ready");
-        _world.InitializeRendering();
-        GD.Print("[LAUNCH] settlement_renderers_ready");
         var climate = OriginalGameData.Current.Climates.GetValueOrDefault(generationProfile.Climate) ??
             new ClimateRule("TEMPERATE", 0.5, -0.15, 0.5, 0.45,
                 new Color(193 / 255f, 181 / 255f, 135 / 255f),
                 new Color(85 / 255f, 52 / 255f, 52 / 255f));
         _weather = new SettlementWeatherRuntime(
             climate, OriginalGameData.Current.SecondsPerHour, OriginalGameData.Current.SecondsPerDay);
+        // Seed the quantized visual state before CreateGround. Previously the initial
+        // 768x768 atlas was composed once at 0.75 moisture and immediately composed a
+        // second time at the rounded 0.8 bucket on the first city frame.
+        _world.UpdateWeatherVisuals(_weather.Ice, _weather.Moisture);
+        _world.InitializeRendering();
+        GD.Print("[LAUNCH] settlement_renderers_ready");
         _rooms = new RoomSystem(_world, _weather);
         _regionalEconomy = new RegionalEconomyRuntime(_strategicWorld, _rooms.Trade);
         if (LoadExisting)
@@ -476,12 +481,7 @@ public sealed partial class GameBootstrap : Node3D
             _workAccidents.Tick(
                 SimulationClock.FixedStep, _clock.PlayedSeconds, _resources, _jobs);
             _economy.Tick(SimulationClock.FixedStep, _resources);
-            _rooms.TickMaintenance(SimulationClock.FixedStep, _jobs, _resources);
-            _rooms.TickServices(
-                SimulationClock.FixedStep,
-                (_clock.PlayedSeconds / OriginalGameData.Current.SecondsPerDay) % 1.0);
-            // WorldTradeRuntime now settles trade only after physical shipment arrival.
-            _rooms.TickTechnologies(SimulationClock.FixedStep);
+            _roomUpdateAccumulator += SimulationClock.FixedStep;
             // The Java world uses distributed updaters; advancing every realm and
             // every resource on each 20 Hz settlement step caused the city view stalls.
             _worldTickAccumulator += SimulationClock.FixedStep;
@@ -511,16 +511,25 @@ public sealed partial class GameBootstrap : Node3D
                 OriginalGameData.Current.SecondsPerDay, _citizens, _resources, _jobs,
                 _settlementStats, _rooms, eventExit,
                 _weather.Temperature - _weather.AverageTemperature(yearPart));
-            _roadMaintenance.Tick(
-                SimulationClock.FixedStep, _jobs, cell => _rooms.Contains(cell));
-            _maintenanceConsumption.Tick(SimulationClock.FixedStep);
         }
         _world.UpdateWeatherVisuals(_weather.Ice, _weather.Moisture);
         _rightSidebar.UpdateWeather(_weather.Ice);
         _citizens.SyncRenderTransforms();
 
-        if (ticks > 0)
+        // Java's room Updater distributes room work over a 64-second sweep instead
+        // of rescanning every room and every job at the 20 Hz entity step.  Keep
+        // movement at 20 Hz, but aggregate room/service bookkeeping to four source-
+        // simulation updates per second.  Formulas still receive the full elapsed ds.
+        if (_roomUpdateAccumulator >= 0.25)
         {
+            var roomDelta = _roomUpdateAccumulator;
+            _roomUpdateAccumulator = 0;
+            _rooms.TickMaintenance(roomDelta, _jobs, _resources);
+            _rooms.TickServices(roomDelta,
+                (_clock.PlayedSeconds / OriginalGameData.Current.SecondsPerDay) % 1.0);
+            _rooms.TickTechnologies(roomDelta);
+            _roadMaintenance.Tick(roomDelta, _jobs, cell => _rooms.Contains(cell));
+            _maintenanceConsumption.Tick(roomDelta);
             _jobs.RemoveCompleted();
             _rooms.UpdateStates();
             _hauling.RetryUnassigned(_jobs);
@@ -564,8 +573,8 @@ public sealed partial class GameBootstrap : Node3D
             _status.Text = $"Вторжение: {_invasion.Phase} · врагов {_invasion.EnemyMen} · " +
                            $"потери {_invasion.PlayerLosses}/{_invasion.EnemyDeaths}";
         _topBar.UpdateState();
-        _roomPolicy.Refresh();
-        UpdateEconomyInfo();
+        if (_roomPolicy.Visible) _roomPolicy.Refresh();
+        if (_economyPanel.Visible) UpdateEconomyInfo();
         _notifications.Refresh(_events.Notices, OriginalGameData.Current.SecondsPerDay);
         _administration.Refresh(_rooms, _settlementStats);
         _manager.Refresh();
@@ -576,9 +585,9 @@ public sealed partial class GameBootstrap : Node3D
         _rightSidebar.UpdateState(_world.WorldToCell(_camera.Position), _camera.Size);
         _timeControls.UpdateState(_clock.PlayedSeconds,
             OriginalGameData.Current.SecondsPerDay, _clock.SpeedLevel);
-        RefreshInspector();
+        if (_inspector.Visible) RefreshInspector();
         if (_roomPalette.Visible) _roomPalette.RefreshDraft();
-        RefreshFurnisherSummary();
+        if (_constructionPalette.Visible) RefreshFurnisherSummary();
     }
 
     private GridCoord? ScreenToCell(Vector2 mousePosition)

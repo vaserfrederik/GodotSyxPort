@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Godot;
 using GodotSyxPort.Core;
 using GodotSyxPort.Data;
@@ -13,6 +14,9 @@ namespace GodotSyxPort.Rendering;
 /// </summary>
 public static class OriginalSettlementTerrainTextureBuilder
 {
+    private static readonly Dictionary<string, Atlas> Atlases =
+        new(StringComparer.OrdinalIgnoreCase);
+
     private sealed class Atlas
     {
         public int Width { get; }
@@ -366,10 +370,13 @@ public static class OriginalSettlementTerrainTextureBuilder
 
     private static Atlas Load(string resourcePath)
     {
+        if (Atlases.TryGetValue(resourcePath, out var cached)) return cached;
         var path = ProjectSettings.GlobalizePath(resourcePath);
         var image = Image.LoadFromFile(path);
         if (image.IsEmpty()) throw new InvalidOperationException($"Cannot load original sprite atlas: {path}");
-        return new Atlas(image);
+        var atlas = new Atlas(image);
+        Atlases[resourcePath] = atlas;
+        return atlas;
     }
 
     private static Color SafePixel(Atlas image, int x, int y) => image.Pixel(x, y);

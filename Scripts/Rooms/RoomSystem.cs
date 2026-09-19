@@ -157,7 +157,11 @@ public sealed class RoomSystem
             RequiredFurniture = 0, State = RoomState.Operational
         };
         _rooms.Add(room);
-        foreach (var cell in area) _world.SetZone(cell);
+        foreach (var cell in area)
+        {
+            _world.SetZone(cell);
+            _world.FinishZoneVisual(cell);
+        }
         RegisterInstance(room);
         Governance.Synchronize(_rooms, _world.FromIndex);
         return room;
@@ -268,7 +272,7 @@ public sealed class RoomSystem
                     Rotation = placement.Value.Rotation,
                     Cells = placement.Value.Cells.Select(_world.CellToIndex).ToHashSet()
                 });
-        var plannedFurniture = furniturePlacements is { Count: > 0 }
+        var plannedFurniture = (furniturePlacements is { Count: > 0 }
             ? furniturePlacements.Select(pair => (Anchor: pair.Key, Cells: pair.Value.Cells,
                 Blockers: pair.Value.BlockerCells, Reachable: pair.Value.ReachableCells,
                 Work: pair.Value.WorkCells, Storage: pair.Value.StorageCells))
@@ -281,8 +285,14 @@ public sealed class RoomSystem
                     Blockers: (IReadOnlyList<GridCoord>)new[] { cell },
                     Reachable: (IReadOnlyList<GridCoord>)Array.Empty<GridCoord>(),
                     Work: (IReadOnlyList<GridCoord>)Array.Empty<GridCoord>(),
-                    Storage: (IReadOnlyList<GridCoord>)Array.Empty<GridCoord>()));
+                    Storage: (IReadOnlyList<GridCoord>)Array.Empty<GridCoord>()))).ToArray();
         if (!fixedItem)
+        {
+            _world.SetPlannedRoomFurniture(room.Id,
+                plannedFurniture.SelectMany(value => value.Cells),
+                furniturePlacements?.Select(pair => new FurnitureVisualPlacement(
+                    room.DefinitionKey, pair.Value.Group, pair.Value.Variant,
+                    pair.Value.Rotation, pair.Key, room.UpgradeLevel)));
             foreach (var placement in plannedFurniture)
             {
                 var cells = placement.Cells.Distinct().ToArray();
@@ -292,6 +302,7 @@ public sealed class RoomSystem
                     placement.Anchor, room.Id, cells, placement.Blockers, placement.Reachable,
                     placement.Work, placement.Storage));
             }
+        }
         var floorKey = blueprint.Furnisher.Floor(room.UpgradeLevel);
         if (floorKey is not null)
             foreach (var cell in room.Cells.Select(_world.FromIndex))
@@ -314,6 +325,7 @@ public sealed class RoomSystem
 
     public void CompleteFurnitureVisual(BuildJob job)
     {
+        _world.CompletePlannedRoomFurniture(job.RoomId, job.Cell, job.FurnitureCells);
         var room = _rooms.FirstOrDefault(value => value.Id == job.RoomId);
         if (room is null) return;
         var footprint = room.FurnitureFootprints.FirstOrDefault(value =>
@@ -373,7 +385,12 @@ public sealed class RoomSystem
                 ? RoomState.Operational
                 : RoomState.Building;
             if (previousState != RoomState.Operational && room.State == RoomState.Operational)
+            {
                 _world.ClearPlannedRoomPartitions(room.Id);
+                _world.ClearPlannedRoomFurniture(room.Id);
+                foreach (var cell in room.Cells.Select(_world.FromIndex))
+                    _world.FinishZoneVisual(cell);
+            }
             var rule = OriginalGameData.Current.Room(RoomKey(room) ?? "");
             var militaryRule = OriginalGameData.Current.MilitaryRooms.GetValueOrDefault(RoomKey(room) ?? "");
             var maximum = room.State != RoomState.Operational
@@ -763,6 +780,14 @@ public sealed class RoomSystem
     public void ReconcileProductionJobs(IEnumerable<BuildJob> jobs)
     {
         var activeJobs = jobs.ToArray();
+        var maintenanceRooms = activeJobs.Where(job =>
+                job.Kind == BuildKind.Maintenance &&
+                job.State is not (JobState.Completed or JobState.Cancelled))
+            .Select(job => job.RoomId).ToHashSet();
+        var equipmentRooms = activeJobs.Where(job =>
+                job.Kind == BuildKind.EquipmentSupply &&
+                job.State is not (JobState.Completed or JobState.Cancelled))
+            .Select(job => job.RoomId).ToHashSet();
         Sanitation.Reconcile(activeJobs);
         Temples.Reconcile(activeJobs);
         Baths.Reconcile(activeJobs);
@@ -777,10 +802,8 @@ public sealed class RoomSystem
         {
             room.Employment.SetEmployed(System.Math.Min(
                 room.Employment.Needed, _pendingProduction.GetValueOrDefault(room.Id)));
-            room.MaintenancePending = jobs.Any(job => job.Kind == BuildKind.Maintenance &&
-                job.RoomId == room.Id && job.State is not (JobState.Completed or JobState.Cancelled));
-            room.EquipmentSupplyPending = jobs.Any(job => job.Kind == BuildKind.EquipmentSupply &&
-                job.RoomId == room.Id && job.State is not (JobState.Completed or JobState.Cancelled));
+            room.MaintenancePending = maintenanceRooms.Contains(room.Id);
+            room.EquipmentSupplyPending = equipmentRooms.Contains(room.Id);
         }
         Activities.Reconcile(activeJobs, _rooms);
         PreparedServices.Reconcile(activeJobs, _rooms);
@@ -1368,6 +1391,7 @@ public sealed class RoomSystem
             spill?.Invoke(item.Resource, item.Amount, item.Cell);
         Housing.RemoveRoom(roomId);
         _world.ClearPlannedRoomPartitions(roomId);
+        _world.ClearPlannedRoomFurniture(roomId);
         Hospitality.RemoveRoom(roomId);
         Construction.Remove(roomId);
         foreach (var index in room.Cells)
@@ -1498,6 +1522,14 @@ public sealed class RoomSystem
             _world.AddFurnitureVisual(new FurnitureVisualPlacement(room.DefinitionKey,
                 footprint.Group, footprint.Variant, footprint.Rotation,
                 _world.FromIndex(footprint.Anchor), room.UpgradeLevel));
+        var pendingFootprints = room.FurnitureFootprints.Where(item =>
+            item.Cells.Any(index => !_world.Data.Has(_world.FromIndex(index), TileFlags.Furniture))).ToArray();
+        if (pendingFootprints.Length > 0)
+            _world.SetPlannedRoomFurniture(room.Id,
+                pendingFootprints.SelectMany(item => item.Cells).Select(_world.FromIndex),
+                pendingFootprints.Select(item => new FurnitureVisualPlacement(
+                    room.DefinitionKey, item.Group, item.Variant, item.Rotation,
+                    _world.FromIndex(item.Anchor), room.UpgradeLevel)));
         RegisterInstance(room);
         return room;
     }

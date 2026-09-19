@@ -26,6 +26,8 @@ public sealed partial class GridWorld : Node3D
     private ChunkTileRenderer _plannedWalls = null!;
     private ChunkTileRenderer _plannedDoors = null!;
     private ChunkTileRenderer _plannedRoomPartitions = null!;
+    private ChunkTileRenderer _plannedFurniture = null!;
+    private OriginalFurnitureSpriteRenderer _plannedFurnitureSprites = null!;
     private ChunkWallRenderer _furniture = null!;
     private OriginalFurnitureSpriteRenderer _furnitureSprites = null!;
     private OriginalFurnitureSpriteRenderer _draftFurnitureSprites = null!;
@@ -44,6 +46,8 @@ public sealed partial class GridWorld : Node3D
     private readonly List<int> _doorCells = new();
     private readonly List<int> _furnitureCells = new();
     private readonly Dictionary<int, HashSet<GridCoord>> _plannedPartitionsByRoom = new();
+    private readonly Dictionary<int, HashSet<GridCoord>> _plannedFurnitureByRoom = new();
+    private readonly Dictionary<int, List<FurnitureVisualPlacement>> _plannedFurnitureVisualsByRoom = new();
     private readonly List<MeshInstance3D> _landingMarkers = new();
     private ImageTexture _groundTexture = null!;
     private double _visualIce;
@@ -116,6 +120,12 @@ public sealed partial class GridWorld : Node3D
         _plannedRoomPartitions = new ChunkTileRenderer { Name = "PlannedRoomPartitions" };
         AddChild(_plannedRoomPartitions);
         _plannedRoomPartitions.Initialize(Width, Height, new Color(0.28f, 0.63f, 1f, 0.78f), 0.07f);
+        _plannedFurniture = new ChunkTileRenderer { Name = "PlannedRoomFurniture" };
+        AddChild(_plannedFurniture);
+        _plannedFurniture.Initialize(Width, Height, new Color(0.28f, 0.63f, 1f, 0.72f), 0.105f);
+        _plannedFurnitureSprites = new OriginalFurnitureSpriteRenderer { Name = "PlannedOriginalFurniture" };
+        AddChild(_plannedFurnitureSprites);
+        _plannedFurnitureSprites.Initialize(Width, Height);
         _furniture = new ChunkWallRenderer { Name = "ChunkFurniture" };
         AddChild(_furniture);
         _furniture.Initialize(Width, Height, new Vector3(0.72f, 0.7f, 0.72f), new Color("725338"), 0.35f);
@@ -227,6 +237,59 @@ public sealed partial class GridWorld : Node3D
             _plannedRoomPartitions.SetCells(_plannedPartitionsByRoom.Values.SelectMany(value => value));
     }
 
+    public void SetPlannedRoomFurniture(
+        int roomId,
+        IEnumerable<GridCoord> cells,
+        IEnumerable<FurnitureVisualPlacement>? placements = null)
+    {
+        var sourcePlacements = (placements ?? System.Array.Empty<FurnitureVisualPlacement>())
+            .Where(value => OriginalFurnitureSpriteRenderer.Supports(value.RoomKey)).ToList();
+        var sourceCells = SourceFurnitureCells(sourcePlacements);
+        _plannedFurnitureByRoom[roomId] = cells.Where(cell => !sourceCells.Contains(cell)).ToHashSet();
+        _plannedFurnitureVisualsByRoom[roomId] = sourcePlacements;
+        RefreshPlannedRoomFurniture();
+    }
+
+    public void CompletePlannedRoomFurniture(
+        int roomId, GridCoord anchor, IEnumerable<GridCoord> cells)
+    {
+        if (_plannedFurnitureByRoom.TryGetValue(roomId, out var planned))
+        {
+            planned.ExceptWith(cells);
+            if (planned.Count == 0) _plannedFurnitureByRoom.Remove(roomId);
+        }
+        if (_plannedFurnitureVisualsByRoom.TryGetValue(roomId, out var visuals))
+        {
+            visuals.RemoveAll(value => value.Origin == anchor);
+            if (visuals.Count == 0) _plannedFurnitureVisualsByRoom.Remove(roomId);
+        }
+        RefreshPlannedRoomFurniture();
+    }
+
+    public void ClearPlannedRoomFurniture(int roomId)
+    {
+        var changed = _plannedFurnitureByRoom.Remove(roomId);
+        changed |= _plannedFurnitureVisualsByRoom.Remove(roomId);
+        if (changed) RefreshPlannedRoomFurniture();
+    }
+
+    private void RefreshPlannedRoomFurniture()
+    {
+        if (!_renderingInitialized) return;
+        _plannedFurniture.SetCells(_plannedFurnitureByRoom.Values.SelectMany(value => value));
+        _plannedFurnitureSprites.SetPreview(
+            _plannedFurnitureVisualsByRoom.Values.SelectMany(value => value),
+            new HashSet<GridCoord>());
+    }
+
+    private static HashSet<GridCoord> SourceFurnitureCells(
+        IEnumerable<FurnitureVisualPlacement> placements) => placements.SelectMany(value =>
+        {
+            var variants = FurnisherLayoutCatalog.Variants(value.RoomKey, value.Group);
+            var layout = variants[System.Math.Clamp(value.Variant, 0, variants.Count - 1)];
+            return layout.RotatedCells(value.Rotation).Select(offset => value.Origin + offset);
+        }).ToHashSet();
+
     public bool CanPlanRoad(GridCoord cell) =>
         IsInside(cell) && !Data.Has(cell, TileFlags.Wall | TileFlags.Road | TileFlags.Reserved);
 
@@ -315,6 +378,17 @@ public sealed partial class GridWorld : Node3D
         _zones.AddCell(cell);
     }
 
+    /// <summary>
+    /// A zone remains room data after construction, but Java stops rendering the
+    /// construction overlay when ConstructionInstance.finish() replaces the embryo
+    /// with the finished room.  Keep TileFlags.Zone and only remove the blue plan.
+    /// </summary>
+    public void FinishZoneVisual(GridCoord cell)
+    {
+        if (!_renderingInitialized || !Data.Has(cell, TileFlags.Zone)) return;
+        _zones.RemoveCell(cell);
+    }
+
     public bool ClearZone(GridCoord cell)
     {
         if (!Data.Has(cell, TileFlags.Zone)) return false;
@@ -356,13 +430,8 @@ public sealed partial class GridWorld : Node3D
         _draftPerimeter.SetCells(perimeter);
         _draftDoors.SetCells(doors);
         var placements = furniturePlacements?.ToArray() ?? System.Array.Empty<FurnitureVisualPlacement>();
-        var sourceCells = placements.Where(value => OriginalFurnitureSpriteRenderer.Supports(value.RoomKey))
-            .SelectMany(value =>
-            {
-                var variants = FurnisherLayoutCatalog.Variants(value.RoomKey, value.Group);
-                var layout = variants[System.Math.Clamp(value.Variant, 0, variants.Count - 1)];
-                return layout.RotatedCells(value.Rotation).Select(offset => value.Origin + offset);
-            }).ToHashSet();
+        var sourceCells = SourceFurnitureCells(placements.Where(value =>
+            OriginalFurnitureSpriteRenderer.Supports(value.RoomKey)));
         var invalid = (invalidFurniture ?? System.Array.Empty<GridCoord>()).ToHashSet();
         _draftFurniture.SetCells((furniture ?? System.Array.Empty<GridCoord>())
             .Where(cell => !sourceCells.Contains(cell) && !invalid.Contains(cell)));
