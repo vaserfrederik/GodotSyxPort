@@ -233,11 +233,17 @@ def main() -> None:
     assert "world.Moisture(cell) >= 11" not in settlement_generator
     assert "GroundTint(data, cell, kind, climate, weatherMoisture)" in settlement_terrain
     assert "IcePixel(waterStencil" in settlement_terrain
+    assert 'Load(MapRoot + "TreeColors.png")' in settlement_terrain
+    assert "sourcePixel.R * tint.R" in settlement_terrain
+    assert "texture.R * tint.R" in settlement_terrain
     assert "UpdateWeatherVisuals(double ice, double moisture)" in text("Scripts/Settlement/GridWorld.cs")
     assert "public void SetWeather(double ice)" in text("Scripts/UI/SettlementRightSidebar.cs")
     sidebar = text("Scripts/UI/SettlementRightSidebar.cs")
     assert "_data.VegetationAmount(cell) > 0" in sidebar
     assert "_data.MineralAmount(cell) > 0" in sidebar
+    assert "ZIndex = 100" in build_palette and "MoveToFront();" in build_palette
+    assert "if (category.Prefixes is null) return Enumerable.Empty<RoomBlueprintRuntime>();" in build_palette
+    assert "var fertilityLevel = ToNibble(fertility)" in settlement_generator
     for terrain_job in ("Forage", "ClearWood", "ClearStone", "ClearWater", "DigTunnel"):
         assert f"BuildKind.{terrain_job}" in bootstrap
     citizen_ai = text("Scripts/Citizens/CitizenAiModuleRuntime.cs")
@@ -1270,7 +1276,8 @@ def main() -> None:
     assert "WorldTileDimension = StrategicWorldRuntime.CapitalFootprintDimension" in settlement_terrain
     assert "WorldTileAtSettlement" in settlement_terrain
     assert "GenerateMappedFreshWater" in settlement_terrain and "GenerateMappedOcean" in settlement_terrain
-    assert "mappedMoisture * 0.82" in settlement_terrain
+    assert "var fertilityLevel = ToNibble(fertility)" in settlement_terrain
+    assert "fertilityLevel, fertilityLevel" in settlement_terrain
     assert "sample => sample.Mountain ? 1.0 : 0.0" in settlement_terrain
     assert "mappedForest * 1.25" in settlement_terrain
     assert "SampleWorld" in settlement_terrain and "Exact centre-weighted interpolation" in settlement_terrain

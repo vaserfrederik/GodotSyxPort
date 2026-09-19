@@ -47,6 +47,7 @@ public static class OriginalSettlementTerrainTextureBuilder
         var mountain = Load(MapRoot + "Mountain.png");
         var waterStencil = Load(MapRoot + "Water.png");
         var tree = Load(MapRoot + "Tree.png");
+        var treeColors = Load(MapRoot + "TreeColors.png");
         var rock = Load(MapRoot + "Rock.png");
         var water = Load(TextureRoot + "Water.png");
         var width = data.Width * PixelsPerTile;
@@ -118,12 +119,13 @@ public static class OriginalSettlementTerrainTextureBuilder
         }
 
         ComposeMountainRocks(data, rock, pixels, width, seed);
-        ComposeVegetation(data, tree, pixels, width, seed);
+        ComposeVegetation(data, tree, treeColors, pixels, width, seed);
         return Image.CreateFromData(width, height, false, Image.Format.Rgba8, pixels);
     }
 
     private static void ComposeVegetation(
-        WorldGridData data, Atlas tree, byte[] pixels, int pixelWidth, int seed)
+        WorldGridData data, Atlas tree, Atlas treeColors,
+        byte[] pixels, int pixelWidth, int seed)
     {
         var occupied = new bool[data.Width * data.Height];
         for (var size = 3; size >= 1; size--)
@@ -173,7 +175,7 @@ public static class OriginalSettlementTerrainTextureBuilder
                 }
                 BlendSprite(tree, sourceX, sourceY, sourceSize,
                     pixels, pixelWidth, x * PixelsPerTile, z * PixelsPerTile,
-                    size * PixelsPerTile);
+                    size * PixelsPerTile, TreeTint(treeColors, variant));
             }
         }
     }
@@ -192,8 +194,22 @@ public static class OriginalSettlementTerrainTextureBuilder
             var variant = Math.Abs(Hash(x, z, seed ^ 0x315d)) & 127;
             // ComposerSources.singles has a 6px leading margin and 6px gutters.
             BlendSprite(rock, 6 + variant % 16 * 22, 6 + variant / 16 * 22, 16,
-                pixels, pixelWidth, x * PixelsPerTile, z * PixelsPerTile, PixelsPerTile);
+                pixels, pixelWidth, x * PixelsPerTile, z * PixelsPerTile,
+                PixelsPerTile, Colors.White);
         }
+    }
+
+    private static Color TreeTint(Atlas palette, int variant)
+    {
+        // TColors.Tree.row(0): the first row of TreeColors is the fertile palette.
+        // getHalf() expands its sixteen source colours to the sixty-four random
+        // variants used by TForest; the extra variants only receive a small shade.
+        var color = SafePixel(palette, 8 + (variant & 15) * 16, 8);
+        var shade = 0.92f + ((Hash(variant, variant >> 4, 0x71ee) & 255) / 255f) * 0.16f;
+        return new Color(
+            Math.Clamp(color.R * shade, 0, 1),
+            Math.Clamp(color.G * shade, 0, 1),
+            Math.Clamp(color.B * shade, 0, 1), color.A);
     }
 
     private static Color GroundSample(Atlas atlas, GroundKind kind, int variant, int px, int py)
@@ -313,14 +329,16 @@ public static class OriginalSettlementTerrainTextureBuilder
     private static void BlendSprite(
         Atlas source, int sourceX, int sourceY, int sourceSize,
         byte[] destination, int destinationWidth, int destinationX, int destinationY,
-        int destinationSize)
+        int destinationSize, Color tint)
     {
         for (var y = 0; y < destinationSize; y++)
         for (var x = 0; x < destinationSize; x++)
         {
             var sx = sourceX + Math.Clamp((int)((x + 0.5) * sourceSize / destinationSize), 0, sourceSize - 1);
             var sy = sourceY + Math.Clamp((int)((y + 0.5) * sourceSize / destinationSize), 0, sourceSize - 1);
-            var overlay = SafePixel(source, sx, sy);
+            var sourcePixel = SafePixel(source, sx, sy);
+            var overlay = new Color(sourcePixel.R * tint.R, sourcePixel.G * tint.G,
+                sourcePixel.B * tint.B, sourcePixel.A * tint.A);
             if (overlay.A < 0.08f) continue;
             var offset = ((destinationY + y) * destinationWidth + destinationX + x) * 4;
             var under = new Color(destination[offset] / 255f, destination[offset + 1] / 255f,
@@ -332,10 +350,11 @@ public static class OriginalSettlementTerrainTextureBuilder
 
     private static Color TextureTint(Color texture, Color tint, float strength)
     {
-        var luminance = texture.R * 0.299f + texture.G * 0.587f + texture.B * 0.114f;
-        var shade = Mathf.Lerp(0.58f, 1.18f, luminance);
-        var textured = new Color(tint.R * shade, tint.G * shade, tint.B * shade, 1);
-        return tint.Lerp(textured, strength);
+        // COLOR.bind() in the Java renderer multiplies the diffuse atlas; it does
+        // not replace it with a luminance-derived solid colour.
+        var multiplied = new Color(texture.R * tint.R, texture.G * tint.G,
+            texture.B * tint.B, texture.A);
+        return texture.Lerp(multiplied, strength);
     }
 
     private static Color AlphaOver(Color under, Color over)

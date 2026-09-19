@@ -81,6 +81,7 @@ public sealed partial class RoomBuildPalette : ColorRect
         _available = available;
         Color = new Color(0.055f, 0.058f, 0.055f, 0.98f);
         Size = new Vector2(ColumnWidth + 8f, MenuHeight + 8f);
+        ZIndex = 100;
         ClipContents = true;
         MouseFilter = MouseFilterEnum.Stop;
 
@@ -117,6 +118,7 @@ public sealed partial class RoomBuildPalette : ColorRect
         BuildCategoryColumn();
         BuildRoomColumn();
         Visible = true;
+        MoveToFront();
     }
 
     /// <summary>
@@ -131,6 +133,7 @@ public sealed partial class RoomBuildPalette : ColorRect
         BuildCategoryColumn();
         BuildRoomColumn();
         Visible = true;
+        MoveToFront();
     }
 
     /// <summary>
@@ -145,6 +148,7 @@ public sealed partial class RoomBuildPalette : ColorRect
         BuildCategoryColumn();
         BuildRoomColumn();
         Visible = true;
+        MoveToFront();
     }
 
     public void SetStatus(string status) => _status.Text = status;
@@ -217,6 +221,7 @@ public sealed partial class RoomBuildPalette : ColorRect
         _categoryScroll.Position = new Vector2(5, 4);
         _roomScroll.Position = new Vector2(ColumnWidth + 6, 4);
         _roomScroll.Visible = true;
+        _roomScroll.MoveToFront();
         Size = new Vector2(ColumnWidth * 2f + 8f, MenuHeight + 8f);
         ApplyResponsiveLayout();
     }
@@ -230,7 +235,11 @@ public sealed partial class RoomBuildPalette : ColorRect
 
     private IEnumerable<RoomBlueprintRuntime> RoomsFor(string main, string sub)
     {
-        var category = Categories.First(value => value.Main == main && value.Sub == sub);
+        var category = Categories.FirstOrDefault(value => value.Main == main && value.Sub == sub);
+        // BuildMain categories do not all have a direct "misc" section. Services
+        // and management consist only of expandable rows; asking for their absent
+        // misc group must yield an empty list, not abort opening the whole menu.
+        if (category.Prefixes is null) return Enumerable.Empty<RoomBlueprintRuntime>();
         return _catalog.All.Where(room => MatchesCategory(room, main, sub))
             // ROOMS.java registers fixed blueprints and RoomsCreator families in
             // category prefix order.  Alphabetically sorting translated names changed
@@ -317,7 +326,8 @@ public sealed partial class RoomBuildPalette : ColorRect
             Position = new Vector2(x, 4),
             Size = new Vector2(ColumnWidth - 4f, MenuHeight),
             HorizontalScrollMode = ScrollContainer.ScrollMode.Disabled,
-            VerticalScrollMode = ScrollContainer.ScrollMode.Auto
+            VerticalScrollMode = ScrollContainer.ScrollMode.Auto,
+            MouseFilter = MouseFilterEnum.Stop
         };
         AddChild(scroll);
         var column = new VBoxContainer

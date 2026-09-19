@@ -361,11 +361,8 @@ public sealed class SettlementTerrainGenerator
             // GeneratorUtil.height is the settlement-local HeightMap.  Strategic
             // elevation selects mountain/ocean topology but is not blended into it.
             var height = noiseHeight;
-            var noiseMoisture = Fractal(x + 1703, z - 927, profile.Seed ^ 0x41a7, 4);
             var mappedMoisture = SampleWorld(profile, x, z, world.Width, world.Height,
                 sample => sample.Moisture, profile.BaseFertility);
-            var localMoisture = profile.WorldTiles is null ? noiseMoisture :
-                Math.Clamp(mappedMoisture * 0.82 + noiseMoisture * 0.18, 0, 1);
             // GeneratorFertilityInit.get: bilinear world moisture, HeightMap(32,2),
             // then base*0.7 + pow(1-height, 1+8*(1-base)) - 0.2*fertilityNoise.
             var baseValue = Math.Clamp(mappedMoisture, 0, 1) * 0.7;
@@ -373,7 +370,11 @@ public sealed class SettlementTerrainGenerator
             var fertilityNoise = Fractal(x - 419, z + 733, profile.Seed ^ 0x61c5, 2);
             var fertility = Math.Pow(fertilityHeight, 1 + 8 * (1 - baseValue));
             fertility = Math.Clamp(baseValue + fertility - 0.2 * fertilityNoise, 0, 1);
-            world.SetTerrain(cell, GroundKind.Soil, ToByte(height), ToNibble(fertility), ToNibble(localMoisture));
+            // GeneratorGround copies util.fer into MOISTURE_BASE for every tile.
+            // Strategic moisture participates in the fertility formula above, but it
+            // is not stored directly as the per-tile colour index.
+            var fertilityLevel = ToNibble(fertility);
+            world.SetTerrain(cell, GroundKind.Soil, ToByte(height), fertilityLevel, fertilityLevel);
         }
     }
 
@@ -1309,7 +1310,8 @@ public sealed class SettlementTerrainGenerator
                      1 - Math.Clamp(settings.ForestAmount *
                          (profile.WorldTiles is null ? 0.67 : 0.25 + mappedForest * 1.25), 0.05, 0.95))
             {
-                world.SetTerrain(cell, GroundKind.Forest, world.Elevation(cell), world.Fertility(cell), world.Moisture(cell));
+                world.SetTerrain(cell, GroundKind.Forest, world.Elevation(cell),
+                    world.Fertility(cell), world.Fertility(cell));
                 world.SetVegetation(cell, (int)Math.Round(world.Fertility(cell) * settings.ForestDensity));
             }
             else
@@ -1319,12 +1321,14 @@ public sealed class SettlementTerrainGenerator
                 {
                     var worst = profile.Climate.Equals("HOT", StringComparison.OrdinalIgnoreCase)
                         ? GroundKind.Sand : GroundKind.Infertile;
-                    world.SetTerrain(cell, worst, world.Elevation(cell),
-                        Math.Max(0, world.Fertility(cell) - 10), world.Moisture(cell));
+                    var reduced = Math.Max(0, world.Fertility(cell) - 10);
+                    world.SetTerrain(cell, worst, world.Elevation(cell), reduced, reduced);
                 }
                 else if (groundMap < 0.5)
-                    world.SetTerrain(cell, GroundKind.Pasture, world.Elevation(cell),
-                        Math.Max(0, world.Fertility(cell) - 4), world.Moisture(cell));
+                {
+                    var reduced = Math.Max(0, world.Fertility(cell) - 4);
+                    world.SetTerrain(cell, GroundKind.Pasture, world.Elevation(cell), reduced, reduced);
+                }
             }
         }
     }
