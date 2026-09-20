@@ -306,6 +306,23 @@ public sealed partial class GameBootstrap : Node3D
             return;
         }
 
+        // ToolManager.otherClick() in the source deactivates PlacableFixedTool on
+        // RMB; Escape follows the same back path. The port previously sent Escape
+        // only to windows and ignored RMB, leaving the housing ghost permanently
+        // attached to the cursor.
+        var cancelPlacement =
+            inputEvent is InputEventMouseButton { Pressed: true,
+                ButtonIndex: MouseButton.Right } ||
+            inputEvent is InputEventKey { Pressed: true, Echo: false,
+                Keycode: Key.Escape };
+        if (cancelPlacement && _tool == BuildTool.Furniture &&
+            _roomPlanner.UsesFixedItemPlacement)
+        {
+            DeactivatePlacementTool();
+            GetViewport().SetInputAsHandled();
+            return;
+        }
+
         if (_placingHotspot && inputEvent is InputEventMouseButton cancelHotspot &&
             cancelHotspot.Pressed && cancelHotspot.ButtonIndex == MouseButton.Right)
         {
@@ -509,20 +526,6 @@ public sealed partial class GameBootstrap : Node3D
             // The Java world uses distributed updaters; advancing every realm and
             // every resource on each 20 Hz settlement step caused the city view stalls.
             _worldTickAccumulator += SimulationClock.FixedStep;
-            if (_worldTickAccumulator >= 0.25)
-            {
-                var worldDelta = _worldTickAccumulator;
-                _worldTickAccumulator = 0;
-                _settlementWorld.Diplomacy.SetProduction(_rooms.Governance.Diplomacy);
-                var worldTick = _settlementWorld.Tick(
-                    worldDelta, OriginalGameData.Current.SecondsPerDay,
-                    _citizens.PopulationByRace(),
-                    0.25 + _settlementStats.MonumentEnvironment * 0.75,
-                    Math.Clamp(1.0 - _settlementStats.Unburied / 4.0, 0, 1),
-                    Math.Clamp((_settlementStats.HousingAccess + 1.0 - _settlementStats.Hunger / 64.0) / 2.0, 0, 1));
-                _worldTrade.Tick(worldDelta /
-                    OriginalGameData.Current.SecondsPerDay, worldTick.Day);
-            }
             _invasion.Tick(SimulationClock.FixedStep, OriginalGameData.Current.SecondsPerDay);
             _corpses.Tick(SimulationClock.FixedStep, OriginalGameData.Current.SecondsPerDay);
             _settlementStats.Tick(
@@ -535,6 +538,24 @@ public sealed partial class GameBootstrap : Node3D
                 OriginalGameData.Current.SecondsPerDay, _citizens, _resources, _jobs,
                 _settlementStats, _rooms, eventExit,
                 _weather.Temperature - _weather.AverageTemperature(yearPart));
+        }
+        // The source world updater distributes strategic work; it never rescans the
+        // complete regional model once for every settlement fixed step. Aggregate the
+        // elapsed simulation time and run it at most once per rendered frame. At 250x
+        // the old loop called this six or seven times in one already overloaded frame.
+        if (_worldTickAccumulator >= 0.25)
+        {
+            var worldDelta = _worldTickAccumulator;
+            _worldTickAccumulator = 0;
+            _settlementWorld.Diplomacy.SetProduction(_rooms.Governance.Diplomacy);
+            var worldTick = _settlementWorld.Tick(
+                worldDelta, OriginalGameData.Current.SecondsPerDay,
+                _citizens.PopulationByRace(),
+                0.25 + _settlementStats.MonumentEnvironment * 0.75,
+                Math.Clamp(1.0 - _settlementStats.Unburied / 4.0, 0, 1),
+                Math.Clamp((_settlementStats.HousingAccess + 1.0 - _settlementStats.Hunger / 64.0) / 2.0, 0, 1));
+            _worldTrade.Tick(worldDelta /
+                OriginalGameData.Current.SecondsPerDay, worldTick.Day);
         }
         var simulationMs = ElapsedMilliseconds(simulationStarted);
         visualStarted = Time.GetTicksUsec();
@@ -2037,10 +2058,21 @@ public sealed partial class GameBootstrap : Node3D
         if (_tool == BuildTool.Furniture && tool != BuildTool.Furniture)
         {
             _lastFurniturePreviewCell = null;
-            if (_roomPlanner.UsesDefinition) _roomPlanner.RestorePreview();
+            _world.ClearRoomPreview();
         }
         _tool = tool;
         if (_toolLabel is not null) _toolLabel.Text = $"Инструмент: {tool}";
+    }
+
+    private void DeactivatePlacementTool()
+    {
+        _dragStart = null;
+        _lastPreviewEnd = null;
+        _lastFurniturePreviewCell = null;
+        _world.ClearRoomPreview();
+        _constructionPalette.Visible = false;
+        SelectTool(BuildTool.RoomInspect);
+        _status.Text = "Размещение отменено";
     }
 
     private void CycleRoomType()

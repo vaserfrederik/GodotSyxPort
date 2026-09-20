@@ -88,6 +88,7 @@ public sealed class WorldFactionRuntime
     private readonly List<string> _events = new();
     private long _nextReservationId = 1;
     private long _nextRoyalId = 1;
+    private int _lastAgreementRefreshDay = int.MinValue;
 
     public WorldFactionRuntime(StrategicWorldRuntime world, WorldRegionRuntime regions)
     {
@@ -209,6 +210,7 @@ public sealed class WorldFactionRuntime
 
     public void RebuildAgreements(int day)
     {
+        _lastAgreementRefreshDay = day;
         _agreements.Clear();
         foreach (var first in _world.Factions)
         foreach (var second in _world.Factions.Where(value => value.Id > first.Id))
@@ -399,7 +401,11 @@ public sealed class WorldFactionRuntime
         }
         TickCourts(days, day);
         ExpireReservations(day);
-        if (day % 4 == 0) RebuildAgreements(day);
+        // Day zero (and every fourth day) spans many simulation ticks. The old port
+        // rebuilt every faction pair on every one of those ticks. Java schedules this
+        // daily work once when the day changes.
+        if (day % 4 == 0 && day != _lastAgreementRefreshDay)
+            RebuildAgreements(day);
     }
 
     public void ConfigureFlow(int factionId, ResourceKind resource, int production, int consumption)
