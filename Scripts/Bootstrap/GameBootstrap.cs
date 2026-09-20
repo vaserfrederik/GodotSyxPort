@@ -120,6 +120,8 @@ public sealed partial class GameBootstrap : Node3D
     private double _performanceCpuMs;
     private double _performanceSimulationMs;
     private double _performanceCitizenMs;
+    private double _performanceGlobalMs;
+    private double _performanceWorldMs;
     private double _performanceRoomMs;
     private double _performanceUiMs;
     private double _performanceVisualMs;
@@ -504,40 +506,48 @@ public sealed partial class GameBootstrap : Node3D
         var visualMs = ElapsedMilliseconds(visualStarted);
         if (_landingPending)
         {
-            RecordPerformance(delta, 0, 0, 0, 0, 0, visualMs,
+            RecordPerformance(delta, 0, 0, 0, 0, 0, 0, 0, visualMs,
                 ElapsedMilliseconds(frameStarted));
             return;
         }
         var simulationStarted = Time.GetTicksUsec();
         var citizenMs = 0.0;
+        var globalMs = 0.0;
+        var worldMs = 0.0;
         var ticks = _clock.ConsumeTicks(delta);
+        var simulatedDelta = ticks * SimulationClock.FixedStep;
         _citizens.BeginFrame();
         for (var tick = 0; tick < ticks; tick++)
         {
-            _weather.Tick(SimulationClock.FixedStep, _clock.PlayedSeconds);
-            _entry.Tick(SimulationClock.FixedStep, _citizens);
             var citizenStarted = Time.GetTicksUsec();
             _citizens.Tick(SimulationClock.FixedStep, _jobs, _resources);
             citizenMs += ElapsedMilliseconds(citizenStarted);
-            _workAccidents.Tick(
-                SimulationClock.FixedStep, _clock.PlayedSeconds, _resources, _jobs);
-            _economy.Tick(SimulationClock.FixedStep, _resources);
-            _roomUpdateAccumulator += SimulationClock.FixedStep;
-            // The Java world uses distributed updaters; advancing every realm and
-            // every resource on each 20 Hz settlement step caused the city view stalls.
-            _worldTickAccumulator += SimulationClock.FixedStep;
-            _invasion.Tick(SimulationClock.FixedStep, OriginalGameData.Current.SecondsPerDay);
-            _corpses.Tick(SimulationClock.FixedStep, OriginalGameData.Current.SecondsPerDay);
+        }
+        if (simulatedDelta > 0)
+        {
+            var globalStarted = Time.GetTicksUsec();
+            // Java's global updaters are distributed and consume accumulated ds.
+            // Calling every global subsystem once for each of 32 catch-up ticks made
+            // fast speed allocate and rescan the same collections 32 times per frame.
+            _weather.Tick(simulatedDelta, _clock.PlayedSeconds);
+            _entry.Tick(simulatedDelta, _citizens);
+            _workAccidents.Tick(simulatedDelta, _clock.PlayedSeconds, _resources, _jobs);
+            _economy.Tick(simulatedDelta, _resources);
+            _roomUpdateAccumulator += simulatedDelta;
+            _worldTickAccumulator += simulatedDelta;
+            _invasion.Tick(simulatedDelta, OriginalGameData.Current.SecondsPerDay);
+            _corpses.Tick(simulatedDelta, OriginalGameData.Current.SecondsPerDay);
             _settlementStats.Tick(
-                SimulationClock.FixedStep, OriginalGameData.Current.SecondsPerDay,
+                simulatedDelta, OriginalGameData.Current.SecondsPerDay,
                 _citizens, _resources, _rooms, _corpses);
             var eventExit = _entry.Reachable.FirstOrDefault()?.Cell ?? new GridCoord(GridWorld.Width / 2, 0);
             var yearPart = (_clock.PlayedSeconds /
                 (OriginalGameData.Current.SecondsPerDay * 16.0)) % 1.0;
-            _events.Tick(SimulationClock.FixedStep, _clock.PlayedSeconds,
+            _events.Tick(simulatedDelta, _clock.PlayedSeconds,
                 OriginalGameData.Current.SecondsPerDay, _citizens, _resources, _jobs,
                 _settlementStats, _rooms, eventExit,
                 _weather.Temperature - _weather.AverageTemperature(yearPart));
+            globalMs = ElapsedMilliseconds(globalStarted);
         }
         // The source world updater distributes strategic work; it never rescans the
         // complete regional model once for every settlement fixed step. Aggregate the
@@ -545,6 +555,7 @@ public sealed partial class GameBootstrap : Node3D
         // the old loop called this six or seven times in one already overloaded frame.
         if (_worldTickAccumulator >= 0.25)
         {
+            var worldStarted = Time.GetTicksUsec();
             var worldDelta = _worldTickAccumulator;
             _worldTickAccumulator = 0;
             _settlementWorld.Diplomacy.SetProduction(_rooms.Governance.Diplomacy);
@@ -556,6 +567,7 @@ public sealed partial class GameBootstrap : Node3D
                 Math.Clamp((_settlementStats.HousingAccess + 1.0 - _settlementStats.Hunger / 64.0) / 2.0, 0, 1));
             _worldTrade.Tick(worldDelta /
                 OriginalGameData.Current.SecondsPerDay, worldTick.Day);
+            worldMs = ElapsedMilliseconds(worldStarted);
         }
         var simulationMs = ElapsedMilliseconds(simulationStarted);
         visualStarted = Time.GetTicksUsec();
@@ -613,7 +625,8 @@ public sealed partial class GameBootstrap : Node3D
                 SaveGameService.SaveAuto(CaptureSnapshot());
             }
         }
-        RecordPerformance(delta, ticks, simulationMs, citizenMs, roomMs, uiMs, visualMs,
+        RecordPerformance(delta, ticks, simulationMs, citizenMs, globalMs, worldMs,
+            roomMs, uiMs, visualMs,
             ElapsedMilliseconds(frameStarted));
     }
 
@@ -622,7 +635,8 @@ public sealed partial class GameBootstrap : Node3D
 
     private void RecordPerformance(
         double delta, int ticks, double simulationMs, double citizenMs,
-        double roomMs, double uiMs, double visualMs, double cpuMs)
+        double globalMs, double worldMs, double roomMs, double uiMs,
+        double visualMs, double cpuMs)
     {
         _performanceWindow += delta;
         _performanceLogWindow += delta;
@@ -632,6 +646,8 @@ public sealed partial class GameBootstrap : Node3D
         _performanceCpuMs += cpuMs;
         _performanceSimulationMs += simulationMs;
         _performanceCitizenMs += citizenMs;
+        _performanceGlobalMs += globalMs;
+        _performanceWorldMs += worldMs;
         _performanceRoomMs += roomMs;
         _performanceUiMs += uiMs;
         _performanceVisualMs += visualMs;
@@ -644,12 +660,15 @@ public sealed partial class GameBootstrap : Node3D
         var cpu = _performanceCpuMs / divisor;
         var simulation = _performanceSimulationMs / divisor;
         var citizens = _performanceCitizenMs / divisor;
+        var globals = _performanceGlobalMs / divisor;
+        var world = _performanceWorldMs / divisor;
         var rooms = _performanceRoomMs / divisor;
         var ui = _performanceUiMs / divisor;
         var visuals = _performanceVisualMs / divisor;
         var ticksPerFrame = _performanceTicks / (double)divisor;
         var report = $"FPS {fps:0} · кадр {frame:0.0} мс · CPU {cpu:0.0} мс (макс. {_performanceMaximumCpuMs:0.0})\n" +
-                     $"сим. {simulation:0.0} · жители {citizens:0.0} · комнаты {rooms:0.0} · UI {ui:0.0} · визуал {visuals:0.0} мс\n" +
+                     $"сим. {simulation:0.0} · жители {citizens:0.0} · глоб. {globals:0.0} · мир {world:0.0} мс\n" +
+                     $"комнаты {rooms:0.0} · UI {ui:0.0} · визуал {visuals:0.0} мс\n" +
                      $"тики {ticksPerFrame:0.0}/кадр · пропущено {_clock.DroppedTicks} · жители {_citizens.Count} · работы {_jobs.Count} · комнаты {_rooms.All.Count} · пути {_citizens.ActivePathCount}\n" +
                      "F6 — скрыть статистику";
         if (_performanceLabel is not null) _performanceLabel.Text = report;
@@ -666,6 +685,8 @@ public sealed partial class GameBootstrap : Node3D
         _performanceCpuMs = 0;
         _performanceSimulationMs = 0;
         _performanceCitizenMs = 0;
+        _performanceGlobalMs = 0;
+        _performanceWorldMs = 0;
         _performanceRoomMs = 0;
         _performanceUiMs = 0;
         _performanceVisualMs = 0;
