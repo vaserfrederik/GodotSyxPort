@@ -42,12 +42,47 @@ public sealed partial class ChunkTileRenderer : Node3D
         Rebuild(chunk, cells);
     }
 
+    public void AddCells(IEnumerable<GridCoord> cells)
+    {
+        foreach (var group in cells.Distinct().GroupBy(cell =>
+                     new GridCoord(cell.X / ChunkWallRenderer.ChunkSize,
+                         cell.Z / ChunkWallRenderer.ChunkSize)))
+        {
+            if (!_cellsByChunk.TryGetValue(group.Key, out var chunkCells))
+            {
+                chunkCells = new List<GridCoord>();
+                _cellsByChunk[group.Key] = chunkCells;
+            }
+            var known = chunkCells.ToHashSet();
+            var changed = false;
+            foreach (var cell in group)
+                if (known.Add(cell))
+                {
+                    chunkCells.Add(cell);
+                    changed = true;
+                }
+            if (changed) Rebuild(group.Key, chunkCells);
+        }
+    }
+
     public void RemoveCell(GridCoord cell)
     {
         var chunk = new GridCoord(cell.X / ChunkWallRenderer.ChunkSize,
             cell.Z / ChunkWallRenderer.ChunkSize);
         if (!_cellsByChunk.TryGetValue(chunk, out var cells) || !cells.Remove(cell)) return;
         Rebuild(chunk, cells);
+    }
+
+    public void RemoveCells(IEnumerable<GridCoord> cells)
+    {
+        foreach (var group in cells.Distinct().GroupBy(cell =>
+                     new GridCoord(cell.X / ChunkWallRenderer.ChunkSize,
+                         cell.Z / ChunkWallRenderer.ChunkSize)))
+        {
+            if (!_cellsByChunk.TryGetValue(group.Key, out var chunkCells)) continue;
+            var removed = group.ToHashSet();
+            if (chunkCells.RemoveAll(removed.Contains) > 0) Rebuild(group.Key, chunkCells);
+        }
     }
 
     public void SetCells(IEnumerable<GridCoord> cells)
@@ -83,7 +118,11 @@ public sealed partial class ChunkTileRenderer : Node3D
     {
         if (!_instances.TryGetValue(chunk, out var renderer))
         {
-            renderer = new MultiMeshInstance3D { Name = $"Tiles_{chunk.X}_{chunk.Z}" };
+            renderer = new MultiMeshInstance3D
+            {
+                Name = $"Tiles_{chunk.X}_{chunk.Z}",
+                CastShadow = GeometryInstance3D.ShadowCastingSetting.Off
+            };
             _instances[chunk] = renderer;
             AddChild(renderer);
         }

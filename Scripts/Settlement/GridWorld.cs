@@ -213,10 +213,34 @@ public sealed partial class GridWorld : Node3D
         if (_renderingInitialized) _plannedWalls.AddCell(cell);
     }
 
+    public void ReserveWalls(IEnumerable<GridCoord> cells)
+    {
+        var added = new List<GridCoord>();
+        foreach (var cell in cells)
+        {
+            if (!CanPlanWall(cell)) continue;
+            Data.Set(cell, TileFlags.Reserved, true);
+            added.Add(cell);
+        }
+        if (_renderingInitialized) _plannedWalls.AddCells(added);
+    }
+
     public void ReserveDoor(GridCoord cell)
     {
         Data.Set(cell, TileFlags.Reserved, true);
         if (_renderingInitialized) _plannedDoors.AddCell(cell);
+    }
+
+    public void ReserveDoors(IEnumerable<GridCoord> cells)
+    {
+        var added = new List<GridCoord>();
+        foreach (var cell in cells)
+        {
+            if (!IsInside(cell)) continue;
+            Data.Set(cell, TileFlags.Reserved, true);
+            added.Add(cell);
+        }
+        if (_renderingInitialized) _plannedDoors.AddCells(added);
     }
 
     public void SetPlannedRoomPartitions(int roomId, IEnumerable<GridCoord> cells)
@@ -378,6 +402,19 @@ public sealed partial class GridWorld : Node3D
         _zones.AddCell(cell);
     }
 
+    public void SetZones(IEnumerable<GridCoord> cells)
+    {
+        var added = new List<GridCoord>();
+        foreach (var cell in cells.Distinct())
+        {
+            if (!IsInside(cell) || Data.Has(cell, TileFlags.Wall | TileFlags.Zone)) continue;
+            Data.Set(cell, TileFlags.Zone, true);
+            _zoneCells.Add(CellToIndex(cell));
+            added.Add(cell);
+        }
+        if (_renderingInitialized) _zones.AddCells(added);
+    }
+
     /// <summary>
     /// A zone remains room data after construction, but Java stops rendering the
     /// construction overlay when ConstructionInstance.finish() replaces the embryo
@@ -387,6 +424,12 @@ public sealed partial class GridWorld : Node3D
     {
         if (!_renderingInitialized || !Data.Has(cell, TileFlags.Zone)) return;
         _zones.RemoveCell(cell);
+    }
+
+    public void FinishZoneVisuals(IEnumerable<GridCoord> cells)
+    {
+        if (!_renderingInitialized) return;
+        _zones.RemoveCells(cells.Where(cell => Data.Has(cell, TileFlags.Zone)));
     }
 
     public bool ClearZone(GridCoord cell)

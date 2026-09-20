@@ -177,13 +177,17 @@ public sealed class RoomPlacementRuntime
                         Array.Empty<GridCoord>(), Array.Empty<GridCoord>())
                 };
             }
-            foreach (var cell in unit.Cells) _world.SetZone(cell);
+            _world.SetZones(unit.Cells);
             var room = _rooms.CreateFromDefinition(
                 DefinitionKey, unit.Cells, unitPerimeter, unitDoors, AutoWalls,
                 new Dictionary<int, double> { [group] = unit.StatMultiplier },
                 new Dictionary<int, double> { [group] = unit.CostMultiplier },
                 Upgrade, jobs, furnitureCells, furniturePlacements,
                 structureKey: StructureKey, fixedItem: !chamber);
+            // Fixed homes use the source FurnisherItem itself as their plan. The room
+            // area is logical data, but Java renders only the outer construction and
+            // the apartment dividers, not a solid blue rectangle over every floor tile.
+            _world.FinishZoneVisuals(unit.Cells);
             _world.SetPlannedRoomPartitions(room.Id, unit.BlockerCells);
             rooms.Add(room);
         }
@@ -421,7 +425,7 @@ public sealed class RoomPlacementRuntime
     {
         var validation = Validate();
         if (!validation.Valid) throw new InvalidOperationException(validation.Error);
-        foreach (var cell in _area) _world.SetZone(cell);
+        _world.SetZones(_area);
         ISet<GridCoord> effectiveDoors = AutoWalls
             ? _doors
             : new HashSet<GridCoord>();

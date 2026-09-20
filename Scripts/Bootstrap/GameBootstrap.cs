@@ -41,6 +41,7 @@ public sealed partial class GameBootstrap : Node3D
     private Vector3 _cameraDragOrigin;
     private Label _status = null!;
     private Label _toolLabel = null!;
+    private Label _performanceLabel = null!;
     private Label _economyInfo = null!;
     private ColorRect _economyPanel = null!;
     private GlobalMapOverlay _globalMap = null!;
@@ -113,6 +114,18 @@ public sealed partial class GameBootstrap : Node3D
     private double _uiRefreshAccumulator;
     private double _worldTickAccumulator;
     private double _roomUpdateAccumulator;
+    private double _performanceWindow;
+    private double _performanceLogWindow;
+    private double _performanceFrameMs;
+    private double _performanceCpuMs;
+    private double _performanceSimulationMs;
+    private double _performanceCitizenMs;
+    private double _performanceRoomMs;
+    private double _performanceUiMs;
+    private double _performanceVisualMs;
+    private double _performanceMaximumCpuMs;
+    private int _performanceFrames;
+    private int _performanceTicks;
     private bool _initialized;
     private bool _firstCityFrameReported;
     private bool _landingPending;
@@ -425,6 +438,7 @@ public sealed partial class GameBootstrap : Node3D
             case Key.F2: ToggleWindow(_administration); break;
             case Key.F3: ToggleWindow(_strategicMap); break;
             case Key.F4: ToggleWindow(_notifications); break;
+            case Key.F6: _performanceLabel.Visible = !_performanceLabel.Visible; break;
             case Key.Escape: CloseWindows(); break;
             case Key.Key4: _clock.SetSpeedLevel(2); break;
             case Key.Key5: _clock.SetSpeedLevel(3); break;
@@ -456,26 +470,38 @@ public sealed partial class GameBootstrap : Node3D
     public override void _Process(double delta)
     {
         if (!_initialized) return;
+        var frameStarted = Time.GetTicksUsec();
         if (!_firstCityFrameReported)
         {
             _firstCityFrameReported = true;
             GD.Print("[LAUNCH] first_city_frame");
         }
 
+        var visualStarted = Time.GetTicksUsec();
         MoveCamera((float)delta);
         // Camera movement is visual state, so the minimap viewport must follow
         // every rendered frame.  The heavier resource/sidebar refresh remains
         // on its 0.25 second cadence below.
         _rightSidebar.UpdateCameraView(_world.WorldToCell(_camera.Position), _camera.Size);
         RefreshFurnitureCursorPreview();
-        if (_landingPending) return;
+        var visualMs = ElapsedMilliseconds(visualStarted);
+        if (_landingPending)
+        {
+            RecordPerformance(delta, 0, 0, 0, 0, 0, visualMs,
+                ElapsedMilliseconds(frameStarted));
+            return;
+        }
+        var simulationStarted = Time.GetTicksUsec();
+        var citizenMs = 0.0;
         var ticks = _clock.ConsumeTicks(delta);
         _citizens.BeginFrame();
         for (var tick = 0; tick < ticks; tick++)
         {
             _weather.Tick(SimulationClock.FixedStep, _clock.PlayedSeconds);
             _entry.Tick(SimulationClock.FixedStep, _citizens);
+            var citizenStarted = Time.GetTicksUsec();
             _citizens.Tick(SimulationClock.FixedStep, _jobs, _resources);
+            citizenMs += ElapsedMilliseconds(citizenStarted);
             _workAccidents.Tick(
                 SimulationClock.FixedStep, _clock.PlayedSeconds, _resources, _jobs);
             _economy.Tick(SimulationClock.FixedStep, _resources);
@@ -510,16 +536,21 @@ public sealed partial class GameBootstrap : Node3D
                 _settlementStats, _rooms, eventExit,
                 _weather.Temperature - _weather.AverageTemperature(yearPart));
         }
+        var simulationMs = ElapsedMilliseconds(simulationStarted);
+        visualStarted = Time.GetTicksUsec();
         _world.UpdateWeatherVisuals(_weather.Ice, _weather.Moisture);
         _rightSidebar.UpdateWeather(_weather.Ice);
         _citizens.SyncRenderTransforms();
+        visualMs += ElapsedMilliseconds(visualStarted);
 
         // Java's room Updater distributes room work over a 64-second sweep instead
         // of rescanning every room and every job at the 20 Hz entity step.  Keep
         // movement at 20 Hz, but aggregate room/service bookkeeping to four source-
         // simulation updates per second.  Formulas still receive the full elapsed ds.
+        var roomMs = 0.0;
         if (_roomUpdateAccumulator >= 0.25)
         {
+            var roomStarted = Time.GetTicksUsec();
             var roomDelta = _roomUpdateAccumulator;
             _roomUpdateAccumulator = 0;
             _rooms.TickMaintenance(roomDelta, _jobs, _resources);
@@ -541,12 +572,16 @@ public sealed partial class GameBootstrap : Node3D
             _rooms.ScheduleHospitalSupplies(_jobs, _resources);
             _rooms.ScheduleFacilityWork(_jobs, _resources);
             _corpses.Schedule(_jobs);
+            roomMs = ElapsedMilliseconds(roomStarted);
         }
+        var uiMs = 0.0;
         _uiRefreshAccumulator += delta;
         if (_uiRefreshAccumulator >= 0.25)
         {
+            var uiStarted = Time.GetTicksUsec();
             _uiRefreshAccumulator %= 0.25;
             RefreshRuntimeUi();
+            uiMs = ElapsedMilliseconds(uiStarted);
         }
         if (ticks > 0)
         {
@@ -557,6 +592,63 @@ public sealed partial class GameBootstrap : Node3D
                 SaveGameService.SaveAuto(CaptureSnapshot());
             }
         }
+        RecordPerformance(delta, ticks, simulationMs, citizenMs, roomMs, uiMs, visualMs,
+            ElapsedMilliseconds(frameStarted));
+    }
+
+    private static double ElapsedMilliseconds(ulong started) =>
+        (Time.GetTicksUsec() - started) / 1000.0;
+
+    private void RecordPerformance(
+        double delta, int ticks, double simulationMs, double citizenMs,
+        double roomMs, double uiMs, double visualMs, double cpuMs)
+    {
+        _performanceWindow += delta;
+        _performanceLogWindow += delta;
+        _performanceFrames++;
+        _performanceTicks += ticks;
+        _performanceFrameMs += delta * 1000.0;
+        _performanceCpuMs += cpuMs;
+        _performanceSimulationMs += simulationMs;
+        _performanceCitizenMs += citizenMs;
+        _performanceRoomMs += roomMs;
+        _performanceUiMs += uiMs;
+        _performanceVisualMs += visualMs;
+        _performanceMaximumCpuMs = Math.Max(_performanceMaximumCpuMs, cpuMs);
+        if (_performanceWindow < 1.0) return;
+
+        var divisor = Math.Max(1, _performanceFrames);
+        var fps = _performanceFrames / _performanceWindow;
+        var frame = _performanceFrameMs / divisor;
+        var cpu = _performanceCpuMs / divisor;
+        var simulation = _performanceSimulationMs / divisor;
+        var citizens = _performanceCitizenMs / divisor;
+        var rooms = _performanceRoomMs / divisor;
+        var ui = _performanceUiMs / divisor;
+        var visuals = _performanceVisualMs / divisor;
+        var ticksPerFrame = _performanceTicks / (double)divisor;
+        var report = $"FPS {fps:0} · кадр {frame:0.0} мс · CPU {cpu:0.0} мс (макс. {_performanceMaximumCpuMs:0.0})\n" +
+                     $"сим. {simulation:0.0} · жители {citizens:0.0} · комнаты {rooms:0.0} · UI {ui:0.0} · визуал {visuals:0.0} мс\n" +
+                     $"тики {ticksPerFrame:0.0}/кадр · пропущено {_clock.DroppedTicks} · жители {_citizens.Count} · работы {_jobs.Count} · комнаты {_rooms.All.Count} · пути {_citizens.ActivePathCount}\n" +
+                     "F6 — скрыть статистику";
+        if (_performanceLabel is not null) _performanceLabel.Text = report;
+        if (_performanceLogWindow >= 10.0)
+        {
+            _performanceLogWindow %= 10.0;
+            GD.Print("[PERF] " + report.Replace('\n', ' '));
+        }
+
+        _performanceWindow = 0;
+        _performanceFrames = 0;
+        _performanceTicks = 0;
+        _performanceFrameMs = 0;
+        _performanceCpuMs = 0;
+        _performanceSimulationMs = 0;
+        _performanceCitizenMs = 0;
+        _performanceRoomMs = 0;
+        _performanceUiMs = 0;
+        _performanceVisualMs = 0;
+        _performanceMaximumCpuMs = 0;
     }
 
     private void RefreshRuntimeUi()
@@ -604,6 +696,19 @@ public sealed partial class GameBootstrap : Node3D
         if (_tool != BuildTool.Furniture || !_roomPlanner.UsesDefinition ||
             (!_roomPlanner.HasDraft && !_roomPlanner.UsesFixedItemPlacement) ||
             _dragStart is not null) return;
+        // UIRoomPlacer renders its movable placeholder only while the map owns the
+        // pointer. Projecting through a menu made a cleared ghost reappear on the
+        // terrain immediately after the player pressed the construction button.
+        if (GetViewport().GuiGetHoveredControl() is { } hovered &&
+            hovered.MouseFilter != Control.MouseFilterEnum.Ignore)
+        {
+            if (_lastFurniturePreviewCell is not null)
+            {
+                _lastFurniturePreviewCell = null;
+                _roomPlanner.RestorePreview();
+            }
+            return;
+        }
         if (ScreenToCell(GetViewport().GetMousePosition()) is { } cell)
         {
             if (!force && _lastFurniturePreviewCell == cell &&
@@ -1031,6 +1136,18 @@ public sealed partial class GameBootstrap : Node3D
         };
         _toolLabel.AddThemeColorOverride("font_color", new Color("d8d4bf"));
         layer.AddChild(_toolLabel);
+        _performanceLabel = new Label
+        {
+            Position = new Vector2(8, 80), Size = new Vector2(590, 76),
+            MouseFilter = Control.MouseFilterEnum.Ignore,
+            Text = "Сбор статистики производительности…"
+        };
+        _performanceLabel.AddThemeFontSizeOverride("font_size", 12);
+        _performanceLabel.AddThemeColorOverride("font_color", new Color("f2dfaa"));
+        _performanceLabel.AddThemeColorOverride("font_shadow_color", Colors.Black);
+        _performanceLabel.AddThemeConstantOverride("shadow_offset_x", 1);
+        _performanceLabel.AddThemeConstantOverride("shadow_offset_y", 1);
+        layer.AddChild(_performanceLabel);
 
         _roomPolicy = new RoomPolicyPanel { Name = "RoomPolicy" };
         layer.AddChild(_roomPolicy);
@@ -1917,6 +2034,11 @@ public sealed partial class GameBootstrap : Node3D
 
     private void SelectTool(BuildTool tool)
     {
+        if (_tool == BuildTool.Furniture && tool != BuildTool.Furniture)
+        {
+            _lastFurniturePreviewCell = null;
+            if (_roomPlanner.UsesDefinition) _roomPlanner.RestorePreview();
+        }
         _tool = tool;
         if (_toolLabel is not null) _toolLabel.Text = $"Инструмент: {tool}";
     }

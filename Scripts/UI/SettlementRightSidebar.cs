@@ -115,7 +115,7 @@ public sealed partial class SettlementRightSidebar : ColorRect
 
     public void UpdateState(GridCoord cameraCell, float cameraSize)
     {
-        UpdateCameraView(cameraCell, cameraSize);
+        _miniMap.SetView(cameraCell, cameraSize);
         _miniMap.SetCitizens(_citizens);
         var produced = _resources.CaptureTotalProduced();
         var consumed = _resources.CaptureTotalConsumed();
@@ -137,8 +137,6 @@ public sealed partial class SettlementRightSidebar : ColorRect
 
     public void UpdateCameraView(GridCoord cameraCell, float cameraSize) =>
         _miniMap.SetView(cameraCell, cameraSize);
-
-    public void UpdateWeather(double ice) => _miniMap.SetWeather(ice);
 
     private void BuildMapButtons()
     {
@@ -515,7 +513,6 @@ public sealed partial class SettlementMiniMap : Control
     private GridCoord _center;
     private float _cameraSize = 20f;
     private ulong _revision = ulong.MaxValue;
-    private int _iceLevel = -1;
     private readonly List<(GridCoord Cell, string Race)> _citizens = new();
     public event Action<GridCoord>? CellSelected;
     public int DataWidth => _data.Width;
@@ -532,6 +529,8 @@ public sealed partial class SettlementMiniMap : Control
 
     public void SetView(GridCoord center, float cameraSize)
     {
+        if (_center == center && Math.Abs(_cameraSize - cameraSize) < 0.001f &&
+            _revision == _data.InfrastructureRevision) return;
         _cameraSize = cameraSize;
         _center = center;
         if (_revision != _data.InfrastructureRevision) Rebuild();
@@ -543,14 +542,6 @@ public sealed partial class SettlementMiniMap : Control
         _citizens.Clear();
         citizens.ForEachMiniMapCitizen((cell, race) => _citizens.Add((cell, race)));
         QueueRedraw();
-    }
-
-    public void SetWeather(double ice)
-    {
-        var iceLevel = Math.Clamp((int)Math.Round(ice * 4), 0, 4);
-        if (iceLevel == _iceLevel) return;
-        _iceLevel = iceLevel;
-        Rebuild();
     }
 
     public override void _GuiInput(InputEvent inputEvent)
@@ -611,39 +602,19 @@ public sealed partial class SettlementMiniMap : Control
         if (_data.Has(cell, TileFlags.Door)) return new Color("e8b64a");
         if (_data.Has(cell, TileFlags.Road)) return new Color("a77e55");
         if (_data.Has(cell, TileFlags.Zone)) return new Color("527b83");
-        if (_data.Has(cell, TileFlags.Water) && _iceLevel > 0 &&
-            (MiniHash(cell) & 3) < _iceLevel) return new Color("dce5df");
-        if (_data.Has(cell, TileFlags.DeepWater))
-            return new Color(45 / 255f, 65 / 255f, 82 / 255f);
-        if (_data.Has(cell, TileFlags.Water))
-            return new Color(60 / 255f, 80 / 255f, 100 / 255f);
-        if (_data.Has(cell, TileFlags.Mountain))
-            return new Color(63 / 255f, 56 / 255f, 42 / 255f);
-        if (_data.MineralAmount(cell) > 0)
-            return new Color(63 / 255f, 53 / 255f, 53 / 255f);
-        if (_data.VegetationAmount(cell) > 0)
-            return new Color(58 / 255f, 104 / 255f, 26 / 255f);
+        if (_data.Has(cell, TileFlags.DeepWater)) return new Color("153d58");
+        if (_data.Has(cell, TileFlags.Water)) return new Color("286a8a");
         return _data.Ground(cell) switch
         {
-            GroundKind.Mountain => new Color(63 / 255f, 56 / 255f, 42 / 255f),
-            GroundKind.Forest => new Color(58 / 255f, 104 / 255f, 26 / 255f),
-            GroundKind.Wet => new Color("786f57"),
+            GroundKind.Mountain => new Color("4e4c49"),
+            GroundKind.Forest => new Color("273a2a"),
+            GroundKind.Wet => new Color("45533c"),
             GroundKind.Sand => new Color("b5a16b"),
             GroundKind.Infertile => new Color("554f45"),
             GroundKind.Pasture => new Color("788153"),
-            GroundKind.Soil => new Color("8c8060"),
+            GroundKind.Soil => new Color("696851"),
             _ => new Color("4e5941")
         };
-    }
-
-    private static int MiniHash(GridCoord cell)
-    {
-        unchecked
-        {
-            var value = cell.X * 73856093 ^ cell.Z * 19349663;
-            value ^= value >> 16;
-            return value & 0x7fffffff;
-        }
     }
 
     private static Color RaceColor(string race) => race.ToUpperInvariant() switch

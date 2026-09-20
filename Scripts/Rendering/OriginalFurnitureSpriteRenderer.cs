@@ -501,6 +501,7 @@ public sealed partial class OriginalFurnitureSpriteRenderer : Node3D
             Position = new Vector3(cell.X - _mapWidth / 2f + 0.5f, elevation,
                 cell.Z - _mapHeight / 2f + 0.5f),
             RotationDegrees = new Vector3(0, quarterTurns * 90, 0),
+            CastShadow = GeometryInstance3D.ShadowCastingSetting.Off,
             Mesh = new PlaneMesh { Size = Vector2.One, Material = material }
         });
     }

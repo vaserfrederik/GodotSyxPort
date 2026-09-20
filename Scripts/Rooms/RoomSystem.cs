@@ -193,17 +193,17 @@ public sealed class RoomSystem
         _rooms.Add(room);
         RegisterInstance(room);
 
-        foreach (var index in room.RequiredWalls)
+        var wallCells = room.RequiredWalls.Select(_world.FromIndex)
+            .Where(_world.CanPlanWall).ToArray();
+        _world.ReserveWalls(wallCells);
+        foreach (var cell in wallCells)
         {
-            var cell = _world.FromIndex(index);
-            if (!_world.CanPlanWall(cell)) continue;
-            _world.ReserveWall(cell);
             jobs.Add(BuildJob.RoomWall(cell, room.Id, structureKey));
         }
-        foreach (var index in room.RequiredDoors)
+        var doorCells = room.RequiredDoors.Select(_world.FromIndex).ToArray();
+        _world.ReserveDoors(doorCells);
+        foreach (var cell in doorCells)
         {
-            var cell = _world.FromIndex(index);
-            _world.ReserveDoor(cell);
             jobs.Add(BuildJob.RoomDoor(cell, room.Id, structureKey));
         }
         foreach (var cell in room.Cells.Concat(room.RequiredWalls).Concat(room.RequiredDoors)

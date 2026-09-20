@@ -231,11 +231,17 @@ public sealed class RoomPlanner
         var geometry = Definitions.FixedItemGeometry(anchor, group, variant, rotation);
         if (geometry is null) return;
         var ghost = geometry.Occupied;
-        var invalid = ghost.Where(cell => !_world.IsInside(cell) ||
+        var invalidFootprint = ghost.Where(cell => !_world.IsInside(cell) ||
             _world.Data.Has(cell, TileFlags.Wall) || _rooms.Contains(cell)).ToArray();
-        var valid = ghost.Except(invalid).ToArray();
+        var invalidSet = invalidFootprint.ToHashSet();
         var chamber = Definitions.DefinitionKey.Equals(
             "_HOME_CHAMBER", System.StringComparison.OrdinalIgnoreCase);
+        var visibleCells = chamber
+            ? ghost
+            : geometry.Units.SelectMany(unit => unit.BlockerCells)
+                .Concat(invalidFootprint).Distinct().ToArray();
+        var invalid = visibleCells.Where(cell => invalidSet.Contains(cell)).ToArray();
+        var valid = visibleCells.Except(invalid).ToArray();
         var placements = chamber
             ? new[] { new FurnitureVisualPlacement(Definitions.DefinitionKey, group,
                 geometry.Variant, rotation, geometry.Origin, Definitions.Upgrade) }
@@ -247,6 +253,8 @@ public sealed class RoomPlanner
             Definitions.AutoWalls ? geometry.Doors : System.Array.Empty<GridCoord>(),
             valid, invalid, placements);
     }
+
+    public void RestorePreview() => RefreshPreview();
 
     public bool PlaceFixedFurniture(
         GridCoord anchor, int group, int variant, int rotation, JobBoard jobs)
