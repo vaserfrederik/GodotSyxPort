@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GodotSyxPort.Core;
+using GodotSyxPort.Data;
 using GodotSyxPort.Resources;
 using GodotSyxPort.Settlement;
 using GodotSyxPort.Simulation;
