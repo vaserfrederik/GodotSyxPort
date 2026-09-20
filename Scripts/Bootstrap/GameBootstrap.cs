@@ -160,9 +160,7 @@ public sealed partial class GameBootstrap : Node3D
         await Task.Run(() => _world.GenerateTerrainData(terrainSettings));
         GD.Print("[LAUNCH] settlement_terrain_data_ready");
         var climate = OriginalGameData.Current.Climates.GetValueOrDefault(generationProfile.Climate) ??
-            new ClimateRule("TEMPERATE", 0.5, -0.15, 0.5, 0.45,
-                new Color(193 / 255f, 181 / 255f, 135 / 255f),
-                new Color(85 / 255f, 52 / 255f, 52 / 255f));
+            new ClimateRule("TEMPERATE", 0.5, -0.15, 0.5, 0.45);
         _weather = new SettlementWeatherRuntime(
             climate, OriginalGameData.Current.SecondsPerHour, OriginalGameData.Current.SecondsPerDay);
         // Seed the quantized visual state before CreateGround. Previously the initial

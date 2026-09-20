@@ -300,8 +300,10 @@ public static class OriginalSettlementTerrainTextureBuilder
             return new Color(208 / 255f, 194 / 255f, 142 / 255f).Lerp(
                 new Color(150 / 255f, 126 / 255f, 102 / 255f), (float)moisture);
         if (kind == GroundKind.Mountain) return Colors.White;
-        var dry = climate?.GroundDry ?? new Color(193 / 255f, 181 / 255f, 135 / 255f);
-        var wet = climate?.GroundWet ?? new Color(85 / 255f, 52 / 255f, 52 / 255f);
+        // ClimateRule contains temperature/fertility only. Java's Ground.setColors()
+        // receives settlement dry/wet colours separately; they are not climate fields.
+        var dry = new Color(193 / 255f, 181 / 255f, 135 / 255f);
+        var wet = new Color(85 / 255f, 52 / 255f, 52 / 255f);
         return dry.Lerp(wet, (float)moisture);
     }
 
