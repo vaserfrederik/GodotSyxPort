@@ -138,6 +138,8 @@ public sealed partial class SettlementRightSidebar : ColorRect
     public void UpdateCameraView(GridCoord cameraCell, float cameraSize) =>
         _miniMap.SetView(cameraCell, cameraSize);
 
+    public void UpdateWeather(double ice) => _miniMap.SetWeather(ice);
+
     private void BuildMapButtons()
     {
         var row = new HBoxContainer
@@ -512,6 +514,7 @@ public sealed partial class SettlementMiniMap : Control
     private ImageTexture? _texture;
     private GridCoord _center;
     private float _cameraSize = 20f;
+    private double _ice;
     private ulong _revision = ulong.MaxValue;
     private readonly List<(GridCoord Cell, string Race)> _citizens = new();
     public event Action<GridCoord>? CellSelected;
@@ -535,6 +538,14 @@ public sealed partial class SettlementMiniMap : Control
         _center = center;
         if (_revision != _data.InfrastructureRevision) Rebuild();
         QueueRedraw();
+    }
+
+    public void SetWeather(double ice)
+    {
+        var nextIce = Math.Round(Math.Clamp(ice, 0, 1) * 4) / 4.0;
+        if (Math.Abs(_ice - nextIce) < 0.001) return;
+        _ice = nextIce;
+        Rebuild();
     }
 
     public void SetCitizens(CitizenSystem citizens)
@@ -602,8 +613,10 @@ public sealed partial class SettlementMiniMap : Control
         if (_data.Has(cell, TileFlags.Door)) return new Color("e8b64a");
         if (_data.Has(cell, TileFlags.Road)) return new Color("a77e55");
         if (_data.Has(cell, TileFlags.Zone)) return new Color("527b83");
-        if (_data.Has(cell, TileFlags.DeepWater)) return new Color("153d58");
-        if (_data.Has(cell, TileFlags.Water)) return new Color("286a8a");
+        if (_data.Has(cell, TileFlags.DeepWater))
+            return new Color("153d58").Lerp(new Color("dce9e7"), (float)(_ice * 0.72));
+        if (_data.Has(cell, TileFlags.Water))
+            return new Color("286a8a").Lerp(new Color("e8f2ef"), (float)(_ice * 0.82));
         return _data.Ground(cell) switch
         {
             GroundKind.Mountain => new Color("4e4c49"),
