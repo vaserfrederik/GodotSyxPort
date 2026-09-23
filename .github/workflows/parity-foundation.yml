@@ -55,6 +55,8 @@ jobs:
         run: |
           dotnet run --project tools/ParityCoreTimeRunner.csproj --configuration Release -- > /tmp/core_time.jsonl
           diff -u Porting/golden/core_time.jsonl /tmp/core_time.jsonl
+      - name: Preserve capped simulation steps and pause semantics
+        run: dotnet run --project tools/CheckSimulationClock.csproj --configuration Release
 
   type-index:
     runs-on: ubuntu-latest

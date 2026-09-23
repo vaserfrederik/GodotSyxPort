@@ -669,7 +669,7 @@ public sealed partial class GameBootstrap : Node3D
         var report = $"FPS {fps:0} · кадр {frame:0.0} мс · CPU {cpu:0.0} мс (макс. {_performanceMaximumCpuMs:0.0})\n" +
                      $"сим. {simulation:0.0} · жители {citizens:0.0} · глоб. {globals:0.0} · мир {world:0.0} мс\n" +
                      $"комнаты {rooms:0.0} · UI {ui:0.0} · визуал {visuals:0.0} мс\n" +
-                     $"тики {ticksPerFrame:0.0}/кадр · пропущено {_clock.DroppedTicks} · жители {_citizens.Count} · работы {_jobs.Count} · комнаты {_rooms.All.Count} · пути {_citizens.ActivePathCount}\n" +
+                     $"тики {ticksPerFrame:0.0}/кадр · очередь {_clock.PendingSeconds:0.0} с · жители {_citizens.Count} · работы {_jobs.Count} · комнаты {_rooms.All.Count} · пути {_citizens.ActivePathCount}\n" +
                      "F6 — скрыть статистику";
         if (_performanceLabel is not null) _performanceLabel.Text = report;
         if (_performanceLogWindow >= 10.0)

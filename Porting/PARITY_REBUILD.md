@@ -1,5 +1,7 @@
 # Parity rebuild
 
+Текущий статус шагов исходного плана: [PLAN_PROGRESS_RU.md](PLAN_PROGRESS_RU.md).
+
 Baseline: A108 (`582e408`). The `parity-rebuild` branch keeps the existing game
 while replacing unsupported equivalence claims with repeatable checks.
 
