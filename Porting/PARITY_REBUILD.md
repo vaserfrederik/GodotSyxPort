@@ -89,14 +89,19 @@ simple named type receivers and declared method names/arity. Its output in
 type bindings. The Roslyn index also records the declared type of a field or
 property used as the receiver and now resolves parameters, explicitly typed
 locals and `var` locals initialized directly by `new Type(...)` in their
-containing block. Untyped lambdas, inferred values from methods and receiver
-chains remain unbound. This raises the cross-file call candidates from 1,673
-to 2,095 across 354 file pairs and detects `GameBootstrap` calling
-`SimulationClock`. Another 8,507 invocation sites have no bound receiver
+containing block. It also follows chains of fields and properties when each
+member is declared on a uniquely named project type, for example
+`_world.Data` → `WorldGridData`. Untyped lambdas, inferred values from
+methods, ambiguous type names and collection elements remain unbound. This
+raises the cross-file call candidates from 2,095 to 2,387 across 407 file
+pairs and detects `GameBootstrap` calling `SimulationClock`. Another 8,211
+invocation sites have no bound receiver
 and remain in the review queue; this count also includes calls to external
-framework types. One reviewed C# file pair
-has no matching Java syntax candidate; that is a review question, not a proven
-behavioral difference.
+framework types. The reviewed `PackedBits` → `SourceClamp` C# edge has no
+matching `Bits.java` → `CLAMP.java` edge: Java `Bits.inc` clamps using local
+comparisons while C# `PackedBits.Increment` calls `SourceClamp.Integer`.
+This is a confirmed structural difference; numerical parity still depends
+on the fixtures and additional edge cases.
 
 The first executable reference scenario uses the supplied runtime JAR's
 `snake2d.util.rnd.RND` class to capture integer, bounded integer, boolean,
