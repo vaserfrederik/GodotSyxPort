@@ -126,7 +126,7 @@ static string ReceiverTypeHint(SyntaxNode node, string receiver)
                     return parameter.Type is null ? "" : IdentifierPath(parameter.Type);
         foreach (var loop in node.Ancestors().OfType<ForEachStatementSyntax>())
             if (loop.Identifier.ValueText == name)
-                return IdentifierPath(loop.Type);
+                return IdentifierPath(loop.Type) == "var" ? "" : IdentifierPath(loop.Type);
         foreach (var clause in node.Ancestors().OfType<CatchClauseSyntax>())
             if (clause.Declaration?.Identifier.ValueText == name)
                 return IdentifierPath(clause.Declaration.Type);
@@ -139,7 +139,13 @@ static string ReceiverTypeHint(SyntaxNode node, string receiver)
                 foreach (var declaration in block.Statements.OfType<LocalDeclarationStatementSyntax>())
                     if (declaration.SpanStart < node.SpanStart &&
                         declaration.Declaration.Variables.Any(v => v.Identifier.ValueText == name))
-                        return IdentifierPath(declaration.Declaration.Type);
+                    {
+                        var type = declaration.Declaration.Type;
+                        if (IdentifierPath(type) != "var") return IdentifierPath(type);
+                        var variable = declaration.Declaration.Variables.Single(v => v.Identifier.ValueText == name);
+                        return variable.Initializer?.Value is ObjectCreationExpressionSyntax creation
+                            ? IdentifierPath(creation.Type) : "";
+                    }
             // A non-block local declaration (for example a for initializer) may
             // still shadow a field. Leave it unresolved rather than guessing.
             if (method.DescendantNodes().OfType<VariableDeclaratorSyntax>().Any(v =>
