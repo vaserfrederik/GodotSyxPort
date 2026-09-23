@@ -1,4 +1,4 @@
-"""Conservative Java AST call candidates; no receiver type inference from variables."""
+"""Conservative Java AST call candidates including declared inheritance."""
 import argparse
 from collections import Counter, defaultdict
 import hashlib
@@ -10,6 +10,32 @@ import sys
 ROOT = Path(__file__).resolve().parents[1]
 REGISTRY = ROOT / "Porting/parity_registry.json"
 OUTPUT = ROOT / "Porting/java_call_graph.json"
+
+
+def resolve_base(name, owner, package, imports, types):
+    """Resolve only names anchored by the declaring type, package or explicit import."""
+    parts = owner.split(".")
+    candidates = [name]
+    candidates.extend(".".join(filter(None, (package, ".".join(parts[:n]), name)))
+                      for n in range(len(parts), 0, -1))
+    candidates.append(".".join(filter(None, (package, name))))
+    head, _, tail = name.partition(".")
+    if head in imports:
+        candidates.append(imports[head] + ("." + tail if tail else ""))
+    return next((candidate for candidate in candidates if candidate in types), None)
+
+
+def declaring_method(target, name, arity, methods, parents):
+    """Find a unique nearest declaration; multiple interface paths remain unknown."""
+    pending = {target}
+    visited = set()
+    while pending:
+        matches = sorted(owner for owner in pending if (owner, name, arity) in methods)
+        if matches:
+            return (matches[0], "") if len(matches) == 1 else (None, "inherited-ambiguous")
+        visited.update(pending)
+        pending = {base for owner in pending for base in parents.get(owner, ())} - visited
+    return None, "method-unbound"
 
 
 def build(jar):
@@ -28,21 +54,38 @@ def build(jar):
     if {r["JavaSource"] for r in records} != set(units):
         raise ValueError("Java call inventory does not cover every registered source")
     types = {}
+    class_types = set()
     methods = set()
     for row in records:
         package = row["Package"]
         source = row["JavaSource"]
         for declaration in units[source]["JavaTypes"]:
-            name = declaration.split(" ", 1)[1]
-            types[".".join(filter(None, (package, name)))] = source
+            kind, name = declaration.split(" ", 1)
+            qualified = ".".join(filter(None, (package, name)))
+            types[qualified] = source
+            if kind == "CLASS":
+                class_types.add(qualified)
         for method in row["Methods"]:
             owner = ".".join(filter(None, (package, method["owner"])))
             methods.add((owner, method["name"], method["arity"]))
+
+    parents = {}
+    for row in records:
+        package = row["Package"]
+        imports = {item.rsplit(".", 1)[-1]: item
+                   for item in units[row["JavaSource"]]["JavaDependencies"] if item in types}
+        for owner, bases in row["Parents"].items():
+            qualified_owner = ".".join(filter(None, (package, owner)))
+            parents[qualified_owner] = tuple(filter(None, (
+                resolve_base(base, owner, package, imports, types) for base in bases)))
 
     edges = Counter()
     missing = Counter()
     unresolved = Counter()
     call_count = 0
+    method_cache = {}
+    inherited_calls = 0
+    super_calls = 0
     for row in records:
         source = row["JavaSource"]
         package = row["Package"]
@@ -59,7 +102,10 @@ def build(jar):
             owner = call["caller"].split("#", 1)[0]
             own_type = ".".join(filter(None, (package, owner)))
             candidates = []
-            if receiver == "this" or (not receiver and call["kind"] == "invoke"):
+            if receiver == "super" and call["kind"] == "invoke":
+                bases = parents.get(own_type, ())
+                candidates.extend(base for base in bases[:1] if base in class_types)
+            elif receiver == "this" or (not receiver and call["kind"] == "invoke"):
                 candidates.append(own_type)
             elif receiver:
                 receiver_type = call.get("receiverTypeHint") or receiver
@@ -69,9 +115,16 @@ def build(jar):
             if target is None:
                 unresolved["receiver-unbound"] += count
                 continue
-            if call["kind"] == "invoke" and (target, call["name"], call["arity"]) not in methods:
-                unresolved["method-unbound"] += count
-                continue
+            receiver_type = target
+            if call["kind"] == "invoke":
+                key = target, call["name"], call["arity"]
+                if key not in method_cache:
+                    method_cache[key] = declaring_method(*key, methods, parents)
+                declaration, reason = method_cache[key]
+                if reason:
+                    unresolved[reason] += count
+                    continue
+                target = declaration
             # Constructor existence is proven by the type, but an implicit
             # constructor or overload still requires compiler resolution.
             if call["kind"] == "construct" and (target, "<init>", call["arity"]) not in methods:
@@ -81,6 +134,10 @@ def build(jar):
             if target_source == source:
                 unresolved["same-source"] += count
                 continue
+            if target != receiver_type:
+                inherited_calls += count
+            if receiver == "super":
+                super_calls += count
             key = (source, call["caller"], target_source, target,
                    call["name"], call["arity"], call["kind"])
             edges[key] += count
@@ -98,11 +155,13 @@ def build(jar):
     return {
         "schema": 1,
         "source_archive_sha256": expected_hash,
-        "scope": "File-level Java AST candidates from declared types and unshadowed, explicitly typed method parameters or fields, matched by method name/arity. Local variables, overload resolution, dynamic dispatch, inherited calls and behavior parity remain unverified.",
+        "scope": "File-level Java AST candidates from declared types, scoped receiver hints (including var initialized directly by new), explicit super and uniquely declared inherited methods, matched by name/arity. Overloads, dynamic dispatch and behavior parity remain unverified.",
         "summary": {"java_units": len(records), "declared_methods": len(methods),
                     "all_calls": call_count, "cross_source_candidate_file_edges": len(edge_rows),
                     "cross_source_candidate_call_signatures": len(edges),
                     "cross_source_candidate_calls": sum(edges.values()),
+                    "inherited_cross_source_candidate_calls": inherited_calls,
+                    "explicit_super_cross_source_candidate_calls": super_calls,
                     "unresolved_calls_by_reason": dict(sorted(unresolved.items())),
                     "unmapped_target_units_called_by_old_candidates": len(missing)},
         "unmapped_targets_called_by_old_candidates": [
@@ -121,6 +180,8 @@ def validate(data):
     assert data["summary"]["cross_source_candidate_file_edges"] == len(data["edges"])
     assert data["summary"]["cross_source_candidate_call_signatures"] == sum(row["DistinctCallSignatures"] for row in data["edges"])
     assert data["summary"]["cross_source_candidate_calls"] == sum(row["CandidateCalls"] for row in data["edges"])
+    assert 0 <= data["summary"]["inherited_cross_source_candidate_calls"] <= data["summary"]["cross_source_candidate_calls"]
+    assert 0 <= data["summary"]["explicit_super_cross_source_candidate_calls"] <= data["summary"]["cross_source_candidate_calls"]
     assert data["summary"]["all_calls"] == (sum(data["summary"]["unresolved_calls_by_reason"].values())
                                                + data["summary"]["cross_source_candidate_calls"])
     assert all(row["CallerJavaSource"] in sources and row["TargetJavaSource"] in sources

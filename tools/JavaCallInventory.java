@@ -105,6 +105,7 @@ public final class JavaCallInventory {
             String pkg = unit.getPackageName() == null ? "" : unit.getPackageName().toString();
             Map<Call, Integer> calls = new TreeMap<>();
             Set<Method> methods = new TreeSet<>();
+            Map<String, List<String>> parents = new TreeMap<>();
             new TreePathScanner<Void, Void>() {
                 String owner = "";
                 String method = "<initializer>/0";
@@ -120,6 +121,13 @@ public final class JavaCallInventory {
                     Set<String> previousLocals = methodLocalNames;
                     String name = node.getSimpleName().toString();
                     if (!name.isEmpty()) owner = owner.isEmpty() ? name : owner + "." + name;
+                    List<String> bases = new ArrayList<>();
+                    if (node.getExtendsClause() != null)
+                        bases.add(identifierPath(node.getExtendsClause()));
+                    for (Tree base : node.getImplementsClause())
+                        bases.add(identifierPath(base));
+                    if (!name.isEmpty())
+                        parents.put(owner, bases.stream().filter(base -> !base.isEmpty()).toList());
                     ownerNode = node;
                     method = "<initializer>/0";
                     methodNode = null;
@@ -157,6 +165,14 @@ public final class JavaCallInventory {
                 }
 
                 private String receiverTypeHint(String receiver) {
+                    if (receiver.startsWith("this.") && receiver.indexOf('.', 5) < 0 &&
+                        ownerNode != null) {
+                        String fieldName = receiver.substring(5);
+                        for (Tree member : ownerNode.getMembers())
+                            if (member instanceof VariableTree field &&
+                                field.getName().contentEquals(fieldName))
+                                return declaredType(field);
+                    }
                     if (receiver.isEmpty() || receiver.contains(".") ||
                         receiver.equals("this") || receiver.equals("super")) return "";
                     long callStart = positions.getStartPosition(unit, getCurrentPath().getLeaf());
@@ -165,51 +181,54 @@ public final class JavaCallInventory {
                         if (scope instanceof LambdaExpressionTree lambda)
                             for (VariableTree parameter : lambda.getParameters())
                                 if (parameter.getName().contentEquals(receiver))
-                                    return declaredType(parameter.getType());
+                                    return parameter.getType() == null ? "?" : declaredType(parameter);
                         if (scope instanceof BlockTree block)
                             for (StatementTree statement : block.getStatements())
                                 if (statement instanceof VariableTree local &&
                                     local.getName().contentEquals(receiver) &&
                                     positions.getStartPosition(unit, local) < callStart)
-                                    return declaredType(local.getType());
+                                    return declaredType(local);
                         if (scope instanceof ForLoopTree loop)
                             for (StatementTree initializer : loop.getInitializer())
                                 if (initializer instanceof VariableTree local &&
                                     local.getName().contentEquals(receiver) &&
                                     positions.getEndPosition(unit, local) < callStart)
-                                    return declaredType(local.getType());
+                                    return declaredType(local);
                         if (scope instanceof EnhancedForLoopTree loop &&
                             loop.getVariable().getName().contentEquals(receiver) &&
                             positions.getStartPosition(unit, loop.getStatement()) <= callStart)
-                            return declaredType(loop.getVariable().getType());
+                            return declaredType(loop.getVariable());
                         if (scope instanceof CatchTree clause &&
                             clause.getParameter().getName().contentEquals(receiver) &&
                             positions.getStartPosition(unit, clause.getBlock()) <= callStart)
-                            return declaredType(clause.getParameter().getType());
+                            return declaredType(clause.getParameter());
                         if (scope instanceof TryTree tryTree &&
                             positions.getStartPosition(unit, tryTree.getBlock()) <= callStart &&
                             callStart <= positions.getEndPosition(unit, tryTree.getBlock()))
                             for (Tree resource : tryTree.getResources())
                                 if (resource instanceof VariableTree local &&
                                     local.getName().contentEquals(receiver))
-                                    return declaredType(local.getType());
+                                    return declaredType(local);
                         if (scope == ownerNode) break;
                     }
                     // An unknown local declaration anywhere in the method can hide a
                     // field. Defer the whole name rather than assign a false type.
-                    if (methodLocalNames.contains(receiver)) return "";
+                    if (methodLocalNames.contains(receiver)) return "?";
                     if (methodNode != null) for (VariableTree parameter : methodNode.getParameters())
                         if (parameter.getName().contentEquals(receiver))
-                            return declaredType(parameter.getType());
+                            return declaredType(parameter);
                     if (ownerNode != null) for (Tree member : ownerNode.getMembers())
                         if (member instanceof VariableTree field && field.getName().contentEquals(receiver))
-                            return declaredType(field.getType());
+                            return declaredType(field);
                     return "";
                 }
 
-                private String declaredType(Tree type) {
-                    String name = identifierPath(type);
-                    return name.equals("var") ? "" : name;
+                private String declaredType(VariableTree variable) {
+                    String name = identifierPath(variable.getType());
+                    if (!name.isEmpty() && !name.equals("var")) return name;
+                    if (variable.getInitializer() instanceof NewClassTree creation)
+                        return identifierPath(creation.getIdentifier());
+                    return "?";
                 }
 
                 @Override public Void visitMethodInvocation(MethodInvocationTree node, Void unused) {
@@ -240,7 +259,17 @@ public final class JavaCallInventory {
                 }
             }.scan(unit, null);
             StringBuilder out = new StringBuilder("{\"JavaSource\":").append(json(path))
-                .append(",\"Package\":").append(json(pkg)).append(",\"Methods\":[");
+                .append(",\"Package\":").append(json(pkg)).append(",\"Parents\":{");
+            for (var entry : parents.entrySet()) {
+                if (out.charAt(out.length() - 1) != '{') out.append(',');
+                out.append(json(entry.getKey())).append(':').append('[');
+                for (String base : entry.getValue()) {
+                    if (out.charAt(out.length() - 1) != '[') out.append(',');
+                    out.append(json(base));
+                }
+                out.append(']');
+            }
+            out.append("},\"Methods\":[");
             for (Method m : methods) {
                 if (out.charAt(out.length() - 1) != '[') out.append(',');
                 out.append("{\"owner\":").append(json(m.owner))
@@ -267,6 +296,8 @@ public final class JavaCallInventory {
     }
 
     private static String identifierPath(Tree expression) {
+        if (expression instanceof ParameterizedTypeTree generic)
+            return identifierPath(generic.getType());
         if (expression instanceof IdentifierTree id) return id.getName().toString();
         if (expression instanceof MemberSelectTree member) {
             String parent = identifierPath(member.getExpression());
