@@ -74,6 +74,17 @@ candidate implementations import at least one unmapped unit. This is a review
 queue, not proof that the Godot behavior is missing: direct calls, same-package
 references, and actual C# symbol use remain unverified.
 
+`java_call_graph.json` adds a source-file graph from Java AST invocation and
+constructor nodes. It matches only simple type receivers and declared method
+names/argument counts, then aggregates the resulting method candidates by
+source-file pair. Receiver variables, inheritance and overload resolution
+remain unknown; these edges are *candidates*, not confirmed dynamic calls.
+Recreate with `python tools/build_java_call_graph.py --source-jar /path/to/SongsOfSyx-sources.jar`.
+CI validates the stored graph's referential integrity and summary without
+redistributing the source archive. `tools/CSharpCallInventory.csproj` parses
+production C# method calls through Roslyn; CI uploads its syntax index for the
+next cross-language binding review.
+
 The first executable reference scenario uses the supplied runtime JAR's
 `snake2d.util.rnd.RND` class to capture integer, bounded integer, boolean,
 float-bit and long sequences. The committed fixtures contain only numeric
