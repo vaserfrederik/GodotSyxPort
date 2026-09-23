@@ -1,5 +1,9 @@
 import com.sun.source.tree.ClassTree;
+import com.sun.source.tree.BlockTree;
+import com.sun.source.tree.CatchTree;
 import com.sun.source.tree.CompilationUnitTree;
+import com.sun.source.tree.EnhancedForLoopTree;
+import com.sun.source.tree.ForLoopTree;
 import com.sun.source.tree.IdentifierTree;
 import com.sun.source.tree.LambdaExpressionTree;
 import com.sun.source.tree.MemberSelectTree;
@@ -7,9 +11,12 @@ import com.sun.source.tree.MethodInvocationTree;
 import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.NewClassTree;
 import com.sun.source.tree.ParameterizedTypeTree;
+import com.sun.source.tree.StatementTree;
 import com.sun.source.tree.Tree;
+import com.sun.source.tree.TryTree;
 import com.sun.source.tree.VariableTree;
 import com.sun.source.util.JavacTask;
+import com.sun.source.util.Trees;
 import com.sun.source.util.TreePathScanner;
 import com.sun.source.util.TreeScanner;
 import java.net.URI;
@@ -92,6 +99,7 @@ public final class JavaCallInventory {
         DiagnosticCollector<JavaFileObject> diagnostics = new DiagnosticCollector<>();
         JavacTask task = (JavacTask)compiler.getTask(null, null, diagnostics,
             List.of("-proc:none"), null, sources);
+        var positions = Trees.instance(task).getSourcePositions();
         for (CompilationUnitTree unit : task.parse()) {
             String path = URI.create(unit.getSourceFile().toUri().toString()).getPath().substring(1);
             String pkg = unit.getPackageName() == null ? "" : unit.getPackageName().toString();
@@ -151,20 +159,57 @@ public final class JavaCallInventory {
                 private String receiverTypeHint(String receiver) {
                     if (receiver.isEmpty() || receiver.contains(".") ||
                         receiver.equals("this") || receiver.equals("super")) return "";
-                    for (var path = getCurrentPath(); path != null; path = path.getParentPath())
-                        if (path.getLeaf() instanceof LambdaExpressionTree lambda)
+                    long callStart = positions.getStartPosition(unit, getCurrentPath().getLeaf());
+                    for (var path = getCurrentPath(); path != null; path = path.getParentPath()) {
+                        Tree scope = path.getLeaf();
+                        if (scope instanceof LambdaExpressionTree lambda)
                             for (VariableTree parameter : lambda.getParameters())
-                                if (parameter.getName().contentEquals(receiver)) return "";
+                                if (parameter.getName().contentEquals(receiver))
+                                    return declaredType(parameter.getType());
+                        if (scope instanceof BlockTree block)
+                            for (StatementTree statement : block.getStatements())
+                                if (statement instanceof VariableTree local &&
+                                    local.getName().contentEquals(receiver) &&
+                                    positions.getStartPosition(unit, local) < callStart)
+                                    return declaredType(local.getType());
+                        if (scope instanceof ForLoopTree loop)
+                            for (StatementTree initializer : loop.getInitializer())
+                                if (initializer instanceof VariableTree local &&
+                                    local.getName().contentEquals(receiver) &&
+                                    positions.getEndPosition(unit, local) < callStart)
+                                    return declaredType(local.getType());
+                        if (scope instanceof EnhancedForLoopTree loop &&
+                            loop.getVariable().getName().contentEquals(receiver) &&
+                            positions.getStartPosition(unit, loop.getStatement()) <= callStart)
+                            return declaredType(loop.getVariable().getType());
+                        if (scope instanceof CatchTree clause &&
+                            clause.getParameter().getName().contentEquals(receiver) &&
+                            positions.getStartPosition(unit, clause.getBlock()) <= callStart)
+                            return declaredType(clause.getParameter().getType());
+                        if (scope instanceof TryTree tryTree &&
+                            positions.getStartPosition(unit, tryTree.getBlock()) <= callStart &&
+                            callStart <= positions.getEndPosition(unit, tryTree.getBlock()))
+                            for (Tree resource : tryTree.getResources())
+                                if (resource instanceof VariableTree local &&
+                                    local.getName().contentEquals(receiver))
+                                    return declaredType(local.getType());
+                        if (scope == ownerNode) break;
+                    }
                     // An unknown local declaration anywhere in the method can hide a
                     // field. Defer the whole name rather than assign a false type.
                     if (methodLocalNames.contains(receiver)) return "";
                     if (methodNode != null) for (VariableTree parameter : methodNode.getParameters())
                         if (parameter.getName().contentEquals(receiver))
-                            return identifierPath(parameter.getType());
+                            return declaredType(parameter.getType());
                     if (ownerNode != null) for (Tree member : ownerNode.getMembers())
                         if (member instanceof VariableTree field && field.getName().contentEquals(receiver))
-                            return identifierPath(field.getType());
+                            return declaredType(field.getType());
                     return "";
+                }
+
+                private String declaredType(Tree type) {
+                    String name = identifierPath(type);
+                    return name.equals("var") ? "" : name;
                 }
 
                 @Override public Void visitMethodInvocation(MethodInvocationTree node, Void unused) {

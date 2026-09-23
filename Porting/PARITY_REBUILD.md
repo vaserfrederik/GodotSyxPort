@@ -75,13 +75,16 @@ queue, not proof that the Godot behavior is missing: direct calls, same-package
 references, and actual C# symbol use remain unverified.
 
 `java_call_graph.json` adds a source-file graph from Java AST invocation and
-constructor nodes. It matches declared type receivers and unshadowed, explicitly
-typed method parameters or class fields by method name/argument count, then
-aggregates the resulting candidates by source-file pair. The inventory found
-type hints on 33,453 calls in the supplied JAR; 71,080 cross-source candidate
-calls now span 19,901 file pairs, up from 43,778 calls across 15,872 pairs.
-Local variables, inheritance and overload resolution remain unknown; these
-edges are *candidates*, not confirmed dynamic calls.
+constructor nodes. It matches declared type receivers and explicitly typed
+parameters, class fields and in-scope local variables by method name/argument
+count, then aggregates the resulting candidates by source-file pair. Local
+declarations in blocks, `for`, enhanced `for`, `catch`, try-with-resources and
+typed lambdas are checked against source positions and enclosing scopes.
+The inventory found type hints on 56,280 calls in the supplied JAR; 90,153
+cross-source candidate calls now span 22,094 file pairs, up from 71,080 calls
+across 19,901 pairs. `var` inference, collections, inheritance and overload
+resolution remain unknown; these edges are *candidates*, not confirmed
+dynamic calls.
 Recreate with `python tools/build_java_call_graph.py --source-jar /path/to/SongsOfSyx-sources.jar`.
 CI validates the stored graph's referential integrity and summary without
 redistributing the source archive. `tools/CSharpCallInventory.csproj` parses
