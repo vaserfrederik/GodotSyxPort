@@ -1,4 +1,4 @@
-# Godot Syx Port A84
+# Godot Syx Port
 
 Проект полного поэтапного переноса городской игры на Godot 4 .NET.
 
