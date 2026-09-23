@@ -82,8 +82,13 @@ remain unknown; these edges are *candidates*, not confirmed dynamic calls.
 Recreate with `python tools/build_java_call_graph.py --source-jar /path/to/SongsOfSyx-sources.jar`.
 CI validates the stored graph's referential integrity and summary without
 redistributing the source archive. `tools/CSharpCallInventory.csproj` parses
-production C# method calls through Roslyn; CI uploads its syntax index for the
-next cross-language binding review.
+production C# method calls through Roslyn; CI compares the generated syntax
+index with `csharp_call_index.json`. `build_csharp_call_graph.py` resolves only
+simple named type receivers and declared method names/arity. Its output in
+`csharp_call_graph.json` is checked against both indexes and the four reviewed
+type bindings. Most instance receivers remain unresolved; one reviewed C#
+file pair has no matching Java syntax candidate, which is a review question,
+not a proven behavioral difference.
 
 The first executable reference scenario uses the supplied runtime JAR's
 `snake2d.util.rnd.RND` class to capture integer, bounded integer, boolean,
