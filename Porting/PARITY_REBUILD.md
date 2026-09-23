@@ -38,10 +38,29 @@ Reproduction against the source archive requires the second command locally.
 
 ## Scope and next gate
 
-`JavaDependencies` currently contains only explicit imports from the Java AST.
-It does not yet include same-package references, resolved method calls, runtime
-dependencies, or Java-to-C# execution parity. Those require a reference runner
-and dependency resolution before any status can advance to `ParityPassed`.
+`JavaDependencies` contains explicit imports from the Java AST.
+`dependency_graph.json` resolves those imports to source units and records
+C# namespace candidates from `using` directives. Rebuild or verify with
+`python tools/build_dependency_graph.py [--check]`. The current graph has
+33,517 resolved Java import edges across 2,443 source units; 880 of 900
+candidate implementations import at least one unmapped unit. This is a review
+queue, not proof that the Godot behavior is missing: direct calls, same-package
+references, and actual C# symbol use remain unverified.
 
-The C# build is checked in CI. The current workspace has no .NET SDK, so its
-first CI run is also the initial compilation check for this branch.
+The first executable reference scenario uses the supplied runtime JAR's
+`snake2d.util.rnd.RND` class to capture integer, bounded integer, boolean,
+float-bit and long sequences. The committed fixtures contain only numeric
+results. Recreate them locally with:
+
+```sh
+java --class-path /path/to/SongsOfSyx.jar tools/ReferenceRngRunner.java 12345 12 37 > Porting/golden/rng_seed_12345.jsonl
+java --class-path /path/to/SongsOfSyx.jar tools/ReferenceRngRunner.java -7 12 64 > Porting/golden/rng_seed_minus7.jsonl
+```
+
+`tools/ParityRngRunner.csproj` runs the matching C# implementation without
+Godot UI and CI compares its output byte for byte to both Java fixtures.
+This validates one RNG primitive and does not establish parity for the full
+`RND.java` class or the game's simulation.
+
+The Godot C# build and RNG runner are checked in CI. The current workspace
+has no .NET SDK, so their first CI run is also the initial compilation check.

@@ -14,6 +14,8 @@ jobs:
           python-version: '3.11'
       - name: Validate source registry and parity claims
         run: python tools/build_parity_registry.py --check
+      - name: Validate dependency graph
+        run: python tools/build_dependency_graph.py --check
 
   build:
     runs-on: ubuntu-latest
@@ -24,3 +26,9 @@ jobs:
           dotnet-version: '8.0.x'
       - name: Compile Godot C# project
         run: dotnet build GodotSyxPort.csproj --configuration Release
+      - name: Compare C# RNG to game runtime reference
+        run: |
+          dotnet run --project tools/ParityRngRunner.csproj --configuration Release -- 12345 12 37 > /tmp/rng_12345.jsonl
+          diff -u Porting/golden/rng_seed_12345.jsonl /tmp/rng_12345.jsonl
+          dotnet run --project tools/ParityRngRunner.csproj --configuration Release -- -7 12 64 > /tmp/rng_minus7.jsonl
+          diff -u Porting/golden/rng_seed_minus7.jsonl /tmp/rng_minus7.jsonl

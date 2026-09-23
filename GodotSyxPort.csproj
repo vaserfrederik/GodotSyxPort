@@ -8,5 +8,6 @@
     <!-- Original translated export is retained for traceability, never compiled directly. -->
     <Compile Remove="LegacySource/**/*.cs" />
     <None Include="LegacySource/**/*.cs" />
+    <Compile Remove="tools/**/*.cs" />
   </ItemGroup>
 </Project>
