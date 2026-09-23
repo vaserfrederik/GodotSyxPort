@@ -38,6 +38,11 @@ their test evidence separately from old file-level candidates. The first
 binding is `JavaRandomCompat` to `RND.java`, status `Porting`: five wrapper
 methods have fixture coverage, but global state and the remaining methods do
 not. `check_type_index.py` validates that binding and its test references.
+The next two bindings cover `SourceClamp` and `PackedBits` with numeric fixtures
+recorded directly from the supplied runtime JAR. Their status remains
+`Porting`: the tested cases include negative Java bytes and a zero bit mask,
+but exception behavior and the source's recursive `getDistanceD` remain
+different or untested.
 `global.json` selects a compatible .NET 8 SDK for both the Godot project and
 the AST tool so its Roslyn assemblies match the target framework.
 

@@ -14,8 +14,8 @@ public sealed class PackedBits
 
     public PackedBits(int mask)
     {
-        if (mask == 0) throw new ArgumentOutOfRangeException(nameof(mask));
-        Shift = BitOperations.TrailingZeroCount((uint)mask);
+        // Java widens int to long before Long.numberOfTrailingZeros: zero yields 64.
+        Shift = mask == 0 ? 64 : BitOperations.TrailingZeroCount((uint)mask);
         Mask = (int)(((long)mask & 0xFFFFFFFFL) >> Shift);
     }
 

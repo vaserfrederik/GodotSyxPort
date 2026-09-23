@@ -13,10 +13,10 @@ public static class SourceClamp
         return value;
     }
 
-    public static byte Byte(byte value, int minimum, int maximum)
+    public static sbyte Byte(sbyte value, int minimum, int maximum)
     {
-        if (value < minimum) return (byte)minimum;
-        if (value > maximum) return (byte)maximum;
+        if (value < minimum) return unchecked((sbyte)minimum);
+        if (value > maximum) return unchecked((sbyte)maximum);
         return value;
     }
 

@@ -47,6 +47,10 @@ jobs:
           diff -u Porting/golden/rng_seed_12345.jsonl /tmp/rng_12345.jsonl
           dotnet run --project tools/ParityRngRunner.csproj --configuration Release -- -7 12 64 > /tmp/rng_minus7.jsonl
           diff -u Porting/golden/rng_seed_minus7.jsonl /tmp/rng_minus7.jsonl
+      - name: Compare C# clamp and bits to game runtime reference
+        run: |
+          dotnet run --project tools/ParityCoreMathRunner.csproj --configuration Release -- > /tmp/core_math.jsonl
+          diff -u Porting/golden/core_math.jsonl /tmp/core_math.jsonl
 
   type-index:
     runs-on: ubuntu-latest

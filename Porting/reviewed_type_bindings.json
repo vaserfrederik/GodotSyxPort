@@ -3,6 +3,25 @@
   "policy": "A reviewed binding identifies exact C# and Java types plus tested behavior. Partial bindings cannot be counted as full parity.",
   "bindings": [
     {
+      "CSharpType": "GodotSyxPort.LegacyCompat.SourceClamp",
+      "JavaSource": "snake2d/util/misc/CLAMP.java",
+      "Status": "Porting",
+      "VerifiedMethods": ["i(int,int,int)", "b(byte,int,int)", "d(double,double,double)", "c(double,double)"],
+      "Tests": ["Porting/golden/core_math.jsonl"],
+      "KnownDifferences": []
+    },
+    {
+      "CSharpType": "GodotSyxPort.LegacyCompat.PackedBits",
+      "JavaSource": "snake2d/util/bit/Bits.java",
+      "Status": "Porting",
+      "VerifiedMethods": ["Bits(int)", "set(int,int)", "get(int)", "inc(int,int)", "isMaximum(int)", "getDistance(int,int,int)"],
+      "Tests": ["Porting/golden/core_math.jsonl"],
+      "KnownDifferences": [
+        "Java getDistanceD recursively calls itself; C# DistanceFraction computes a finite fraction.",
+        "Invalid set values throw different exception types; the numeric results are tested only for valid values."
+      ]
+    },
+    {
       "CSharpType": "GodotSyxPort.Simulation.JavaRandomCompat",
       "JavaSource": "snake2d/util/rnd/RND.java",
       "Status": "Porting",
