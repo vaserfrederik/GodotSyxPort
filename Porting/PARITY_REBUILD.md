@@ -80,11 +80,17 @@ parameters, class fields and in-scope local variables by method name/argument
 count, then aggregates the resulting candidates by source-file pair. Local
 declarations in blocks, `for`, enhanced `for`, `catch`, try-with-resources and
 typed lambdas are checked against source positions and enclosing scopes.
-The inventory found type hints on 56,280 calls in the supplied JAR; 90,153
-cross-source candidate calls now span 22,094 file pairs, up from 71,080 calls
-across 19,901 pairs. `var` inference, collections, inheritance and overload
-resolution remain unknown; these edges are *candidates*, not confirmed
-dynamic calls.
+`var` initialized directly by `new Type(...)` and explicit `this.field` now
+also give receiver hints. Unknown local types suppress speculative matches to
+a project class with the same name. Declared `extends`/`implements` relations
+allow a unique nearest inherited method to point to its declaring source;
+`super` targets a declared class parent. Competing nearest declarations stay
+unresolved. The graph now contains 106,884 cross-source candidate calls over
+25,229 file pairs, including 11,363 inherited calls and 1,064 explicit `super`
+calls; 33,075 calls still have an unbound receiver. Method name/arity alone
+cannot prove Java overload selection or virtual dispatch. Inferred values
+from method returns, collections, external libraries and full Java semantics
+remain unknown; these edges are *candidates*, not confirmed dynamic calls.
 Recreate with `python tools/build_java_call_graph.py --source-jar /path/to/SongsOfSyx-sources.jar`.
 CI validates the stored graph's referential integrity and summary without
 redistributing the source archive. `tools/CSharpCallInventory.csproj` parses
