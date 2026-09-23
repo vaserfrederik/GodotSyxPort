@@ -45,3 +45,17 @@ jobs:
           diff -u Porting/golden/rng_seed_12345.jsonl /tmp/rng_12345.jsonl
           dotnet run --project tools/ParityRngRunner.csproj --configuration Release -- -7 12 64 > /tmp/rng_minus7.jsonl
           diff -u Porting/golden/rng_seed_minus7.jsonl /tmp/rng_minus7.jsonl
+
+  type-index:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+      - name: Parse compiled C# source types
+        run: dotnet run --project tools/CSharpAstInventory.csproj --configuration Release -- Porting/csharp_type_index.json
+      - uses: actions/upload-artifact@v4
+        with:
+          name: csharp-type-index
+          path: Porting/csharp_type_index.json

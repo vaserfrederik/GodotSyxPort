@@ -25,6 +25,12 @@ The 900 candidate implementations from `legacy_compile_manifest.json` start as
 The older manifest contains 2,465 C# files; that count is not the number of
 Java units in this specific source JAR.
 
+`tools/CSharpAstInventory.csproj` uses the .NET SDK's Roslyn parser to list
+declared C# types. It associates each type only with file-level Java candidates
+from the old manifest. The `UnverifiedCandidate` label does not claim a
+semantic mapping. The CI artifact is an intermediate for the reviewed type
+index; it will become a committed CI gate once the first run succeeds.
+
 Recreate the registry from a locally supplied archive:
 
 ```sh
