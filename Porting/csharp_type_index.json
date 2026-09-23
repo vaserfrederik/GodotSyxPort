@@ -1,8 +1,8 @@
 {
   "schema": 1,
   "source_archive_sha256": "a3fc2aa9f4be31aec0616a5030a656ac49a6011343b7e91395c7bac0b9dfb0a5",
-  "csharp_file_count": 133,
-  "csharp_type_count": 452,
+  "csharp_file_count": 134,
+  "csharp_type_count": 453,
   "policy": "File-level candidates from the old manifest; each C# type requires an independently reviewed Java binding and parity test.",
   "types": [
     {
@@ -12492,6 +12492,13 @@
         "settlement/room/spirit/temple/TempleJob.java"
       ],
       "Status": "UnverifiedCandidate"
+    },
+    {
+      "CSharpType": "GodotSyxPort.Simulation.CoreTimeCompat",
+      "CSharpFile": "Scripts/Simulation/CoreTimeCompat.cs",
+      "Kind": "ClassDeclaration",
+      "JavaCandidates": [],
+      "Status": "NoCandidate"
     },
     {
       "CSharpType": "GodotSyxPort.Simulation.JavaRandomCompat",

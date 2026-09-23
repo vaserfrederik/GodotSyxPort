@@ -22,6 +22,16 @@
       ]
     },
     {
+      "CSharpType": "GodotSyxPort.Simulation.CoreTimeCompat",
+      "JavaSource": "snake2d/CoreTime.java",
+      "Status": "Porting",
+      "VerifiedMethods": ["update(float,long,long)", "getSecondsSinceFirstUpdate()", "getNowMillis()", "getNowNanos()", "getPendulum0To1s1()"],
+      "Tests": ["Porting/golden/core_time.jsonl"],
+      "KnownDifferences": [
+        "CoreTimeCompat is an isolated engine-frame primitive; the Godot frame loop does not call it yet."
+      ]
+    },
+    {
       "CSharpType": "GodotSyxPort.Simulation.JavaRandomCompat",
       "JavaSource": "snake2d/util/rnd/RND.java",
       "Status": "Porting",

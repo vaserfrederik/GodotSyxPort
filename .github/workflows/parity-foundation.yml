@@ -51,6 +51,10 @@ jobs:
         run: |
           dotnet run --project tools/ParityCoreMathRunner.csproj --configuration Release -- > /tmp/core_math.jsonl
           diff -u Porting/golden/core_math.jsonl /tmp/core_math.jsonl
+      - name: Compare C# frame clock to game runtime reference
+        run: |
+          dotnet run --project tools/ParityCoreTimeRunner.csproj --configuration Release -- > /tmp/core_time.jsonl
+          diff -u Porting/golden/core_time.jsonl /tmp/core_time.jsonl
 
   type-index:
     runs-on: ubuntu-latest
