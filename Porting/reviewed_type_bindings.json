@@ -45,6 +45,20 @@
         "C# exposes a per-instance generator; Java RND uses one static global generator.",
         "Other RND methods and their call-site ordering are not yet tested."
       ]
+    },
+    {
+      "CSharpType": "GodotSyxPort.Settlement.ImmigrationRuntime",
+      "JavaSource": "settlement/entry/Immigration.java",
+      "Status": "Porting",
+      "VerifiedMethods": ["Immigration.getImmigrants(Race) numerical branches via WantedUltimately(RaceRule,...), including threshold, zero population and camp capacity"],
+      "Tests": ["Porting/golden/immigration_inputs.csv", "Porting/golden/immigration_wanted.jsonl"],
+      "KnownDifferences": [
+        "The fixture isolates the Java source formula with explicit inputs; the original game class is not instantiated, so its runtime dependencies are not compared.",
+        "C# Update accumulates immigrationBoost * delta instead of Java speed(wanted) * ds with its seconds-per-day rate and camp branch.",
+        "C# does not subtract onTheirWay from non-camp wanted values and combines current population with incoming subjects in its call site.",
+        "C# clamps standingPower to at least 0.01 before division, unlike the Java source; fixture inputs have positive powers above this bound.",
+        "Java save/load, auto-admission, emigration, riot behavior and integration with world state are not covered."
+      ]
     }
   ]
 }
