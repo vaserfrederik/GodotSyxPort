@@ -30,6 +30,8 @@ declared C# types. It associates each type only with file-level Java candidates
 from the old manifest. The `UnverifiedCandidate` label does not claim a
 semantic mapping. The CI artifact is an intermediate for the reviewed type
 index; it will become a committed CI gate once the first run succeeds.
+`global.json` selects a compatible .NET 8 SDK for both the Godot project and
+the AST tool so its Roslyn assemblies match the target framework.
 
 Recreate the registry from a locally supplied archive:
 
