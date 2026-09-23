@@ -36,26 +36,29 @@ foreach (var file in Directory.GetFiles(Path.Combine(root, "Scripts"), "*.cs", S
             _ => ("", "")
         };
         if (name.Length == 0) continue;
-        Add(new CallKey(Caller(invocation), "invoke", receiver, name, invocation.ArgumentList.Arguments.Count));
+        Add(new CallKey(Caller(invocation), "invoke", receiver,
+            FieldTypeHint(invocation, receiver), name, invocation.ArgumentList.Arguments.Count));
     }
     foreach (var creation in unit.DescendantNodes().OfType<ObjectCreationExpressionSyntax>())
     {
         var target = IdentifierPath(creation.Type);
         if (target.Length == 0) continue;
-        Add(new CallKey(Caller(creation), "construct", target, ".ctor", creation.ArgumentList?.Arguments.Count ?? 0));
+        Add(new CallKey(Caller(creation), "construct", target, "", ".ctor",
+            creation.ArgumentList?.Arguments.Count ?? 0));
     }
     output.Add(new FileEntry(path, methods, calls.OrderBy(kv => kv.Key.Caller, StringComparer.Ordinal)
         .ThenBy(kv => kv.Key.Kind, StringComparer.Ordinal)
         .ThenBy(kv => kv.Key.Receiver, StringComparer.Ordinal)
+        .ThenBy(kv => kv.Key.ReceiverTypeHint, StringComparer.Ordinal)
         .ThenBy(kv => kv.Key.Name, StringComparer.Ordinal)
         .ThenBy(kv => kv.Key.Arity)
         .Select(kv => new CallEntry(kv.Key.Caller, kv.Key.Kind, kv.Key.Receiver,
-            kv.Key.Name, kv.Key.Arity, kv.Value)).ToArray()));
+            kv.Key.ReceiverTypeHint, kv.Key.Name, kv.Key.Arity, kv.Value)).ToArray()));
 
     void Add(CallKey key) => calls[key] = calls.GetValueOrDefault(key) + 1;
 }
 
-File.WriteAllText(args[0], JsonSerializer.Serialize(new { schema = 1, files = output },
+File.WriteAllText(args[0], JsonSerializer.Serialize(new { schema = 2, files = output },
     new JsonSerializerOptions { WriteIndented = true }) + "\n");
 Console.WriteLine($"C# call inventory: {output.Count} files, {output.Sum(x => x.Calls.Sum(y => y.Count))} calls");
 
@@ -82,6 +85,7 @@ static string Caller(SyntaxNode node)
 
 static string IdentifierPath(SyntaxNode node) => node switch
 {
+    ThisExpressionSyntax => "this",
     IdentifierNameSyntax id => id.Identifier.ValueText,
     GenericNameSyntax generic => generic.Identifier.ValueText,
     QualifiedNameSyntax qualified => Join(IdentifierPath(qualified.Left), IdentifierPath(qualified.Right)),
@@ -92,7 +96,33 @@ static string IdentifierPath(SyntaxNode node) => node switch
 
 static string Join(string left, string right) => left.Length == 0 || right.Length == 0 ? "" : left + "." + right;
 
+static string FieldTypeHint(SyntaxNode node, string receiver)
+{
+    var explicitThis = receiver.StartsWith("this.", StringComparison.Ordinal);
+    var name = explicitThis ? receiver[5..] : receiver;
+    if (name.Length == 0 || name.Contains('.')) return "";
+    var owner = node.Ancestors().OfType<TypeDeclarationSyntax>().FirstOrDefault();
+    if (owner is null) return "";
+    if (!explicitThis)
+    {
+        var method = node.Ancestors().OfType<BaseMethodDeclarationSyntax>().FirstOrDefault();
+        if (method is not null && (method.ParameterList.Parameters.Any(p => p.Identifier.ValueText == name)
+            || method.DescendantNodes().OfType<VariableDeclaratorSyntax>().Any(v =>
+                v.Identifier.ValueText == name && v.Ancestors().Any(a => a is LocalDeclarationStatementSyntax))))
+            return "";
+    }
+    foreach (var field in owner.Members.OfType<FieldDeclarationSyntax>())
+        if (field.Declaration.Variables.Any(v => v.Identifier.ValueText == name))
+            return IdentifierPath(field.Declaration.Type);
+    foreach (var property in owner.Members.OfType<PropertyDeclarationSyntax>())
+        if (property.Identifier.ValueText == name)
+            return IdentifierPath(property.Type);
+    return "";
+}
+
 internal sealed record FileEntry(string CSharpFile, MethodEntry[] Methods, CallEntry[] Calls);
 internal sealed record MethodEntry(string Caller, string Name, int Arity);
-internal sealed record CallEntry(string Caller, string Kind, string Receiver, string Name, int Arity, int Count);
-internal sealed record CallKey(string Caller, string Kind, string Receiver, string Name, int Arity);
+internal sealed record CallEntry(string Caller, string Kind, string Receiver, string ReceiverTypeHint,
+    string Name, int Arity, int Count);
+internal sealed record CallKey(string Caller, string Kind, string Receiver, string ReceiverTypeHint,
+    string Name, int Arity);
