@@ -31,8 +31,8 @@ Java units in this specific source JAR.
 declared C# types. It associates each type only with file-level Java candidates
 from the old manifest. The `UnverifiedCandidate` label does not claim a
 semantic mapping. The committed `csharp_type_index.json` is regenerated and
-compared in CI. It currently lists 452 types in 133 compiled source files:
-353 have unverified file-level candidates and 99 have none. For 247 types,
+compared in CI. It currently lists 453 types in 134 compiled source files:
+353 have unverified file-level candidates and 100 have none. For 247 types,
 the candidate list contains more than ten Java units, illustrating why a file
 match cannot be promoted to a type-level mapping without review.
 `reviewed_type_bindings.json` records exact reviewed type associations and
@@ -87,10 +87,14 @@ index with `csharp_call_index.json`. `build_csharp_call_graph.py` resolves only
 simple named type receivers and declared method names/arity. Its output in
 `csharp_call_graph.json` is checked against both indexes and the four reviewed
 type bindings. The Roslyn index also records the declared type of a field or
-property used as the receiver, unless a method-local declaration can shadow
-it. This raises the cross-file call candidates from 307 to 1,673 and detects
-`GameBootstrap` calling `SimulationClock`. Another 8,996 invocation sites have
-no bound receiver and remain in the review queue. One reviewed C# file pair
+property used as the receiver and now resolves parameters, explicitly typed
+locals and `var` locals initialized directly by `new Type(...)` in their
+containing block. Untyped lambdas, inferred values from methods and receiver
+chains remain unbound. This raises the cross-file call candidates from 1,673
+to 2,095 across 354 file pairs and detects `GameBootstrap` calling
+`SimulationClock`. Another 8,507 invocation sites have no bound receiver
+and remain in the review queue; this count also includes calls to external
+framework types. One reviewed C# file pair
 has no matching Java syntax candidate; that is a review question, not a proven
 behavioral difference.
 
