@@ -37,7 +37,7 @@ foreach (var file in Directory.GetFiles(Path.Combine(root, "Scripts"), "*.cs", S
         };
         if (name.Length == 0) continue;
         Add(new CallKey(Caller(invocation), "invoke", receiver,
-            FieldTypeHint(invocation, receiver), name, invocation.ArgumentList.Arguments.Count));
+            ReceiverTypeHint(invocation, receiver), name, invocation.ArgumentList.Arguments.Count));
     }
     foreach (var creation in unit.DescendantNodes().OfType<ObjectCreationExpressionSyntax>())
     {
@@ -96,7 +96,7 @@ static string IdentifierPath(SyntaxNode node) => node switch
 
 static string Join(string left, string right) => left.Length == 0 || right.Length == 0 ? "" : left + "." + right;
 
-static string FieldTypeHint(SyntaxNode node, string receiver)
+static string ReceiverTypeHint(SyntaxNode node, string receiver)
 {
     var explicitThis = receiver.StartsWith("this.", StringComparison.Ordinal);
     var name = explicitThis ? receiver[5..] : receiver;
@@ -105,11 +105,51 @@ static string FieldTypeHint(SyntaxNode node, string receiver)
     if (owner is null) return "";
     if (!explicitThis)
     {
+        // A lambda parameter can hide a field or a parameter in its enclosing method.
+        foreach (var lambda in node.Ancestors().Where(a => a is LambdaExpressionSyntax
+                     or AnonymousMethodExpressionSyntax))
+        {
+            var parameters = lambda switch
+            {
+                SimpleLambdaExpressionSyntax simple => new[] { simple.Parameter },
+                ParenthesizedLambdaExpressionSyntax parenthesized => parenthesized.ParameterList.Parameters.ToArray(),
+                AnonymousMethodExpressionSyntax anonymous => anonymous.ParameterList?.Parameters.ToArray() ?? Array.Empty<ParameterSyntax>(),
+                _ => Array.Empty<ParameterSyntax>()
+            };
+            foreach (var parameter in parameters)
+                if (parameter.Identifier.ValueText == name)
+                    return parameter.Type is null ? "" : IdentifierPath(parameter.Type);
+        }
+        foreach (var function in node.Ancestors().OfType<LocalFunctionStatementSyntax>())
+            foreach (var parameter in function.ParameterList.Parameters)
+                if (parameter.Identifier.ValueText == name)
+                    return parameter.Type is null ? "" : IdentifierPath(parameter.Type);
+        foreach (var loop in node.Ancestors().OfType<ForEachStatementSyntax>())
+            if (loop.Identifier.ValueText == name)
+                return IdentifierPath(loop.Type);
+        foreach (var clause in node.Ancestors().OfType<CatchClauseSyntax>())
+            if (clause.Declaration?.Identifier.ValueText == name)
+                return IdentifierPath(clause.Declaration.Type);
         var method = node.Ancestors().OfType<BaseMethodDeclarationSyntax>().FirstOrDefault();
-        if (method is not null && (method.ParameterList.Parameters.Any(p => p.Identifier.ValueText == name)
-            || method.DescendantNodes().OfType<VariableDeclaratorSyntax>().Any(v =>
-                v.Identifier.ValueText == name && v.Ancestors().Any(a => a is LocalDeclarationStatementSyntax))))
-            return "";
+        if (method is not null)
+        {
+            // Only use declarations in a containing block, before this call. Declarations
+            // in a sibling branch must never give a receiver an invented type.
+            foreach (var block in node.Ancestors().OfType<BlockSyntax>())
+                foreach (var declaration in block.Statements.OfType<LocalDeclarationStatementSyntax>())
+                    if (declaration.SpanStart < node.SpanStart &&
+                        declaration.Declaration.Variables.Any(v => v.Identifier.ValueText == name))
+                        return IdentifierPath(declaration.Declaration.Type);
+            // A non-block local declaration (for example a for initializer) may
+            // still shadow a field. Leave it unresolved rather than guessing.
+            if (method.DescendantNodes().OfType<VariableDeclaratorSyntax>().Any(v =>
+                v.Identifier.ValueText == name && v.Ancestors().Any(a => a is LocalDeclarationStatementSyntax
+                    or ForStatementSyntax)))
+                return "";
+            foreach (var parameter in method.ParameterList.Parameters)
+                if (parameter.Identifier.ValueText == name)
+                    return parameter.Type is null ? "" : IdentifierPath(parameter.Type);
+        }
     }
     foreach (var field in owner.Members.OfType<FieldDeclarationSyntax>())
         if (field.Declaration.Variables.Any(v => v.Identifier.ValueText == name))
