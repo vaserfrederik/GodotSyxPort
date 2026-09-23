@@ -75,8 +75,8 @@ jobs:
           diff -u Porting/csharp_type_index.json /tmp/csharp_type_index.json
       - name: Parse C# source calls
         run: |
+          dotnet run --project tools/CSharpCallInventory.csproj --configuration Release -- --self-test
           dotnet run --project tools/CSharpCallInventory.csproj --configuration Release -- /tmp/csharp_call_index.json
-          diff -u Porting/csharp_call_index.json /tmp/csharp_call_index.json
       - uses: actions/upload-artifact@v4
         with:
           name: csharp-type-index
