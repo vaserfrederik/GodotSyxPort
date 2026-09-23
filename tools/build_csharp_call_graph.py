@@ -44,8 +44,9 @@ def build():
                 candidates = [caller_type]
             elif receiver:
                 namespace = caller_type.rsplit(".", 1)[0] if "." in caller_type else ""
-                candidates = [receiver, namespace + "." + receiver]
-                candidates += [imported_name + "." + receiver for imported_name in imported]
+                type_name = call.get("ReceiverTypeHint") or receiver
+                candidates = [type_name, namespace + "." + type_name]
+                candidates += [imported_name + "." + type_name for imported_name in imported]
             matches = {candidate for candidate in candidates if candidate in source_by_type}
             if len(matches) != 1:
                 unresolved["ambiguous-type" if len(matches) > 1 else "receiver-unbound"] += count
@@ -98,7 +99,7 @@ def validate(graph):
     index = json.loads(INDEX.read_text())
     types = json.loads((ROOT / "Porting/csharp_type_index.json").read_text())
     paths = {entry["CSharpFile"] for entry in types["types"]}
-    assert graph["schema"] == 1 and index["schema"] == 1
+    assert graph["schema"] == 1 and index["schema"] == 2
     assert graph["summary"]["csharp_files"] == len(index["files"]) == types["csharp_file_count"]
     assert graph["summary"]["cross_file_candidate_edges"] == len(graph["edges"])
     assert graph["summary"]["cross_file_candidate_calls"] == sum(e["CandidateCalls"] for e in graph["edges"])

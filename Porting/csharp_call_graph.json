@@ -6,13 +6,13 @@
     "csharp_files": 134,
     "declared_methods": 2450,
     "all_syntax_calls": 15958,
-    "cross_file_candidate_edges": 125,
-    "cross_file_candidate_calls": 307,
+    "cross_file_candidate_edges": 281,
+    "cross_file_candidate_calls": 1673,
     "unresolved_calls_by_reason": {
       "language-construct": 16,
-      "method-unbound": 2221,
-      "receiver-unbound": 10420,
-      "same-file": 2994
+      "method-unbound": 2265,
+      "receiver-unbound": 8996,
+      "same-file": 3008
     },
     "cross_language_reviewed_file_pairs": 1
   },
@@ -49,15 +49,21 @@
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "CandidateCalls": 16,
+      "DistinctCallSignatures": 13
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/Citizens/CorpseRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/Citizens/WorkAccidentRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
@@ -73,21 +79,45 @@
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
-      "TargetCSharpFile": "Scripts/Hauling/HaulingSystem.cs",
+      "TargetCSharpFile": "Scripts/Events/SettlementEventRuntime.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/Hauling/HaulingSystem.cs",
+      "CandidateCalls": 11,
+      "DistinctCallSignatures": 10
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/Maintenance/MaintenanceConsumption.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/Maintenance/RoadMaintenanceSystem.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/Military/SettlementInvasionRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/Resources/EconomyTracker.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/Resources/ResourceLedger.cs",
+      "CandidateCalls": 24,
+      "DistinctCallSignatures": 10
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
@@ -98,20 +128,32 @@
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/Rooms/RoomPlanner.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 24,
+      "DistinctCallSignatures": 23
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/Rooms/RoomSystem.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 31,
+      "DistinctCallSignatures": 29
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/Save/SaveGameService.cs",
       "CandidateCalls": 4,
       "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 66,
+      "DistinctCallSignatures": 40
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/Settlement/SettlementEntryRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
@@ -122,8 +164,8 @@
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 5,
+      "DistinctCallSignatures": 5
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
@@ -133,15 +175,45 @@
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/Simulation/JobBoard.cs",
+      "CandidateCalls": 14,
+      "DistinctCallSignatures": 5
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/Simulation/SettlementWeatherRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/Simulation/SimulationClock.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/Stats/SettlementStatsRuntime.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/Trade/WorldTradeRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/AdministrationDashboard.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/GlobalMapOverlay.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
@@ -151,7 +223,97 @@
     },
     {
       "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/RoomBuildPalette.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/RoomPolicyPanel.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/SettlementBattleCommandPanel.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/SettlementCivicPanel.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/SettlementInspectorPanel.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/SettlementManagerPanel.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/SettlementNotificationFeed.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/SettlementReferencePanel.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/SettlementRightSidebar.cs",
+      "CandidateCalls": 5,
+      "DistinctCallSignatures": 5
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/SettlementTopBar.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/StrategicWorldMap.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/TimeControlBar.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/UI/WorldBattlePanel.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
       "TargetCSharpFile": "Scripts/World/RegionalEconomyRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Bootstrap/GameBootstrap.cs",
+      "TargetCSharpFile": "Scripts/World/WorldRaidingRuntime.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
     },
@@ -188,14 +350,32 @@
     {
       "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
       "TargetCSharpFile": "Scripts/Citizens/CitizenIdentityRuntime.cs",
+      "CandidateCalls": 37,
+      "DistinctCallSignatures": 29
+    },
+    {
+      "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenPersonalStatsRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenReproductionRuntime.cs",
+      "CandidateCalls": 13,
+      "DistinctCallSignatures": 12
+    },
+    {
+      "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenSocialRuntime.cs",
       "CandidateCalls": 4,
       "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
-      "TargetCSharpFile": "Scripts/Citizens/CitizenReproductionRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "TargetCSharpFile": "Scripts/Citizens/CorpseRuntime.cs",
+      "CandidateCalls": 9,
+      "DistinctCallSignatures": 7
     },
     {
       "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
@@ -206,6 +386,18 @@
     {
       "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
       "TargetCSharpFile": "Scripts/Citizens/ReligionRuntime.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
+    },
+    {
+      "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "TargetCSharpFile": "Scripts/Hauling/HaulingSystem.cs",
+      "CandidateCalls": 28,
+      "DistinctCallSignatures": 23
+    },
+    {
+      "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "TargetCSharpFile": "Scripts/Maintenance/RoadMaintenanceSystem.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
     },
@@ -216,8 +408,38 @@
       "DistinctCallSignatures": 8
     },
     {
+      "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "TargetCSharpFile": "Scripts/Navigation/SharedPathPool.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "CandidateCalls": 40,
+      "DistinctCallSignatures": 37
+    },
+    {
+      "CallerCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 15,
+      "DistinctCallSignatures": 12
+    },
+    {
       "CallerCSharpFile": "Scripts/Citizens/CorpseRuntime.cs",
       "TargetCSharpFile": "Scripts/Simulation/BuildJob.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Citizens/WorkAccidentRuntime.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Citizens/WorkAccidentRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
     },
@@ -225,6 +447,18 @@
       "CallerCSharpFile": "Scripts/Data/OriginalGameData.cs",
       "TargetCSharpFile": "Scripts/Data/SyxDataParser.cs",
       "CandidateCalls": 4,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Governance/SettlementGovernanceRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/KnowledgeRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Hauling/HaulingSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "CandidateCalls": 3,
       "DistinctCallSignatures": 3
     },
     {
@@ -246,10 +480,28 @@
       "DistinctCallSignatures": 1
     },
     {
+      "CallerCSharpFile": "Scripts/Maintenance/MaintenanceConsumption.cs",
+      "TargetCSharpFile": "Scripts/Maintenance/RoadMaintenanceSystem.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Maintenance/MaintenanceConsumption.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
       "CallerCSharpFile": "Scripts/Maintenance/RoadMaintenanceSystem.cs",
       "TargetCSharpFile": "Scripts/Data/OriginalGameData.cs",
       "CandidateCalls": 2,
       "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Maintenance/RoadMaintenanceSystem.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
     },
     {
       "CallerCSharpFile": "Scripts/Maintenance/RoadMaintenanceSystem.cs",
@@ -259,7 +511,43 @@
     },
     {
       "CallerCSharpFile": "Scripts/Military/SettlementInvasionRuntime.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
+    },
+    {
+      "CallerCSharpFile": "Scripts/Military/SettlementInvasionRuntime.cs",
       "TargetCSharpFile": "Scripts/Navigation/HierarchicalGridPathfinder.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Military/SettlementInvasionRuntime.cs",
+      "TargetCSharpFile": "Scripts/Resources/ResourceLedger.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Military/SettlementInvasionRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Military/SettlementInvasionRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 9,
+      "DistinctCallSignatures": 8
+    },
+    {
+      "CallerCSharpFile": "Scripts/Military/SettlementInvasionRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Military/SettlementInvasionRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldBattleRuntime.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
     },
@@ -306,6 +594,12 @@
       "DistinctCallSignatures": 2
     },
     {
+      "CallerCSharpFile": "Scripts/Rooms/BuilderInfrastructureRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
       "CallerCSharpFile": "Scripts/Rooms/FoodVenueRuntime.cs",
       "TargetCSharpFile": "Scripts/Simulation/BuildJob.cs",
       "CandidateCalls": 1,
@@ -324,10 +618,22 @@
       "DistinctCallSignatures": 1
     },
     {
+      "CallerCSharpFile": "Scripts/Rooms/FurnisherRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomBlueprintCatalog.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
       "CallerCSharpFile": "Scripts/Rooms/FurnisherStatRuntime.cs",
       "TargetCSharpFile": "Scripts/Rooms/FurnisherRuntime.cs",
       "CandidateCalls": 2,
       "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/GateRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/HousingRuntime.cs",
@@ -355,6 +661,12 @@
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/KnowledgeRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/KnowledgeRuntime.cs",
       "TargetCSharpFile": "Scripts/Simulation/BuildJob.cs",
       "CandidateCalls": 2,
       "DistinctCallSignatures": 2
@@ -378,6 +690,18 @@
       "DistinctCallSignatures": 1
     },
     {
+      "CallerCSharpFile": "Scripts/Rooms/RoomInstanceRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomJobPositionsRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomInstanceRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
       "CallerCSharpFile": "Scripts/Rooms/RoomPlacementRuntime.cs",
       "TargetCSharpFile": "Scripts/Rooms/FurnisherConstraintCatalog.cs",
       "CandidateCalls": 2,
@@ -396,10 +720,40 @@
       "DistinctCallSignatures": 2
     },
     {
+      "CallerCSharpFile": "Scripts/Rooms/RoomPlacementRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomPlacementRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 8,
+      "DistinctCallSignatures": 7
+    },
+    {
       "CallerCSharpFile": "Scripts/Rooms/RoomPlanner.cs",
       "TargetCSharpFile": "Scripts/Rooms/FurnisherLayoutCatalog.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomPlanner.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomPlacementRuntime.cs",
+      "CandidateCalls": 21,
+      "DistinctCallSignatures": 21
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomPlanner.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomPlanner.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 16,
+      "DistinctCallSignatures": 12
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
@@ -410,13 +764,19 @@
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Governance/SettlementGovernanceRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Industry/IndustryRuntime.cs",
       "CandidateCalls": 5,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Law/SettlementLawRuntime.cs",
+      "CandidateCalls": 3,
       "DistinctCallSignatures": 3
     },
     {
@@ -427,9 +787,57 @@
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Military/SettlementMilitaryRuntime.cs",
+      "CandidateCalls": 5,
+      "DistinctCallSignatures": 5
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/ActivityServiceRuntime.cs",
+      "CandidateCalls": 5,
+      "DistinctCallSignatures": 5
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/AsylumRuntime.cs",
+      "CandidateCalls": 5,
+      "DistinctCallSignatures": 5
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/BathRuntime.cs",
+      "CandidateCalls": 8,
+      "DistinctCallSignatures": 8
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Rooms/BuilderInfrastructureRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/BurialRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/CannibalRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/ChildcareRuntime.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/FoodVenueRuntime.cs",
+      "CandidateCalls": 5,
+      "DistinctCallSignatures": 5
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
@@ -440,20 +848,50 @@
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Rooms/GateRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/HospitalityRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/HousingRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/JanitorRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Rooms/KnowledgeRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/PreparedServiceRuntime.cs",
+      "CandidateCalls": 5,
+      "DistinctCallSignatures": 5
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Rooms/RoomBlueprintCatalog.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 10,
+      "DistinctCallSignatures": 8
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomConstructionRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
@@ -463,21 +901,57 @@
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
-      "TargetCSharpFile": "Scripts/Rooms/SettlementLogisticsRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomServiceRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomStorageRuntime.cs",
+      "CandidateCalls": 8,
+      "DistinctCallSignatures": 8
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/SanitationRuntime.cs",
+      "CandidateCalls": 5,
+      "DistinctCallSignatures": 5
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/SchoolRuntime.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/SettlementLogisticsRuntime.cs",
+      "CandidateCalls": 23,
+      "DistinctCallSignatures": 23
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Rooms/SpecialProductionRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 9,
+      "DistinctCallSignatures": 9
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Rooms/TempleRuntime.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Rooms/WaterInfrastructureRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 80,
+      "DistinctCallSignatures": 58
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
@@ -488,14 +962,14 @@
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Technology/TechnologyRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Trade/SettlementTradeRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/SanitationRuntime.cs",
@@ -511,9 +985,21 @@
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/SettlementLogisticsRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/SettlementLogisticsRuntime.cs",
       "TargetCSharpFile": "Scripts/Simulation/BuildJob.cs",
       "CandidateCalls": 2,
       "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Rooms/SpecialProductionRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/SpecialProductionRuntime.cs",
@@ -534,10 +1020,28 @@
       "DistinctCallSignatures": 1
     },
     {
+      "CallerCSharpFile": "Scripts/Rooms/WaterInfrastructureRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
+    },
+    {
+      "CallerCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "TargetCSharpFile": "Scripts/Rendering/ChunkTileRenderer.cs",
+      "CandidateCalls": 46,
+      "DistinctCallSignatures": 25
+    },
+    {
+      "CallerCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "TargetCSharpFile": "Scripts/Rendering/ChunkWallRenderer.cs",
+      "CandidateCalls": 7,
+      "DistinctCallSignatures": 7
+    },
+    {
       "CallerCSharpFile": "Scripts/Settlement/GridWorld.cs",
       "TargetCSharpFile": "Scripts/Rendering/OriginalFurnitureSpriteRenderer.cs",
-      "CandidateCalls": 3,
-      "DistinctCallSignatures": 3
+      "CandidateCalls": 11,
+      "DistinctCallSignatures": 9
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/GridWorld.cs",
@@ -558,10 +1062,28 @@
       "DistinctCallSignatures": 2
     },
     {
+      "CallerCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "TargetCSharpFile": "Scripts/Settlement/WorldGridData.cs",
+      "CandidateCalls": 59,
+      "DistinctCallSignatures": 49
+    },
+    {
       "CallerCSharpFile": "Scripts/Settlement/SettlementEntryRuntime.cs",
       "TargetCSharpFile": "Scripts/Citizens/CitizenIdentityRuntime.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Settlement/SettlementEntryRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/ImmigrationRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Settlement/SettlementEntryRuntime.cs",
+      "TargetCSharpFile": "Scripts/Settlement/WorldGridData.cs",
+      "CandidateCalls": 8,
+      "DistinctCallSignatures": 5
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementTerrainGenerator.cs",
@@ -571,75 +1093,93 @@
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
+      "TargetCSharpFile": "Scripts/Tourism/TourismReviewRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/Tourism/TourismRuntime.cs",
+      "CandidateCalls": 8,
+      "DistinctCallSignatures": 8
+    },
+    {
+      "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
+      "TargetCSharpFile": "Scripts/Tourism/TouristPlannerRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/RegionalEconomyRuntime.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
-      "TargetCSharpFile": "Scripts/Tourism/TouristPlannerRuntime.cs",
-      "CandidateCalls": 1,
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 2,
       "DistinctCallSignatures": 1
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldArmyRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldBattleRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldDiplomacyRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldEntityRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldFactionRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldHavenRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldLandmarkRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 8,
+      "DistinctCallSignatures": 8
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldRegionRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldSettlementBridge.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
     },
     {
       "CallerCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldTradeShipmentRuntime.cs",
-      "CandidateCalls": 1,
-      "DistinctCallSignatures": 1
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Simulation/BuildJob.cs",
@@ -658,6 +1198,126 @@
       "TargetCSharpFile": "Scripts/Data/OriginalGameData.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Stats/SettlementStatsRuntime.cs",
+      "TargetCSharpFile": "Scripts/Stats/SettlementStandingRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Stats/SettlementStatsRuntime.cs",
+      "TargetCSharpFile": "Scripts/Stats/SettlementStatRegistry.cs",
+      "CandidateCalls": 10,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Technology/TechnologyRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/KnowledgeRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Tourism/TourismRuntime.cs",
+      "TargetCSharpFile": "Scripts/Tourism/TourismReviewRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/Tourism/TourismRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldLandmarkRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Tourism/TouristPlannerRuntime.cs",
+      "TargetCSharpFile": "Scripts/Tourism/TourismReviewRuntime.cs",
+      "CandidateCalls": 5,
+      "DistinctCallSignatures": 5
+    },
+    {
+      "CallerCSharpFile": "Scripts/Tourism/TouristPlannerRuntime.cs",
+      "TargetCSharpFile": "Scripts/Tourism/TourismRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Tourism/TouristPlannerRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Tourism/TouristPlannerRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldEntityRuntime.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
+    },
+    {
+      "CallerCSharpFile": "Scripts/Tourism/TouristPlannerRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldLandmarkRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Tourism/TouristPlannerRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldRegionRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/Trade/SettlementTradeRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/SettlementLogisticsRuntime.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
+    },
+    {
+      "CallerCSharpFile": "Scripts/Trade/WorldTradeRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/SettlementLogisticsRuntime.cs",
+      "CandidateCalls": 5,
+      "DistinctCallSignatures": 5
+    },
+    {
+      "CallerCSharpFile": "Scripts/Trade/WorldTradeRuntime.cs",
+      "TargetCSharpFile": "Scripts/Trade/SettlementTradeRuntime.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
+    },
+    {
+      "CallerCSharpFile": "Scripts/Trade/WorldTradeRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldFactionRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/Trade/WorldTradeRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldSettlementBridge.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/Trade/WorldTradeRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldTradeShipmentRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/AdministrationDashboard.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "CandidateCalls": 11,
+      "DistinctCallSignatures": 10
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/GlobalMapOverlay.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/GlobalMapOverlay.cs",
+      "TargetCSharpFile": "Scripts/Settlement/WorldGridData.cs",
+      "CandidateCalls": 22,
+      "DistinctCallSignatures": 15
     },
     {
       "CallerCSharpFile": "Scripts/UI/NewGameProfileScreen.cs",
@@ -684,16 +1344,64 @@
       "DistinctCallSignatures": 5
     },
     {
+      "CallerCSharpFile": "Scripts/UI/RoomPolicyPanel.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "CandidateCalls": 12,
+      "DistinctCallSignatures": 12
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementBattleCommandPanel.cs",
+      "TargetCSharpFile": "Scripts/Military/SettlementMilitaryRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
       "CallerCSharpFile": "Scripts/UI/SettlementBattleCommandPanel.cs",
       "TargetCSharpFile": "Scripts/UI/OriginalUiIcons.cs",
       "CandidateCalls": 4,
       "DistinctCallSignatures": 2
     },
     {
+      "CallerCSharpFile": "Scripts/UI/SettlementCivicPanel.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "CandidateCalls": 14,
+      "DistinctCallSignatures": 14
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementCivicPanel.cs",
+      "TargetCSharpFile": "Scripts/Resources/ResourceLedger.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementCivicPanel.cs",
+      "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementManagerPanel.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementManagerPanel.cs",
+      "TargetCSharpFile": "Scripts/Resources/ResourceLedger.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
       "CallerCSharpFile": "Scripts/UI/SettlementManagerPanel.cs",
       "TargetCSharpFile": "Scripts/UI/OriginalUiIcons.cs",
       "CandidateCalls": 8,
       "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementManagerPanel.cs",
+      "TargetCSharpFile": "Scripts/World/WorldRaidingRuntime.cs",
+      "CandidateCalls": 7,
+      "DistinctCallSignatures": 5
     },
     {
       "CallerCSharpFile": "Scripts/UI/SettlementReferencePanel.cs",
@@ -703,15 +1411,45 @@
     },
     {
       "CallerCSharpFile": "Scripts/UI/SettlementRightSidebar.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementRightSidebar.cs",
+      "TargetCSharpFile": "Scripts/Resources/ResourceLedger.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementRightSidebar.cs",
+      "TargetCSharpFile": "Scripts/Settlement/WorldGridData.cs",
+      "CandidateCalls": 9,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementRightSidebar.cs",
       "TargetCSharpFile": "Scripts/UI/OriginalUiIcons.cs",
       "CandidateCalls": 10,
       "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/UI/SettlementTopBar.cs",
+      "TargetCSharpFile": "Scripts/Citizens/CitizenSystem.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementTopBar.cs",
       "TargetCSharpFile": "Scripts/UI/OriginalUiIcons.cs",
       "CandidateCalls": 24,
       "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/SettlementTopBar.cs",
+      "TargetCSharpFile": "Scripts/World/WorldRaidingRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 1
     },
     {
       "CallerCSharpFile": "Scripts/UI/StrategicWorldMap.cs",
@@ -724,6 +1462,30 @@
       "TargetCSharpFile": "Scripts/Rendering/OriginalWorldPalette.cs",
       "CandidateCalls": 2,
       "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/StrategicWorldMap.cs",
+      "TargetCSharpFile": "Scripts/Settlement/SettlementWorldRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/StrategicWorldMap.cs",
+      "TargetCSharpFile": "Scripts/World/RegionalEconomyRuntime.cs",
+      "CandidateCalls": 7,
+      "DistinctCallSignatures": 7
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/StrategicWorldMap.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 30,
+      "DistinctCallSignatures": 21
+    },
+    {
+      "CallerCSharpFile": "Scripts/UI/WorldBattlePanel.cs",
+      "TargetCSharpFile": "Scripts/Military/SettlementInvasionRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
     },
     {
       "CallerCSharpFile": "Scripts/UI/WorldBattlePanel.cs",
@@ -750,22 +1512,196 @@
       "DistinctCallSignatures": 1
     },
     {
+      "CallerCSharpFile": "Scripts/UI/WorldSetupScreen.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 32,
+      "DistinctCallSignatures": 28
+    },
+    {
       "CallerCSharpFile": "Scripts/World/RegionalEconomyRuntime.cs",
       "TargetCSharpFile": "Scripts/Data/SyxDataParser.cs",
       "CandidateCalls": 2,
       "DistinctCallSignatures": 2
     },
     {
+      "CallerCSharpFile": "Scripts/World/RegionalEconomyRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 27,
+      "DistinctCallSignatures": 24
+    },
+    {
       "CallerCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/StrategicTerrainRuntime.cs",
-      "CandidateCalls": 2,
-      "DistinctCallSignatures": 2
+      "CandidateCalls": 47,
+      "DistinctCallSignatures": 42
     },
     {
       "CallerCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
       "TargetCSharpFile": "Scripts/World/WorldHavenRuntime.cs",
       "CandidateCalls": 1,
       "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldArmyRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 11,
+      "DistinctCallSignatures": 11
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldArmyRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldEntityRuntime.cs",
+      "CandidateCalls": 14,
+      "DistinctCallSignatures": 13
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldBattleRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/RegionalEconomyRuntime.cs",
+      "CandidateCalls": 8,
+      "DistinctCallSignatures": 6
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldBattleRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 11,
+      "DistinctCallSignatures": 10
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldBattleRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldArmyRuntime.cs",
+      "CandidateCalls": 11,
+      "DistinctCallSignatures": 9
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldBattleRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldEntityRuntime.cs",
+      "CandidateCalls": 7,
+      "DistinctCallSignatures": 7
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldDiplomacyRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/RegionalEconomyRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldDiplomacyRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldDiplomacyRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldFactionRuntime.cs",
+      "CandidateCalls": 9,
+      "DistinctCallSignatures": 7
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldEntityRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldFactionRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 6
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldFactionRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldRegionRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldHavenRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldHavenRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldRegionRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldLandmarkRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldLandmarkRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldRegionRuntime.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldRaidingRuntime.cs",
+      "TargetCSharpFile": "Scripts/Rooms/RoomSystem.cs",
+      "CandidateCalls": 1,
+      "DistinctCallSignatures": 1
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldRegionRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/RegionalEconomyRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldRegionRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 3
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldSettlementBridge.cs",
+      "TargetCSharpFile": "Scripts/Settlement/SettlementEntryRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldSettlementBridge.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldSettlementBridge.cs",
+      "TargetCSharpFile": "Scripts/World/WorldHavenRuntime.cs",
+      "CandidateCalls": 2,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldSettlementBridge.cs",
+      "TargetCSharpFile": "Scripts/World/WorldRegionRuntime.cs",
+      "CandidateCalls": 9,
+      "DistinctCallSignatures": 9
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldTradeShipmentRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/StrategicWorldRuntime.cs",
+      "CandidateCalls": 3,
+      "DistinctCallSignatures": 2
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldTradeShipmentRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldEntityRuntime.cs",
+      "CandidateCalls": 12,
+      "DistinctCallSignatures": 12
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldTradeShipmentRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldFactionRuntime.cs",
+      "CandidateCalls": 10,
+      "DistinctCallSignatures": 10
+    },
+    {
+      "CallerCSharpFile": "Scripts/World/WorldTradeShipmentRuntime.cs",
+      "TargetCSharpFile": "Scripts/World/WorldRegionRuntime.cs",
+      "CandidateCalls": 6,
+      "DistinctCallSignatures": 5
     }
   ],
   "reviewed_cross_language_pairs": [

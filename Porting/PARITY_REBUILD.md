@@ -86,9 +86,13 @@ production C# method calls through Roslyn; CI compares the generated syntax
 index with `csharp_call_index.json`. `build_csharp_call_graph.py` resolves only
 simple named type receivers and declared method names/arity. Its output in
 `csharp_call_graph.json` is checked against both indexes and the four reviewed
-type bindings. Most instance receivers remain unresolved; one reviewed C#
-file pair has no matching Java syntax candidate, which is a review question,
-not a proven behavioral difference.
+type bindings. The Roslyn index also records the declared type of a field or
+property used as the receiver, unless a method-local declaration can shadow
+it. This raises the cross-file call candidates from 307 to 1,673 and detects
+`GameBootstrap` calling `SimulationClock`. Another 8,996 invocation sites have
+no bound receiver and remain in the review queue. One reviewed C# file pair
+has no matching Java syntax candidate; that is a review question, not a proven
+behavioral difference.
 
 The first executable reference scenario uses the supplied runtime JAR's
 `snake2d.util.rnd.RND` class to capture integer, bounded integer, boolean,
