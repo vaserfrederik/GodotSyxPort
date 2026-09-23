@@ -62,8 +62,9 @@ def build(jar):
             if receiver == "this" or (not receiver and call["kind"] == "invoke"):
                 candidates.append(own_type)
             elif receiver:
-                candidates.extend((receiver, imports.get(receiver, ""),
-                                   ".".join(filter(None, (package, receiver)))))
+                receiver_type = call.get("receiverTypeHint") or receiver
+                candidates.extend((receiver_type, imports.get(receiver_type, ""),
+                                   ".".join(filter(None, (package, receiver_type)))))
             target = next((type_name for type_name in candidates if type_name in types), None)
             if target is None:
                 unresolved["receiver-unbound"] += count
@@ -97,7 +98,7 @@ def build(jar):
     return {
         "schema": 1,
         "source_archive_sha256": expected_hash,
-        "scope": "File-level graph aggregated from AST calls whose simple receivers match declared types and method name/arity. No variable types, overload resolution, dynamic dispatch, inherited calls or behavior parity.",
+        "scope": "File-level Java AST candidates from declared types and unshadowed, explicitly typed method parameters or fields, matched by method name/arity. Local variables, overload resolution, dynamic dispatch, inherited calls and behavior parity remain unverified.",
         "summary": {"java_units": len(records), "declared_methods": len(methods),
                     "all_calls": call_count, "cross_source_candidate_file_edges": len(edge_rows),
                     "cross_source_candidate_call_signatures": len(edges),
