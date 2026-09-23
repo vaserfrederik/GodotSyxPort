@@ -17,6 +17,7 @@
       "VerifiedMethods": ["Bits(int)", "set(int,int)", "get(int)", "inc(int,int)", "isMaximum(int)", "getDistance(int,int,int)"],
       "Tests": ["Porting/golden/core_math.jsonl"],
       "KnownDifferences": [
+        "C# Increment calls SourceClamp.Integer; Java Bits.inc clamps with local comparisons, so this C# call-graph edge has no corresponding Java call edge.",
         "Java getDistanceD recursively calls itself; C# DistanceFraction computes a finite fraction.",
         "Invalid set values throw different exception types; the numeric results are tested only for valid values."
       ]
