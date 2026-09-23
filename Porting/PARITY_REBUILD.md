@@ -62,5 +62,15 @@ Godot UI and CI compares its output byte for byte to both Java fixtures.
 This validates one RNG primitive and does not establish parity for the full
 `RND.java` class or the game's simulation.
 
-The Godot C# build and RNG runner are checked in CI. The current workspace
-has no .NET SDK, so their first CI run is also the initial compilation check.
+CI builds the Godot C# project on Linux and Windows. The registry, graph and
+explicit-placeholder checks run on Linux; the RNG fixture comparison runs in
+its own Linux job. `tools/check_new_stubs.py` prevents new `TODO`, `FIXME`,
+`NotImplementedException`, and empty `void`/`Task` methods in compiled C#
+sources. It does not detect incorrect fallback values or behavioral shortcuts.
+The existing empty `AsylumRuntime.Tick` is documented in `known_stubs.json`;
+the waiver must be removed when that behavior is implemented.
+
+The current workspace has no .NET SDK, so compilation is verified by CI.
+The next parity gate requires source-to-C# type associations and a scenario
+runner for time, world state and citizen decisions. Existing RNG fixtures
+alone do not satisfy that gate.

@@ -1,0 +1,7 @@
+{
+  "schema": 1,
+  "policy": "Existing A108 debt. These entries remain visible and must be removed when implemented; no new entries are allowed without review.",
+  "allowed": [
+    "Scripts/Rooms/AsylumRuntime.cs::Tick(double delta)"
+  ]
+}

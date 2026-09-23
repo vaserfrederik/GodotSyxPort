@@ -16,9 +16,14 @@ jobs:
         run: python tools/build_parity_registry.py --check
       - name: Validate dependency graph
         run: python tools/build_dependency_graph.py --check
+      - name: Reject new explicit placeholders
+        run: python tools/check_new_stubs.py
 
   build:
-    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    runs-on: ${{ matrix.os }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-dotnet@v4
@@ -26,6 +31,14 @@ jobs:
           dotnet-version: '8.0.x'
       - name: Compile Godot C# project
         run: dotnet build GodotSyxPort.csproj --configuration Release
+
+  rng-parity:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
       - name: Compare C# RNG to game runtime reference
         run: |
           dotnet run --project tools/ParityRngRunner.csproj --configuration Release -- 12345 12 37 > /tmp/rng_12345.jsonl
