@@ -6,15 +6,20 @@ using Microsoft.CodeAnalysis.CSharp.Syntax;
 if (args.Length != 1) throw new ArgumentException("output path is required");
 var root = Directory.GetCurrentDirectory();
 var output = new List<FileEntry>();
-foreach (var file in Directory.GetFiles(Path.Combine(root, "Scripts"), "*.cs", SearchOption.AllDirectories)
-             .OrderBy(path => path, StringComparer.Ordinal))
-{
-    var path = Path.GetRelativePath(root, file).Replace('\\', '/');
+var parsedFiles = Directory.GetFiles(Path.Combine(root, "Scripts"), "*.cs", SearchOption.AllDirectories)
+    .OrderBy(path => path, StringComparer.Ordinal)
+    .Select(file =>
+    {
     var syntax = CSharpSyntaxTree.ParseText(File.ReadAllText(file),
         new CSharpParseOptions(LanguageVersion.Preview));
     var errors = syntax.GetDiagnostics().Where(d => d.Severity == DiagnosticSeverity.Error).ToArray();
-    if (errors.Length > 0) throw new InvalidDataException(path + ": " + string.Join("; ", errors.Select(d => d.ToString())));
-    var unit = syntax.GetCompilationUnitRoot();
+    if (errors.Length > 0) throw new InvalidDataException(file + ": " + string.Join("; ", errors.Select(d => d.ToString())));
+    return (File: file, Unit: syntax.GetCompilationUnitRoot());
+    }).ToArray();
+var memberTypes = BuildMemberTypes(parsedFiles.Select(x => x.Unit));
+foreach (var (file, unit) in parsedFiles)
+{
+    var path = Path.GetRelativePath(root, file).Replace('\\', '/');
     var calls = new Dictionary<CallKey, int>();
     var methods = unit.DescendantNodes().OfType<BaseMethodDeclarationSyntax>()
         .Select(m => new MethodEntry(Caller(m.ParameterList), m switch
@@ -37,7 +42,7 @@ foreach (var file in Directory.GetFiles(Path.Combine(root, "Scripts"), "*.cs", S
         };
         if (name.Length == 0) continue;
         Add(new CallKey(Caller(invocation), "invoke", receiver,
-            ReceiverTypeHint(invocation, receiver), name, invocation.ArgumentList.Arguments.Count));
+            ReceiverTypeHint(invocation, receiver, memberTypes), name, invocation.ArgumentList.Arguments.Count));
     }
     foreach (var creation in unit.DescendantNodes().OfType<ObjectCreationExpressionSyntax>())
     {
@@ -96,7 +101,63 @@ static string IdentifierPath(SyntaxNode node) => node switch
 
 static string Join(string left, string right) => left.Length == 0 || right.Length == 0 ? "" : left + "." + right;
 
-static string ReceiverTypeHint(SyntaxNode node, string receiver)
+static Dictionary<string, Dictionary<string, string>> BuildMemberTypes(IEnumerable<CompilationUnitSyntax> units)
+{
+    var declarations = units.SelectMany(u => u.DescendantNodes().OfType<TypeDeclarationSyntax>())
+        .GroupBy(t => t.Identifier.ValueText);
+    var result = new Dictionary<string, Dictionary<string, string>>(StringComparer.Ordinal);
+    foreach (var group in declarations)
+    {
+        // A short type name must designate just one declared project type.
+        var identities = group.Select(t => string.Join(".",
+            t.Ancestors().OfType<BaseNamespaceDeclarationSyntax>().Reverse().Select(n => n.Name.ToString())
+            .Concat(t.Ancestors().OfType<BaseTypeDeclarationSyntax>().Reverse().Select(n => n.Identifier.ValueText))
+            .Append(t.Identifier.ValueText))).Distinct().ToArray();
+        if (identities.Length != 1) continue;
+        var members = new Dictionary<string, string>(StringComparer.Ordinal);
+        var conflicting = new HashSet<string>(StringComparer.Ordinal);
+        foreach (var type in group)
+        {
+            foreach (var field in type.Members.OfType<FieldDeclarationSyntax>())
+                foreach (var variable in field.Declaration.Variables)
+                    Add(variable.Identifier.ValueText, IdentifierPath(field.Declaration.Type));
+            foreach (var property in type.Members.OfType<PropertyDeclarationSyntax>())
+                Add(property.Identifier.ValueText, IdentifierPath(property.Type));
+        }
+        result[group.Key] = members;
+        result[identities[0]] = members;
+
+        void Add(string name, string memberType)
+        {
+            if (memberType.Length == 0 || conflicting.Contains(name)) return;
+            if (members.TryGetValue(name, out var previous) && previous != memberType)
+            {
+                members.Remove(name);
+                conflicting.Add(name);
+            }
+            else members[name] = memberType;
+        }
+    }
+    return result;
+}
+
+static string ReceiverTypeHint(SyntaxNode node, string receiver,
+    Dictionary<string, Dictionary<string, string>> memberTypes)
+{
+    if (!receiver.Contains('.')) return SimpleReceiverTypeHint(node, receiver);
+    var parts = receiver.Split('.');
+    var first = parts[0] == "this" && parts.Length > 1 ? "this." + parts[1] : parts[0];
+    var type = SimpleReceiverTypeHint(node, first);
+    if (type.Length == 0) return "";
+    for (var i = first.StartsWith("this.", StringComparison.Ordinal) ? 2 : 1; i < parts.Length; i++)
+    {
+        if (!memberTypes.TryGetValue(type, out var members) ||
+            !members.TryGetValue(parts[i], out type)) return "";
+    }
+    return type;
+}
+
+static string SimpleReceiverTypeHint(SyntaxNode node, string receiver)
 {
     var explicitThis = receiver.StartsWith("this.", StringComparison.Ordinal);
     var name = explicitThis ? receiver[5..] : receiver;
