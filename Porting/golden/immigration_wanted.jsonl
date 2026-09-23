@@ -1,0 +1,10 @@
+{"case":"zero_positive","wanted":3}
+{"case":"zero_negative","wanted":-1}
+{"case":"below_threshold","wanted":0}
+{"case":"at_threshold","wanted":0}
+{"case":"above_threshold","wanted":1}
+{"case":"ordinary_positive","wanted":76}
+{"case":"upper_clamp","wanted":293}
+{"case":"lower_clamp","wanted":-100}
+{"case":"camp_capacity","wanted":90}
+{"case":"camp_exhausted","wanted":0}

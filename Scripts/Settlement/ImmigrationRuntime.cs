@@ -15,7 +15,7 @@ public sealed class RaceImmigrationState
 /// <summary>Numerical core of Immigration; happiness/standing are explicit inputs.</summary>
 public sealed class ImmigrationRuntime
 {
-    public const double HappinessThreshold = 0.5;
+    public const double HappinessThreshold = 0.9;
     private readonly Dictionary<string, RaceImmigrationState> _states =
         new(StringComparer.OrdinalIgnoreCase);
     public RaceImmigrationState State(string race) =>
@@ -57,8 +57,8 @@ public sealed class ImmigrationRuntime
         bool campAvailable = false, int campPopulation = 0, double standingPower = 1)
     {
         if (campAvailable) return Math.Max(campPopulation - currentAndIncoming, 0);
-        happiness = Math.Clamp(happiness, 0, 2);
         if (expectedPopulation == 0) return (int)Math.Ceiling(happiness - 0.1);
+        happiness = Math.Clamp(happiness, 0, 2);
         var attraction = happiness - HappinessThreshold;
         if (attraction <= 0) return (int)(expectedPopulation * attraction / HappinessThreshold);
         attraction *= 0.5;

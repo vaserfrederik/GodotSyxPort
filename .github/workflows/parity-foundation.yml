@@ -20,6 +20,10 @@ jobs:
         run: |
           python tools/test_java_call_inventory.py
           python tools/test_java_call_graph.py
+      - name: Verify isolated Java immigration formula fixture
+        run: |
+          java tools/ReferenceImmigrationFormula.java Porting/golden/immigration_inputs.csv > /tmp/immigration_wanted.jsonl
+          diff -u Porting/golden/immigration_wanted.jsonl /tmp/immigration_wanted.jsonl
       - name: Validate source registry and parity claims
         run: python tools/build_parity_registry.py --check
       - name: Validate dependency graph
@@ -67,6 +71,10 @@ jobs:
         run: |
           dotnet run --project tools/ParityCoreTimeRunner.csproj --configuration Release -- > /tmp/core_time.jsonl
           diff -u Porting/golden/core_time.jsonl /tmp/core_time.jsonl
+      - name: Compare C# immigration formula to isolated Java source formula
+        run: |
+          dotnet run --project tools/ParityImmigrationRunner.csproj --configuration Release -- Porting/golden/immigration_inputs.csv > /tmp/immigration_wanted.jsonl
+          diff -u Porting/golden/immigration_wanted.jsonl /tmp/immigration_wanted.jsonl
       - name: Preserve capped simulation steps and pause semantics
         run: dotnet run --project tools/CheckSimulationClock.csproj --configuration Release
 
