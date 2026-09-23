@@ -28,8 +28,11 @@ Java units in this specific source JAR.
 `tools/CSharpAstInventory.csproj` uses the .NET SDK's Roslyn parser to list
 declared C# types. It associates each type only with file-level Java candidates
 from the old manifest. The `UnverifiedCandidate` label does not claim a
-semantic mapping. The CI artifact is an intermediate for the reviewed type
-index; it will become a committed CI gate once the first run succeeds.
+semantic mapping. The committed `csharp_type_index.json` is regenerated and
+compared in CI. It currently lists 452 types in 133 compiled source files:
+353 have unverified file-level candidates and 99 have none. For 247 types,
+the candidate list contains more than ten Java units, illustrating why a file
+match cannot be promoted to a type-level mapping without review.
 `global.json` selects a compatible .NET 8 SDK for both the Godot project and
 the AST tool so its Roslyn assemblies match the target framework.
 

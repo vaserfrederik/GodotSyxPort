@@ -16,6 +16,8 @@ jobs:
         run: python tools/build_parity_registry.py --check
       - name: Validate dependency graph
         run: python tools/build_dependency_graph.py --check
+      - name: Validate C# candidate bindings
+        run: python tools/check_type_index.py
       - name: Reject new explicit placeholders
         run: python tools/check_new_stubs.py
 
@@ -54,8 +56,10 @@ jobs:
         with:
           dotnet-version: '8.0.x'
       - name: Parse compiled C# source types
-        run: dotnet run --project tools/CSharpAstInventory.csproj --configuration Release -- Porting/csharp_type_index.json
+        run: |
+          dotnet run --project tools/CSharpAstInventory.csproj --configuration Release -- /tmp/csharp_type_index.json
+          diff -u Porting/csharp_type_index.json /tmp/csharp_type_index.json
       - uses: actions/upload-artifact@v4
         with:
           name: csharp-type-index
-          path: Porting/csharp_type_index.json
+          path: /tmp/csharp_type_index.json
