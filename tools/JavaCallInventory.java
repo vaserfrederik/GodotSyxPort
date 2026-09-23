@@ -1,19 +1,23 @@
 import com.sun.source.tree.ClassTree;
 import com.sun.source.tree.CompilationUnitTree;
 import com.sun.source.tree.IdentifierTree;
+import com.sun.source.tree.LambdaExpressionTree;
 import com.sun.source.tree.MemberSelectTree;
 import com.sun.source.tree.MethodInvocationTree;
 import com.sun.source.tree.MethodTree;
 import com.sun.source.tree.NewClassTree;
 import com.sun.source.tree.ParameterizedTypeTree;
 import com.sun.source.tree.Tree;
+import com.sun.source.tree.VariableTree;
 import com.sun.source.util.JavacTask;
 import com.sun.source.util.TreePathScanner;
+import com.sun.source.util.TreeScanner;
 import java.net.URI;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.TreeMap;
 import java.util.TreeSet;
@@ -36,12 +40,14 @@ public final class JavaCallInventory {
         @Override public CharSequence getCharContent(boolean ignoreEncodingErrors) { return body; }
     }
 
-    private record Call(String caller, String kind, String receiver, String name, int arity)
+    private record Call(String caller, String kind, String receiver, String receiverTypeHint,
+        String name, int arity)
         implements Comparable<Call> {
         @Override public int compareTo(Call other) {
             int r = caller.compareTo(other.caller);
             if (r == 0) r = kind.compareTo(other.kind);
             if (r == 0) r = receiver.compareTo(other.receiver);
+            if (r == 0) r = receiverTypeHint.compareTo(other.receiverTypeHint);
             if (r == 0) r = name.compareTo(other.name);
             return r == 0 ? Integer.compare(arity, other.arity) : r;
         }
@@ -94,21 +100,71 @@ public final class JavaCallInventory {
             new TreePathScanner<Void, Void>() {
                 String owner = "";
                 String method = "<initializer>/0";
+                ClassTree ownerNode;
+                MethodTree methodNode;
+                Set<String> methodLocalNames = Set.of();
 
                 @Override public Void visitClass(ClassTree node, Void unused) {
                     String previous = owner;
+                    String previousMethod = method;
+                    ClassTree previousNode = ownerNode;
+                    MethodTree previousMethodNode = methodNode;
+                    Set<String> previousLocals = methodLocalNames;
                     String name = node.getSimpleName().toString();
                     if (!name.isEmpty()) owner = owner.isEmpty() ? name : owner + "." + name;
+                    ownerNode = node;
+                    method = "<initializer>/0";
+                    methodNode = null;
+                    methodLocalNames = Set.of();
                     try { return super.visitClass(node, unused); }
-                    finally { owner = previous; }
+                    finally {
+                        owner = previous;
+                        method = previousMethod;
+                        ownerNode = previousNode;
+                        methodNode = previousMethodNode;
+                        methodLocalNames = previousLocals;
+                    }
                 }
 
                 @Override public Void visitMethod(MethodTree node, Void unused) {
                     String previous = method;
+                    MethodTree previousNode = methodNode;
+                    Set<String> previousLocals = methodLocalNames;
                     method = node.getName() + "/" + node.getParameters().size();
+                    methodNode = node;
+                    methodLocalNames = new HashSet<>();
+                    if (node.getBody() != null) new TreeScanner<Void, Void>() {
+                        @Override public Void visitVariable(VariableTree variable, Void ignored) {
+                            methodLocalNames.add(variable.getName().toString());
+                            return super.visitVariable(variable, ignored);
+                        }
+                    }.scan(node.getBody(), null);
                     methods.add(new Method(owner, node.getName().toString(), node.getParameters().size()));
                     try { return super.visitMethod(node, unused); }
-                    finally { method = previous; }
+                    finally {
+                        method = previous;
+                        methodNode = previousNode;
+                        methodLocalNames = previousLocals;
+                    }
+                }
+
+                private String receiverTypeHint(String receiver) {
+                    if (receiver.isEmpty() || receiver.contains(".") ||
+                        receiver.equals("this") || receiver.equals("super")) return "";
+                    for (var path = getCurrentPath(); path != null; path = path.getParentPath())
+                        if (path.getLeaf() instanceof LambdaExpressionTree lambda)
+                            for (VariableTree parameter : lambda.getParameters())
+                                if (parameter.getName().contentEquals(receiver)) return "";
+                    // An unknown local declaration anywhere in the method can hide a
+                    // field. Defer the whole name rather than assign a false type.
+                    if (methodLocalNames.contains(receiver)) return "";
+                    if (methodNode != null) for (VariableTree parameter : methodNode.getParameters())
+                        if (parameter.getName().contentEquals(receiver))
+                            return identifierPath(parameter.getType());
+                    if (ownerNode != null) for (Tree member : ownerNode.getMembers())
+                        if (member instanceof VariableTree field && field.getName().contentEquals(receiver))
+                            return identifierPath(field.getType());
+                    return "";
                 }
 
                 @Override public Void visitMethodInvocation(MethodInvocationTree node, Void unused) {
@@ -124,6 +180,7 @@ public final class JavaCallInventory {
                         return super.visitMethodInvocation(node, unused);
                     }
                     record(calls, new Call(owner + "#" + method, "invoke", receiver,
+                        receiverTypeHint(receiver),
                         name, node.getArguments().size()));
                     return super.visitMethodInvocation(node, unused);
                 }
@@ -133,7 +190,7 @@ public final class JavaCallInventory {
                     if (type instanceof ParameterizedTypeTree generic) type = generic.getType();
                     String target = identifierPath(type);
                     if (!target.isEmpty()) record(calls, new Call(owner + "#" + method,
-                        "construct", target, "<init>", node.getArguments().size()));
+                        "construct", target, "", "<init>", node.getArguments().size()));
                     return super.visitNewClass(node, unused);
                 }
             }.scan(unit, null);
@@ -152,6 +209,7 @@ public final class JavaCallInventory {
                 out.append("{\"caller\":").append(json(c.caller))
                     .append(",\"kind\":").append(json(c.kind))
                     .append(",\"receiver\":").append(json(c.receiver))
+                    .append(",\"receiverTypeHint\":").append(json(c.receiverTypeHint))
                     .append(",\"name\":").append(json(c.name))
                     .append(",\"arity\":").append(c.arity)
                     .append(",\"count\":").append(entry.getValue()).append('}');
