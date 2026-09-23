@@ -33,6 +33,11 @@ compared in CI. It currently lists 452 types in 133 compiled source files:
 353 have unverified file-level candidates and 99 have none. For 247 types,
 the candidate list contains more than ten Java units, illustrating why a file
 match cannot be promoted to a type-level mapping without review.
+`reviewed_type_bindings.json` records exact reviewed type associations and
+their test evidence separately from old file-level candidates. The first
+binding is `JavaRandomCompat` to `RND.java`, status `Porting`: five wrapper
+methods have fixture coverage, but global state and the remaining methods do
+not. `check_type_index.py` validates that binding and its test references.
 `global.json` selects a compatible .NET 8 SDK for both the Godot project and
 the AST tool so its Roslyn assemblies match the target framework.
 
