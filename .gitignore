@@ -21,3 +21,7 @@ Desktop.ini
 # Temporary scan output (auto-generated copies)
 source_scan.*/
 *.cache
+
+# Parity inventory tooling
+__pycache__/
+*.pyc
