@@ -16,11 +16,27 @@ sources = {
     "parity/Left.java": "package parity; interface Left { void clash(); }",
     "parity/Right.java": "package parity; interface Right { void clash(); }",
     "parity/Both.java": "package parity; abstract class Both implements Left, Right {}",
+    "parity/Leaf.java": "package parity; class Leaf { void touch() {} }",
+    "parity/Holder.java": "package parity; class Holder { Leaf leaf; }",
+    "parity/Parent.java": "package parity; class Parent { Leaf leaf; }",
+    "parity/Child.java": "package parity; class Child extends Parent {}",
+    "parity/LeftField.java": "package parity; interface LeftField { Leaf leaf = null; }",
+    "parity/RightField.java": "package parity; interface RightField { Leaf leaf = null; }",
+    "parity/BothFields.java": "package parity; abstract class BothFields implements LeftField, RightField {}",
+    "foreign/Leaf.java": "package foreign; public class Leaf { public void touch() {} }",
+    "foreign/Holder.java": "package foreign; public class Holder { public Leaf leaf; }",
     "parity/Caller.java": """package parity;
         class Caller {
+            Holder holder;
+            Child child;
+            BothFields bothFields;
+            foreign.Holder other;
+            class Nested { void run() { Caller.this.holder.leaf.touch(); } }
             void run(Derived derived, Abstract abstractValue, Both both) {
                 derived.ping(); derived.run(); derived.inherited();
                 abstractValue.draw(); both.clash();
+                holder.leaf.touch(); this.holder.leaf.touch();
+                child.leaf.touch(); other.leaf.touch(); bothFields.leaf.touch();
             }
         }
     """,
@@ -51,7 +67,10 @@ with tempfile.TemporaryDirectory() as directory:
         ("parity/Caller.java", "parity/Derived.java"): 2,
         ("parity/Caller.java", "parity/Base.java"): 1,
         ("parity/Caller.java", "parity/Face.java"): 1,
+        ("parity/Caller.java", "parity/Leaf.java"): 4,
+        ("parity/Caller.java", "foreign/Leaf.java"): 1,
     }, edges
     assert result["summary"]["unresolved_calls_by_reason"]["inherited-ambiguous"] == 1
+    assert result["summary"]["unresolved_calls_by_reason"]["member-ambiguous"] == 1
 
 print("Java inheritance: base class and interface calls resolved; competing interfaces deferred")

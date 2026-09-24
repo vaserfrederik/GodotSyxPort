@@ -38,6 +38,25 @@ def declaring_method(target, name, arity, methods, parents):
     return None, "method-unbound"
 
 
+def declaring_field_type(target, name, fields, parents, owners, imports, types):
+    """Follow only a uniquely declared field at the nearest inheritance level."""
+    pending = {target}
+    visited = set()
+    while pending:
+        matches = sorted(owner for owner in pending if name in fields.get(owner, {}))
+        if matches:
+            if len(matches) != 1:
+                return None, "member-ambiguous"
+            owner = matches[0]
+            source, package, local_owner = owners[owner]
+            field_type = resolve_base(fields[owner][name], local_owner, package,
+                                      imports[source], types)
+            return (field_type, "") if field_type else (None, "member-type-unbound")
+        visited.update(pending)
+        pending = {base for owner in pending for base in parents.get(owner, ())} - visited
+    return None, "member-unbound"
+
+
 def build(jar):
     registry = json.loads(REGISTRY.read_text())
     expected_hash = registry["source_archive_sha256"]
@@ -56,6 +75,8 @@ def build(jar):
     types = {}
     class_types = set()
     methods = set()
+    fields = {}
+    owners = {}
     for row in records:
         package = row["Package"]
         source = row["JavaSource"]
@@ -63,17 +84,23 @@ def build(jar):
             kind, name = declaration.split(" ", 1)
             qualified = ".".join(filter(None, (package, name)))
             types[qualified] = source
+            owners[qualified] = (source, package, name)
             if kind == "CLASS":
                 class_types.add(qualified)
+        for owner, declared_fields in row["Fields"].items():
+            qualified = ".".join(filter(None, (package, owner)))
+            fields[qualified] = declared_fields
         for method in row["Methods"]:
             owner = ".".join(filter(None, (package, method["owner"])))
             methods.add((owner, method["name"], method["arity"]))
 
     parents = {}
+    imports_by_source = {}
     for row in records:
         package = row["Package"]
         imports = {item.rsplit(".", 1)[-1]: item
                    for item in units[row["JavaSource"]]["JavaDependencies"] if item in types}
+        imports_by_source[row["JavaSource"]] = imports
         for owner, bases in row["Parents"].items():
             qualified_owner = ".".join(filter(None, (package, owner)))
             parents[qualified_owner] = tuple(filter(None, (
@@ -89,12 +116,7 @@ def build(jar):
     for row in records:
         source = row["JavaSource"]
         package = row["Package"]
-        imports = {}
-        for imported in units[source]["JavaDependencies"]:
-            if imported.startswith("static ") or imported.endswith(".*"):
-                continue
-            if imported in types:
-                imports[imported.rsplit(".", 1)[-1]] = imported
+        imports = imports_by_source[source]
         for call in row["Calls"]:
             count = call["count"]
             call_count += count
@@ -115,6 +137,16 @@ def build(jar):
             if target is None:
                 unresolved["receiver-unbound"] += count
                 continue
+            member_path = call.get("receiverMemberPath", "")
+            if member_path:
+                for member in member_path.split("."):
+                    target, reason = declaring_field_type(
+                        target, member, fields, parents, owners, imports_by_source, types)
+                    if reason:
+                        unresolved[reason] += count
+                        break
+                if target is None:
+                    continue
             receiver_type = target
             if call["kind"] == "invoke":
                 key = target, call["name"], call["arity"]
@@ -155,7 +187,7 @@ def build(jar):
     return {
         "schema": 1,
         "source_archive_sha256": expected_hash,
-        "scope": "File-level Java AST candidates from declared types, scoped receiver hints (including var initialized directly by new), explicit super and uniquely declared inherited methods, matched by name/arity. Overloads, dynamic dispatch and behavior parity remain unverified.",
+        "scope": "File-level Java AST candidates from declared types, scoped receiver hints (including var initialized directly by new), uniquely declared field chains, explicit super and uniquely declared inherited methods, matched by name/arity. Overloads, dynamic dispatch and behavior parity remain unverified.",
         "summary": {"java_units": len(records), "declared_methods": len(methods),
                     "all_calls": call_count, "cross_source_candidate_file_edges": len(edge_rows),
                     "cross_source_candidate_call_signatures": len(edges),

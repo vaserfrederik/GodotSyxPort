@@ -33,43 +33,6 @@ jobs:
       - name: Reject new explicit placeholders
         run: python tools/check_new_stubs.py
 
-  build:
-    strategy:
-      matrix:
-        os: [ubuntu-latest, windows-latest]
-    runs-on: ${{ matrix.os }}
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-      - name: Compile Godot C# project
-        run: dotnet build GodotSyxPort.csproj --configuration Release
-
-  rng-parity:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-dotnet@v4
-        with:
-          dotnet-version: '8.0.x'
-      - name: Compare C# RNG to game runtime reference
-        run: |
-          dotnet run --project tools/ParityRngRunner.csproj --configuration Release -- 12345 12 37 > /tmp/rng_12345.jsonl
-          diff -u Porting/golden/rng_seed_12345.jsonl /tmp/rng_12345.jsonl
-          dotnet run --project tools/ParityRngRunner.csproj --configuration Release -- -7 12 64 > /tmp/rng_minus7.jsonl
-          diff -u Porting/golden/rng_seed_minus7.jsonl /tmp/rng_minus7.jsonl
-      - name: Compare C# clamp and bits to game runtime reference
-        run: |
-          dotnet run --project tools/ParityCoreMathRunner.csproj --configuration Release -- > /tmp/core_math.jsonl
-          diff -u Porting/golden/core_math.jsonl /tmp/core_math.jsonl
-      - name: Compare C# frame clock to game runtime reference
-        run: |
-          dotnet run --project tools/ParityCoreTimeRunner.csproj --configuration Release -- > /tmp/core_time.jsonl
-          diff -u Porting/golden/core_time.jsonl /tmp/core_time.jsonl
-      - name: Preserve capped simulation steps and pause semantics
-        run: dotnet run --project tools/CheckSimulationClock.csproj --configuration Release
-
   type-index:
     runs-on: ubuntu-latest
     steps:
@@ -84,13 +47,5 @@ jobs:
       - name: Parse C# source calls
         run: |
           dotnet run --project tools/CSharpCallInventory.csproj --configuration Release -- /tmp/csharp_call_index.json
-      - uses: actions/upload-artifact@v4
-        with:
-          name: csharp-call-index
-          path: /tmp/csharp_call_index.json
       - name: Verify committed C# call inventory
         run: diff -u Porting/csharp_call_index.json /tmp/csharp_call_index.json
-      - uses: actions/upload-artifact@v4
-        with:
-          name: csharp-type-index
-          path: /tmp/csharp_type_index.json

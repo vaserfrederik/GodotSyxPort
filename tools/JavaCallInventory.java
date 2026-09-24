@@ -48,13 +48,14 @@ public final class JavaCallInventory {
     }
 
     private record Call(String caller, String kind, String receiver, String receiverTypeHint,
-        String name, int arity)
+        String receiverMemberPath, String name, int arity)
         implements Comparable<Call> {
         @Override public int compareTo(Call other) {
             int r = caller.compareTo(other.caller);
             if (r == 0) r = kind.compareTo(other.kind);
             if (r == 0) r = receiver.compareTo(other.receiver);
             if (r == 0) r = receiverTypeHint.compareTo(other.receiverTypeHint);
+            if (r == 0) r = receiverMemberPath.compareTo(other.receiverMemberPath);
             if (r == 0) r = name.compareTo(other.name);
             return r == 0 ? Integer.compare(arity, other.arity) : r;
         }
@@ -106,6 +107,7 @@ public final class JavaCallInventory {
             Map<Call, Integer> calls = new TreeMap<>();
             Set<Method> methods = new TreeSet<>();
             Map<String, List<String>> parents = new TreeMap<>();
+            Map<String, Map<String, String>> fields = new TreeMap<>();
             new TreePathScanner<Void, Void>() {
                 String owner = "";
                 String method = "<initializer>/0";
@@ -128,6 +130,13 @@ public final class JavaCallInventory {
                         bases.add(identifierPath(base));
                     if (!name.isEmpty())
                         parents.put(owner, bases.stream().filter(base -> !base.isEmpty()).toList());
+                    if (!name.isEmpty()) {
+                        Map<String, String> declaredFields = new TreeMap<>();
+                        for (Tree member : node.getMembers())
+                            if (member instanceof VariableTree field)
+                                declaredFields.put(field.getName().toString(), declaredType(field));
+                        fields.put(owner, declaredFields);
+                    }
                     ownerNode = node;
                     method = "<initializer>/0";
                     methodNode = null;
@@ -165,6 +174,20 @@ public final class JavaCallInventory {
                 }
 
                 private String receiverTypeHint(String receiver) {
+                    int outerThis = receiver.indexOf(".this.");
+                    if (outerThis > 0 && receiver.indexOf('.', outerThis + 6) < 0) {
+                        String outerName = receiver.substring(0, outerThis);
+                        String fieldName = receiver.substring(outerThis + 6);
+                        for (var path = getCurrentPath(); path != null; path = path.getParentPath()) {
+                            if (!(path.getLeaf() instanceof ClassTree enclosing) ||
+                                !enclosing.getSimpleName().contentEquals(outerName)) continue;
+                            for (Tree member : enclosing.getMembers())
+                                if (member instanceof VariableTree field &&
+                                    field.getName().contentEquals(fieldName))
+                                    return declaredType(field);
+                            return "?";
+                        }
+                    }
                     if (receiver.startsWith("this.") && receiver.indexOf('.', 5) < 0 &&
                         ownerNode != null) {
                         String fieldName = receiver.substring(5);
@@ -223,6 +246,20 @@ public final class JavaCallInventory {
                     return "";
                 }
 
+                private String[] receiverInfo(String receiver) {
+                    String direct = receiverTypeHint(receiver);
+                    if (!direct.isEmpty() || !receiver.contains(".")) return new String[] {direct, ""};
+                    int outerThis = receiver.indexOf(".this.");
+                    int firstFieldStart = outerThis > 0 ? outerThis + 6 :
+                        receiver.startsWith("this.") ? 5 : 0;
+                    int nextDot = receiver.indexOf('.', firstFieldStart);
+                    if (nextDot < 0) return new String[] {"", ""};
+                    String base = receiver.substring(0, nextDot);
+                    String type = receiverTypeHint(base);
+                    return type.isEmpty() ? new String[] {"", ""} :
+                        new String[] {type, receiver.substring(nextDot + 1)};
+                }
+
                 private String declaredType(VariableTree variable) {
                     String name = identifierPath(variable.getType());
                     if (!name.isEmpty() && !name.equals("var")) return name;
@@ -243,8 +280,9 @@ public final class JavaCallInventory {
                     } else {
                         return super.visitMethodInvocation(node, unused);
                     }
+                    String[] receiverInfo = receiverInfo(receiver);
                     record(calls, new Call(owner + "#" + method, "invoke", receiver,
-                        receiverTypeHint(receiver),
+                        receiverInfo[0], receiverInfo[1],
                         name, node.getArguments().size()));
                     return super.visitMethodInvocation(node, unused);
                 }
@@ -254,7 +292,7 @@ public final class JavaCallInventory {
                     if (type instanceof ParameterizedTypeTree generic) type = generic.getType();
                     String target = identifierPath(type);
                     if (!target.isEmpty()) record(calls, new Call(owner + "#" + method,
-                        "construct", target, "", "<init>", node.getArguments().size()));
+                        "construct", target, "", "", "<init>", node.getArguments().size()));
                     return super.visitNewClass(node, unused);
                 }
             }.scan(unit, null);
@@ -268,6 +306,16 @@ public final class JavaCallInventory {
                     out.append(json(base));
                 }
                 out.append(']');
+            }
+            out.append("},\"Fields\":{");
+            for (var entry : fields.entrySet()) {
+                if (out.charAt(out.length() - 1) != '{') out.append(',');
+                out.append(json(entry.getKey())).append(":{");
+                for (var field : entry.getValue().entrySet()) {
+                    if (out.charAt(out.length() - 1) != '{') out.append(',');
+                    out.append(json(field.getKey())).append(':').append(json(field.getValue()));
+                }
+                out.append('}');
             }
             out.append("},\"Methods\":[");
             for (Method m : methods) {
@@ -284,6 +332,7 @@ public final class JavaCallInventory {
                     .append(",\"kind\":").append(json(c.kind))
                     .append(",\"receiver\":").append(json(c.receiver))
                     .append(",\"receiverTypeHint\":").append(json(c.receiverTypeHint))
+                    .append(",\"receiverMemberPath\":").append(json(c.receiverMemberPath))
                     .append(",\"name\":").append(json(c.name))
                     .append(",\"arity\":").append(c.arity)
                     .append(",\"count\":").append(entry.getValue()).append('}');

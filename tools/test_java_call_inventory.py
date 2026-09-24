@@ -10,12 +10,19 @@ from zipfile import ZipFile
 source = """package parity;
 class Target { void ping() {} }
 class Other { void ping() {} }
+class Holder { Target leaf; }
 class Base { void inherited() {} }
 class Derived extends Base { }
 interface Face { void face(); }
 abstract class Abstract implements Face { }
 class Caller {
     private Target field;
+    private Holder holder;
+    class Inner {
+        private Other field;
+        void qualifiedOuter() { Caller.this.field.ping(); field.ping(); Caller.this.holder.leaf.ping(); }
+    }
+    void chain(Holder parameter) { holder.leaf.ping(); this.holder.leaf.ping(); parameter.leaf.ping(); }
     void call(Target parameter) { field.ping(); this.field.ping(); parameter.ping(); }
     void local() { Target local = null; local.ping(); }
     void shadow() { Other field = null; field.ping(); }
@@ -51,6 +58,12 @@ with tempfile.TemporaryDirectory() as directory:
         if call["name"] == "ping":
             hints[(call["caller"], call["receiver"])].add(call["receiverTypeHint"])
     assert hints == {
+        ("Caller.Inner#qualifiedOuter/0", "Caller.this.field"): {"Target"},
+        ("Caller.Inner#qualifiedOuter/0", "field"): {"Other"},
+        ("Caller.Inner#qualifiedOuter/0", "Caller.this.holder.leaf"): {"Holder"},
+        ("Caller#chain/1", "holder.leaf"): {"Holder"},
+        ("Caller#chain/1", "this.holder.leaf"): {"Holder"},
+        ("Caller#chain/1", "parameter.leaf"): {"Holder"},
         ("Caller#call/1", "field"): {"Target"},
         ("Caller#call/1", "this.field"): {"Target"},
         ("Caller#call/1", "parameter"): {"Target"},
@@ -65,5 +78,9 @@ with tempfile.TemporaryDirectory() as directory:
     }, dict(hints)
     assert record["Parents"]["Derived"] == ["Base"]
     assert record["Parents"]["Abstract"] == ["Face"]
+    assert record["Fields"]["Holder"]["leaf"] == "Target"
+    assert record["Fields"]["Caller"]["holder"] == "Holder"
+    chains = [call for call in record["Calls"] if call["receiver"].endswith(".leaf")]
+    assert len(chains) == 4 and all(call["receiverMemberPath"] == "leaf" for call in chains)
 
 print("Java AST receiver hints: field, parameter, local, loop and lambda scopes passed")

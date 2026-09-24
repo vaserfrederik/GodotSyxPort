@@ -80,17 +80,24 @@ parameters, class fields and in-scope local variables by method name/argument
 count, then aggregates the resulting candidates by source-file pair. Local
 declarations in blocks, `for`, enhanced `for`, `catch`, try-with-resources and
 typed lambdas are checked against source positions and enclosing scopes.
-`var` initialized directly by `new Type(...)` and explicit `this.field` now
-also give receiver hints. Unknown local types suppress speculative matches to
-a project class with the same name. Declared `extends`/`implements` relations
+`var` initialized directly by `new Type(...)`, explicit `this.field`, and
+`Outer.this.field` from an enclosing class give receiver hints. Unknown local
+types suppress speculative matches to a project class with the same name.
+Declared Java field chains such as `a.speed.magnitudeAdjust(...)` now follow
+each uniquely identified field type, including an inherited field when its
+nearest declaration is unique. Unknown and ambiguous members remain unresolved.
+Declared `extends`/`implements` relations
 allow a unique nearest inherited method to point to its declaring source;
 `super` targets a declared class parent. Competing nearest declarations stay
-unresolved. The graph now contains 106,884 cross-source candidate calls over
-25,229 file pairs, including 11,363 inherited calls and 1,064 explicit `super`
-calls; 33,075 calls still have an unbound receiver. Method name/arity alone
+unresolved. The graph now contains 112,757 cross-source candidate calls over
+26,666 file pairs, including 11,866 inherited calls and 1,064 explicit `super`
+calls; 27,102 calls still have an unbound receiver and 67 field chains have
+an unknown target type. Method name/arity alone
 cannot prove Java overload selection or virtual dispatch. Inferred values
 from method returns, collections, external libraries and full Java semantics
 remain unknown; these edges are *candidates*, not confirmed dynamic calls.
+The graph lists 483 Java units called by old C# candidates with no candidate
+file mapping. This is a review queue, not proof of missing behavior.
 Recreate with `python tools/build_java_call_graph.py --source-jar /path/to/SongsOfSyx-sources.jar`.
 CI validates the stored graph's referential integrity and summary without
 redistributing the source archive. `tools/CSharpCallInventory.csproj` parses
@@ -115,31 +122,27 @@ comparisons while C# `PackedBits.Increment` calls `SourceClamp.Integer`.
 This is a confirmed structural difference; numerical parity still depends
 on the fixtures and additional edge cases.
 
-The first executable reference scenario uses the supplied runtime JAR's
+An earlier executable reference scenario used the supplied runtime JAR's
 `snake2d.util.rnd.RND` class to capture integer, bounded integer, boolean,
 float-bit and long sequences. The committed fixtures contain only numeric
-results. Recreate them locally with:
+results. Regenerating them would require executing the original runtime and
+is outside the current verification scope.
 
-```sh
-java --class-path /path/to/SongsOfSyx.jar tools/ReferenceRngRunner.java 12345 12 37 > Porting/golden/rng_seed_12345.jsonl
-java --class-path /path/to/SongsOfSyx.jar tools/ReferenceRngRunner.java -7 12 64 > Porting/golden/rng_seed_minus7.jsonl
-java --class-path /path/to/SongsOfSyx.jar tools/ReferenceCoreTimeRunner.java > Porting/golden/core_time.jsonl
-```
-
-`tools/ParityRngRunner.csproj` runs the matching C# implementation without
-Godot UI and CI compares its output byte for byte to both Java fixtures.
-This validates one RNG primitive and does not establish parity for the full
+`tools/ParityRngRunner.csproj` was used to compare the C# implementation to
+both Java fixtures. These executable scenarios remain as historical evidence
+but are outside the current static-only verification gate. The fixtures cover
+one RNG primitive and do not establish parity for the full
 `RND.java` class or the game's simulation.
 
-CI builds the Godot C# project on Linux and Windows. The registry, graph and
-explicit-placeholder checks run on Linux; the RNG fixture comparison runs in
-its own Linux job. `tools/check_new_stubs.py` prevents new `TODO`, `FIXME`,
-`NotImplementedException`, and empty `void`/`Task` methods in compiled C#
+The current CI gate checks source inventories, call graphs, reviewed bindings
+and explicit placeholders. Its Roslyn inventory tool parses C# source syntax;
+it does not build or launch the Godot project. No Windows build or executable
+parity scenario is part of this gate. `tools/check_new_stubs.py` prevents new
+`TODO`, `FIXME`, `NotImplementedException`, and empty `void`/`Task` methods in compiled C#
 sources. It does not detect incorrect fallback values or behavioral shortcuts.
 The existing empty `AsylumRuntime.Tick` is documented in `known_stubs.json`;
 the waiver must be removed when that behavior is implemented.
 
-The current workspace has no .NET SDK, so compilation is verified by CI.
-The next parity gate requires connecting verified time primitives to the game
-loop and exercising world state and citizen decisions against Java reference
-scenarios. Isolated numeric and clock fixtures do not satisfy that gate.
+The next static gate is to review C# type bindings and the corresponding Java
+and C# call edges. Static evidence alone cannot establish runtime behavior
+or full game parity; those claims remain unverified.
