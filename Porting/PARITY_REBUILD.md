@@ -32,7 +32,7 @@ declared C# types. It associates each type only with file-level Java candidates
 from the old manifest. The `UnverifiedCandidate` label does not claim a
 semantic mapping. The committed `csharp_type_index.json` is regenerated and
 compared in CI. It currently lists 453 types in 134 compiled source files:
-353 have unverified file-level candidates and 100 have none. For 247 types,
+354 have unverified file-level candidates and 99 have none. For 247 types,
 the candidate list contains more than ten Java units, illustrating why a file
 match cannot be promoted to a type-level mapping without review.
 `reviewed_type_bindings.json` records exact reviewed type associations and
@@ -96,7 +96,7 @@ an unknown target type. Method name/arity alone
 cannot prove Java overload selection or virtual dispatch. Inferred values
 from method returns, collections, external libraries and full Java semantics
 remain unknown; these edges are *candidates*, not confirmed dynamic calls.
-The graph lists 483 Java units called by old C# candidates with no candidate
+The graph lists 484 Java units called by old C# candidates with no candidate
 file mapping. This is a review queue, not proof of missing behavior.
 Recreate with `python tools/build_java_call_graph.py --source-jar /path/to/SongsOfSyx-sources.jar`.
 CI validates the stored graph's referential integrity and summary without
@@ -112,8 +112,8 @@ containing block. It also follows chains of fields and properties when each
 member is declared on a uniquely named project type, for example
 `_world.Data` → `WorldGridData`. Untyped lambdas, inferred values from
 methods, ambiguous type names and collection elements remain unbound. This
-raises the cross-file call candidates from 2,095 to 2,387 across 407 file
-pairs and detects `GameBootstrap` calling `SimulationClock`. Another 8,211
+raises the cross-file call candidates from 2,095 to 2,389 across 407 file
+pairs and detects `GameBootstrap` calling `SimulationClock`. Another 8,210
 invocation sites have no bound receiver
 and remain in the review queue; this count also includes calls to external
 framework types. The reviewed `PackedBits` → `SourceClamp` C# edge has no

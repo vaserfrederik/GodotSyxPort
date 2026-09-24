@@ -53,8 +53,10 @@ water infrastructure forms a finite-flow network: a staffed pump retains maximum
 updates process at one tile per second. Farm production consumes the resulting moisture
 alongside fertility and weather.
 
-`ROOM_GATE` has a lightweight `GateRuntime`: operational gate cells and their
-subject-lock state are retained independently of the deferred enemy/battle path rules.
+`ROOM_GATE` has a partial `GateRuntime` with in-memory operational cells and a
+room-wide subject-lock flag. The source locks one furniture item's cells and
+updates path availability cell by cell. `RoomSystem` only synchronizes gates;
+the flag has no path consumer or persisted cell state yet.
 
 `ROOM_STATION`, crates, tallies and jobs reuse `SettlementLogisticsRuntime`: each crate
 holds 400 units and an operational station has the source limit of 15 workers. Its local
@@ -67,7 +69,7 @@ Occupancy is a real per-citizen reservation, inn staffing retains the source 1 w
 Tourist arrival, reviews and strategic tourism revenue stay deferred.
 
 `ROOM_BUILDER` and `ROOM_RADIUS` are consolidated in `BuilderInfrastructureRuntime`:
-each office retains source default radius 32, a configurable byte-sized radius and maximum
+each office retains source default radius 32, a configurable positive signed-byte radius (up to 127) and maximum
 20 employees. This is intentionally state-only until construction routing is separately
 integrated, preserving existing global construction jobs.
 

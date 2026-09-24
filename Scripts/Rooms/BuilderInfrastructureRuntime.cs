@@ -47,7 +47,8 @@ public sealed class BuilderInfrastructureRuntime
     public bool SetRadius(int roomId, int radius)
     {
         if (!_instances.TryGetValue(roomId, out var builder)) return false;
-        builder.Radius = Math.Clamp(radius, 1, byte.MaxValue);
+        // BuilderInstance.radiusRawSet receives Java's signed byte; positive radii stop at 127.
+        builder.Radius = Math.Clamp(radius, 1, sbyte.MaxValue);
         return true;
     }
 

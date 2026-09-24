@@ -33,7 +33,7 @@ public sealed class RoadMaintenanceSystem
             if (_updateCursor >= roads.Count) _updateCursor = 0;
             var index = roads[_updateCursor++];
             var cell = _world.FromIndex(index);
-            if (isRoomCell(cell)) continue;
+            if (_world.Data.IsBlocked(cell) || isRoomCell(cell)) continue;
             var road = OriginalGameData.Current.Floor(
                 _world.RoadKeys.GetValueOrDefault(index, "DIRT"));
             var rate = (MaintenanceRuntime.TilesPerDay +
@@ -78,10 +78,12 @@ public sealed class RoadMaintenanceSystem
             cell, _world.Data.RoadDegradation(cell) + 3 + (int)(GD.Randi() % 2));
     }
 
-    public void AccumulateExpectedDailyResourceUse(IDictionary<ResourceKind, double> totals)
+    public void AccumulateExpectedDailyResourceUse(IDictionary<ResourceKind, double> totals,
+        Func<int, bool> isRoomCell)
     {
         foreach (var index in _world.RoadCells)
         {
+            if (_world.Data.IsBlocked(_world.FromIndex(index)) || isRoomCell(index)) continue;
             var road = OriginalGameData.Current.Floor(
                 _world.RoadKeys.GetValueOrDefault(index, "DIRT"));
             if (road.ResourceAmount <= 0 ||

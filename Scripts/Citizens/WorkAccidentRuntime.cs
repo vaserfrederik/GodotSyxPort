@@ -34,21 +34,29 @@ public sealed class WorkAccidentRuntime
         {
             _scanTime -= 1;
             var candidates = _rooms.AccidentCandidates().OrderBy(candidate => candidate.Key).ToArray();
-            if (candidates.Length == 0) return;
+            if (candidates.Length == 0)
+            {
+                // Time spent without a qualifying blueprint must not become past accident debt.
+                _scanTime = 0;
+                return;
+            }
             _scanIndex %= candidates.Length;
             var candidate = candidates[_scanIndex++];
             var employed = candidate.Employed - 150.0;
             if (employed < 0) continue;
-            var dayFraction = playedSeconds / OriginalGameData.Current.SecondsPerDay % 1.0;
-            var relative = (dayFraction - candidate.ShiftOffset + 1.0) % 1.0;
-            if (relative < 0.1 || relative > 0.6) continue;
             var coefficient = candidates.Length /
                 (OriginalGameData.Current.SecondsPerDay * 16.0);
-            var chanceDebt = GameSession.TitleBonuses.Apply("CIVIC_ACCIDENT",
-                coefficient * candidate.AccidentsPerYear * Math.Pow(employed, 1.2));
+            // EventAccident divides by the civic safety boost, rather than boosting the debt.
+            var safety = GameSession.TitleBonuses.Apply("CIVIC_ACCIDENT", 1.0);
+            var chanceDebt = coefficient * candidate.AccidentsPerYear *
+                             Math.Pow(employed, 1.2) / safety;
             _timers[candidate.Key] = _timers.GetValueOrDefault(candidate.Key) -
                                      Math.Clamp(chanceDebt, 0, 1);
             if (_timers[candidate.Key] >= -10) continue;
+            // EventAccident accrues debt throughout the day; only create(ins) checks the shift.
+            var dayFraction = playedSeconds / OriginalGameData.Current.SecondsPerDay % 1.0;
+            var relative = (dayFraction - candidate.ShiftOffset + 1.0) % 1.0;
+            if (relative < 0.1 || relative > 0.6) continue;
             var result = _citizens.CreateWorkAccident(
                 candidate.RoomId, candidate.Cell, resources, jobs);
             _timers[candidate.Key] += result.Injured + result.Deaths;

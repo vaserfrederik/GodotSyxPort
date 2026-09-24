@@ -7,7 +7,7 @@ using GodotSyxPort.Simulation;
 
 namespace GodotSyxPort.Rooms;
 
-/// <summary>Shared JobPositions/JobIterator search state for a room instance.</summary>
+/// <summary>JobPositions search state for a room instance.</summary>
 public sealed class RoomJobPositionsRuntime
 {
     private readonly RoomInstanceRuntime _room;
@@ -30,25 +30,28 @@ public sealed class RoomJobPositionsRuntime
     public BuildJob? Find(
         GridCoord? preferred,
         Func<GridCoord, BuildJob?> get,
-        Func<BuildJob, bool> reservable)
+        Func<BuildJob, bool> reservable,
+        Func<BuildJob, IReadOnlyCollection<ResourceKind>?> resourcesToFetch)
     {
-        if (_searchedAll || _positions.Count == 0) return null;
+        if (_searchedAll) return null;
+        if (_positions.Count == 0)
+        {
+            _searchedAll = true;
+            return null;
+        }
         if (!_alwaysNew && preferred is { } cell)
         {
-            var direct = Candidate(cell, get, reservable);
+            var direct = Candidate(cell, get, reservable, resourcesToFetch);
             if (direct is not null) return direct;
-            foreach (var position in _positions.Where(position =>
-                         Math.Abs(position.X - cell.X) + Math.Abs(position.Z - cell.Z) < 5))
-            {
-                var nearby = Candidate(position, get, reservable);
-                if (nearby is not null) return nearby;
-            }
         }
+        // JobPositions keeps the successful cursor; setAlwaysNew advances it before searching.
+        if (_alwaysNew) _searchIndex++;
         for (var checkedCount = 0; checkedCount < _positions.Count; checkedCount++)
         {
             if (_searchIndex >= _positions.Count) _searchIndex = 0;
-            var job = Candidate(_positions[_searchIndex++], get, reservable);
+            var job = Candidate(_positions[_searchIndex], get, reservable, resourcesToFetch);
             if (job is not null) return job;
+            _searchIndex++;
         }
         _searchedAll = true;
         return null;
@@ -58,7 +61,6 @@ public sealed class RoomJobPositionsRuntime
     {
         _searchMask.Add(resource);
         _notFound.Add(resource);
-        _searchedAll = false;
     }
 
     public void ReportResourceFound(ResourceKind resource)
@@ -81,10 +83,14 @@ public sealed class RoomJobPositionsRuntime
     private BuildJob? Candidate(
         GridCoord cell,
         Func<GridCoord, BuildJob?> get,
-        Func<BuildJob, bool> reservable)
+        Func<BuildJob, bool> reservable,
+        Func<BuildJob, IReadOnlyCollection<ResourceKind>?> resourcesToFetch)
     {
         if (!_room.Contains(cell)) return null;
         var job = get(cell);
-        return job is not null && reservable(job) ? job : null;
+        if (job is null || !reservable(job)) return null;
+        var required = resourcesToFetch(job);
+        return required is null || required.Any(resource => !_searchMask.Contains(resource))
+            ? job : null;
     }
 }

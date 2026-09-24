@@ -149,12 +149,11 @@ public sealed class AsylumRuntime
 
     public double TreatmentFactor(int roomId)
     {
-        if (!_instances.TryGetValue(roomId, out var instance) || instance.GuardsMaximum <= 0) return 0.25;
+        if (!_instances.TryGetValue(roomId, out var instance)) return 0;
+        if (instance.GuardsMaximum <= 0) return 0.25;
         var guards = (double)instance.GuardsEmployed / instance.GuardsMaximum;
         return Math.Clamp(0.25 + 0.75 * (1.0 - instance.Degradation) * guards, 0.0, 1.0);
     }
-
-    public void Tick(double delta) { }
 }
 
 public sealed class AsylumInstanceRuntime

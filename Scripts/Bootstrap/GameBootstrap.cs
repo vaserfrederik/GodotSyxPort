@@ -603,7 +603,7 @@ public sealed partial class GameBootstrap : Node3D
             var dayFraction = (_clock.PlayedSeconds / OriginalGameData.Current.SecondsPerDay) % 1.0;
             _rooms.ScheduleProduction(_jobs, _resources, dayFraction);
             _rooms.ScheduleHospitalSupplies(_jobs, _resources);
-            _rooms.ScheduleFacilityWork(_jobs, _resources);
+            _rooms.ScheduleFacilityWork(_jobs, _resources, _maintenanceConsumption.All);
             _corpses.Schedule(_jobs);
             roomMs = ElapsedMilliseconds(roomStarted);
         }

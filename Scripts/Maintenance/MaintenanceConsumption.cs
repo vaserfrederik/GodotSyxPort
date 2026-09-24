@@ -1,12 +1,14 @@
 using System.Collections.Generic;
+using System.Linq;
 using GodotSyxPort.Resources;
 using GodotSyxPort.Rooms;
 
 namespace GodotSyxPort.Maintenance;
 
 /// <summary>
-/// Compile-safe MConsumption port. Values are expected resource units per game day;
-/// they describe maintenance demand rather than resources already consumed.
+/// Partial MConsumption estimate: values are expected resource units per game day.
+/// The Java source uses dirty 32x32 chunks, disabled tiles and 1/16384-unit rounding;
+/// this aggregate has none of those behaviors and supplies the janitor stock target.
 /// </summary>
 public sealed class MaintenanceConsumption
 {
@@ -41,7 +43,8 @@ public sealed class MaintenanceConsumption
     public void Refresh()
     {
         _daily.Clear();
-        _roads.AccumulateExpectedDailyResourceUse(_daily);
+        var roomCells = _rooms.All.SelectMany(room => room.Cells).ToHashSet();
+        _roads.AccumulateExpectedDailyResourceUse(_daily, roomCells.Contains);
         _rooms.AccumulateExpectedDailyMaintenanceUse(_daily);
     }
 }

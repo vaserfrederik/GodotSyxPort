@@ -1184,10 +1184,17 @@ public sealed partial class CitizenSystem : Node3D
             agent.HomeDayMarker = day;
             agent.HasSleptToday = false;
         }
+        var race = OriginalGameData.Current.Races[agent.Identity.Race];
+        var home = _rooms.Housing.Home(agent.Id);
         if (agent.HomeActivity == HomeActivity.WalkingHome)
         {
             if (MoveAlongPath(agent, delta)) return true;
-            agent.HomeActivity = HomeActivity.SleepingAtHome;
+            if (home is null || agent.Cell != home.ServiceCell)
+            {
+                agent.HomeActivity = HomeActivity.None;
+                return false;
+            }
+            agent.HomeActivity = race.Sleeps ? HomeActivity.SleepingAtHome : HomeActivity.StayingHome;
             agent.HomePlanTimeLeft = HomeBehaviorRuntime.StaySeconds(
                 agent.Id, day, agent.Identity.Class == SocialClass.Noble);
         }
@@ -1200,8 +1207,6 @@ public sealed partial class CitizenSystem : Node3D
             agent.HomeActivity = HomeActivity.None;
             return false;
         }
-        var race = OriginalGameData.Current.Races[agent.Identity.Race];
-        var home = _rooms.Housing.Home(agent.Id);
         var dayPart = (_populationElapsed / OriginalGameData.Current.SecondsPerDay) % 1.0;
         if (!HomeBehaviorRuntime.ShouldVisitHome(race.Sleeps, home is not null,
                 agent.HasSleptToday, agent.AgeDays, agent.Id, day, dayPart)) return false;

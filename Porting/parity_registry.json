@@ -35386,10 +35386,8 @@
         "snake2d.util.rnd.RND",
         "util.GUTIL"
       ],
-      "CSharpImplementation": [
-        "Scripts/Rooms/RoomJobPositionsRuntime.cs"
-      ],
-      "Status": "PortedUntested",
+      "CSharpImplementation": [],
+      "Status": "NotStarted",
       "Tests": [],
       "EngineReplacement": null,
       "KnownDifferences": []
@@ -36380,8 +36378,7 @@
         "snake2d.util.file.Json"
       ],
       "CSharpImplementation": [
-        "Scripts/Data/OriginalGameData.cs",
-        "Scripts/Data/SyxDataParser.cs"
+        "Scripts/Data/OriginalGameData.cs"
       ],
       "Status": "PortedUntested",
       "Tests": [],
@@ -51548,8 +51545,11 @@
         "snake2d.util.sets.LIST",
         "snake2d.util.sets.LinkedList"
       ],
-      "CSharpImplementation": [],
-      "Status": "NotStarted",
+      "CSharpImplementation": [
+        "Scripts/Data/SyxDataParser.cs",
+        "Scripts/Data/SyxDataNode.cs"
+      ],
+      "Status": "PortedUntested",
       "Tests": [],
       "EngineReplacement": null,
       "KnownDifferences": []

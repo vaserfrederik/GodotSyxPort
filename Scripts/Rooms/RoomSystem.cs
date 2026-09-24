@@ -586,7 +586,6 @@ public sealed class RoomSystem
         Temples.Tick(delta, OriginalGameData.Current.SecondsPerDay);
         Baths.Tick(delta, OriginalGameData.Current.SecondsPerDay, Services);
         Water.Tick(delta);
-        Asylums.Tick(delta);
         Cannibals.Tick(delta, OriginalGameData.Current.SecondsPerDay * 16,
             OriginalGameData.Current.Races.Count);
         SpecialProduction.Tick(delta, OriginalGameData.Current.SecondsPerDay);
@@ -627,7 +626,8 @@ public sealed class RoomSystem
             Logistics.ConsumeMarket(resources);
     }
 
-    public void ScheduleFacilityWork(JobBoard jobs, ResourceLedger resources)
+    public void ScheduleFacilityWork(JobBoard jobs, ResourceLedger resources,
+        IReadOnlyDictionary<ResourceKind, double> maintenanceDemand)
     {
         Sanitation.Schedule(jobs);
         Temples.Schedule(jobs, resources, FindSupplyCell());
@@ -636,8 +636,6 @@ public sealed class RoomSystem
         PreparedServices.Schedule(jobs, _rooms);
         FoodVenues.Schedule(jobs, resources, FindSupplyCell());
         Asylums.Schedule(jobs, resources, FindSupplyCell());
-        var maintenanceDemand = new Dictionary<ResourceKind, double>();
-        AccumulateExpectedDailyMaintenanceUse(maintenanceDemand);
         Janitors.Schedule(jobs, resources, FindSupplyCell(), maintenanceDemand);
         Housing.Schedule(jobs, resources, FindSupplyCell());
         SpecialProduction.Schedule(jobs, resources, FindSupplyCell());

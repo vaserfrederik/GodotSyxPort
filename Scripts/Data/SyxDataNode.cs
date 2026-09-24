@@ -24,10 +24,11 @@ public sealed class SyxDataNode
             ? value
             : fallback;
 
-    public bool Boolean(bool fallback = false) => Scalar?.ToLowerInvariant() switch
+    public bool Boolean(bool fallback = false) => Scalar switch
     {
         "true" => true,
         "false" => false,
-        _ => fallback
+        null => fallback,
+        _ => throw new System.FormatException($"Illegal boolean value: {Scalar}")
     };
 }

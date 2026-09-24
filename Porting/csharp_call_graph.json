@@ -4,15 +4,15 @@
   "scope": "C# Roslyn syntax candidates from named type receivers and declared method name/arity; untyped instance receivers, overload resolution, inheritance, Godot virtual dispatch and Java equivalence are unverified.",
   "summary": {
     "csharp_files": 134,
-    "declared_methods": 2450,
-    "all_syntax_calls": 15958,
+    "declared_methods": 2449,
+    "all_syntax_calls": 15962,
     "cross_file_candidate_edges": 407,
-    "cross_file_candidate_calls": 2387,
+    "cross_file_candidate_calls": 2389,
     "unresolved_calls_by_reason": {
       "language-construct": 16,
-      "method-unbound": 2293,
+      "method-unbound": 2296,
       "receiver-unbound": 8211,
-      "same-file": 3051
+      "same-file": 3050
     },
     "cross_language_reviewed_file_pairs": 1
   },
@@ -734,14 +734,14 @@
     {
       "CallerCSharpFile": "Scripts/Maintenance/RoadMaintenanceSystem.cs",
       "TargetCSharpFile": "Scripts/Settlement/GridWorld.cs",
-      "CandidateCalls": 3,
-      "DistinctCallSignatures": 3
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Maintenance/RoadMaintenanceSystem.cs",
       "TargetCSharpFile": "Scripts/Settlement/WorldGridData.cs",
-      "CandidateCalls": 9,
-      "DistinctCallSignatures": 8
+      "CandidateCalls": 11,
+      "DistinctCallSignatures": 10
     },
     {
       "CallerCSharpFile": "Scripts/Maintenance/RoadMaintenanceSystem.cs",
@@ -1328,8 +1328,8 @@
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",
       "TargetCSharpFile": "Scripts/Rooms/AsylumRuntime.cs",
-      "CandidateCalls": 5,
-      "DistinctCallSignatures": 5
+      "CandidateCalls": 4,
+      "DistinctCallSignatures": 4
     },
     {
       "CallerCSharpFile": "Scripts/Rooms/RoomSystem.cs",

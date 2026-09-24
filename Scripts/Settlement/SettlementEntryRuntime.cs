@@ -76,12 +76,14 @@ public sealed class SettlementEntryRuntime
     public int UpdateImmigration(
         RaceRule race, double delta, double secondsPerDay, double happiness,
         double expectedPopulation, int currentPopulation, double immigrationBoost = 1,
-        bool campAvailable = false, int campPopulation = 0, double standingPower = 1)
+        bool campAvailable = false, int campPopulation = 0, double standingPower = 1,
+        double campReplenishmentPerDay = 0)
     {
         var incoming = OnTheirWay(race.Key, HumanoidType.Subject);
         var admitted = Immigration.Update(
             race, delta, secondsPerDay, happiness, expectedPopulation,
-            currentPopulation + incoming, immigrationBoost, campAvailable, campPopulation, standingPower);
+            currentPopulation + incoming, immigrationBoost, campAvailable, campPopulation, standingPower,
+            incoming, campReplenishmentPerDay);
         if (admitted > 0) Add(race.Key, HumanoidType.Subject, admitted);
         return admitted;
     }

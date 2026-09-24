@@ -4,9 +4,9 @@
   "legacy_file_count": 2465,
   "counts": {
     "recovery_required": 159,
-    "reference_pending_semantic_port": 1221,
+    "reference_pending_semantic_port": 1222,
     "adapted_compiled_separately": 900,
-    "engine_or_runtime_reference": 185
+    "engine_or_runtime_reference": 184
   },
   "compiled_adaptations": [
     {
@@ -168,7 +168,7 @@
     {
       "legacy": "settlement/room/main/util/RoomInitData.cs",
       "java": "settlement/room/main/util/RoomInitData.java",
-      "compiled": "Scripts/Data/OriginalGameData.cs; Scripts/Data/SyxDataParser.cs",
+      "compiled": "Scripts/Data/OriginalGameData.cs",
       "status": "compiled_semantic_port"
     },
     {
@@ -336,12 +336,6 @@
     {
       "legacy": "settlement/room/main/job/JobPositions.cs",
       "java": "settlement/room/main/job/JobPositions.java",
-      "compiled": "Scripts/Rooms/RoomJobPositionsRuntime.cs",
-      "status": "compiled_semantic_port"
-    },
-    {
-      "legacy": "settlement/room/main/job/JobIterator.cs",
-      "java": "settlement/room/main/job/JobIterator.java",
       "compiled": "Scripts/Rooms/RoomJobPositionsRuntime.cs",
       "status": "compiled_semantic_port"
     },
@@ -5407,6 +5401,12 @@
       "legacy": "world/region/updating/RealmBuilder.cs",
       "java": "world/region/updating/RealmBuilder.java",
       "compiled": "Scripts/World/WorldRegionRuntime.cs; Scripts/World/WorldSettlementBridge.cs; Scripts/Settlement/SettlementWorldRuntime.cs",
+      "status": "compiled_semantic_port"
+    },
+    {
+      "legacy": "snake2d/util/file/JsonValue.cs",
+      "java": "snake2d/util/file/JsonValue.java",
+      "compiled": "Scripts/Data/SyxDataParser.cs; Scripts/Data/SyxDataNode.cs",
       "status": "compiled_semantic_port"
     }
   ],
@@ -11487,7 +11487,7 @@
     },
     {
       "path": "settlement/room/main/job/JobIterator.cs",
-      "status": "adapted_compiled_separately",
+      "status": "reference_pending_semantic_port",
       "reasons": []
     },
     {
@@ -14150,7 +14150,7 @@
     },
     {
       "path": "snake2d/util/file/JsonValue.cs",
-      "status": "engine_or_runtime_reference",
+      "status": "adapted_compiled_separately",
       "reasons": []
     },
     {

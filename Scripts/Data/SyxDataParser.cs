@@ -16,7 +16,8 @@ public sealed class SyxDataParser
 
     private SyxDataNode ParseObject(bool braced)
     {
-        var fields = new Dictionary<string, SyxDataNode>(StringComparer.OrdinalIgnoreCase);
+        // JsonValueJson uses KeyMap (a case-sensitive HashMap) and rejects duplicate keys.
+        var fields = new Dictionary<string, SyxDataNode>(StringComparer.Ordinal);
         if (braced) Expect('{');
         while (true)
         {
@@ -29,7 +30,8 @@ public sealed class SyxDataParser
             var key = ReadToken();
             SkipIgnored();
             Expect(':');
-            fields[key] = ParseValue();
+            var value = ParseValue();
+            if (!fields.TryAdd(key, value)) throw Error($"Duplicate entry: {key}");
             SkipIgnored();
             // Some source text files close a one-line quoted value twice:
             //     DESC: "text"
@@ -78,7 +80,7 @@ public sealed class SyxDataParser
             _position++;
             return new SyxDataNode
             {
-                Fields = new Dictionary<string, SyxDataNode>(StringComparer.OrdinalIgnoreCase)
+                Fields = new Dictionary<string, SyxDataNode>(StringComparer.Ordinal)
                 {
                     [token] = ParseValue()
                 }

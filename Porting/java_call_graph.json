@@ -19,7 +19,7 @@
       "receiver-unbound": 27102,
       "same-source": 16787
     },
-    "unmapped_target_units_called_by_old_candidates": 483
+    "unmapped_target_units_called_by_old_candidates": 484
   },
   "unmapped_targets_called_by_old_candidates": [
     {
@@ -32,7 +32,7 @@
     },
     {
       "JavaSource": "snake2d/util/datatypes/COORDINATE.java",
-      "CandidateCalls": 1196
+      "CandidateCalls": 1192
     },
     {
       "JavaSource": "world/WORLD.java",
@@ -44,7 +44,7 @@
     },
     {
       "JavaSource": "snake2d/util/rnd/RND.java",
-      "CandidateCalls": 744
+      "CandidateCalls": 740
     },
     {
       "JavaSource": "util/rendering/RenderData.java",
@@ -72,11 +72,11 @@
     },
     {
       "JavaSource": "util/GUTIL.java",
-      "CandidateCalls": 465
+      "CandidateCalls": 462
     },
     {
       "JavaSource": "snake2d/util/sets/ArrayListGrower.java",
-      "CandidateCalls": 454
+      "CandidateCalls": 459
     },
     {
       "JavaSource": "util/text/D.java",
@@ -84,7 +84,7 @@
     },
     {
       "JavaSource": "snake2d/util/datatypes/Coo.java",
-      "CandidateCalls": 428
+      "CandidateCalls": 417
     },
     {
       "JavaSource": "snake2d/util/file/FileGetter.java",
@@ -135,12 +135,12 @@
       "CandidateCalls": 287
     },
     {
-      "JavaSource": "init/resources/RBIT.java",
-      "CandidateCalls": 278
+      "JavaSource": "snake2d/util/sets/LIST.java",
+      "CandidateCalls": 281
     },
     {
-      "JavaSource": "snake2d/util/sets/LIST.java",
-      "CandidateCalls": 265
+      "JavaSource": "init/resources/RBIT.java",
+      "CandidateCalls": 264
     },
     {
       "JavaSource": "snake2d/util/sets/ArrayCooShort.java",
@@ -148,7 +148,7 @@
     },
     {
       "JavaSource": "snake2d/util/sets/KeyMap.java",
-      "CandidateCalls": 251
+      "CandidateCalls": 261
     },
     {
       "JavaSource": "snake2d/PathUtilOnline.java",
@@ -156,7 +156,7 @@
     },
     {
       "JavaSource": "snake2d/util/sets/LinkedList.java",
-      "CandidateCalls": 225
+      "CandidateCalls": 228
     },
     {
       "JavaSource": "settlement/entity/EPHYSICS.java",
@@ -203,10 +203,6 @@
       "CandidateCalls": 131
     },
     {
-      "JavaSource": "settlement/misc/job/SETT_JOB.java",
-      "CandidateCalls": 129
-    },
-    {
       "JavaSource": "settlement/room/main/furnisher/FurnisherItemTile.java",
       "CandidateCalls": 126
     },
@@ -217,6 +213,10 @@
     {
       "JavaSource": "snake2d/util/sets/Bitsmap1D.java",
       "CandidateCalls": 123
+    },
+    {
+      "JavaSource": "settlement/misc/job/SETT_JOB.java",
+      "CandidateCalls": 121
     },
     {
       "JavaSource": "snake2d/util/sets/ADDABLE.java",
@@ -473,6 +473,10 @@
     {
       "JavaSource": "util/gui/table/GTableBuilder.java",
       "CandidateCalls": 29
+    },
+    {
+      "JavaSource": "settlement/room/main/job/JobIterator.java",
+      "CandidateCalls": 27
     },
     {
       "JavaSource": "util/rendering/ShadowBatch.java",

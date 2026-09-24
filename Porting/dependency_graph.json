@@ -13,11 +13,11 @@
   "unmapped_java_imported_by_candidates": [
     {
       "JavaSource": "settlement/main/SETT.java",
-      "candidate_importers": 438
+      "candidate_importers": 437
     },
     {
       "JavaSource": "snake2d/util/datatypes/COORDINATE.java",
-      "candidate_importers": 264
+      "candidate_importers": 263
     },
     {
       "JavaSource": "util/text/D.java",
@@ -37,11 +37,11 @@
     },
     {
       "JavaSource": "snake2d/util/rnd/RND.java",
-      "candidate_importers": 214
+      "candidate_importers": 213
     },
     {
       "JavaSource": "snake2d/util/sets/LIST.java",
-      "candidate_importers": 182
+      "candidate_importers": 183
     },
     {
       "JavaSource": "game/time/TIME.java",
@@ -53,7 +53,7 @@
     },
     {
       "JavaSource": "init/resources/RESOURCE.java",
-      "candidate_importers": 146
+      "candidate_importers": 145
     },
     {
       "JavaSource": "snake2d/util/sets/LISTE.java",
@@ -85,15 +85,15 @@
     },
     {
       "JavaSource": "snake2d/util/datatypes/Coo.java",
-      "candidate_importers": 109
+      "candidate_importers": 108
+    },
+    {
+      "JavaSource": "snake2d/util/sets/ArrayListGrower.java",
+      "candidate_importers": 104
     },
     {
       "JavaSource": "util/text/Dic.java",
       "candidate_importers": 104
-    },
-    {
-      "JavaSource": "snake2d/util/sets/ArrayListGrower.java",
-      "candidate_importers": 103
     },
     {
       "JavaSource": "world/WORLD.java",
@@ -101,7 +101,7 @@
     },
     {
       "JavaSource": "settlement/misc/job/SETT_JOB.java",
-      "candidate_importers": 100
+      "candidate_importers": 99
     },
     {
       "JavaSource": "snake2d/util/file/Alloc.java",
@@ -125,7 +125,7 @@
     },
     {
       "JavaSource": "init/resources/RBIT.java",
-      "candidate_importers": 88
+      "candidate_importers": 87
     },
     {
       "JavaSource": "util/info/GFORMAT.java",
@@ -181,7 +181,7 @@
     },
     {
       "JavaSource": "util/GUTIL.java",
-      "candidate_importers": 58
+      "candidate_importers": 57
     },
     {
       "JavaSource": "game/audio/SoundRace.java",
@@ -196,15 +196,15 @@
       "candidate_importers": 53
     },
     {
-      "JavaSource": "settlement/misc/job/JOB_MANAGER.java",
-      "candidate_importers": 52
-    },
-    {
       "JavaSource": "game/boosting/Boostable.java",
       "candidate_importers": 51
     },
     {
       "JavaSource": "init/sprite/SPRITES.java",
+      "candidate_importers": 51
+    },
+    {
+      "JavaSource": "settlement/misc/job/JOB_MANAGER.java",
       "candidate_importers": 51
     },
     {
@@ -232,12 +232,12 @@
       "candidate_importers": 43
     },
     {
-      "JavaSource": "view/main/VIEW.java",
+      "JavaSource": "snake2d/util/sets/LinkedList.java",
       "candidate_importers": 43
     },
     {
-      "JavaSource": "snake2d/util/sets/LinkedList.java",
-      "candidate_importers": 42
+      "JavaSource": "view/main/VIEW.java",
+      "candidate_importers": 43
     },
     {
       "JavaSource": "snake2d/PathTile.java",
@@ -265,7 +265,7 @@
     },
     {
       "JavaSource": "snake2d/util/sets/KeyMap.java",
-      "candidate_importers": 33
+      "candidate_importers": 34
     },
     {
       "JavaSource": "init/type/NEEDS.java",
@@ -544,7 +544,15 @@
       "candidate_importers": 11
     },
     {
+      "JavaSource": "settlement/room/main/job/JobIterator.java",
+      "candidate_importers": 11
+    },
+    {
       "JavaSource": "settlement/room/sprite/RoomSpriteCombo.java",
+      "candidate_importers": 11
+    },
+    {
+      "JavaSource": "snake2d/Errors.java",
       "candidate_importers": 11
     },
     {
@@ -577,10 +585,6 @@
     },
     {
       "JavaSource": "settlement/tilemap/terrain/Terrain.java",
-      "candidate_importers": 10
-    },
-    {
-      "JavaSource": "snake2d/Errors.java",
       "candidate_importers": 10
     },
     {
@@ -53256,7 +53260,8 @@
       "using_namespaces": [
         "GodotSyxPort.Resources",
         "GodotSyxPort.Rooms",
-        "System.Collections.Generic"
+        "System.Collections.Generic",
+        "System.Linq"
       ],
       "candidate_namespace_files": [
         "Scripts/Resources/EconomyTracker.cs",
@@ -54642,6 +54647,7 @@
       "using_namespaces": [
         "GodotSyxPort.Citizens",
         "GodotSyxPort.Data",
+        "GodotSyxPort.Stats",
         "System",
         "System.Collections.Generic"
       ],
@@ -54660,7 +54666,10 @@
         "Scripts/Citizens/WorkAccidentRuntime.cs",
         "Scripts/Data/OriginalGameData.cs",
         "Scripts/Data/SyxDataNode.cs",
-        "Scripts/Data/SyxDataParser.cs"
+        "Scripts/Data/SyxDataParser.cs",
+        "Scripts/Stats/SettlementStandingRuntime.cs",
+        "Scripts/Stats/SettlementStatRegistry.cs",
+        "Scripts/Stats/SettlementStatsRuntime.cs"
       ]
     },
     "Scripts/Settlement/SettlementEntryRuntime.cs": {

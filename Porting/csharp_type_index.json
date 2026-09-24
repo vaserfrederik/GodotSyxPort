@@ -5484,15 +5484,17 @@
       "CSharpType": "GodotSyxPort.Data.SyxDataNode",
       "CSharpFile": "Scripts/Data/SyxDataNode.cs",
       "Kind": "ClassDeclaration",
-      "JavaCandidates": [],
-      "Status": "NoCandidate"
+      "JavaCandidates": [
+        "snake2d/util/file/JsonValue.java"
+      ],
+      "Status": "UnverifiedCandidate"
     },
     {
       "CSharpType": "GodotSyxPort.Data.SyxDataParser",
       "CSharpFile": "Scripts/Data/SyxDataParser.cs",
       "Kind": "ClassDeclaration",
       "JavaCandidates": [
-        "settlement/room/main/util/RoomInitData.java"
+        "snake2d/util/file/JsonValue.java"
       ],
       "Status": "UnverifiedCandidate"
     },
@@ -9039,7 +9041,6 @@
       "CSharpFile": "Scripts/Rooms/RoomJobPositionsRuntime.cs",
       "Kind": "ClassDeclaration",
       "JavaCandidates": [
-        "settlement/room/main/job/JobIterator.java",
         "settlement/room/main/job/JobPositions.java"
       ],
       "Status": "UnverifiedCandidate"
