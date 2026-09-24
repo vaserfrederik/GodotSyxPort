@@ -114,7 +114,8 @@ public sealed class SettlementEntryRuntime
         }
         if (IsClosed || IncomingTotal == 0) return;
         _spawnTime += delta;
-        while (_spawnTime >= 1 && IncomingTotal > 0)
+        // PeopleSpawner.update starts a spawn as soon as positive elapsed time is available.
+        while (_spawnTime > 0 && IncomingTotal > 0)
         {
             _spawnTime -= 1;
             var pending = _incoming.Where(pair => pair.Value > 0)

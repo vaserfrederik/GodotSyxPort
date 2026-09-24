@@ -1,0 +1,130 @@
+{
+  "schema": 1,
+  "scope": "Static source-to-type associations only. Partial and representation bindings do not establish behavior parity.",
+  "bindings": [
+    {
+      "CSharpType": "GodotSyxPort.Settlement.ImmigrationRuntime",
+      "JavaTypes": [
+        { "JavaSource": "settlement/entry/Immigration.java", "JavaType": "Immigration" }
+      ],
+      "Status": "Partial",
+      "Evidence": "Update and WantedUltimately implement the numeric core of Immigration.Immigrator.update/getImmigrants; SettlementEntryRuntime.UpdateImmigration is the C# caller.",
+      "KnownGaps": "UpdateImmigration has no caller in the game loop; happiness, population, civic boost, camps and standing power are not wired to original producers. Emigration and state saving are missing."
+    },
+    {
+      "CSharpType": "GodotSyxPort.Settlement.RaceImmigrationState",
+      "JavaTypes": [
+        { "JavaSource": "settlement/entry/Immigration.java", "JavaType": "Immigration.Immigrator" }
+      ],
+      "Status": "Partial",
+      "Evidence": "Timer, AutoAdmit and Emigrants correspond to Immigrator.timer, autoAdmit and emmigrants; ImmigrationRuntime.State owns the per-race instances.",
+      "KnownGaps": "The Java Immigrator saves all three fields per race; the C# state is not saved."
+    },
+    {
+      "CSharpType": "GodotSyxPort.Settlement.ArrivalCause",
+      "JavaTypes": [
+        { "JavaSource": "init/type/CAUSE_ARRIVE.java", "JavaType": "CAUSE_ARRIVE" },
+        { "JavaSource": "init/type/CAUSE_ARRIVES.java", "JavaType": "CAUSE_ARRIVES" }
+      ],
+      "Status": "Representation",
+      "Evidence": "The six enum members match the six cause declarations in CAUSE_ARRIVES; CitizenSystem stores the cause on creation and counts arrivals.",
+      "KnownGaps": "The source cause objects also expose keys, labels and fromoutside; the C# enum retains only identities."
+    },
+    {
+      "CSharpType": "GodotSyxPort.Settlement.LeaveCause",
+      "JavaTypes": [
+        { "JavaSource": "init/type/CAUSE_LEAVE.java", "JavaType": "CAUSE_LEAVE" },
+        { "JavaSource": "init/type/CAUSE_LEAVES.java", "JavaType": "CAUSE_LEAVES" }
+      ],
+      "Status": "Representation",
+      "Evidence": "The C# enum names the departure/death reasons declared by CAUSE_LEAVES and CitizenSystem records departure counters.",
+      "KnownGaps": "Java CAUSE_LEAVE additionally stores source keys, death/natural/corpse flags and death indices; C# does not model those properties."
+    },
+    {
+      "CSharpType": "GodotSyxPort.Settlement.SettlementEntryPoint",
+      "JavaTypes": [
+        { "JavaSource": "settlement/entry/EntryPoints.java", "JavaType": "EntryPoints.EntryPoint" }
+      ],
+      "Status": "Partial",
+      "Evidence": "SettlementEntryRuntime retains indexed, active and reachable border points as EntryPoints does.",
+      "KnownGaps": "Java entry points describe border segments/directions and pick reachable positions; the C# record stores one cell per point."
+    },
+    {
+      "CSharpType": "GodotSyxPort.Settlement.IncomingPopulation",
+      "JavaTypes": [
+        { "JavaSource": "settlement/entry/PeopleSpawner.java", "JavaType": "PeopleSpawner.IM" }
+      ],
+      "Status": "Representation",
+      "Evidence": "The C# race/type key indexes incoming counts; PeopleSpawner.IM stores per-type counts in a per-race array.",
+      "KnownGaps": "This C# value type is a dictionary key, not a one-to-one port of the Java counter class; queue ordering and saved state differ."
+    },
+    {
+      "CSharpType": "GodotSyxPort.Settlement.SettlementEntryRuntime",
+      "JavaTypes": [
+        { "JavaSource": "settlement/entry/EntryPoints.java", "JavaType": "EntryPoints" },
+        { "JavaSource": "settlement/entry/EntryUpdater.java", "JavaType": "EntryUpdater" },
+        { "JavaSource": "settlement/entry/PeopleSpawner.java", "JavaType": "PeopleSpawner" }
+      ],
+      "Status": "Partial",
+      "Evidence": "GameBootstrap calls Tick; SettlementEntryRuntime owns border reachability, incoming race/type counts and spawned arrivals. First arrival now uses positive accumulated time like PeopleSpawner.update.",
+      "KnownGaps": "Java limits a spawner update to race count and cycles race/type cursors; C# sorts pending keys. Entry-point segments, immigration update wiring and save/load of queues/cursors remain different or missing."
+    }
+  ],
+  "groups": [
+    {
+      "Group": "health_food_rooms",
+      "Status": "SourceMapped",
+      "KnownGaps": "Room service, patient and prisoner workflows require separate behavior review; file candidates alone do not establish that the jobs or saved state are equivalent.",
+      "Bindings": [
+        ["GodotSyxPort.Rooms.AsylumRuntime", "settlement/room/health/asylum/ROOM_ASYLUM.java", "ROOM_ASYLUM"],
+        ["GodotSyxPort.Rooms.AsylumInstanceRuntime", "settlement/room/health/asylum/AsylumInstance.java", "AsylumInstance"],
+        ["GodotSyxPort.Rooms.AsylumCellRuntime", "settlement/room/health/asylum/Cell.java", "Cell"],
+        ["GodotSyxPort.Rooms.BathRuntime", "settlement/room/service/hygine/bath/ROOM_BATH.java", "ROOM_BATH"],
+        ["GodotSyxPort.Rooms.BathInstanceRuntime", "settlement/room/service/hygine/bath/BathInstance.java", "BathInstance"],
+        ["GodotSyxPort.Rooms.CannibalRuntime", "settlement/room/food/cannibal/ROOM_CANNIBAL.java", "ROOM_CANNIBAL"],
+        ["GodotSyxPort.Rooms.CannibalInstanceRuntime", "settlement/room/food/cannibal/CannibalInstance.java", "CannibalInstance"]
+      ]
+    },
+    {
+      "Group": "builder_gate_janitor",
+      "Status": "SourceMapped",
+      "KnownGaps": "Builder Covers and gate SetLocked lack game consumers. GateRuntimeInstance is a room-wide C# snapshot whereas ROOM_GATE.Instance is a Java singleton; item-level lock and path updates are missing. Janitor stock uses a simplified global demand.",
+      "Bindings": [
+        ["GodotSyxPort.Rooms.BuilderInfrastructureRuntime", "settlement/room/infra/builder/ROOM_BUILDER.java", "ROOM_BUILDER"],
+        ["GodotSyxPort.Rooms.BuilderInfrastructureInstance", "settlement/room/infra/builder/BuilderInstance.java", "BuilderInstance"],
+        ["GodotSyxPort.Rooms.GateRuntime", "settlement/room/infra/gate/ROOM_GATE.java", "ROOM_GATE"],
+        ["GodotSyxPort.Rooms.GateRuntimeInstance", "settlement/room/infra/gate/ROOM_GATE.java", "ROOM_GATE.Instance"],
+        ["GodotSyxPort.Rooms.JanitorRuntime", "settlement/room/infra/janitor/JM.java", "JM"],
+        ["GodotSyxPort.Rooms.JanitorInstanceRuntime", "settlement/room/infra/janitor/JanitorInstance.java", "JanitorInstance"]
+      ]
+    },
+    {
+      "Group": "sanitation_school_temple",
+      "Status": "SourceMapped",
+      "KnownGaps": "The C# facilities aggregate Java station/job objects; per-cell reservations, job dispatch and persistence are not established by the class mapping. Temple prisoner sacrifice is still deferred.",
+      "Bindings": [
+        ["GodotSyxPort.Rooms.SanitationRuntime", "settlement/room/service/lavatory/ROOM_LAVATORY.java", "ROOM_LAVATORY"],
+        ["GodotSyxPort.Rooms.SanitationSlotRuntime", "settlement/room/service/lavatory/Lavatory.java", "Lavatory"],
+        ["GodotSyxPort.Rooms.SchoolRuntime", "settlement/room/knowledge/school/ROOM_SCHOOL.java", "ROOM_SCHOOL"],
+        ["GodotSyxPort.Rooms.SchoolRuntime", "settlement/room/knowledge/school/RoomEducationHelper.java", "RoomEducationHelper"],
+        ["GodotSyxPort.Rooms.SchoolRuntimeInstance", "settlement/room/knowledge/school/SchoolInstance.java", "SchoolInstance"],
+        ["GodotSyxPort.Rooms.TempleRuntime", "settlement/room/spirit/temple/ROOM_TEMPLES.java", "ROOM_TEMPLES"],
+        ["GodotSyxPort.Rooms.TempleRuntime", "settlement/room/spirit/temple/ROOM_TEMPLE.java", "ROOM_TEMPLE"],
+        ["GodotSyxPort.Rooms.TempleInstanceRuntime", "settlement/room/spirit/temple/TempleInstance.java", "TempleInstance"]
+      ]
+    },
+    {
+      "Group": "maintenance_and_room_jobs",
+      "Status": "SourceMapped",
+      "KnownGaps": "Consumption lacks Java dirty-chunk accounting; road wear differs; RoomJobPositionsRuntime.Find is not called by the active room scheduler.",
+      "Bindings": [
+        ["GodotSyxPort.Maintenance.MaintenanceConsumption", "settlement/maintenance/MConsumption.java", "MConsumption"],
+        ["GodotSyxPort.Maintenance.MaintenanceRuntime", "settlement/maintenance/MAINTENANCE.java", "MAINTENANCE"],
+        ["GodotSyxPort.Maintenance.MaintenanceRuntime", "settlement/maintenance/MRoom.java", "MRoom"],
+        ["GodotSyxPort.Maintenance.MaintenanceRuntime", "settlement/maintenance/ROOM_DEGRADER.java", "ROOM_DEGRADER"],
+        ["GodotSyxPort.Maintenance.RoadMaintenanceSystem", "settlement/maintenance/MFloor.java", "MFloor"],
+        ["GodotSyxPort.Rooms.RoomJobPositionsRuntime", "settlement/room/main/job/JobPositions.java", "JobPositions"]
+      ]
+    }
+  ]
+}
